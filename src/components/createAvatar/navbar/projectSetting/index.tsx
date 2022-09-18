@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
+import WorkingNavbarLayout from '../../../../styles/WorkingNavbarLayout';
 
-function index() {
-  return (
-    <div>index</div>
-  )
+function ProjectSetting() {
+  return <WorkingNavbarLayout />;
 }
 
-export default index
+export default ProjectSetting;
