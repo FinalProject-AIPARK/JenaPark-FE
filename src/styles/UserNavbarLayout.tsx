@@ -47,10 +47,7 @@ const HistoryLinkBox = styled.div`
 const MyInfoBox = styled.div`
   text-align: center;
 `;
-const LinkButton =
-  styled(Link) <
-  LinkButtonProps >
-  `
+const LinkButton = styled(Link)<LinkButtonProps>`
   margin-bottom: ${({ marginbottom }) => marginbottom};
 `;
 const Image = styled.img`

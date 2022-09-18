@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import mic from '/voiceMic-icon.png';
 import people from '/avatarPeople-icon.png';
 
-function WorkingNavbarLayout() {
+function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: WorkingNavbarProps) {
   return (
     <Container>
       <ButtonBox>
-        <Button marginbottom="1.5rem">
+        <Button
+          onClick={voiceButton}
+          marginbottom="1.5rem"
+          backColor={voiceBg ? '#fff' : 'none'}
+        >
           <Image src={mic} alt="보이스작업창아이콘" />
         </Button>
-        <Button>
+        <Button
+          onClick={avatarButton}
+          backColor={avatarBg ? '#fff' : 'none'}
+        >
           <Image src={people} alt="아바타작업창아이콘" />
         </Button>
       </ButtonBox>
@@ -18,8 +25,15 @@ function WorkingNavbarLayout() {
   );
 }
 
+interface WorkingNavbarProps {
+  voiceButton: () => void;
+  avatarButton: () => void;
+  voiceBg: boolean
+  avatarBg: boolean
+}
 interface ButtonProps {
   marginbottom?: string;
+  backColor?: string;
 }
 
 const Container = styled.div`
@@ -38,7 +52,7 @@ const Button =
   styled.button <
   ButtonProps >
   `
-  background-color: #fff;
+  background-color: ${({ backColor }) => backColor};
   width: 3.1rem;
   height: 3.1rem;
   margin-bottom: ${({ marginbottom }) => marginbottom};
