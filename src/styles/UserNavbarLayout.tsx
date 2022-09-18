@@ -18,11 +18,11 @@ function UserNavbarLayout() {
         </LinkButton>
       </HistoryLinkBox>
       {/* 내계정 */}
-      <div>
+      <MyInfoBox>
         <LinkButton to="/">
           <Image src={myInfo} alt="사용자계정정보아이콘" />
         </LinkButton>
-      </div>
+      </MyInfoBox>
     </Container>
   );
 }
@@ -43,6 +43,9 @@ const HistoryLinkBox = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 2.6rem 0 50.1rem 0;
+`;
+const MyInfoBox = styled.div`
+  text-align: center;
 `;
 const LinkButton =
   styled(Link) <
