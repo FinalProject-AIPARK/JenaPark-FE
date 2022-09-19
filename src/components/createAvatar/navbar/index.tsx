@@ -1,12 +1,12 @@
 import React from 'react';
-import ProjectSetting from './projectSetting';
+import WorkingNavbar from './workingNavbar';
 import UserNavbar from './userNavbar';
 
 function Navbar() {
   return (
     <div>
       <UserNavbar />
-      <ProjectSetting />
+      <WorkingNavbar />
     </div>
   );
 }

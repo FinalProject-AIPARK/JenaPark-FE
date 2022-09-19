@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // import Avatar from '../../avatar';
 import WorkingNavbarLayout from '../../../../styles/WorkingNavbarLayout';
 
-function ProjectSetting() {
+function WorkingNavbar() {
   const [voiceSection, setVoiceSection] = useState(false);
   const [avatarSection, setAvatarSection] = useState(false);
   function voiceHandler() {
@@ -31,4 +31,4 @@ function ProjectSetting() {
   );
 }
 
-export default ProjectSetting;
+export default WorkingNavbar;
