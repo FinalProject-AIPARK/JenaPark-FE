@@ -1,7 +1,7 @@
 import React from 'react';
 import VoiceModelLayout from '../../../../styles/VoiceModelLayout';
 
-function ChooseVoice() {
+function VoiceModel() {
   return (
     <div>
       <VoiceModelLayout />
@@ -9,4 +9,4 @@ function ChooseVoice() {
   );
 }
 
-export default ChooseVoice;
+export default VoiceModel;
