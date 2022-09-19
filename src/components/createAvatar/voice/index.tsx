@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+import VoiceWorkingButtonLayout from '../../../styles/VoiceWorkingButtonLayout';
 import ChooseVoice from './chooseVoice';
 import VoiceOption from './voiceOption';
 
 function Voice() {
-  if (true) return <ChooseVoice />;
-  else return <VoiceOption />;
+  const [isVoiceModel, setIsVoiceModel] = useState(true);
+  const [isVoiceOption, setIsVoiceOption] = useState(false);
+
+  function voiceModelHandler() {
+    setIsVoiceModel(true);
+    setIsVoiceOption(false);
+  }
+  function voiceOptionHandler() {
+    setIsVoiceOption(true);
+    setIsVoiceModel(false);
+  }
+
+  return (
+    <div>
+      <VoiceWorkingButtonLayout
+        modelButton={voiceModelHandler}
+        OptionButton={voiceOptionHandler}
+        modelOn={isVoiceModel}
+        optionOn={isVoiceOption}
+      />
+      {isVoiceModel ? <ChooseVoice /> : <VoiceOption />}
+    </div>
+  );
 }
 
 export default Voice;
