@@ -4,14 +4,13 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import NotFound from './pages/NotFound';
 import pagesPath from './pages/pagesPath';
+import CreateAvatar from './components/createAvatar';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path={pagesPath.signin} element={<SignIn />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <div>
+      <CreateAvatar />
+    </div>
   );
 }
 
