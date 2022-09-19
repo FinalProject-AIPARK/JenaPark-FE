@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import mic from '/voiceMic-icon.png';
 import people from '/avatarPeople-icon.png';
 
-function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: WorkingNavbarProps) {
+function WorkingNavbarLayout({
+  voiceButton,
+  avatarButton,
+  voiceBg,
+  avatarBg,
+}: WorkingNavbarProps) {
   return (
     <Container>
       <ButtonBox>
@@ -14,10 +19,7 @@ function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: W
         >
           <Image src={mic} alt="보이스작업창아이콘" />
         </Button>
-        <Button
-          onClick={avatarButton}
-          backColor={avatarBg ? '#fff' : 'none'}
-        >
+        <Button onClick={avatarButton} backColor={avatarBg ? '#fff' : 'none'}>
           <Image src={people} alt="아바타작업창아이콘" />
         </Button>
       </ButtonBox>
@@ -28,8 +30,8 @@ function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: W
 interface WorkingNavbarProps {
   voiceButton: () => void;
   avatarButton: () => void;
-  voiceBg: boolean
-  avatarBg: boolean
+  voiceBg: boolean;
+  avatarBg: boolean;
 }
 interface ButtonProps {
   marginbottom?: string;
@@ -48,10 +50,7 @@ const ButtonBox = styled.div`
   margin-top: 2.4rem;
   text-align: center;
 `;
-const Button =
-  styled.button <
-  ButtonProps >
-  `
+const Button = styled.button<ButtonProps>`
   background-color: ${({ backColor }) => backColor};
   width: 3.1rem;
   height: 3.1rem;
