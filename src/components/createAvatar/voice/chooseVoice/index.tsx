@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import VoiceModelLayout from '../../../../styles/VoiceModelLayout';
 
-function index() {
+function ChooseVoice() {
   return (
-    <div>index</div>
-  )
+    <div>
+      <VoiceModelLayout />
+    </div>
+  );
 }
 
-export default index
+export default ChooseVoice;
