@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import VoiceWorkingButtonLayout from '../../../styles/VoiceWorkingButtonLayout';
-import ChooseVoice from './voiceModel';
+import VoiceModel from './voiceModel';
 import VoiceOption from './voiceOption';
 
 function Voice() {
@@ -17,16 +18,21 @@ function Voice() {
   }
 
   return (
-    <div>
+    <Container>
       <VoiceWorkingButtonLayout
         modelButton={voiceModelHandler}
         OptionButton={voiceOptionHandler}
         modelOn={isVoiceModel}
         optionOn={isVoiceOption}
       />
-      {isVoiceModel ? <ChooseVoice /> : <VoiceOption />}
-    </div>
+      {isVoiceModel ? <VoiceModel /> : <VoiceOption />}
+    </Container>
   );
 }
+
+const Container = styled.div`
+  position: absolute;
+  right: 5rem;
+`;
 
 export default Voice;
