@@ -7,7 +7,7 @@ import play from '/voiceModelPlay-icon.png';
 import pause from '/voiceModelPause-icon.png';
 import stop from '/voiceModelStop-icon.png';
 
-function VoiceModelLayout({ upload }: VoiceModelLayoutProps) {
+function VoiceModelLayout({ upload, voiceModel }: VoiceModelLayoutProps) {
   return (
     <Container>
       <TitleBox>
@@ -80,26 +80,59 @@ function VoiceModelLayout({ upload }: VoiceModelLayoutProps) {
           </ModelOptionButtonStyle>
         </div>
       </ModelOptionButtonBox>
+      <button onClick={() => console.log(isPlay)}>콘솔버튼</button>
       <ListBox>
-        <ModelCardBox>
-          <ModelNameBox>
-            <ModelName>김우주</ModelName>
-          </ModelNameBox>
-          <AudioBox>
-            <AudioPlayer
-              src="https://jenapark.s3.ap-northeast-2.amazonaws.com/audio/sample/chi_m_1.wav"
-              onPlay={(e) => console.log('onPlay')}
-            />
-            {/* <ButtonStyle width="2rem" height="2rem">{isPlay ? <img src={pause} alt="" /> : <img src={play} alt="" />}</ButtonStyle> */}
-            <ButtonStyle marginLeft="0.5rem">
-              <img
-                src={stop}
-                alt="음성모델소리정지아이콘"
-                style={{ width: '2rem', height: '2rem' }}
-              />
-            </ButtonStyle>
-          </AudioBox>
-        </ModelCardBox>
+        {voiceModel &&
+          voiceModel.map((item, index) => {
+            return (
+              <ModelCardBox
+                key={item.name}
+                // onClick={() => inputModel({ name: item.name, sex: item.sex, lang: item.lang })}
+              >
+                <ModelNameBox>
+                  <ModelName>{item.name}</ModelName>
+                </ModelNameBox>
+                <AudioBox>
+                  <AudioPlayer src={item.audioFileUrl} />
+                  <ButtonStyle
+                    onClick={(event) => {
+                      // audioHandler(index);
+                      event.stopPropagation();
+                    }}
+                    width="2rem"
+                    height="2rem"
+                  >
+                    {/* {isPlay[index] ? (
+                      <img
+                        src={pause}
+                        alt="음성일시정지아이콘"
+                        style={{ width: '2rem', height: '2rem' }}
+                      />
+                    ) : (
+                      <img
+                        src={play}
+                        alt="음성재생정지아이콘"
+                        style={{ width: '2rem', height: '2rem' }}
+                      />
+                    )} */}
+                  </ButtonStyle>
+                  <ButtonStyle
+                    onClick={(event) => {
+                      console.log('음성정지');
+                      event.stopPropagation();
+                    }}
+                    marginLeft="0.5rem"
+                  >
+                    <img
+                      src={stop}
+                      alt="음성정지아이콘"
+                      style={{ width: '2rem', height: '2rem' }}
+                    />
+                  </ButtonStyle>
+                </AudioBox>
+              </ModelCardBox>
+            );
+          })}
       </ListBox>
       <div>
         <ButtonStyle backColor="#fff" width="100%" height="3.1rem" radius="0.3rem">
@@ -112,6 +145,19 @@ function VoiceModelLayout({ upload }: VoiceModelLayoutProps) {
 
 interface VoiceModelLayoutProps {
   upload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  voiceModel?: [
+    {
+      name: string;
+      sex: string;
+      audioFileUrl: string;
+      lang: string;
+    },
+  ];
+}
+interface voiceModeltypes {
+  name: string;
+  sex: string;
+  lang: string;
 }
 interface TextStyleProps {
   size: string;
@@ -179,7 +225,7 @@ const Input = styled.input`
 const ModelOptionButtonBox = styled.div`
   display: flex;
   align-items: center;
-  margin: 0.5rem 0;
+  margin: 0.87rem 0;
 `;
 const ModelOptionButtonStyle = styled.button<ModelOptionButtonStyleProps>`
   background-color: ${({ backColor }) => backColor};
@@ -201,11 +247,14 @@ const ListBox = styled.div`
   }
 `;
 const ModelCardBox = styled.div`
+  width: 100%;
   height: 5rem;
   display: flex;
   align-items: center;
+  margin-bottom: 0.87rem;
   border: 1px solid #bdbdbd;
   border-radius: 0.3rem;
+  cursor: pointer;
 `;
 const ModelNameBox = styled.div`
   background-color: #0049ff;

@@ -13,13 +13,36 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    getVoiceModel: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+      query: (data) => ({
+        url: '/api/v1/audio/sample',
+        method: 'GET',
+        body: data,
+      }),
+    }),
+    // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+    //   query: (data) => ({
+    //     url: '/api/v1/audio/sample',
+    //     method: 'GET',
+    //     body: data,
+    //   }),
+    // }),
   }),
 });
 
-export const { useUploadVoiceMutation } = useApi;
+export const { useUploadVoiceMutation, useGetVoiceModelQuery } = useApi;
 
-interface ReturnSignupType {}
-
-interface ActionSignupType {
-  name: string;
+interface ReturnVoiceModelType {
+  data: [
+    {
+      name: string;
+      sex: string;
+      audioFileUrl: string;
+      lang: string;
+    },
+  ];
+}
+interface ActionVoiceModelType {
+  lang: string;
+  sex: string;
 }
