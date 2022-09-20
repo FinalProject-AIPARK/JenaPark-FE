@@ -31,8 +31,13 @@ function Voice() {
 }
 
 const Container = styled.div`
+  background-color: #001334;
+  width: 29.9rem;
+  height: calc(100% - 3.53rem);
   position: absolute;
   right: 5rem;
+  padding: 1.56rem 1.31rem;
+  opacity: 80%;
 `;
 
 export default Voice;

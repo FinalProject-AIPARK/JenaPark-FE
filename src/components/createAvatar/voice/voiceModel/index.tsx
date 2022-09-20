@@ -14,11 +14,7 @@ function VoiceModel() {
     // })
   }
 
-  return (
-    <div>
-      <VoiceModelLayout upload={uploadHandler} />
-    </div>
-  );
+  return <VoiceModelLayout upload={uploadHandler} />;
 }
 
 export default VoiceModel;

@@ -11,14 +11,18 @@ function VoiceWorkingButtonLayout({
     <ButtonBox>
       <Button
         onClick={modelButton}
-        borderColor={modelOn ? '#001334' : '#BDBDBD'}
+        borderColor={modelOn ? 'none' : '1px solid #BDBDBD'}
+        backColor={modelOn ? '#fff' : 'transparent'}
+        color={modelOn ? '#000' : '#BDBDBD'}
       >
         보이스 선택
       </Button>
       <Button
         onClick={OptionButton}
         marginLeft="1.1rem"
-        borderColor={optionOn ? '#001334' : '#BDBDBD'}
+        borderColor={optionOn ? 'none' : '1px solid #BDBDBD'}
+        backColor={optionOn ? '#fff' : 'transparent'}
+        color={optionOn ? '#000' : '#BDBDBD'}
       >
         보이스 옵션
       </Button>
@@ -35,18 +39,21 @@ interface VoiceWorkingButtonLayoutProps {
 interface ButtonProps {
   marginLeft?: string;
   borderColor: string;
+  backColor: string;
+  color: string;
 }
 
 const ButtonBox = styled.div``;
 const Button = styled.button<ButtonProps>`
-  background-color: #fff;
-  width: 14.3rem;
-  height: 3.1rem;
+  background-color: ${({ backColor }) => backColor};
+  width: 14.38rem;
+  height: 3.13rem;
   margin-left: ${({ marginLeft }) => marginLeft};
   font-size: 1rem;
   font-weight: 700;
-  border: 1px solid ${({ borderColor }) => borderColor};
-  border-radius: 0.3rem;
+  color: ${({ color }) => color};
+  border: ${({ borderColor }) => borderColor};
+  border-radius: 0.31rem;
 `;
 
 export default VoiceWorkingButtonLayout;
