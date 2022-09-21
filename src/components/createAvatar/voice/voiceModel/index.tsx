@@ -4,6 +4,7 @@ import VoiceModelLayout from '../../../../styles/VoiceModelLayout';
 
 function VoiceModel() {
   // 음성 모델  전체 리스트 불러오기
+  const [voiceFilter, setVoiceFilter] = useState({ sex: 'female', lang: 'kor' });
   const [voiceModelData, setVoiceModelData] = useState([
     {
       name: '김우주',
@@ -18,10 +19,7 @@ function VoiceModel() {
       lang: 'kor',
     },
   ]);
-  const { data: resVoiceModel } = useGetVoiceModelQuery({
-    lang: 'kor',
-    sex: 'female',
-  });
+  const { data: resVoiceModel } = useGetVoiceModelQuery(voiceFilter);
   useEffect(() => {
     if (resVoiceModel) setVoiceModelData(resVoiceModel.data);
     // 재생버튼 독립적으로 동작하기 위해 불린데이터 값을 리스트 갯수와 맞춰준다.
@@ -40,6 +38,46 @@ function VoiceModel() {
     //   projectId: '',
     //   file: event.target.files?.item(0)
     // })
+  }
+
+  const [sexButtonStyle, setSexButtonStyle] = useState(true);
+  const [langButtonStyle, setLangButtonStyle] = useState([true, false, false]);
+  function sexFilterHandler(filter: string) {
+    if (filter === 'female') {
+      setSexButtonStyle(true);
+      setVoiceFilter({ ...voiceFilter, sex: 'female' });
+    } else {
+      setSexButtonStyle(false);
+      setVoiceFilter({ ...voiceFilter, sex: 'male' });
+    }
+    // 리스트 요청
+    // 값이 바뀌면 데이터도 자동으로 바뀌는걸로 암
+  }
+  function langFilterHandler(filter: string) {
+    if (filter === 'kor') {
+      setLangButtonStyle((prev) => {
+        let next = prev.map((item) => (item = false));
+        next[0] = true;
+        return next;
+      });
+      setVoiceFilter({ ...voiceFilter, lang: 'kor' });
+    } else if (filter === 'eng') {
+      setLangButtonStyle((prev) => {
+        let next = prev.map((item) => (item = false));
+        next[1] = true;
+        return next;
+      });
+      setVoiceFilter({ ...voiceFilter, lang: 'eng' });
+    } else {
+      setLangButtonStyle((prev) => {
+        let next = prev.map((item) => (item = false));
+        next[2] = true;
+        return next;
+      });
+      setVoiceFilter({ ...voiceFilter, lang: 'chi' });
+    }
+    // 리스트 요청
+    // 값이 바뀌면 데이터도 자동으로 바뀌는걸로 암
   }
 
   // 음성 샘플 오디오 컨트롤
@@ -72,8 +110,12 @@ function VoiceModel() {
       upload={uploadHandler}
       voiceModel={voiceModelData}
       inputModel={InputVoiceModel}
-      audioIndex={audioIndex}
       selectModel={selectModel}
+      sexButtonStyle={sexButtonStyle}
+      sexFilterHandler={sexFilterHandler}
+      langButtonStyle={langButtonStyle}
+      langFilterHandler={langFilterHandler}
+      audioIndex={audioIndex}
       audioHandler={audioHandler}
       isPlay={playController}
     />

@@ -12,6 +12,10 @@ function VoiceModelLayout({
   voiceModel,
   inputModel,
   selectModel,
+  sexButtonStyle,
+  sexFilterHandler,
+  langButtonStyle,
+  langFilterHandler,
   audioIndex,
   audioHandler,
   isPlay,
@@ -53,17 +57,19 @@ function VoiceModelLayout({
       <ModelOptionButtonBox>
         <div>
           <ModelOptionButtonStyle
-            backColor="transparent"
-            color="#828282"
-            border="1px solid #828282"
+            onClick={() => sexFilterHandler('male')}
+            backColor={sexButtonStyle ? 'transparent' : '#fff'}
+            color={sexButtonStyle ? '#828282' : '#000'}
+            border={sexButtonStyle ? '1px solid #828282' : 'none'}
             width="3rem"
           >
             남
           </ModelOptionButtonStyle>
           <ModelOptionButtonStyle
-            backColor="transparent"
-            color="#828282"
-            border="1px solid #828282"
+            onClick={() => sexFilterHandler('female')}
+            backColor={sexButtonStyle ? '#fff' : 'transparent'}
+            color={sexButtonStyle ? '#000' : '#828282'}
+            border={sexButtonStyle ? 'none' : '1px solid #828282'}
             width="3rem"
             marginLeft="0.5rem"
           >
@@ -72,26 +78,29 @@ function VoiceModelLayout({
         </div>
         <div style={{ marginLeft: 'auto' }}>
           <ModelOptionButtonStyle
-            backColor="transparent"
-            color="#828282"
-            border="1px solid #828282"
+            onClick={() => langFilterHandler('kor')}
+            backColor={langButtonStyle[0] ? '#fff' : 'transparent'}
+            color={langButtonStyle[0] ? '#000' : '#828282'}
+            border={langButtonStyle[0] ? 'none' : '1px solid #828282'}
             width="5.1rem"
           >
             한국어
           </ModelOptionButtonStyle>
           <ModelOptionButtonStyle
-            backColor="transparent"
-            color="#828282"
-            border="1px solid #828282"
+            onClick={() => langFilterHandler('eng')}
+            backColor={langButtonStyle[1] ? '#fff' : 'transparent'}
+            color={langButtonStyle[1] ? '#000' : '#828282'}
+            border={langButtonStyle[1] ? 'none' : '1px solid #828282'}
             width="4.1rem"
             marginLeft="0.5rem"
           >
             영어
           </ModelOptionButtonStyle>
           <ModelOptionButtonStyle
-            backColor="transparent"
-            color="#828282"
-            border="1px solid #828282"
+            onClick={() => langFilterHandler('chi')}
+            backColor={langButtonStyle[2] ? '#fff' : 'transparent'}
+            color={langButtonStyle[2] ? '#000' : '#828282'}
+            border={langButtonStyle[2] ? 'none' : '1px solid #828282'}
             width="5.1rem"
             marginLeft="0.5rem"
           >
@@ -183,6 +192,10 @@ interface VoiceModelLayoutProps {
   }[];
   inputModel: (M: voiceModeltypes) => void;
   selectModel: () => void;
+  sexButtonStyle: boolean;
+  sexFilterHandler: (filter: string) => void;
+  langButtonStyle: boolean[];
+  langFilterHandler: (filter: string) => void;
   audioIndex: number;
   audioHandler: (i: number) => void;
   isPlay: boolean[];
@@ -244,7 +257,7 @@ const SearchBox = styled.div`
   height: 2rem;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #fff;
 `;
 const Input = styled.input`
   background-color: transparent;
