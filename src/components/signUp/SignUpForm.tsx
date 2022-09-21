@@ -1,5 +1,5 @@
-import { useRef, useEffect, useCallback } from 'react';
-import FormInput from '../../styles/FormInput';
+import { useEffect, useCallback } from 'react';
+import SignUpFormInput from '../../styles/SignUpFormInput';
 import { useForm } from 'react-hook-form';
 
 const EMAIL_REGEX = new RegExp(
@@ -18,7 +18,7 @@ const ERROR_MSG = {
   invalidConfirmPw: '비밀번호가 일치하지 않습니다.',
 };
 
-const Form = () => {
+const SignUpForm = () => {
   const { register, handleSubmit, setFocus, getValues, formState, trigger } =
     useForm({
       mode: 'onBlur',
@@ -35,7 +35,7 @@ const Form = () => {
   return (
     <>
       <form id="form" autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
+        <SignUpFormInput
           id={'email'}
           label={'이메일'}
           errorMsg={formState.errors['email']?.message}
@@ -53,7 +53,7 @@ const Form = () => {
           trigger={trigger}
         />
 
-        <FormInput
+        <SignUpFormInput
           id={'username'}
           label={'닉네임'}
           errorMsg={formState.errors['username']?.message}
@@ -71,7 +71,7 @@ const Form = () => {
           trigger={trigger}
         />
 
-        <FormInput
+        <SignUpFormInput
           id={'pw'}
           label={'비밀번호'}
           errorMsg={formState.errors['pw']?.message}
@@ -90,7 +90,7 @@ const Form = () => {
           }}
         />
 
-        <FormInput
+        <SignUpFormInput
           id={'confirmPw'}
           label={'비밀번호 확인'}
           errorMsg={formState.errors['confirmPw']?.message}
@@ -115,4 +115,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SignUpForm;

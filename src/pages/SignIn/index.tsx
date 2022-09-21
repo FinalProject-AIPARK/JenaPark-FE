@@ -1,5 +1,3 @@
-import * as S from './style';
-
 const SignIn = () => {
   return (
     <>

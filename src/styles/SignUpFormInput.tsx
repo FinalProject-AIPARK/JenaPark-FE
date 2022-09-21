@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-const FormInput = ({ id, label, errorMsg, inputProps }: any) => {
+const SignUpFormInput = ({ id, label, errorMsg, inputProps }: any) => {
   return (
     <div>
       <label htmlFor={id}>{label}</label>
@@ -11,6 +11,6 @@ const FormInput = ({ id, label, errorMsg, inputProps }: any) => {
 };
 
 export default memo(
-  FormInput,
+  SignUpFormInput,
   (prevProps, nextProps) => prevProps.errorMsg === nextProps.errorMsg,
 );
