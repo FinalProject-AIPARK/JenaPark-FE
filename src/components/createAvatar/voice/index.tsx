@@ -26,18 +26,27 @@ function Voice() {
         optionOn={isVoiceOption}
       />
       {isVoiceModel ? <VoiceModel /> : <VoiceOption />}
+      <Background></Background>
     </Container>
   );
 }
 
 const Container = styled.div`
-  background-color: #001334;
   width: 29.9rem;
   height: calc(100% - 3.53rem);
   position: absolute;
-  right: 5rem;
+  right: 25rem;
   padding: 1.56rem 1.31rem;
+`;
+const Background = styled.div`
+  background-color: #001334;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
   opacity: 80%;
+  z-index: -1;
 `;
 
 export default Voice;
