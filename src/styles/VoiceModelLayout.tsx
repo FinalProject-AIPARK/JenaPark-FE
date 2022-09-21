@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
+import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import search from '/search-icon.png';
 import play from '/voiceModelPlay-icon.png';
 import pause from '/voiceModelPause-icon.png';
 import stop from '/voiceModelStop-icon.png';
 
-function VoiceModelLayout({ upload, voiceModel }: VoiceModelLayoutProps) {
+function VoiceModelLayout({
+  upload,
+  voiceModel,
+  inputModel,
+  selectModel,
+  audioIndex,
+  audioHandler,
+  isPlay,
+}: VoiceModelLayoutProps) {
+  // 재생 도중 다른 음성을 재생했을때 버튼에 직접적으로 자신 정지 동작하기
+  // 재생, 일시정지 버튼으로 onOff 값이 바뀔떄마다 useEffect 동작
+  const [onOff, setOnOff] = useState(false);
+  const player = useRef<any>([]);
+  useEffect(() => {
+    // 선택 재생
+    isPlay[audioIndex]
+      ? player.current[audioIndex].audio.current.play()
+      : player.current[audioIndex].audio.current.pause();
+  }, [onOff]);
+
   return (
     <Container>
       <TitleBox>
@@ -80,29 +99,34 @@ function VoiceModelLayout({ upload, voiceModel }: VoiceModelLayoutProps) {
           </ModelOptionButtonStyle>
         </div>
       </ModelOptionButtonBox>
-      <button onClick={() => console.log(isPlay)}>콘솔버튼</button>
       <ListBox>
         {voiceModel &&
           voiceModel.map((item, index) => {
             return (
               <ModelCardBox
                 key={item.name}
-                // onClick={() => inputModel({ name: item.name, sex: item.sex, lang: item.lang })}
+                onClick={() => inputModel({ name: item.name, sex: item.sex, lang: item.lang })}
               >
                 <ModelNameBox>
                   <ModelName>{item.name}</ModelName>
                 </ModelNameBox>
                 <AudioBox>
-                  <AudioPlayer src={item.audioFileUrl} />
+                  <AudioPlayer
+                    preload="metadata"
+                    src={item.audioFileUrl}
+                    ref={(elem) => (player.current[index] = elem)}
+                  />
                   <ButtonStyle
                     onClick={(event) => {
-                      // audioHandler(index);
+                      player.current[audioIndex].audio.current.pause();
+                      audioHandler(index);
+                      setOnOff(!onOff);
                       event.stopPropagation();
                     }}
                     width="2rem"
                     height="2rem"
                   >
-                    {/* {isPlay[index] ? (
+                    {isPlay[index] ? (
                       <img
                         src={pause}
                         alt="음성일시정지아이콘"
@@ -114,11 +138,11 @@ function VoiceModelLayout({ upload, voiceModel }: VoiceModelLayoutProps) {
                         alt="음성재생정지아이콘"
                         style={{ width: '2rem', height: '2rem' }}
                       />
-                    )} */}
+                    )}
                   </ButtonStyle>
                   <ButtonStyle
                     onClick={(event) => {
-                      console.log('음성정지');
+                      console.log(player.current[index].audio);
                       event.stopPropagation();
                     }}
                     marginLeft="0.5rem"
@@ -135,7 +159,13 @@ function VoiceModelLayout({ upload, voiceModel }: VoiceModelLayoutProps) {
           })}
       </ListBox>
       <div>
-        <ButtonStyle backColor="#fff" width="100%" height="3.1rem" radius="0.3rem">
+        <ButtonStyle
+          onClick={selectModel}
+          backColor="#fff"
+          width="100%"
+          height="3.1rem"
+          radius="0.3rem"
+        >
           선택하기
         </ButtonStyle>
       </div>
@@ -145,14 +175,17 @@ function VoiceModelLayout({ upload, voiceModel }: VoiceModelLayoutProps) {
 
 interface VoiceModelLayoutProps {
   upload: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  voiceModel?: [
-    {
-      name: string;
-      sex: string;
-      audioFileUrl: string;
-      lang: string;
-    },
-  ];
+  voiceModel: {
+    name: string;
+    sex: string;
+    audioFileUrl: string;
+    lang: string;
+  }[];
+  inputModel: (M: voiceModeltypes) => void;
+  selectModel: () => void;
+  audioIndex: number;
+  audioHandler: (i: number) => void;
+  isPlay: boolean[];
 }
 interface voiceModeltypes {
   name: string;
