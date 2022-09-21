@@ -1,12 +1,9 @@
-import React from 'react';
-import Navbar from './navbar';
+import React from 'react'
 
-function CreateAvatar() {
+function index() {
   return (
-    <div>
-      <Navbar />
-    </div>
-  );
+    <div>index</div>
+  )
 }
 
-export default CreateAvatar;
+export default index
