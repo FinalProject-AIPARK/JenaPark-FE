@@ -1,12 +1,9 @@
-import React from 'react';
-import UserNavbarLayout from '../../../../styles/UserNavbarLayout';
+import React from 'react'
 
-function UserNavbar() {
+function index() {
   return (
-    <div>
-      <UserNavbarLayout />
-    </div>
-  );
+    <div>index</div>
+  )
 }
 
-export default UserNavbar;
+export default index
