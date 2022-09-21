@@ -1,8 +1,21 @@
-import React from 'react'
+import { useState } from 'react';
+import AvatarComponent from '../../../../styles/AvatarComponent';
 
 function index() {
+
+  const [toggle, setToggle] = useState(true);
+
+  function toggleButton() {
+    setToggle(!toggle);
+  }
+
   return (
-    <div>index</div>
+    <>
+      <AvatarComponent 
+        toggle={toggle}
+        setToggle={toggleButton}
+      />
+    </>
   )
 }
 
