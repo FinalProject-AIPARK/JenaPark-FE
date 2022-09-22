@@ -3,15 +3,17 @@ import styled from 'styled-components';
 import UserNavbarLayout from '../../../styles/UserNavbarLayout';
 import WorkingNavbarLayout from '../../../styles/WorkingNavbarLayout';
 
-function Navbar() {
-  const [voiceSection, setVoiceSection] = useState(false);
+function Navbar({ isVoiceWoking }: navbarProps) {
+  const [voiceSection, setVoiceSection] = useState(true);
   const [avatarSection, setAvatarSection] = useState(false);
   function voiceHandler() {
-    setVoiceSection(!voiceSection);
+    isVoiceWoking(true);
+    setVoiceSection(true);
     setAvatarSection(false);
   }
   function avatarHandler() {
-    setAvatarSection(!avatarSection);
+    isVoiceWoking(false);
+    setAvatarSection(true);
     setVoiceSection(false);
   }
   return (
@@ -25,6 +27,10 @@ function Navbar() {
       />
     </Contain>
   );
+}
+
+interface navbarProps {
+  isVoiceWoking: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Contain = styled.div`
