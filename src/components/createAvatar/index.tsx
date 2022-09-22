@@ -8,7 +8,7 @@ function CreateAvatar() {
   return (
     <Contain>
       <Navbar isVoiceWoking={setIsVoiceWoking} />
-      <Voice />
+      {isVoiceWoking ? <Voice /> : null}
     </Contain>
   );
 }

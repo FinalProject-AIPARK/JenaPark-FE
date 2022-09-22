@@ -32,10 +32,10 @@ function Voice() {
 }
 
 const Container = styled.div`
-  width: 29.9rem;
-  height: calc(100% - 3.53rem);
+  width: 29.88rem;
+  height: calc(100% - 3.12rem);
   position: absolute;
-  right: 25rem;
+  right: 5rem;
   padding: 1.56rem 1.31rem;
 `;
 const Background = styled.div`

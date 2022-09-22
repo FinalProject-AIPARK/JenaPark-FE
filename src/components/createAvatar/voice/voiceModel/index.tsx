@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 import { useGetVoiceModelQuery, useUploadVoiceMutation } from '../../../../api/useApi';
-import VoiceModelLayout from '../../../../styles/VoiceModelLayout';
+import SearchVoiceModelLayout from '../../../../styles/SearchVoiceModelLayout';
+import VoiceModelLayout from '../../../../styles/SearchVoiceModelLayout';
+import VoiceModelFilterButton from '../../../../styles/VoiceModelFilterButton';
+import VoiceModelListLayout from '../../../../styles/VoiceModelListLayout';
 
 function VoiceModel() {
   // 음성 모델  전체 리스트 불러오기
@@ -23,7 +27,6 @@ function VoiceModel() {
   useEffect(() => {
     if (resVoiceModel) setVoiceModelData(resVoiceModel.data);
     nameBackColorHandler();
-    console.log(modelNameColor);
     // 재생버튼 독립적으로 동작하기 위해 불린데이터 값을 리스트 갯수와 맞춰준다.
     for (let i = 0; i < voiceModelData.length; i++) {
       setPlayController((current) => {
@@ -148,23 +151,34 @@ function VoiceModel() {
   }
 
   return (
-    <VoiceModelLayout
-      upload={uploadHandler}
-      voiceModel={voiceModelData}
-      inputModel={InputVoiceModel}
-      selectModelCardHandler={selectModelCardHandler}
-      selectModelCard={selectModelCard}
-      selectModel={selectModel}
-      sexButtonStyle={sexButtonStyle}
-      sexFilterHandler={sexFilterHandler}
-      langButtonStyle={langButtonStyle}
-      langFilterHandler={langFilterHandler}
-      modelNameColor={modelNameColor}
-      audioIndex={audioIndex}
-      audioHandler={audioHandler}
-      isPlay={playController}
-    />
+    <Container>
+      <SearchVoiceModelLayout upload={uploadHandler} />
+      <VoiceModelFilterButton
+        sexButtonStyle={sexButtonStyle}
+        sexFilterHandler={sexFilterHandler}
+        langButtonStyle={langButtonStyle}
+        langFilterHandler={langFilterHandler}
+      />
+      <VoiceModelListLayout
+        voiceModel={voiceModelData}
+        inputModel={InputVoiceModel}
+        selectModelCardHandler={selectModelCardHandler}
+        selectModelCard={selectModelCard}
+        selectModel={selectModel}
+        modelNameColor={modelNameColor}
+        audioIndex={audioIndex}
+        audioHandler={audioHandler}
+        isPlay={playController}
+      />
+    </Container>
   );
 }
+
+const Container = styled.div`
+  height: calc(100% - 4.6rem);
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.56rem;
+`;
 
 export default VoiceModel;
