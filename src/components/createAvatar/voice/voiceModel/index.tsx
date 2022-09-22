@@ -51,40 +51,37 @@ function VoiceModel() {
   }
 
   // 음성 모델 필터링
-  const [sexButtonStyle, setSexButtonStyle] = useState(true);
-  const [langButtonStyle, setLangButtonStyle] = useState([true, false, false]);
+  const [sexButton, setSexButton] = useState(true);
+  const [langButton, setLangButton] = useState('한국어');
+  const [dropdown, setDropdown] = useState(false);
+  const offDropdown = useRef<HTMLDivElement>(null);
+  function dropdownHandler(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (event.target === offDropdown.current) {
+      setDropdown(false);
+    } else {
+      setDropdown(!dropdown);
+    }
+  }
   function sexFilterHandler(filter: string) {
     if (filter === 'female') {
-      setSexButtonStyle(true);
+      setSexButton(true);
       setVoiceFilter({ ...voiceFilter, sex: 'female' });
     } else {
-      setSexButtonStyle(false);
+      setSexButton(false);
       setVoiceFilter({ ...voiceFilter, sex: 'male' });
     }
     // 리스트 요청
     // 값이 바뀌면 데이터도 자동으로 바뀌는걸로 암
   }
   function langFilterHandler(filter: string) {
-    if (filter === 'kor') {
-      setLangButtonStyle((prev) => {
-        let next = prev.map((item) => (item = false));
-        next[0] = true;
-        return next;
-      });
+    if (filter === '한국어') {
+      setLangButton('한국어');
       setVoiceFilter({ ...voiceFilter, lang: 'kor' });
-    } else if (filter === 'eng') {
-      setLangButtonStyle((prev) => {
-        let next = prev.map((item) => (item = false));
-        next[1] = true;
-        return next;
-      });
+    } else if (filter === '영어') {
+      setLangButton('영어');
       setVoiceFilter({ ...voiceFilter, lang: 'eng' });
     } else {
-      setLangButtonStyle((prev) => {
-        let next = prev.map((item) => (item = false));
-        next[2] = true;
-        return next;
-      });
+      setLangButton('중국어');
       setVoiceFilter({ ...voiceFilter, lang: 'chi' });
     }
     // 리스트 요청
@@ -151,13 +148,18 @@ function VoiceModel() {
   }
 
   return (
-    <Container>
+    <Container
+      ref={offDropdown}
+      onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => dropdownHandler(event)}
+    >
       <SearchVoiceModelLayout upload={uploadHandler} />
       <VoiceModelFilterButton
-        sexButtonStyle={sexButtonStyle}
+        sexButton={sexButton}
         sexFilterHandler={sexFilterHandler}
-        langButtonStyle={langButtonStyle}
+        langButton={langButton}
         langFilterHandler={langFilterHandler}
+        dropdown={dropdown}
+        dropdownHandler={dropdownHandler}
       />
       <VoiceModelListLayout
         voiceModel={voiceModelData}
