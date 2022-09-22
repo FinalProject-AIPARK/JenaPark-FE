@@ -9,6 +9,7 @@ function VoiceModelFilterButton({
   langButton,
   dropdown,
   dropdownHandler,
+  offDropdown,
 }: FilterButtonProps) {
   return (
     <>
@@ -71,7 +72,7 @@ function VoiceModelFilterButton({
               dropdownHandler(event)
             }
           >
-            <span>{langButton}</span>
+            <span ref={offDropdown}>{langButton}</span>
             <img
               src={arrowDown}
               alt="언어선택메뉴여는아이콘"
@@ -100,6 +101,7 @@ interface FilterButtonProps {
   langFilterHandler: (filter: string) => void;
   dropdown: boolean;
   dropdownHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  offDropdown: React.LegacyRef<HTMLSpanElement>;
 }
 interface ButtonStyleProps {
   backColor: string;

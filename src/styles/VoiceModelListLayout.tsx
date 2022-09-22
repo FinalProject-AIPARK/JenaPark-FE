@@ -24,7 +24,7 @@ function VoiceModelListLayout({
     // 선택 재생
     isPlay[audioIndex]
       ? player.current[audioIndex].audio.current.play()
-      : player.current[audioIndex].audio.current.load();
+      : player.current[audioIndex].audio.current.pause();
   }, [onOff]);
   return (
     <>
@@ -38,8 +38,6 @@ function VoiceModelListLayout({
                   inputModel({ name: item.name, sex: item.sex, lang: item.lang });
                   selectModelCardHandler(index);
                 }}
-                border={selectModelCard[index] ? '2px solid #fff' : '1px solid #BDBDBD'}
-                shadow={selectModelCard[index] ? '0 0 0.62rem 0 rgba(255, 255, 255, 0.6)' : 'none'}
               >
                 <ModelNameBox backColor={modelNameColor}>
                   <ModelName>{item.name}</ModelName>
@@ -58,7 +56,6 @@ function VoiceModelListLayout({
                       setOnOff(!onOff);
                       event.stopPropagation();
                     }}
-                    width="2rem"
                     height="2rem"
                   >
                     {isPlay[index] ? (
@@ -70,12 +67,28 @@ function VoiceModelListLayout({
                     ) : (
                       <img
                         src={play}
-                        alt="음성재생정지아이콘"
+                        alt="음성재생일시정지아이콘"
                         style={{ width: '2rem', height: '2rem' }}
                       />
                     )}
                   </ButtonStyle>
+                  <ButtonStyle
+                    onClick={(event) => {
+                      player.current[index].audio.current.load();
+                      audioHandler(index);
+                      event.stopPropagation();
+                    }}
+                    height="2rem"
+                    marginLeft="0.83rem"
+                  >
+                    <img
+                      src={stop}
+                      alt="음성정지아이콘"
+                      style={{ width: '2rem', height: '2rem' }}
+                    />
+                  </ButtonStyle>
                 </AudioBox>
+                <SelectBoxStyle view={selectModelCard[index] ? 'block' : 'none'} />
               </ModelCardBox>
             );
           })}
@@ -120,8 +133,7 @@ interface ModelNameBoxProps {
   backColor: string;
 }
 interface ModelCardBoxProps {
-  shadow: string;
-  border: string;
+  view: string;
 }
 interface ButtonStyleProps {
   backColor?: string;
@@ -138,17 +150,27 @@ const ListBox = styled.div`
     display: none;
   }
 `;
-const ModelCardBox = styled.div<ModelCardBoxProps>`
-  background-color: #0d1c4c;
+const ModelCardBox = styled.div`
   width: 100%;
-  height: 5rem;
+  height: 4.37rem;
   display: flex;
   align-items: center;
+  position: relative;
   margin-bottom: 0.87rem;
-  border: ${({ border }) => border};
+  border: 1px solid #dbdbdb;
   border-radius: 0.3rem;
-  box-shadow: ${({ shadow }) => shadow};
   cursor: pointer;
+`;
+const SelectBoxStyle = styled.div<ModelCardBoxProps>`
+  width: 100%;
+  height: 4.37rem;
+  display: ${({ view }) => view};
+  position: absolute;
+  border: 2px solid #0dff1e;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 0.62rem 0 rgba(13, 255, 30, 1);
+  box-sizing: border-box;
+  z-index: 0;
 `;
 const ModelNameBox = styled.div<ModelNameBoxProps>`
   background-color: ${({ backColor }) => backColor};
@@ -167,14 +189,16 @@ const ModelName = styled.span`
 `;
 const AudioBox = styled.div`
   flex-grow: 1;
-  padding: 0 2.34rem;
+  padding: 0 1.16rem;
   text-align: right;
+  z-index: 1;
 `;
 const ButtonStyle = styled.button<ButtonStyleProps>`
   background-color: ${({ backColor }) => (backColor ? backColor : 'transparent')};
   width: ${({ width }) => (width ? width : 'auto')};
   height: ${({ height }) => (height ? height : 'auto')};
   margin-left: ${({ marginLeft }) => (marginLeft ? marginLeft : '0')};
+  padding: 0;
   font-size: 1rem;
   border: none;
   border-radius: ${({ radius }) => radius};

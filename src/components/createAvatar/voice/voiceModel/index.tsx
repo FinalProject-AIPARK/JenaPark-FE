@@ -54,11 +54,11 @@ function VoiceModel() {
   const [sexButton, setSexButton] = useState(true);
   const [langButton, setLangButton] = useState('한국어');
   const [dropdown, setDropdown] = useState(false);
-  const offDropdown = useRef<HTMLDivElement>(null);
+  const offDropdown = useRef(null);
   function dropdownHandler(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    if (event.target === offDropdown.current) {
+    if (event.target !== offDropdown.current && dropdown) {
       setDropdown(false);
-    } else {
+    } else if (event.target === offDropdown.current) {
       setDropdown(!dropdown);
     }
   }
@@ -149,7 +149,6 @@ function VoiceModel() {
 
   return (
     <Container
-      ref={offDropdown}
       onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => dropdownHandler(event)}
     >
       <SearchVoiceModelLayout upload={uploadHandler} />
@@ -160,6 +159,7 @@ function VoiceModel() {
         langFilterHandler={langFilterHandler}
         dropdown={dropdown}
         dropdownHandler={dropdownHandler}
+        offDropdown={offDropdown}
       />
       <VoiceModelListLayout
         voiceModel={voiceModelData}
