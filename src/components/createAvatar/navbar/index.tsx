@@ -1,10 +1,10 @@
 import React from 'react';
-import UserNavbar from './userNavbar';
+import UserNavbarLayout from '../../../styles/UserNavbarLayout';
 
 function Navbar() {
   return (
     <div>
-      <UserNavbar />
+      <UserNavbarLayout />
     </div>
   );
 }
