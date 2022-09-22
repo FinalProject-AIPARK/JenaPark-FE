@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import arrowDown from '/arrowDown-icon.png';
 
 function VoiceModelFilterButton({
   sexButtonStyle,
@@ -11,7 +12,7 @@ function VoiceModelFilterButton({
     <>
       <ModelOptionButtonBox>
         <div>
-          <ModelOptionButtonStyle
+          <ButtonStyle
             onClick={() => sexFilterHandler('male')}
             backColor={sexButtonStyle ? 'transparent' : '#fff'}
             color={sexButtonStyle ? '#828282' : '#000'}
@@ -19,8 +20,8 @@ function VoiceModelFilterButton({
             width="3rem"
           >
             남
-          </ModelOptionButtonStyle>
-          <ModelOptionButtonStyle
+          </ButtonStyle>
+          <ButtonStyle
             onClick={() => sexFilterHandler('female')}
             backColor={sexButtonStyle ? '#fff' : 'transparent'}
             color={sexButtonStyle ? '#000' : '#828282'}
@@ -29,9 +30,9 @@ function VoiceModelFilterButton({
             marginLeft="0.5rem"
           >
             여
-          </ModelOptionButtonStyle>
+          </ButtonStyle>
         </div>
-        <div style={{ marginLeft: 'auto' }}>
+        {/* <div style={{ marginLeft: 'auto' }}>
           <ModelOptionButtonStyle
             onClick={() => langFilterHandler('kor')}
             backColor={langButtonStyle[0] ? '#fff' : 'transparent'}
@@ -61,6 +62,21 @@ function VoiceModelFilterButton({
           >
             중국어
           </ModelOptionButtonStyle>
+        </div> */}
+        <div style={{ marginLeft: 'auto', position: 'relative' }}>
+          <DropDownBoxStyle>
+            <span>한국어</span>
+            <img
+              src={arrowDown}
+              alt="언어선택메뉴여는아이콘"
+              style={{ width: '1.5rem', marginLeft: '0.5rem' }}
+            />
+          </DropDownBoxStyle>
+          <LangListStyle>
+            <LangButtonStyle>한국어</LangButtonStyle>
+            <LangButtonStyle margin="0.5rem">영어</LangButtonStyle>
+            <LangButtonStyle>중국어</LangButtonStyle>
+          </LangListStyle>
         </div>
       </ModelOptionButtonBox>
     </>
@@ -73,12 +89,15 @@ interface FilterButtonProps {
   langButtonStyle: boolean[];
   langFilterHandler: (filter: string) => void;
 }
-interface ModelOptionButtonStyleProps {
+interface ButtonStyleProps {
   backColor: string;
   width: string;
   marginLeft?: string;
-  color: string;
-  border: string;
+  color?: string;
+  border?: string;
+}
+interface LangButtonStyleProps {
+  margin?: string;
 }
 
 const ModelOptionButtonBox = styled.div`
@@ -86,16 +105,47 @@ const ModelOptionButtonBox = styled.div`
   align-items: center;
   margin: 0.87rem 0;
 `;
-const ModelOptionButtonStyle = styled.button<ModelOptionButtonStyleProps>`
+const ButtonStyle = styled.button<ButtonStyleProps>`
   background-color: ${({ backColor }) => backColor};
   width: ${({ width }) => width};
-  height: 2.3rem;
+  height: 2.5rem;
   margin-left: ${({ marginLeft }) => (marginLeft ? marginLeft : '0')};
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: ${({ color }) => color};
-  border: ${({ border }) => border};
+  color: ${({ color }) => (color ? color : '#000')};
+  border: ${({ border }) => (border ? border : 'none')};
   border-radius: 0.3rem;
+  cursor: pointer;
+`;
+const DropDownBoxStyle = styled.div`
+  background-color: #fff;
+  width: 6.25rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.3rem;
+  cursor: pointer;
+`;
+const LangListStyle = styled.div`
+  background-color: #fff;
+  width: 6.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 2rem;
+  padding: 0.81rem 0;
+  border-radius: 0 0 0.3rem 0.3rem;
+`;
+const LangButtonStyle = styled.button<LangButtonStyleProps>`
+  background-color: transparent;
+  margin: ${({ margin }) => (margin ? margin : 'none')};
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
   cursor: pointer;
 `;
 
