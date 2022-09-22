@@ -1,14 +1,34 @@
-import React from 'react';
-import ProjectSetting from './projectSetting';
-import UserNavbar from './userNavbar';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import UserNavbarLayout from '../../../styles/UserNavbarLayout';
+import WorkingNavbarLayout from '../../../styles/WorkingNavbarLayout';
 
 function Navbar() {
+  const [voiceSection, setVoiceSection] = useState(false);
+  const [avatarSection, setAvatarSection] = useState(false);
+  function voiceHandler() {
+    setVoiceSection(!voiceSection);
+    setAvatarSection(false);
+  }
+  function avatarHandler() {
+    setAvatarSection(!avatarSection);
+    setVoiceSection(false);
+  }
   return (
-    <div>
-      <UserNavbar />
-      <ProjectSetting />
-    </div>
+    <Contain>
+      <UserNavbarLayout />
+      <WorkingNavbarLayout
+        voiceButton={voiceHandler}
+        avatarButton={avatarHandler}
+        voiceBg={voiceSection}
+        avatarBg={avatarSection}
+      />
+    </Contain>
   );
 }
+
+const Contain = styled.div`
+  height: calc(100vh - 8.5rem);
+`;
 
 export default Navbar;
