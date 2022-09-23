@@ -8,7 +8,7 @@ function AvatarComponent({ toggle, setToggle }: ToggleType) {
     <Header></Header>
       <Main>
         <SelectionButton>
-          <AvatarButton activation={toggle} onClick={()=>setToggle()}>버추얼 아바타 선택</AvatarButton>
+          <AvatarButton activation={toggle} onClick={()=>setToggle()}>버추얼아바타 선택</AvatarButton>
           <AvatarButton activation={!toggle} onClick={()=>setToggle()}>배경선택</AvatarButton>
         </SelectionButton>
         {toggle ? <AvatarChooseStyle/> : <AvatarOptionStyle/>}
@@ -32,11 +32,11 @@ const Header = styled.header `
 `
 
 const Main = styled.main `
-  height: calc(100vh - 5.1em);
+  height: calc(100vh - 8.5rem);
   position: absolute;
-  left: 1315px;
-  top: 80px;
-  border: 1px solid;
+  left: 82.5rem;
+  top: 5rem;
+  background-color: rgba(0, 19, 52, 0.8);
 `
 
 const SelectionButton = styled.div `
@@ -46,10 +46,11 @@ const SelectionButton = styled.div `
 `
 
 const AvatarButton = styled.button<ButtonType>`
-  width: 230px;
-  height: 50px;
-  border-radius: 10px;
-  border-color: ${(props) => (props.activation ? '#001334': '#bdbdbd')};
+  width: 14.375rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  background-color: ${(props) => (props.activation ? '#fff' : 'rgba(0, 19 , 52, 0)')};
+  border: ${(props) => (props.activation ? '1px solid #bdbdbd': '1px solid #bdbdbd')};
   color: ${(props) => (props.activation ? '#001334': '#bdbdbd')};
 `
 
