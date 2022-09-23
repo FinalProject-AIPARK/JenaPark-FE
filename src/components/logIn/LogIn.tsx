@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { onLogIn } from '../../api/useApi';
+import { onLogIn } from '../../api/auth.api';
 import { LogInForm } from '../../styles/user/User.components';
 
 const LogIn = () => {
