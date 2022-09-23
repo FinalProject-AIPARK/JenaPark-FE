@@ -1,11 +1,13 @@
 const pagesPath = {
   home: '',
   signin: 'signin',
+  signup: 'signup',
 };
 
 export const pagesFullPath = {
   home: '/',
-  login: `/${pagesPath.signin}`,
+  signin: `/${pagesPath.signin}`,
+  signup: `/${pagesPath.signup}`,
 };
 
 export default pagesPath;

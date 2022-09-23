@@ -14,7 +14,11 @@
     "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+<<<<<<< HEAD
     "react-h5-audio-player": "^3.8.5",
+=======
+    "react-hook-form": "^7.36.0",
+>>>>>>> 97e706b75c9ec5a02439940100acb502ad8e8a4d
     "react-redux": "^8.0.2",
     "react-router-dom": "6",
     "styled-components": "^5.3.5",
@@ -30,6 +34,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
     "typescript": "^4.8.3",
-    "vite": "^3.1.0"
+    "vite": "^3.1.3"
   }
 }
