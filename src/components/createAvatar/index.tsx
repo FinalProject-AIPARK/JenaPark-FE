@@ -11,4 +11,10 @@ function index() {
   )
 }
 
+
+const Contents = styled.div `
+  height: calc(100vh - 8.5rem);
+  position: relative;
+
+`
 export default index
