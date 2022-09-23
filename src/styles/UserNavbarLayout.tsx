@@ -61,10 +61,7 @@ interface BackgroundProps {
   backColor: string;
   radius?: string;
 }
-const Background =
-  styled.div <
-  BackgroundProps >
-  `
+const Background = styled.div<BackgroundProps>`
   background-color: ${({ backColor }) => backColor};
   width: 100%;
   height: 100%;
@@ -85,10 +82,7 @@ const Container = styled.div`
 const LogoBox = styled.div`
   margin: 1rem 0.62rem;
 `;
-const ImageStyle =
-  styled.img <
-  ImageStyleProps >
-  `
+const ImageStyle = styled.img<ImageStyleProps>`
   width: ${({ width }) => (width ? width : '1.5rem')};
 `;
 const GuideBox = styled.div`
@@ -140,10 +134,7 @@ const MyInfoBox = styled.div`
   margin-bottom: 1.62rem;
   text-align: center;
 `;
-const LinkButton =
-  styled(Link) <
-  LinkButtonProps >
-  `
+const LinkButton = styled(Link)<LinkButtonProps>`
   margin-bottom: ${({ marginbottom }) => marginbottom};
 `;
 
