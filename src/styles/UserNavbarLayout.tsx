@@ -61,6 +61,7 @@ interface BackgroundProps {
   backColor: string;
   radius?: string;
 }
+
 const Background = styled.div<BackgroundProps>`
   background-color: ${({ backColor }) => backColor};
   width: 100%;

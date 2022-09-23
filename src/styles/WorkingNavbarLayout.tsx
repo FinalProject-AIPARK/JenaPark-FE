@@ -22,7 +22,7 @@ function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: W
         </Button>
         <Background backColor="#002868" radius="0.63rem" />
       </ButtonBox>
-      <Background backColor="#001334" />
+      <Background backColor='#001334' />
     </Container>
   );
 }
