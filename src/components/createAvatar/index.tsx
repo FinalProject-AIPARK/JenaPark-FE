@@ -19,3 +19,4 @@ const Contain = styled.div`
 `;
 
 export default CreateAvatar;
+
