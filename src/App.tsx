@@ -1,26 +1,29 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import NotFound from './pages/NotFound';
-import pagesPath from './pages/pagesPath';
-import CreateAvatar from './pages/CreateAvatar';
-import SignUp from './pages/SignUp';
+import { Route, Routes } from 'react-router-dom';
+import NotFound from '@/pages/NotFound';
+import Home from '@/pages/Home';
+import SignIn from '@/pages/SignIn';
+import SignUp from '@/pages/SignUp';
+import Account from '@/pages/Account';
+import CreateAvatar from '@/pages/CreateAvatar';
+import History from '@/pages/History';
 
 function App() {
   if (false) {
     return (
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
-        <Route path={pagesPath.signin} element={<SignIn />} />
-        <Route path={pagesPath.signup} element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     );
   } else {
     return (
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
-        {/* account
-          history */}
+        <Route path="/account" element={<Account />} />
+        <Route path="/history" element={<History />} />
         <Route path="/project" element={<CreateAvatar />} />
       </Routes>
     );

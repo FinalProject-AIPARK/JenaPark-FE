@@ -7,11 +7,16 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import background from '/background.png';
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
 body {
 font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+background-image: url(${background});
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
 }
 `;
 
