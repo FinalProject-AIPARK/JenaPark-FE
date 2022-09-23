@@ -6,10 +6,24 @@ export const useApi = createApi({
     baseUrl: import.meta.env.VITE_BASE_URL,
   }),
   endpoints: (builder) => ({
+    signIn: builder.mutation<ReturnLoginType, ActionLoginType>({
+      query: (data) => ({
+        url: '/api/v1/members/login',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    signUp: builder.mutation<ReturnSignupType, ActionSignupType>({
+      query: (data) => ({
+        url: '/api/v1/members/signup',
+        method: 'POST',
+        body: data,
+      }),
+    }),
     uploadVoice: builder.mutation<any, any>({
       query: (data) => ({
         url: '/api/v1/projects/audio/upload',
-        method: 'POST',
+        method: 'GET',
         body: data,
       }),
     }),
@@ -20,6 +34,7 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
     //     url: '/api/v1/audio/sample',
@@ -30,8 +45,29 @@ export const useApi = createApi({
   }),
 });
 
-export const { useUploadVoiceMutation, useGetVoiceModelQuery } = useApi;
+export const {
+  useSignInMutation,
+  useSignUpMutation,
+  useUploadVoiceMutation,
+  useGetVoiceModelQuery,
+} = useApi;
 
+interface ReturnSignupType {}
+
+interface ActionSignupType {
+  name: string;
+}
+interface ReturnLoginType {
+  grantType: string;
+  accessToken: string;
+  refreshToken: string;
+  accessTokenExpirationTime: number;
+  refreshTokenExpirationTime: number;
+}
+interface ActionLoginType {
+  email: string;
+  password: string;
+}
 interface ReturnVoiceModelType {
   data: [
     {
