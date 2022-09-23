@@ -72,7 +72,6 @@ function AvatarChooseStyle() {
                 </VirtualAvatarContainer>
               </div>
             </Scroolbar>
-
             <SubButtonContainer>
               <SubButton>선택하기</SubButton>
             </SubButtonContainer>

@@ -23,4 +23,3 @@ function CreateAvatar() {
 // `;
 
 export default CreateAvatar;
-

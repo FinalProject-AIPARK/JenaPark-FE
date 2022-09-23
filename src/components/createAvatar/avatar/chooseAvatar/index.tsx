@@ -3,6 +3,13 @@ import AvatarComponent from '../../../../styles/AvatarComponent';
 import AvatarChooseStyle from '../../../../styles/AvatarChooseStyle';
 
 function index() {
+
+  const [toggle, setToggle] = useState(true);
+
+  function toggleButton() {
+    setToggle(!toggle);
+  }
+
   return (
     <>
       <AvatarChooseStyle></AvatarChooseStyle>
