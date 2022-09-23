@@ -18,8 +18,8 @@ function Header() {
 
   return (
     <>
-      {state === '/Signin' ? (
-        <ProjectVoiceHeader />
+      {state === '/project' ? (
+        <RendingHeader />
       ) : (
         <ProjectHeader localstate={state} />
       )}

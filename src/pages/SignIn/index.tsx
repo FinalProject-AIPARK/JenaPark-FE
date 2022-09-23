@@ -63,9 +63,9 @@ const SignIn = () => {
   //   return errors;
   // };
 
+const SignIn = () => {
   return (
     <>
-      <Header />
       <h1>로그인</h1>
     </>
   );
