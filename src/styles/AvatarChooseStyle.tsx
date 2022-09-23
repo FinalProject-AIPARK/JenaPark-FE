@@ -8,7 +8,7 @@ function AvatarChooseStyle() {
   return (
     <>
       <Avatar>
-          <AvatarTitle>음성이랑 합성할 아바타를 선택해주세요.</AvatarTitle>
+          <AvatarTitle>음성이랑 합성할 버추얼 아바타를 선택해주세요.</AvatarTitle>
           <Test1>
             <ManButton>
               <ManButtonText>남</ManButtonText>
@@ -17,51 +17,61 @@ function AvatarChooseStyle() {
               <WomanButtonText>여</WomanButtonText>
             </WomanButton>
           </Test1>
-            <VirtualAvatarContainer>
-              <Text>버추얼 아바타</Text>
+            <div>
+              <VirtualAvatarText>버추얼 아바타</VirtualAvatarText>
+              <VirtualAvatarContainer>
+                <MaskIcon src={left} />
                 <FlexBox>
-                  <Image src={left} />
-                  <Box>1</Box>
-                  <Box>2</Box>
-                  <Box>3</Box>
-                  <Box>4</Box>
-                  <Image src={right} />
+                  <Box></Box>
+                  <Box></Box>
+                  <Box></Box>
+                  <Box></Box>
                 </FlexBox>
-            </VirtualAvatarContainer>
+                <MaskIcon src={right} />
+              </VirtualAvatarContainer>
+            </div>
             <Line />
-          <div>
-              <Text>의상1</Text>
-                <FlexBox>
-                  <Image src={left} />
-                  <Box>1</Box>
-                  <Box>2</Box>
-                  <Box>3</Box>
-                  <Box>4</Box>
-                  <Image src={right} />
-                </FlexBox>
-            </div>
-            <div>
-              <Text>의상2</Text>
-                <FlexBox>
-                  <Image src={left} />
-                  <Box>1</Box>
-                  <Box>2</Box>
-                  <Box>3</Box>
-                  <Box>4</Box>
-                  <Image src={right} />
-                </FlexBox>
-            </div>
-            <div>
-              <Text>의상3</Text>
-                <FlexBox>
-                  <Image src={left} />
-                  <Box>1</Box>
-                  <Box>2</Box>
-                  <Box>3</Box>
-                  <Box>4</Box>
-                  <Image src={right} />
-                </FlexBox>
-            </div>
+            <Scroolbar>
+              <div>
+                <VirtualAvatarText>의상1</VirtualAvatarText>
+                <VirtualAvatarContainer>
+                  <MaskIcon src={left} />
+                  <FlexBox>
+                    <Box></Box>
+                    <Box></Box>
+                    <Box></Box>
+                    <Box></Box>
+                  </FlexBox>
+                  <MaskIcon src={right} />
+                </VirtualAvatarContainer>
+              </div>
+              <div>
+                <VirtualAvatarText>의상2</VirtualAvatarText>
+                <VirtualAvatarContainer>
+                  <MaskIcon src={left} />
+                  <FlexBox>
+                    <Box></Box>
+                    <Box></Box>
+                    <Box></Box>
+                    <Box></Box>
+                  </FlexBox>
+                  <MaskIcon src={right} />
+                </VirtualAvatarContainer>
+              </div>
+              <div>
+                <VirtualAvatarText>의상3</VirtualAvatarText>
+                <VirtualAvatarContainer>
+                  <MaskIcon src={left} />
+                  <FlexBox>
+                    <Box></Box>
+                    <Box></Box>
+                    <Box></Box>
+                    <Box></Box>
+                  </FlexBox>
+                  <MaskIcon src={right} />
+                </VirtualAvatarContainer>
+              </div>
+            </Scroolbar>
             <SubButtonContainer>
               <SubButton>선택하기</SubButton>
             </SubButtonContainer>
@@ -69,6 +79,34 @@ function AvatarChooseStyle() {
     </>
   )
 }
+
+const Scroolbar = styled.div`
+  height: 330px;
+  overflow-y: hidden;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.5);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+  }
+`
+
+const VirtualAvatarContainer = styled.div `
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`
 
 const WomanButton = styled.button `
   width: 3rem;
@@ -78,13 +116,14 @@ const WomanButton = styled.button `
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 19 , 52, 0);
   border: 1px solid #828282;
   border-radius: 5px;
 `
 
 const WomanButtonText = styled.p `
   font-size: 16px;
-  color: #fff;
+  color: #dbdbdb;
 `
 
 const ManButton = styled.button `
@@ -94,36 +133,33 @@ const ManButton = styled.button `
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #001334;
+  background-color: #fff;
   border-radius: 5px;
-  margin: 0px 10px 12px 30px;
+  padding: 8px 16px;
+  margin: 0px 10px 10px 16px;
 `
 
 const ManButtonText = styled.p `
   font-size: 16px;
-  color: #fff;
+  font-weight: 700;
 `
 
 const Test1 = styled.div `
   display: flex;
 `
 
-const Text = styled.p `
-  margin: 0.6rem 3rem;
+const VirtualAvatarText = styled.p `
+  margin: 1rem 2.6rem;
   color: #fff;
 `
 
 const Line = styled.div `
-  border: 1px solid gray;
+  border: 1px solid #bdbdbd;
   width: 31rem;
-  margin: auto;
+  margin: 1.5rem auto 0.6rem;
 `
 
-const VirtualAvatarContainer = styled.div `
-  height: 9.5rem;
-`
-
-const Image = styled.img `
+const MaskIcon = styled.img `
   height: 100%;
 `
 
@@ -131,11 +167,12 @@ const FlexBox = styled.div `
   display: flex;
   justify-content: space-around;
   align-items: center;
+  width: 86%;
 `
 
 const Box = styled.div `
-  width: 5.25rem;
-  height: 6.5rem;
+  width: 6.25rem;
+  height: 7.5rem;
   border: 2px solid #001334;
   border-radius: 10px;
   background-color: #fff;
@@ -143,23 +180,27 @@ const Box = styled.div `
 
 const AvatarTitle = styled.div `
   font-size: 18px;
-  margin: 20px 0 28px 30px;
+  margin: 23px 0 22px 24px;
   color: #fff;
+  font-weight: 400;
 `
 
 const SubButtonContainer = styled.div `
-  width: 32rem;
-  margin-top: 1.2rem;
+  width: 32.5rem;
+  height: 85px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #091547;
 `
 
 const SubButton = styled.button `
   width: 30rem;
-  height: 3rem;
-  background-color: #001334;
-  color: #fff;
+  height: 2.5rem;
+  background-color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 5px;
 `
 
 const Avatar = styled.div `

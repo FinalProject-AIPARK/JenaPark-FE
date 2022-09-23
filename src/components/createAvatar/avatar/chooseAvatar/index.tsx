@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import AvatarComponent from '../../../../styles/AvatarComponent';
+import AvatarChooseStyle from '../../../../styles/AvatarChooseStyle';
 
 function index() {
 
@@ -11,10 +12,7 @@ function index() {
 
   return (
     <>
-      <AvatarComponent 
-        toggle={toggle}
-        setToggle={toggleButton}
-      />
+      <AvatarChooseStyle></AvatarChooseStyle>
     </>
   )
 }

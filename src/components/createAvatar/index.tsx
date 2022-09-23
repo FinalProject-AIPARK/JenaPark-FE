@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './navbar';
 import Voice from './voice';
-import Avatar from './avatar/index'
+import Avatar from './avatar/index';
 
 function CreateAvatar() {
   const [isVoiceWoking, setIsVoiceWoking] = useState(true);

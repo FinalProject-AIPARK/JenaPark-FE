@@ -172,5 +172,3 @@ const SubButton = styled.button `
   font-weight: 700;
   font-size: 18px;
 `
-
-export default AvatarOptionStyle

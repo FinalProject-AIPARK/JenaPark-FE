@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import NotFound from './pages/NotFound';
 import pagesPath from './pages/pagesPath';
+import CreateAvatar from './components/createAvatar';
 import SignUp from './pages/SignUp';
 import CreateAvatar from './components/createAvatar';
 

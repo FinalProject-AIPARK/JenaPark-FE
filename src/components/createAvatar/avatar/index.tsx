@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import React, {useState} from 'react';
+import ChooseAvatar from './chooseAvatar/index';
+import AvatarOption from './avatarOption/index';
 import AvatarComponent from '../../../styles/AvatarComponent';
 
 function index() {
