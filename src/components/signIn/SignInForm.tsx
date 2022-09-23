@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSignInMutation } from '../../api/useApi';
 import { saveName } from '../../store/SignIn/signInSlice';
-import { SignButton } from '../../styles/user/User.components';
 
 interface formValuesType {
   email: string;
@@ -113,14 +112,14 @@ const SignInForm = () => {
         </p>
       </div>
       <div className="button-wrapper">
-        <SignButton
+        <button
           type="submit"
           onClick={() => {
             requestSignIn();
           }}
         >
           로그인
-        </SignButton>
+        </button>
         <p
           className="error-message"
           style={{ visibility: displaySignInError ? 'visible' : 'hidden' }}
