@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import UserNavbarLayout from '../../../layout/UserNavbarLayout';
-import WorkingNavbarLayout from '../../../layout/WorkingNavbarLayout';
+import UserNavbarLayout from '../../../layout/NavigationBar/UserNavbarLayout';
+import WorkingNavbarLayout from '../../../layout/NavigationBar/WorkingNavbarLayout';
 
 function Navbar({ isVoiceWoking }: navbarProps) {
   const [voiceSection, setVoiceSection] = useState(true);

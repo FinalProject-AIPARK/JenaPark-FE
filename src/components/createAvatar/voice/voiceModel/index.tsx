@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { useGetVoiceModelQuery, useUploadVoiceMutation } from '../../../../api/useApi';
 import SearchVoiceModelLayout from '../../../../layout/SearchVoiceModelLayout';
 import VoiceModelLayout from '../../../../layout/SearchVoiceModelLayout';
-import VoiceModelFilterButton from '../../../../layout/VoiceModelFilterButton';
-import VoiceModelListLayout from '../../../../layout/VoiceModelListLayout';
+import VoiceModelFilterButton from '../../../../layout/VoiceModel/VoiceModelFilterButton';
+import VoiceModelListLayout from '../../../../layout/VoiceModel/VoiceModelListLayout';
 
 function VoiceModel() {
   // 음성 모델  전체 리스트 불러오기
