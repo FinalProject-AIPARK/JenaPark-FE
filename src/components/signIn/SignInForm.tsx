@@ -1,17 +1,22 @@
 import axios from 'axios';
-import logo from '@/assets/images/logo.png';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useSignInMutation } from '../../api/useApi';
 import { saveName } from '../../store/SignIn/signInSlice';
-import { SignButton } from '../../styles/user/Layout';
+import { SignButton } from '../../styles/user/User.components';
+
+interface formValuesType {
+  email: string;
+  password: string;
+}
 
 const SignInForm = () => {
   const initialValue = {
     email: '',
     password: '',
   };
-  const [formValues, setFormValues] = useState(initialValue);
+  const [formValues, setFormValues] = useState<formValuesType>(initialValue);
   const [formErrors, setFormErrors]: any = useState({});
   const [displaySignInError, setDisplaySignInError] = useState(false);
 
@@ -37,23 +42,26 @@ const SignInForm = () => {
   };
 
   const navigate = useNavigate();
+  const [requestLogIn] = useSignInMutation();
 
   const requestSignIn = async () => {
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/login`,
-        formValues,
-      );
-      setFormErrors(validateSignInValues(formValues));
-      setDisplaySignInError(false);
-      const { accessToken, name } = response.data;
-      window.localStorage.setItem('accessToken', accessToken);
-      dispatch(saveName(name));
-      navigate('/');
-    } catch (e) {
-      setFormErrors(validateSignInValues(formValues));
-      setDisplaySignInError(true);
-    }
+    requestLogIn(formValues);
+    console.log(formValues);
+    // try {
+    //   const response = await axios.post(
+    //     `${process.env.JENNAPARK_SERVER_URL}/api/v1/members/login`,
+    //     formValues,
+    //   );
+    //   setFormErrors(validateSignInValues(formValues));
+    //   setDisplaySignInError(false);
+    //   const { accessToken, name } = response.data;
+    //   window.localStorage.setItem('accessToken', accessToken);
+    //   dispatch(saveName(name));
+    //   navigate('/');
+    // } catch (e) {
+    //   setFormErrors(validateSignInValues(formValues));
+    //   setDisplaySignInError(true);
+    // }
   };
 
   const validateSignInValues = (values: any) => {
@@ -70,8 +78,9 @@ const SignInForm = () => {
   return (
     <form onSubmit={handleSignIn}>
       <div className="input-wrapper">
-        <p className="label">Email</p>
+        <p className="label">이메일</p>
         <input
+          autoFocus
           type="text"
           name="email"
           placeholder="이메일을 입력해주세요"
@@ -87,7 +96,7 @@ const SignInForm = () => {
         </p>
       </div>
       <div className="input-wrapper">
-        <p className="label">Password</p>
+        <p className="label">비밀번호</p>
         <input
           type="password"
           name="password"
@@ -104,7 +113,14 @@ const SignInForm = () => {
         </p>
       </div>
       <div className="button-wrapper">
-        <SignButton type="submit">로그인</SignButton>
+        <SignButton
+          type="submit"
+          onClick={() => {
+            requestSignIn();
+          }}
+        >
+          로그인
+        </SignButton>
         <p
           className="error-message"
           style={{ visibility: displaySignInError ? 'visible' : 'hidden' }}
