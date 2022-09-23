@@ -7,7 +7,8 @@ export const store = configureStore({
   reducer: {
     [useApi.reducerPath]: useApi.reducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(useApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(useApi.middleware),
 });
 
 setupListeners(store.dispatch);
@@ -17,4 +18,3 @@ type AppDispatch = typeof store.dispatch;
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
-
