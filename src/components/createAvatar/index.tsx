@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import Navbar from './navbar';
 
@@ -9,14 +8,6 @@ function CreateAvatar() {
       <Navbar isVoiceWoking={setIsVoiceWoking} />
     </div>
   );
-=======
-import React from 'react'
-
-function index() {
-  return (
-    <div>index</div>
-  )
->>>>>>> develop
 }
 
-export default index
+export default CreateAvatar;
