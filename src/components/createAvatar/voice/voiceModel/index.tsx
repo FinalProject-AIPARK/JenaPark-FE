@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useGetVoiceModelQuery, useUploadVoiceMutation } from '../../../../api/useApi';
-import SearchVoiceModelLayout from '../../../../styles/SearchVoiceModelLayout';
-import VoiceModelLayout from '../../../../styles/SearchVoiceModelLayout';
-import VoiceModelFilterButton from '../../../../styles/VoiceModelFilterButton';
-import VoiceModelListLayout from '../../../../styles/VoiceModelListLayout';
+import SearchVoiceModelLayout from '../../../../layout/SearchVoiceModelLayout';
+import VoiceModelLayout from '../../../../layout/SearchVoiceModelLayout';
+import VoiceModelFilterButton from '../../../../layout/VoiceModelFilterButton';
+import VoiceModelListLayout from '../../../../layout/VoiceModelListLayout';
 
 function VoiceModel() {
   // 음성 모델  전체 리스트 불러오기

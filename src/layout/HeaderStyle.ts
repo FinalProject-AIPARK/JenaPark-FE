@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import logo from '/images/logo.png';
+import logo from '/images/Logo.png';
 import leftarrow from '/images/arrow-ios-left.png';
 import editpencil from '/images/edit-pencil.png';
 import saveimage from '/images/save.png';
@@ -74,8 +74,7 @@ export const LeftArrow = styled.img.attrs({
   height: 1.5rem;
   color: #000;
   margin-right: 0.3125rem;
-  filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(258deg)
-    brightness(107%) contrast(101%);
+  filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(258deg) brightness(107%) contrast(101%);
 `;
 
 export const ProjectNameText = styled.span`
@@ -91,8 +90,7 @@ export const NameEditImage = styled.img.attrs({
   height: 1.5rem;
   color: #000;
   margin-left: 0.3125rem;
-  filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(258deg)
-    brightness(107%) contrast(101%);
+  filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(258deg) brightness(107%) contrast(101%);
 `;
 
 export const ImageButtonContainer = styled.div`

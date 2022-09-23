@@ -1,10 +1,10 @@
 import React from 'react';
-import ProjectVoiceHeaderLayout from '../../../../../styles/ProjectVoiceHeader';
+import ProjectVideoHeaderLayout from '../../../../layout/ProjectVideoHeader';
 
 function ProjectHeader() {
   return (
     <>
-      <ProjectVoiceHeaderLayout />
+      <ProjectVideoHeaderLayout />
     </>
   );
 }

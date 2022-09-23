@@ -1,16 +1,12 @@
 import { useEffect, useCallback } from 'react';
-import SignUpFormInput from '../../styles/SignUpFormInput';
+import SignUpFormInput from '../../layout/SignUpFormInput';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { SignButton } from '../../styles/user/User.components';
+// import { SignButton } from '../../layout/user/User.components';
 
-const EMAIL_REGEX = new RegExp(
-  '^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
-);
+const EMAIL_REGEX = new RegExp('^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$');
 const USERNAME_REGEX = new RegExp('^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$');
-const PW_REGEX = new RegExp(
-  '^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{8,16}$',
-);
+const PW_REGEX = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*()._-]{8,16}$');
 const ERROR_MSG = {
   required: '필수 정보입니다.',
   invalidEmail: '올바른 이메일을 입력해주세요.',
@@ -20,10 +16,9 @@ const ERROR_MSG = {
 };
 
 const SignUpForm = () => {
-  const { register, handleSubmit, setFocus, getValues, formState, trigger } =
-    useForm({
-      mode: 'onBlur',
-    });
+  const { register, handleSubmit, setFocus, getValues, formState, trigger } = useForm({
+    mode: 'onBlur',
+  });
 
   const onSubmit = useCallback(() => {
     null;
@@ -103,14 +98,13 @@ const SignUpForm = () => {
             autoComplete: 'off',
             ...register('confirmPw', {
               validate: {
-                sameWithPw: (v) =>
-                  v === getValues('pw') || ERROR_MSG.invalidConfirmPw,
+                sameWithPw: (v) => v === getValues('pw') || ERROR_MSG.invalidConfirmPw,
               },
               required: ERROR_MSG.required,
             }),
           }}
         />
-        <SignButton>
+        <button>
           <input
             id="submit"
             type="submit"
@@ -119,7 +113,7 @@ const SignUpForm = () => {
               requestSignUp();
             }}
           />
-        </SignButton>
+        </button>
       </form>
     </>
   );

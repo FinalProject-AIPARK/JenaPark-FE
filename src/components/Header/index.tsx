@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as S from '../../../styles/HeaderStyle';
+import * as S from '../../layout/HeaderStyle';
 import { useLocation } from 'react-router-dom';
 import RendingHeader from './RendingHeader';
 import ProjectVoiceHeader from './ProjectHeader/ProjectVoiceHeader';
@@ -16,15 +16,6 @@ function Header() {
     console.log(state);
   }, [location]);
 
-  return (
-    <>
-      {state === '/project' ? (
-        <RendingHeader />
-      ) : (
-        <ProjectHeader localstate={state} />
-      )}
-    </>
-  );
+  return <>{state === '/project' ? <ProjectHeader localstate={state} /> : <RendingHeader />}</>;
 }
-
 export default Header;

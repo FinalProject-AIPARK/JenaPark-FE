@@ -1,5 +1,5 @@
 import React from 'react';
-import RendingHeaderLayout from '../../../../styles/RendingHeader';
+import RendingHeaderLayout from '../../../layout/RendingHeader';
 
 function RendingHeader() {
   return (
