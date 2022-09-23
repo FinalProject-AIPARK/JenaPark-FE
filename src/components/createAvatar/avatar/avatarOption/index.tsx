@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import AvatarOptionStyle from '../../../../styles/AvatarOptionStyle';
+import { useState } from 'react';
 
 function index() {
   return (
-    <div>index</div>
+    <>
+      <AvatarOptionStyle />
+    </>
   )
 }
 
