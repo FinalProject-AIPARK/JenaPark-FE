@@ -4,12 +4,5 @@
   "useTabs": false,
   "tabWidth": 2,
   "trailingComma": "all",
-  "printWidth": 120,
-  "parser": "babel",
-  "bracketSpacing": true,
-  "arrowParens": "avoid",
-  "extends": ["some-other-config-you-use", "prettier"],
-  "rules": {
-    "indent": "error"
-  }
+  "arrowParens": "always"
 }

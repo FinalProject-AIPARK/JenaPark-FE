@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
+import Header from '../../components/layout/Header';
 
 const SignIn = () => {
   const initialValue = {
@@ -13,12 +14,12 @@ const SignIn = () => {
   const [formErrors, setFormErrors] = useState({});
   const [displaySignInError, setDisplaySignInError] = useState(false);
 
-  const handleInputChange = (e: { target: { name: any, value: any } }) => {
+  const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const removeInputSpaces = (e: { target: { name: any, value: any } }) => {
+  const removeInputSpaces = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value.trim() });
   };
@@ -64,6 +65,7 @@ const SignIn = () => {
 
   return (
     <>
+      <Header />
       <h1>로그인</h1>
     </>
   );
