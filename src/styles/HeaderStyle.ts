@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import logo from '../../public/images/logo.png';
-import leftarrow from '../../public/images/arrow-ios-left.png';
-import editpencil from '../../public/images/edit-pencil.png';
-import saveimage from '../../public/images/save.png';
-import voiceimage from '../../public/images/music.png';
-import videoimage from '../../public/images/video.png';
-import playbutton from '../../public/images/play-circle.png';
-import stopbutton from '../../public/images/stop-circle.png';
+import logo from '/images/logo.png';
+import leftarrow from '/images/arrow-ios-left.png';
+import editpencil from '/images/edit-pencil.png';
+import saveimage from '/images/save.png';
+import voiceimage from '/images/music.png';
+import videoimage from '/images/video.png';
+import playbutton from '/images/play-circle.png';
+import stopbutton from '/images/stop-circle.png';
 
 export const RendingHeader = styled.div`
   display: flex;
