@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import ChooseAvatar from './avatar/chooseAvatar';
+import Navbar from './navbar';
+import Voice from './voice';
 import Avatar from './avatar/index'
 
-function index() {
+function CreateAvatar() {
+  const [isVoiceWoking, setIsVoiceWoking] = useState(true);
   return (
     <>
       <Avatar />
     </>
-  )
+    // <Contain>
+    //   <Navbar isVoiceWoking={setIsVoiceWoking} />
+    //   {isVoiceWoking ? <Voice /> : null}
+    // </Contain>
+  );
 }
 
+// const Contain = styled.div`
+//   height: calc(100vh - 8.5rem);
+//   position: relative;
+// `;
 
-const Contents = styled.div `
-  height: calc(100vh - 8.5rem);
-  position: relative;
-
-`
-export default index
+export default CreateAvatar;
