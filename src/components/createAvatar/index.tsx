@@ -1,22 +1,22 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import Navbar from './navbar';
+import Voice from './voice';
 
 function CreateAvatar() {
   const [isVoiceWoking, setIsVoiceWoking] = useState(true);
   return (
-    <div>
+    <Contain>
       <Navbar isVoiceWoking={setIsVoiceWoking} />
-    </div>
+      {isVoiceWoking ? <Voice /> : null}
+    </Contain>
   );
-=======
-import React from 'react'
-
-function index() {
-  return (
-    <div>index</div>
-  )
->>>>>>> develop
 }
 
-export default index
+const Contain = styled.div`
+  height: calc(100vh - 8.5rem);
+  position: relative;
+`;
+
+export default CreateAvatar;
+

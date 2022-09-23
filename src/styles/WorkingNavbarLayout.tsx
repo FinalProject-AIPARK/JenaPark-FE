@@ -17,10 +17,7 @@ function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: W
         >
           <Image src={mic} alt="보이스작업창아이콘" />
         </Button>
-        <Button
-          onClick={avatarButton}
-          backColor={avatarBg ? '#80A4FF' : 'transparent'}
-        >
+        <Button onClick={avatarButton} backColor={avatarBg ? '#80A4FF' : 'transparent'}>
           <Image src={people} alt="아바타작업창아이콘" />
         </Button>
         <Background backColor="#002868" radius="0.63rem" />
@@ -33,8 +30,8 @@ function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: W
 interface WorkingNavbarProps {
   voiceButton: () => void;
   avatarButton: () => void;
-  voiceBg: boolean
-  avatarBg: boolean
+  voiceBg: boolean;
+  avatarBg: boolean;
 }
 interface ButtonProps {
   marginbottom?: string;
@@ -45,10 +42,7 @@ interface BackgroundProps {
   radius?: string;
 }
 
-const Background =
-  styled.div <
-  BackgroundProps >
-  `
+const Background = styled.div<BackgroundProps>`
   background-color: ${({ backColor }) => backColor};
   width: 100%;
   height: 100%;
@@ -72,17 +66,14 @@ const TitleBox = styled.div`
   margin-top: 1rem;
   font-weight: 900;
   color: #fff;
-`
+`;
 const ButtonBox = styled.div`
   width: 3rem;
   position: relative;
   margin-top: 0.25rem;
   padding: 1rem 0.5rem;
 `;
-const Button =
-  styled.button <
-  ButtonProps >
-  `
+const Button = styled.button<ButtonProps>`
   background-color: ${({ backColor }) => backColor};
   width: 3.1rem;
   height: 3.1rem;

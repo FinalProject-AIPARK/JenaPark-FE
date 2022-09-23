@@ -17,7 +17,7 @@ function Navbar({ isVoiceWoking }: navbarProps) {
     setVoiceSection(false);
   }
   return (
-    <Contain>
+    <>
       <UserNavbarLayout />
       <WorkingNavbarLayout
         voiceButton={voiceHandler}
@@ -25,16 +25,12 @@ function Navbar({ isVoiceWoking }: navbarProps) {
         voiceBg={voiceSection}
         avatarBg={avatarSection}
       />
-    </Contain>
+    </>
   );
 }
 
 interface navbarProps {
   isVoiceWoking: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-const Contain = styled.div`
-  height: calc(100vh - 8.5rem);
-`;
 
 export default Navbar;
