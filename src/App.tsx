@@ -6,7 +6,6 @@ import NotFound from './pages/NotFound';
 import pagesPath from './pages/pagesPath';
 import CreateAvatar from './components/createAvatar';
 import SignUp from './pages/SignUp';
-import CreateAvatar from './components/createAvatar';
 
 function App() {
   return (
