@@ -129,7 +129,6 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
   color: ${({ color }) => (color ? color : '#000')};
   border: ${({ border }) => (border ? border : 'none')};
   border-radius: 0.3rem;
-  cursor: pointer;
 `;
 const DropDownBoxStyle = styled.div`
   background-color: #fff;
@@ -160,7 +159,6 @@ const LangButtonStyle = styled.button<LangButtonStyleProps>`
   font-size: 1rem;
   font-weight: 700;
   border: none;
-  cursor: pointer;
 `;
 
 export default VoiceModelFilterButton;

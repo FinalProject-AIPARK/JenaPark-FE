@@ -18,6 +18,9 @@ background-size: cover;
 background-repeat: no-repeat;
 background-position: center;
 }
+button {
+  cursor: pointer;
+}
 `;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

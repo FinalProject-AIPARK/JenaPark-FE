@@ -170,7 +170,7 @@ const SelectBoxStyle = styled.div<ModelCardBoxProps>`
   border-radius: 0.3rem;
   box-shadow: 0 0 0.62rem 0 rgba(13, 255, 30, 1);
   box-sizing: border-box;
-  z-index: 0;
+  z-index: -9;
 `;
 const ModelNameBox = styled.div<ModelNameBoxProps>`
   background-color: ${({ backColor }) => backColor};
@@ -191,7 +191,6 @@ const AudioBox = styled.div`
   flex-grow: 1;
   padding: 0 1.16rem;
   text-align: right;
-  z-index: 1;
 `;
 const ButtonStyle = styled.button<ButtonStyleProps>`
   background-color: ${({ backColor }) => (backColor ? backColor : 'transparent')};
@@ -202,7 +201,6 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
   font-size: 1rem;
   border: none;
   border-radius: ${({ radius }) => radius};
-  cursor: pointer;
 `;
 
 export default VoiceModelListLayout;

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useGetVoiceModelQuery, useUploadVoiceMutation } from '../../../../api/useApi';
-import SearchVoiceModelLayout from '../../../../layout/SearchVoiceModelLayout';
-import VoiceModelLayout from '../../../../layout/SearchVoiceModelLayout';
+import SearchVoiceModelLayout from '../../../../layout/VoiceModel/SearchVoiceModelLayout';
 import VoiceModelFilterButton from '../../../../layout/VoiceModel/VoiceModelFilterButton';
 import VoiceModelListLayout from '../../../../layout/VoiceModel/VoiceModelListLayout';
 
@@ -138,6 +137,7 @@ function VoiceModel() {
   function InputVoiceModel(M: voiceModeltypes) {
     // 변수에 담아서 마지막 선택하기 눌렀을때 변수에 있는 데이터를 api전송
     // 여기는 변수에 답는 로직이 있어야해
+    // 이름, 성별, 언어 데이터 들어옴
     setEndData(M);
     console.log('선택한 모델 변수에 담기');
   }
