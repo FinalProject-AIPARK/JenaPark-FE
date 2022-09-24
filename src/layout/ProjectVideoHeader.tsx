@@ -20,16 +20,12 @@ function ProjectHeader() {
             <S.SaveImage />
           </S.SaveButton>
           <S.DownloadButton
-            onClick={() =>
-              alert('영상과 합성된 프로젝트 영상을 다운 받으시겠습니까?')
-            }
+            onClick={() => alert('영상과 합성된 프로젝트 영상을 다운 받으시겠습니까?')}
           >
             영상 다운로드
             <S.VideoImage />
           </S.DownloadButton>
-          <S.DownloadButton
-            onClick={() => alert('프로젝트를 저장 후 다운로드를 진행해주세요')}
-          >
+          <S.DownloadButton onClick={() => alert('프로젝트를 저장 후 다운로드를 진행해주세요')}>
             영상 합성하기
             <S.VideoImage />
           </S.DownloadButton>

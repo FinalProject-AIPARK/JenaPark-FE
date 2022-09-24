@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import logo from '/images/Logo.png';
 import leftarrow from '/images/arrow-ios-left.png';
 import editpencil from '/images/edit-pencil.png';
 import saveimage from '/images/save.png';
@@ -7,21 +6,6 @@ import voiceimage from '/images/music.png';
 import videoimage from '/images/video.png';
 import playbutton from '/images/play-circle.png';
 import stopbutton from '/images/stop-circle.png';
-
-export const RendingHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-`;
-
-export const LogoImage = styled.img.attrs({
-  src: `${logo}`,
-})`
-  width: 6.25rem;
-  height: 2.5rem;
-`;
 
 export const CProjectButton = styled.button`
   width: 7.75rem;
