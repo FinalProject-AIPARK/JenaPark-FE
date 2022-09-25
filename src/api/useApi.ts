@@ -4,18 +4,25 @@ export const useApi = createApi({
   reducerPath: 'useApi',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
+    prepareHeaders: async (headers, { getState, extra }) => {
+      let token = localStorage.getItem('accessToken');
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
-    signIn: builder.mutation<ReturnLoginType, ActionLoginType>({
+    signUp: builder.mutation<null, ActionSignUpType>({
       query: (data) => ({
-        url: '/api/v1/members/login',
+        url: '/api/v1/members/signup',
         method: 'POST',
         body: data,
       }),
     }),
-    signUp: builder.mutation<ReturnSignupType, ActionSignupType>({
+    signIn: builder.mutation<ReturnSignInType, ActionSignInType>({
       query: (data) => ({
-        url: '/api/v1/members/signup',
+        url: '/api/v1/members/login',
         method: 'POST',
         body: data,
       }),
@@ -52,19 +59,20 @@ export const {
   useGetVoiceModelQuery,
 } = useApi;
 
-interface ReturnSignupType {}
-
-interface ActionSignupType {
-  name: string;
+interface ActionSignUpType {
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
 }
-interface ReturnLoginType {
+interface ReturnSignInType {
   grantType: string;
   accessToken: string;
   refreshToken: string;
   accessTokenExpirationTime: number;
   refreshTokenExpirationTime: number;
 }
-interface ActionLoginType {
+interface ActionSignInType {
   email: string;
   password: string;
 }
