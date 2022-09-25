@@ -1,11 +1,13 @@
+import { logOut, setCredentials } from '@/store/authSlice';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const useApi = createApi({
   reducerPath: 'useApi',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
-    prepareHeaders: async (headers, { getState, extra }) => {
-      let token = localStorage.getItem('accessToken');
+    credentials: 'include',
+    prepareHeaders: (headers, { getState }: any) => {
+      const token = getState().auth.token;
       if (token) {
         headers.set('authorization', `Bearer ${token}`);
       }
@@ -51,6 +53,36 @@ export const useApi = createApi({
     // }),
   }),
 });
+
+// const baseQueryWithReauth = async (args, api, extraOptions) => {
+//   const baseQuery2 =  fetchBaseQuery({
+//     baseUrl: import.meta.env.VITE_BASE_URL,
+//     credentials: 'include',
+//     })
+//   let result = await baseQuery2(args, api, extraOptions);
+//   if (result?.error?.originalStatus === 401) {
+//     console.log('리프레쉬 토큰으로 재인증 시도');
+//     // 리프레쉬 토큰을 보내서 새로운 액세스 토큰 가져오기
+//     const refreshResult = await baseQuery('/api/v1/members/reissue', api, extraOptions);
+//     console.log(refreshResult);
+//     if (refreshResult) {
+//       const user = api.getState().auth.user;
+//       // store the new token
+//       api.dispatch(setCredentials({ ...refreshResult.data, user }));
+//       // retry the original query with the new access token
+//       result = await baseQuery(args, api, extraOptions);
+//     } else {
+//       // if the refresh token is invalid, log the user out
+//       api.dispatch(logOut());
+//     }
+//   }
+//   return result;
+// };
+
+// export const apiSlice = createApi({
+//   baseQuery: baseQueryWithReauth,
+//   endpoints: (builder) => ({}),
+// });
 
 export const {
   useSignInMutation,
