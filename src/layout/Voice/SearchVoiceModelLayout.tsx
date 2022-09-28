@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import 'react-h5-audio-player/lib/styles.css';
 import searchIcon from '/search-icon.png';
 
-function SearchVoiceModelLayout({ setOnModal }: VoiceModelLayoutProps) {
+function SearchVoiceModelLayout({ setOnModal, audioFile }: VoiceModelLayoutProps) {
   return (
     <>
       <TitleBox>
@@ -28,7 +28,16 @@ function SearchVoiceModelLayout({ setOnModal }: VoiceModelLayoutProps) {
           alt="음성모델검색아이콘"
           style={{ width: '1.4rem', marginBottom: '0.55rem' }}
         />
-        <Input type="text" />
+        {audioFile.length > 0 ? (
+          <Input
+            type="text"
+            placeholder="음성파일이 업로드된 상태입니다."
+            readOnly
+            cursor="default"
+          />
+        ) : (
+          <Input type="text" placeholder="검색할 음성 모델의 특징을 입력해주세요." />
+        )}
       </SearchBox>
     </>
   );
@@ -36,6 +45,7 @@ function SearchVoiceModelLayout({ setOnModal }: VoiceModelLayoutProps) {
 
 interface VoiceModelLayoutProps {
   setOnModal: React.Dispatch<React.SetStateAction<boolean>>;
+  audioFile: Array<File>;
 }
 interface TextStyleProps {
   display?: string;
@@ -51,6 +61,9 @@ interface ButtonStyleProps {
   weight: string;
   marginL?: string;
   color: string;
+}
+interface InputProps {
+  cursor?: string;
 }
 
 const TitleBox = styled.div`
@@ -86,14 +99,16 @@ const SearchBox = styled.div`
   align-items: center;
   border-bottom: 1px solid #fff;
 `;
-const Input = styled.input`
+const Input = styled.input<InputProps>`
   background-color: transparent;
   width: 100%;
-  margin-left: 0.3rem;
+  margin: 0 0 0.4rem 0.3rem;
+  color: #fff;
   border: none;
   :focus {
     outline: none;
   }
+  cursor: ${({ cursor }) => (cursor ? cursor : 'auto')};
 `;
 
 export default SearchVoiceModelLayout;

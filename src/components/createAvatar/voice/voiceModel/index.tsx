@@ -65,8 +65,7 @@ function VoiceModel() {
     event.preventDefault();
     if (audioFile.length) {
       let formData = new FormData();
-      console.log(audioFile);
-      formData.append('audioFile', audioFile[0], '테스트파일');
+      formData.append('audioFile', audioFile[0], audioFile[0].name);
       // 나중에 프로젝트아이디 연결해야해
       const projectID = 22;
       const actionUpload = {
@@ -180,7 +179,7 @@ function VoiceModel() {
     <Container
       onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => dropdownHandler(event)}
     >
-      <SearchVoiceModelLayout setOnModal={setOnModal} />
+      <SearchVoiceModelLayout setOnModal={setOnModal} audioFile={audioFile} />
       {onModal ? (
         <VoiceUploadModal
           onModal={onModal}
@@ -200,6 +199,7 @@ function VoiceModel() {
         dropdown={dropdown}
         dropdownHandler={dropdownHandler}
         offDropdown={offDropdown}
+        audioFile={audioFile}
       />
       <VoiceModelListLayout
         voiceModel={voiceModelData}
@@ -211,6 +211,7 @@ function VoiceModel() {
         audioIndex={audioIndex}
         audioHandler={audioHandler}
         isPlay={playController}
+        audioFile={audioFile}
       />
     </Container>
   );

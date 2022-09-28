@@ -15,12 +15,14 @@ function VoiceModelListLayout({
   audioIndex,
   isPlay,
   selectModel,
+  audioFile,
 }: VoiceModelLayoutProps) {
   // 재생 도중 다른 음성을 재생했을때 버튼에 직접적으로 자신 정지 동작하기
   // 재생, 일시정지 버튼으로 onOff 값이 바뀔떄마다 useEffect 동작
   const [onOff, setOnOff] = useState(false);
   const player: React.MutableRefObject<any> = useRef([]);
   useEffect(() => {
+    if (!player.current[audioIndex].audio) return;
     // 선택 재생
     isPlay[audioIndex]
       ? player.current[audioIndex].audio.current.play()
@@ -29,69 +31,84 @@ function VoiceModelListLayout({
   return (
     <>
       <ListBox>
-        {voiceModel &&
-          voiceModel.map((item, index) => {
-            return (
-              <ModelCardBox
-                key={item.name}
-                onClick={() => {
-                  inputModel({ name: item.name, sex: item.sex, lang: item.lang });
-                  selectModelCardHandler(index);
-                }}
-              >
-                <ModelNameBox backColor={modelNameColor}>
-                  <ModelName>{item.name}</ModelName>
-                </ModelNameBox>
-                <AudioBox>
-                  <AudioPlayer
-                    preload="metadata"
-                    src={item.audioFileUrl}
-                    volume={1}
-                    ref={(elem) => (player.current[index] = elem)}
-                  />
-                  <ButtonStyle
-                    onClick={(event) => {
-                      player.current[audioIndex].audio.current.load();
-                      audioHandler(index);
-                      setOnOff(!onOff);
-                      event.stopPropagation();
+        {audioFile.length > 0 ? (
+          <UploadGuideBox>
+            <span>
+              음성 업로드가 되었습니다.
+              <br />
+              아바타 설정으로 이동해 아바타를 선택해주세요.
+              <br />
+              텍스트 입력을 통해 새로운 음성 만들기를 원하는 경우
+              <br />
+              업로드한 음성을 삭제하고 텍스트를 입력해주세요.
+            </span>
+          </UploadGuideBox>
+        ) : (
+          <>
+            {voiceModel &&
+              voiceModel.map((item, index) => {
+                return (
+                  <ModelCardBox
+                    key={item.name}
+                    onClick={() => {
+                      inputModel({ name: item.name, sex: item.sex, lang: item.lang });
+                      selectModelCardHandler(index);
                     }}
-                    height="2rem"
                   >
-                    {isPlay[index] ? (
-                      <img
-                        src={pause}
-                        alt="음성일시정지아이콘"
-                        style={{ width: '2rem', height: '2rem' }}
+                    <ModelNameBox backColor={modelNameColor}>
+                      <ModelName>{item.name}</ModelName>
+                    </ModelNameBox>
+                    <AudioBox>
+                      <AudioPlayer
+                        preload="metadata"
+                        src={item.audioFileUrl}
+                        volume={1}
+                        ref={(elem) => (player.current[index] = elem)}
                       />
-                    ) : (
-                      <img
-                        src={play}
-                        alt="음성재생일시정지아이콘"
-                        style={{ width: '2rem', height: '2rem' }}
-                      />
-                    )}
-                  </ButtonStyle>
-                  <ButtonStyle
-                    onClick={(event) => {
-                      player.current[index].audio.current.load();
-                      audioHandler(index);
-                      event.stopPropagation();
-                    }}
-                    height="2rem"
-                    marginLeft="0.83rem"
-                  >
-                    <img
-                      src={stop}
-                      alt="음성정지아이콘"
-                      style={{ width: '2rem', height: '2rem' }}
-                    />
-                  </ButtonStyle>
-                </AudioBox>
-                <SelectBoxStyle view={selectModelCard[index] ? 'block' : 'none'} />
-              </ModelCardBox>
-            );
-          })}
+                      <ButtonStyle
+                        onClick={(event) => {
+                          audioHandler(index);
+                          setOnOff(!onOff);
+                          event.stopPropagation();
+                        }}
+                        height="2rem"
+                      >
+                        {isPlay[index] ? (
+                          <img
+                            src={pause}
+                            alt="음성일시정지아이콘"
+                            style={{ width: '2rem', height: '2rem' }}
+                          />
+                        ) : (
+                          <img
+                            src={play}
+                            alt="음성재생일시정지아이콘"
+                            style={{ width: '2rem', height: '2rem' }}
+                          />
+                        )}
+                      </ButtonStyle>
+                      <ButtonStyle
+                        onClick={(event) => {
+                          player.current[index].audio!.current.load();
+                          audioHandler(index);
+                          event.stopPropagation();
+                        }}
+                        height="2rem"
+                        marginLeft="0.83rem"
+                      >
+                        <img
+                          src={stop}
+                          alt="음성정지아이콘"
+                          style={{ width: '2rem', height: '2rem' }}
+                        />
+                      </ButtonStyle>
+                    </AudioBox>
+                    <SelectBoxStyle view={selectModelCard[index] ? 'block' : 'none'} />
+                  </ModelCardBox>
+                );
+              })}
+          </>
+        )}
       </ListBox>
       <div>
         <ButtonStyle
@@ -101,7 +118,7 @@ function VoiceModelListLayout({
           height="3.1rem"
           radius="0.3rem"
         >
-          선택하기
+          {audioFile.length > 0 ? '아바타 선택으로 이동' : '선택하기'}
         </ButtonStyle>
       </div>
     </>
@@ -123,6 +140,7 @@ interface VoiceModelLayoutProps {
   selectModelCardHandler: (index: number) => void;
   selectModelCard: boolean[];
   selectModel: () => void;
+  audioFile: Array<File>;
 }
 interface voiceModeltypes {
   name: string;
@@ -149,6 +167,17 @@ const ListBox = styled.div`
   .rhap_container {
     display: none;
   }
+`;
+const UploadGuideBox = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: #fff;
+  text-align: center;
 `;
 const ModelCardBox = styled.div`
   width: 100%;
