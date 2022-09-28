@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import VoiceWorkingButtonLayout from '../../../layout/VoiceWorkingButtonLayout';
+import VoiceWorkingButtonLayout from '../../../layout/Voice/VoiceWorkingButtonLayout';
 import VoiceModel from './voiceModel';
 import VoiceOption from './voiceOption';
 
