@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import AvatarComponent from '../../../../styles/AvatarComponent';
-import AvatarChooseStyle from '../../../../styles/AvatarChooseStyle';
+import AvatarComponent from '../../../../layout/AvatarComponent';
+import AvatarChooseStyle from '../../../../layout/AvatarChooseStyle';
 
 function index() {
 
