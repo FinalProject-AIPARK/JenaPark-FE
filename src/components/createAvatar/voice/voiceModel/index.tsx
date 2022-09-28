@@ -6,11 +6,9 @@ import SearchVoiceModelLayout from '../../../../layout/Voice/SearchVoiceModelLay
 import VoiceModelFilterButton from '../../../../layout/Voice/VoiceModelFilterButton';
 import VoiceModelListLayout from '../../../../layout/Voice/VoiceModelListLayout';
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
-import { modelDataAction } from '../../../../store/voice/voiceSlice';
+import { modelDataAction, voiceOptionWorking } from '../../../../store/voice/voiceSlice';
 
 function VoiceModel() {
-  const { voiceData } = useAppSelector((state) => state.voice);
-  const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
   const [voiceFilter, setVoiceFilter] = useState({ sex: 'female', lang: 'kor' });
   const [voiceModelData, setVoiceModelData] = useState([
@@ -160,6 +158,8 @@ function VoiceModel() {
   }
 
   // 선택하기 버튼 동작
+  const { voiceData } = useAppSelector((state) => state.voice);
+  const dispatch = useAppDispatch();
   interface voiceModeltypes {
     name: string;
     sex: string;
@@ -183,8 +183,7 @@ function VoiceModel() {
   }
 
   function selectModel() {
-    // 사용자가 선택한 모델(endData) slice전달 그 state를 음성 세부설정에서 전달받음
-    console.log('최종 모델 선택');
+    dispatch(voiceOptionWorking());
   }
 
   return (
