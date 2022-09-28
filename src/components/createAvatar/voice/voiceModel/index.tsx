@@ -5,8 +5,12 @@ import { useGetVoiceModelQuery, useUploadVoiceMutation } from '../../../../api/u
 import SearchVoiceModelLayout from '../../../../layout/Voice/SearchVoiceModelLayout';
 import VoiceModelFilterButton from '../../../../layout/Voice/VoiceModelFilterButton';
 import VoiceModelListLayout from '../../../../layout/Voice/VoiceModelListLayout';
+import { useAppSelector, useAppDispatch } from '../../../../store/store';
+import { modelDataAction } from '../../../../store/voice/voiceSlice';
 
 function VoiceModel() {
+  const { voiceData } = useAppSelector((state) => state.voice);
+  const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
   const [voiceFilter, setVoiceFilter] = useState({ sex: 'female', lang: 'kor' });
   const [voiceModelData, setVoiceModelData] = useState([
@@ -161,13 +165,21 @@ function VoiceModel() {
     sex: string;
     lang: string;
   }
-  const [endData, setEndData] = useState({});
-  function InputVoiceModel(M: voiceModeltypes) {
+  function InputVoiceModel(model: voiceModeltypes) {
     // 변수에 담아서 마지막 선택하기 눌렀을때 변수에 있는 데이터를 api전송
     // 여기는 변수에 답는 로직이 있어야해
     // 이름, 성별, 언어 데이터 들어옴
-    setEndData(M);
-    console.log('선택한 모델 변수에 담기');
+    if (voiceData.avatarName === model.name) {
+      dispatch(
+        modelDataAction({
+          name: '',
+          sex: 'female',
+          lang: 'kor',
+        }),
+      );
+    } else {
+      dispatch(modelDataAction(model));
+    }
   }
 
   function selectModel() {

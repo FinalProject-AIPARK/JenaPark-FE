@@ -7,7 +7,6 @@ import VoiceOption from './voiceOption';
 function Voice() {
   const [isVoiceModel, setIsVoiceModel] = useState(true);
   const [isVoiceOption, setIsVoiceOption] = useState(false);
-
   function voiceModelHandler() {
     setIsVoiceModel(true);
     setIsVoiceOption(false);
