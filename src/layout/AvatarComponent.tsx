@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import AvatarChooseStyle from './AvatarChooseStyle';
-import AvatarOptionStyle from './AvatarOptionStyle';
+import AvatarOptionStyle from './AvatarOptionLayout';
 
 function AvatarComponent({ toggle, setToggle }: ToggleType) {
   return (
     <>
-    <Header></Header>
       <Main>
         <SelectionButton>
           <AvatarButton activation={toggle} onClick={()=>setToggle()}>버추얼아바타 선택</AvatarButton>
@@ -34,8 +33,7 @@ const Header = styled.header `
 const Main = styled.main `
   height: calc(100vh - 8.5rem);
   position: absolute;
-  left: 82.5rem;
-  top: 5rem;
+  right: 5rem;
   background-color: rgba(0, 19, 52, 0.8);
 `
 
