@@ -1,3 +1,4 @@
+import VoiceUploadModal from '@/layout/Voice/VoiceUploadModal';
 import React, { useEffect, useRef, useState, ChangeEvent, DragEvent } from 'react';
 import styled from 'styled-components';
 import { useGetVoiceModelQuery, useUploadVoiceMutation } from '../../../../api/useApi';
@@ -62,17 +63,19 @@ function VoiceModel() {
   };
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    let formData = new FormData();
-    console.log(audioFile);
-    formData.append('audioFile', audioFile[0], '테스트파일');
-    // 나중에 프로젝트아이디 연결해야해
-    const projectID = 22;
-    const actionUpload = {
-      formData,
-      projectID,
-    };
-    uploadFile(actionUpload);
-    console.log(url);
+    if (audioFile.length) {
+      let formData = new FormData();
+      console.log(audioFile);
+      formData.append('audioFile', audioFile[0], '테스트파일');
+      // 나중에 프로젝트아이디 연결해야해
+      const projectID = 22;
+      const actionUpload = {
+        formData,
+        projectID,
+      };
+      uploadFile(actionUpload);
+    }
+    setOnModal(false);
   }
 
   // 음성 모델 필터링
@@ -177,17 +180,18 @@ function VoiceModel() {
     <Container
       onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => dropdownHandler(event)}
     >
-      <SearchVoiceModelLayout
-        setOnModal={setOnModal}
-        onModal={onModal}
-        audioFile={audioFile}
-        setAudioFile={setAudioFile}
-        onDropFiles={onDropFiles}
-        dragOver={dragOver}
-        onInputFile={onInputFile}
-        submitHandler={submitHandler}
-        uploading={uploading}
-      />
+      <SearchVoiceModelLayout setOnModal={setOnModal} />
+      {onModal ? (
+        <VoiceUploadModal
+          onModal={onModal}
+          audioFile={audioFile}
+          setAudioFile={setAudioFile}
+          onDropFiles={onDropFiles}
+          dragOver={dragOver}
+          onInputFile={onInputFile}
+          submitHandler={submitHandler}
+        />
+      ) : null}
       <VoiceModelFilterButton
         sexButton={sexButton}
         sexFilterHandler={sexFilterHandler}
