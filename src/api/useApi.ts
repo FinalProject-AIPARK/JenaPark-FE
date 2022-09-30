@@ -31,7 +31,7 @@ export const useApi = createApi({
     getVoiceModel: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
       query: (data) => ({
         url: '/api/v1/audio/sample',
-        method: 'GET',
+        method: 'POST',
         body: data,
       }),
     }),

@@ -1,10 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
 
 const initialState = {
   elementData: {
     isVoiceModel: true,
     isVoiceOption: false,
+  },
+  selectedModel: {
+    nameColor: '',
+    name: '',
+    audioUrl: '',
   },
   voiceData: {
     projectID: 0,
@@ -33,12 +37,24 @@ export const voiceSlice = createSlice({
     },
     modelDataAction: (state, action) => {
       state.voiceData.avatarName = action.payload.name;
+      state.selectedModel.name = action.payload.name;
       state.voiceData.sex = action.payload.sex;
       state.voiceData.lang = action.payload.lang;
+    },
+    selectedModel: (state, action) => {
+      // 컬러와 url
+      state.selectedModel.nameColor = action.payload.color;
+      state.selectedModel.audioUrl = action.payload.url;
+      console.log(
+        state.selectedModel.audioUrl,
+        state.selectedModel.name,
+        state.selectedModel.nameColor,
+      );
     },
   },
 });
 
-export const { modelDataAction, voiceModelWorking, voiceOptionWorking } = voiceSlice.actions;
+export const { modelDataAction, voiceModelWorking, voiceOptionWorking, selectedModel } =
+  voiceSlice.actions;
 
 export const voiceReducer = voiceSlice.reducer;

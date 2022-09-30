@@ -6,9 +6,14 @@ import SearchVoiceModelLayout from '../../../../layout/Voice/SearchVoiceModelLay
 import VoiceModelFilterButton from '../../../../layout/Voice/VoiceModelFilterButton';
 import VoiceModelListLayout from '../../../../layout/Voice/VoiceModelListLayout';
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
-import { modelDataAction, voiceOptionWorking } from '../../../../store/voice/voiceSlice';
+import {
+  modelDataAction,
+  voiceOptionWorking,
+  selectedModel,
+} from '../../../../store/voice/voiceSlice';
 
 function VoiceModel() {
+  const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
   const [voiceFilter, setVoiceFilter] = useState({ sex: 'female', lang: 'kor' });
   const [voiceModelData, setVoiceModelData] = useState([
@@ -69,7 +74,7 @@ function VoiceModel() {
       let formData = new FormData();
       formData.append('audioFile', audioFile[0], audioFile[0].name);
       // 나중에 프로젝트아이디 연결해야해
-      const projectID = 22;
+      const projectID = 23;
       const actionUpload = {
         formData,
         projectID,
@@ -146,7 +151,7 @@ function VoiceModel() {
     switch (voiceFilter.sex) {
       case 'female':
         if (voiceFilter.lang === 'kor') setModelNameColor(backColorList[1]);
-        else if (voiceFilter.lang === 'eng') setModelNameColor(backColorList[3]);
+        else if (voiceFilter.lang === 'eng') dispatch(selectedModel(backColorList[3]));
         else setModelNameColor(backColorList[4]);
         break;
       case 'male':
@@ -159,11 +164,11 @@ function VoiceModel() {
 
   // 선택하기 버튼 동작
   const { voiceData } = useAppSelector((state) => state.voice);
-  const dispatch = useAppDispatch();
   interface voiceModeltypes {
     name: string;
     sex: string;
     lang: string;
+    url: string;
   }
   function InputVoiceModel(model: voiceModeltypes) {
     // 변수에 담아서 마지막 선택하기 눌렀을때 변수에 있는 데이터를 api전송
@@ -179,6 +184,7 @@ function VoiceModel() {
       );
     } else {
       dispatch(modelDataAction(model));
+      dispatch(selectedModel({ color: modelNameColor, url: model.url }));
     }
   }
 

@@ -1,12 +1,14 @@
-import VoiceOptionDetailLayout from '@/layout/Voice/VoiceOptionDetailLayout';
-import VoiceOptionTitleLayout from '@/layout/Voice/VoiceOptionTitleLayout';
 import React from 'react';
 import styled from 'styled-components';
+import VoiceOptionDetailLayout from '@/layout/Voice/VoiceOptionDetailLayout';
+import VoiceOptionTitleLayout from '@/layout/Voice/VoiceOptionTitleLayout';
+import { useAppSelector, useAppDispatch } from '../../../../store/store';
 
 function VoiceOption() {
+  const { selectedModel } = useAppSelector((state) => state.voice);
   return (
     <Container>
-      <VoiceOptionTitleLayout />
+      <VoiceOptionTitleLayout selectedModel={selectedModel} />
       <VoiceOptionDetailLayout />
     </Container>
   );

@@ -100,14 +100,10 @@ const SearchBox = styled.div`
   border-bottom: 1px solid #fff;
 `;
 const Input = styled.input<InputProps>`
-  background-color: transparent;
   width: 100%;
   margin: 0 0 0.4rem 0.3rem;
   color: #fff;
   border: none;
-  :focus {
-    outline: none;
-  }
   cursor: ${({ cursor }) => (cursor ? cursor : 'auto')};
 `;
 
