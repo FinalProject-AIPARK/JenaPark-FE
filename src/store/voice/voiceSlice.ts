@@ -21,6 +21,11 @@ const initialState = {
     volume: 0,
     text: '',
   },
+  voiceOption: {
+    speed: 0,
+    tone: 0,
+    duration: 0.5,
+  },
 };
 
 export const voiceSlice = createSlice({
@@ -45,16 +50,26 @@ export const voiceSlice = createSlice({
       // 컬러와 url
       state.selectedModel.nameColor = action.payload.color;
       state.selectedModel.audioUrl = action.payload.url;
-      console.log(
-        state.selectedModel.audioUrl,
-        state.selectedModel.name,
-        state.selectedModel.nameColor,
-      );
+    },
+    voiceOptionAction: (state, action) => {
+      switch (action.payload.id) {
+        case '음성 속도':
+          state.voiceOption.speed = action.payload.value;
+          break;
+        case '톤 조절':
+          state.voiceOption.tone = action.payload.value;
+          break;
+      }
     },
   },
 });
 
-export const { modelDataAction, voiceModelWorking, voiceOptionWorking, selectedModel } =
-  voiceSlice.actions;
+export const {
+  modelDataAction,
+  voiceModelWorking,
+  voiceOptionWorking,
+  selectedModel,
+  voiceOptionAction,
+} = voiceSlice.actions;
 
 export const voiceReducer = voiceSlice.reducer;
