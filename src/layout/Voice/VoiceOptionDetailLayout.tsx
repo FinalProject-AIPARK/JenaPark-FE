@@ -4,7 +4,12 @@ import volume from '/volume-icon.png';
 import mic from '/voiceMic-icon.png';
 import breath from '/breathOption-icon.png';
 
-function VoiceOptionDetailLayout({ rangeValue, rangeHandler, inputRange }: VoiceOptionDetailProps) {
+function VoiceOptionDetailLayout({
+  rangeValue,
+  rangeHandler,
+  inputRange,
+  breathInputHandler,
+}: VoiceOptionDetailProps) {
   const layoutInfo = [
     {
       icon: volume,
@@ -68,7 +73,12 @@ function VoiceOptionDetailLayout({ rangeValue, rangeHandler, inputRange }: Voice
           </TitleBox>
           <BreathGuideBox>
             <BreathInputBox>
-              <BreathInput type="text" defaultValue="0.5" />
+              <BreathInput
+                type="text"
+                id="호흡 조절"
+                value={rangeValue.duration}
+                onChange={(event) => breathInputHandler(event)}
+              />
             </BreathInputBox>
             <TextStyle size="0.9rem" weight="700" maginLeft="0.3rem">
               초
@@ -92,6 +102,7 @@ interface VoiceOptionDetailProps {
   };
   rangeHandler: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   inputRange: React.MutableRefObject<HTMLInputElement[]>;
+  breathInputHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 interface TextStyleProps {
   maginLeft?: string;

@@ -9,7 +9,7 @@ function VoiceOption() {
   const { selectedModel, voiceOption } = useAppSelector((state) => state.voice);
   const dispatch = useAppDispatch();
 
-  // input range
+  // Option input range
   const inputRange: React.MutableRefObject<HTMLInputElement[]> = useRef([]);
   useEffect(() => {
     inputRange.current[0].style.backgroundSize =
@@ -31,6 +31,17 @@ function VoiceOption() {
       }),
     );
   }
+
+  // Option input breath
+  function breathInputHandler(event: React.ChangeEvent<HTMLInputElement>) {
+    let target = event.target;
+    dispatch(
+      voiceOptionAction({
+        id: target.id,
+        value: target.value,
+      }),
+    );
+  }
   return (
     <Container>
       <VoiceOptionTitleLayout selectedModel={selectedModel} />
@@ -38,6 +49,7 @@ function VoiceOption() {
         rangeValue={voiceOption}
         rangeHandler={rangeHandler}
         inputRange={inputRange}
+        breathInputHandler={breathInputHandler}
       />
     </Container>
   );

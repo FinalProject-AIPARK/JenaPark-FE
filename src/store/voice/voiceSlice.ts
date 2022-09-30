@@ -59,6 +59,10 @@ export const voiceSlice = createSlice({
         case '톤 조절':
           state.voiceOption.tone = action.payload.value;
           break;
+        case '호흡 조절':
+          state.voiceOption.duration = action.payload.value;
+        default:
+          return;
       }
     },
   },
