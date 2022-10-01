@@ -8,6 +8,7 @@ import { store } from './store/store';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import background from '/background.png';
+import { CookiesProvider } from 'react-cookie';
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -33,10 +34,10 @@ input {
 `;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter>
+  <CookiesProvider>
     <Provider store={store}>
       <GlobalStyle />
       <App />
     </Provider>
-  </BrowserRouter>,
+  </CookiesProvider>,
 );

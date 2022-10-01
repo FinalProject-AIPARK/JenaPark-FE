@@ -4,13 +4,7 @@ export const useApi = createApi({
   reducerPath: 'useApi',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
-    prepareHeaders: async (headers, { getState, extra }) => {
-      let token = localStorage.getItem('accessToken');
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
+    credentials: 'include',
   }),
   // 헤더 토큰 연결
   endpoints: (builder) => ({
@@ -24,6 +18,13 @@ export const useApi = createApi({
     signIn: builder.mutation<ReturnSignInType, ActionSignInType>({
       query: (data) => ({
         url: '/api/v1/members/login',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    logOut: builder.mutation<null, ActionLogOutType>({
+      query: (data) => ({
+        url: '/api/v1/members/logout',
         method: 'POST',
         body: data,
       }),
@@ -55,6 +56,7 @@ export const useApi = createApi({
 export const {
   useSignInMutation,
   useSignUpMutation,
+  useLogOutMutation,
   useUploadVoiceMutation,
   useGetVoiceModelQuery,
   useInputTextSynMutation,
@@ -67,6 +69,7 @@ interface ActionSignUpType {
   confirmPassword: string;
 }
 interface ReturnSignInType {
+  [x: string]: any;
   grantType: string;
   accessToken: string;
   refreshToken: string;
@@ -76,6 +79,10 @@ interface ReturnSignInType {
 interface ActionSignInType {
   email: string;
   password: string;
+}
+interface ActionLogOutType {
+  accessToken: string;
+  refreshToken: string;
 }
 interface ActionUploadVoiceType {
   formData: FormData;
