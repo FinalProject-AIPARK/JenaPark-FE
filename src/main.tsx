@@ -13,11 +13,23 @@ import { CookiesProvider } from 'react-cookie';
 const GlobalStyle = createGlobalStyle`
 ${reset}
 body {
-font-family: 'Noto Sans KR', 'Roboto', sans-serif;
-background-image: url(${background});
-background-size: cover;
-background-repeat: no-repeat;
-background-position: center;
+  font-size: 1rem;
+  font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+  background-image: url(${background});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+button {
+  cursor: pointer;
+}
+input {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  :focus {
+    outline: none;
+  }
 }
 `;
 

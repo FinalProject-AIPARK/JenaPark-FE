@@ -32,12 +32,12 @@ function SoundPlayer(this: any) {
       />
       <PlayButton />
       <StopButton />
-      <AudioPlayer
+      {/* <AudioPlayer
         // ref={this.player}
         src="https://t1.daumcdn.net/cfile/tistory/27510D425854D91F34?original"
         customProgressBarSection={[RHAP_UI.PROGRESS_BAR]}
         customControlsSection={[]}
-      />
+      /> */}
     </PlayerContainer>
   );
 }
@@ -62,6 +62,7 @@ const PlayerContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex-grow: 1;
 
   .rhap_container {
     background-color: transparent;

@@ -1,12 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import VoiceUploadModal from '@/layout/Voice/VoiceUploadModal';
+import React, { useEffect, useRef, useState, ChangeEvent, DragEvent } from 'react';
 import styled from 'styled-components';
 import { useGetVoiceModelQuery, useUploadVoiceMutation } from '../../../../api/useApi';
-import SearchVoiceModelLayout from '../../../../layout/SearchVoiceModelLayout';
-import VoiceModelLayout from '../../../../layout/SearchVoiceModelLayout';
-import VoiceModelFilterButton from '../../../../layout/VoiceModelFilterButton';
-import VoiceModelListLayout from '../../../../layout/VoiceModelListLayout';
+import SearchVoiceModelLayout from '../../../../layout/Voice/SearchVoiceModelLayout';
+import VoiceModelFilterButton from '../../../../layout/Voice/VoiceModelFilterButton';
+import VoiceModelListLayout from '../../../../layout/Voice/VoiceModelListLayout';
+import { useAppSelector, useAppDispatch } from '../../../../store/store';
+import {
+  modelDataAction,
+  voiceOptionWorking,
+  selectedModel,
+} from '../../../../store/voice/voiceSlice';
 
 function VoiceModel() {
+  const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
   const [voiceFilter, setVoiceFilter] = useState({ sex: 'female', lang: 'kor' });
   const [voiceModelData, setVoiceModelData] = useState([
@@ -39,15 +46,42 @@ function VoiceModel() {
   interface Uploadtypes {
     // 아직 뭐가 가야하고 뭐가 오는지 모름
   }
-  const [uploadVoice, { data: up, status, isLoading, isError }] = useUploadVoiceMutation();
-  const [uploadFile, setUploadFile] = useState<Uploadtypes | null>(null);
-  function uploadHandler(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.files);
-    // uploadVoice({
-    //   projectId: '',
-    //   file: event.target.files?.item(0)
-    // })
-    // 전송되고 아바타로 화면 전환
+  const [onModal, setOnModal] = useState(false);
+  const [uploadFile, { data: url, isLoading: uploading, isError }] = useUploadVoiceMutation();
+  const [audioFile, setAudioFile] = useState<Array<File>>([]);
+
+  // 이미지 파일 처리 input
+  function onInputFile(event: ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+    handleFiles(event.target.files!);
+  }
+  // 이미지 파일 처리 ondrop
+  function onDropFiles(event: DragEvent<HTMLDivElement>) {
+    // console.log({ event }, event.dataTransfer.files);
+    event.preventDefault();
+    handleFiles(event.dataTransfer.files);
+  }
+  function handleFiles(files: FileList) {
+    const file: File = files[0];
+    setAudioFile([file]);
+  }
+  const dragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (audioFile.length) {
+      let formData = new FormData();
+      formData.append('audioFile', audioFile[0], audioFile[0].name);
+      // 나중에 프로젝트아이디 연결해야해
+      const projectID = 23;
+      const actionUpload = {
+        formData,
+        projectID,
+      };
+      uploadFile(actionUpload);
+    }
+    setOnModal(false);
   }
 
   // 음성 모델 필터링
@@ -117,7 +151,7 @@ function VoiceModel() {
     switch (voiceFilter.sex) {
       case 'female':
         if (voiceFilter.lang === 'kor') setModelNameColor(backColorList[1]);
-        else if (voiceFilter.lang === 'eng') setModelNameColor(backColorList[3]);
+        else if (voiceFilter.lang === 'eng') dispatch(selectedModel(backColorList[3]));
         else setModelNameColor(backColorList[4]);
         break;
       case 'male':
@@ -129,29 +163,51 @@ function VoiceModel() {
   }
 
   // 선택하기 버튼 동작
+  const { voiceData } = useAppSelector((state) => state.voice);
   interface voiceModeltypes {
     name: string;
     sex: string;
     lang: string;
+    url: string;
   }
-  const [endData, setEndData] = useState({});
-  function InputVoiceModel(M: voiceModeltypes) {
+  function InputVoiceModel(model: voiceModeltypes) {
     // 변수에 담아서 마지막 선택하기 눌렀을때 변수에 있는 데이터를 api전송
     // 여기는 변수에 답는 로직이 있어야해
-    setEndData(M);
-    console.log('선택한 모델 변수에 담기');
+    // 이름, 성별, 언어 데이터 들어옴
+    if (voiceData.avatarName === model.name) {
+      dispatch(
+        modelDataAction({
+          name: '',
+          sex: 'female',
+          lang: 'kor',
+        }),
+      );
+    } else {
+      dispatch(modelDataAction(model));
+      dispatch(selectedModel({ color: modelNameColor, url: model.url }));
+    }
   }
 
   function selectModel() {
-    // 사용자가 선택한 모델(endData) api전송
-    console.log('최종 모델 선택');
+    dispatch(voiceOptionWorking());
   }
 
   return (
     <Container
       onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => dropdownHandler(event)}
     >
-      <SearchVoiceModelLayout upload={uploadHandler} />
+      <SearchVoiceModelLayout setOnModal={setOnModal} audioFile={audioFile} />
+      {onModal ? (
+        <VoiceUploadModal
+          onModal={onModal}
+          audioFile={audioFile}
+          setAudioFile={setAudioFile}
+          onDropFiles={onDropFiles}
+          dragOver={dragOver}
+          onInputFile={onInputFile}
+          submitHandler={submitHandler}
+        />
+      ) : null}
       <VoiceModelFilterButton
         sexButton={sexButton}
         sexFilterHandler={sexFilterHandler}
@@ -160,6 +216,7 @@ function VoiceModel() {
         dropdown={dropdown}
         dropdownHandler={dropdownHandler}
         offDropdown={offDropdown}
+        audioFile={audioFile}
       />
       <VoiceModelListLayout
         voiceModel={voiceModelData}
@@ -171,6 +228,7 @@ function VoiceModel() {
         audioIndex={audioIndex}
         audioHandler={audioHandler}
         isPlay={playController}
+        audioFile={audioFile}
       />
     </Container>
   );
