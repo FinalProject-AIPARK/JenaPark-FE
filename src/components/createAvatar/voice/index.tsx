@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import VoiceWorkingButtonLayout from '../../../layout/VoiceWorkingButtonLayout';
+import VoiceWorkingButtonLayout from '../../../layout/Voice/VoiceWorkingButtonLayout';
 import VoiceModel from './voiceModel';
 import VoiceOption from './voiceOption';
+import { useAppSelector, useAppDispatch } from '../../../store/store';
+import { voiceModelWorking, voiceOptionWorking } from '../../../store/voice/voiceSlice';
 
 function Voice() {
-  const [isVoiceModel, setIsVoiceModel] = useState(true);
-  const [isVoiceOption, setIsVoiceOption] = useState(false);
-
+  const { isVoiceModel, isVoiceOption } = useAppSelector((state) => state.voice.elementData);
+  const dispatch = useAppDispatch();
   function voiceModelHandler() {
-    setIsVoiceModel(true);
-    setIsVoiceOption(false);
+    dispatch(voiceModelWorking());
   }
   function voiceOptionHandler() {
-    setIsVoiceOption(true);
-    setIsVoiceModel(false);
+    dispatch(voiceOptionWorking());
   }
-
   return (
     <Container>
       <VoiceWorkingButtonLayout
@@ -46,7 +44,7 @@ const Background = styled.div`
   top: 0;
   right: 0;
   opacity: 80%;
-  z-index: -1;
+  z-index: -99;
 `;
 
 export default Voice;

@@ -54,7 +54,6 @@ const Button = styled.button<ButtonProps>`
   color: ${({ color }) => color};
   border: ${({ borderColor }) => borderColor};
   border-radius: 0.31rem;
-  cursor: pointer;
 `;
 
 export default VoiceWorkingButtonLayout;
