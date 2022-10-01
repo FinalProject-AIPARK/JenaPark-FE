@@ -3,16 +3,14 @@ import styled from 'styled-components';
 import UserNavbarLayout from '../../../layout/NavigationBar/UserNavbarLayout';
 import WorkingNavbarLayout from '../../../layout/NavigationBar/WorkingNavbarLayout';
 
-function Navbar({ isVoiceWoking }: navbarProps) {
+function Navbar() {
   const [voiceSection, setVoiceSection] = useState(true);
   const [avatarSection, setAvatarSection] = useState(false);
   function voiceHandler() {
-    isVoiceWoking(true);
     setVoiceSection(true);
     setAvatarSection(false);
   }
   function avatarHandler() {
-    isVoiceWoking(false);
     setAvatarSection(true);
     setVoiceSection(false);
   }
@@ -27,10 +25,6 @@ function Navbar({ isVoiceWoking }: navbarProps) {
       />
     </>
   );
-}
-
-interface navbarProps {
-  isVoiceWoking: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default Navbar;

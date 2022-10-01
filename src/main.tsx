@@ -23,7 +23,12 @@ button {
   cursor: pointer;
 }
 input {
+  background-color: transparent;
+  border: none;
   font-size: 1rem;
+  :focus {
+    outline: none;
+  }
 }
 `;
 

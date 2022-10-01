@@ -51,7 +51,12 @@ function VoiceModelListLayout({
                   <ModelCardBox
                     key={item.name}
                     onClick={() => {
-                      inputModel({ name: item.name, sex: item.sex, lang: item.lang });
+                      inputModel({
+                        name: item.name,
+                        sex: item.sex,
+                        lang: item.lang,
+                        url: item.audioFileUrl,
+                      });
                       selectModelCardHandler(index);
                     }}
                   >
@@ -63,6 +68,7 @@ function VoiceModelListLayout({
                         preload="metadata"
                         src={item.audioFileUrl}
                         volume={1}
+                        onPause={() => setOnOff(false)}
                         ref={(elem) => (player.current[index] = elem)}
                       />
                       <ButtonStyle
@@ -146,6 +152,7 @@ interface voiceModeltypes {
   name: string;
   sex: string;
   lang: string;
+  url: string;
 }
 interface ModelNameBoxProps {
   backColor: string;

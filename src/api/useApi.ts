@@ -38,18 +38,17 @@ export const useApi = createApi({
     getVoiceModel: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
       query: (data) => ({
         url: '/api/v1/audio/sample',
-        method: 'GET',
+        method: 'POST',
         body: data,
       }),
     }),
-
-    // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
-    //   query: (data) => ({
-    //     url: '/api/v1/audio/sample',
-    //     method: 'GET',
-    //     body: data,
-    //   }),
-    // }),
+    inputTextSyn: builder.mutation<ReturnInpTextSynthesisType, ActionInpTextSynthesisType>({
+      query: (data) => ({
+        url: '/api/v1/projects/create-tts',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -58,6 +57,7 @@ export const {
   useSignUpMutation,
   useUploadVoiceMutation,
   useGetVoiceModelQuery,
+  useInputTextSynMutation,
 } = useApi;
 
 interface ActionSignUpType {
@@ -89,7 +89,6 @@ interface ReturnUploadVoiceType {
   error: [];
 }
 [];
-
 interface ReturnVoiceModelType {
   data: [
     {
@@ -103,4 +102,27 @@ interface ReturnVoiceModelType {
 interface ActionVoiceModelType {
   lang: string;
   sex: string;
+}
+interface ReturnInpTextSynthesisType {
+  audioInfoDtos: [
+    {
+      audioId: string;
+      lineNumber: number;
+      splitText: string;
+      audioFileUrl: string;
+      durationSilence: number;
+      pitch: number;
+      speed: number;
+    },
+  ];
+}
+interface ActionInpTextSynthesisType {
+  projectID: number;
+  avatarName: string;
+  sex: string;
+  lang: string;
+  durationSilence: number;
+  pitch: number;
+  speed: number;
+  text: string;
 }
