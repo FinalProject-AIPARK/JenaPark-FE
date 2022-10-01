@@ -9,6 +9,7 @@ function VoiceOptionDetailLayout({
   rangeHandler,
   inputRange,
   breathInputHandler,
+  requestVoice,
 }: VoiceOptionDetailProps) {
   const layoutInfo = [
     {
@@ -89,7 +90,7 @@ function VoiceOptionDetailLayout({
           </BreathGuideBox>
         </BreathOptionBox>
       </OptionsContainter>
-      <ButtonStyle>일괄 적용하기</ButtonStyle>
+      <ButtonStyle onClick={requestVoice}>일괄 적용하기</ButtonStyle>
     </>
   );
 }
@@ -103,6 +104,7 @@ interface VoiceOptionDetailProps {
   rangeHandler: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   inputRange: React.MutableRefObject<HTMLInputElement[]>;
   breathInputHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  requestVoice: () => void;
 }
 interface TextStyleProps {
   maginLeft?: string;

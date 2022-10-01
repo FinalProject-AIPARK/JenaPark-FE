@@ -4,14 +4,15 @@ import Navbar from './navbar';
 import Voice from './voice';
 import Avatar from './avatar/index';
 import Header from '../Header';
+import { useAppSelector, useAppDispatch } from '../../store/store';
 
 function CreateAvatar() {
-  const [isVoiceWoking, setIsVoiceWoking] = useState(true);
+  const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
   return (
     <>
       <Header />
       <Contain>
-        <Navbar isVoiceWoking={setIsVoiceWoking} />
+        <Navbar />
         {isVoiceWoking ? <Voice /> : <Avatar />}
       </Contain>
     </>
