@@ -12,11 +12,18 @@ import background from '/background.png';
 const GlobalStyle = createGlobalStyle`
 ${reset}
 body {
-font-family: 'Noto Sans KR', 'Roboto', sans-serif;
-background-image: url(${background});
-background-size: cover;
-background-repeat: no-repeat;
-background-position: center;
+  font-size: 1rem;
+  font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+  background-image: url(${background});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+button {
+  cursor: pointer;
+}
+input {
+  font-size: 1rem;
 }
 `;
 

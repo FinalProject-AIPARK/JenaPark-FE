@@ -12,6 +12,7 @@ export const useApi = createApi({
       return headers;
     },
   }),
+  // 헤더 토큰 연결
   endpoints: (builder) => ({
     signUp: builder.mutation<null, ActionSignUpType>({
       query: (data) => ({
@@ -27,11 +28,11 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-    uploadVoice: builder.mutation<any, any>({
+    uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
       query: (data) => ({
-        url: '/api/v1/projects/audio/upload',
-        method: 'GET',
-        body: data,
+        url: `/api/v1/projects/${data.projectID}/audio/upload`,
+        method: 'POST',
+        body: data.formData,
       }),
     }),
     getVoiceModel: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
@@ -76,6 +77,19 @@ interface ActionSignInType {
   email: string;
   password: string;
 }
+interface ActionUploadVoiceType {
+  formData: FormData;
+  projectID: number;
+}
+interface ReturnUploadVoiceType {
+  state: number;
+  result: string;
+  message: string;
+  data: [];
+  error: [];
+}
+[];
+
 interface ReturnVoiceModelType {
   data: [
     {
