@@ -8,7 +8,7 @@ import CreateAvatar from '@/pages/CreateAvatar';
 import History from '@/pages/History';
 
 function App() {
-  if (true) {
+  if (false) {
     return (
       <Routes>
         <Route path="*" element={<NotFound />} />
