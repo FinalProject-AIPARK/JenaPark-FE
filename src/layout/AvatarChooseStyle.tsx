@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import left from '../../public/icon/maskLeft-icon.png';
-import right from '../../public/icon/maskRight-icon.png';
+import left from '@/src/icon/maskLeft-icon.png';
+import right from '@/src/icon/maskRight-icon.png';
 
 function AvatarChooseStyle() {
   return (

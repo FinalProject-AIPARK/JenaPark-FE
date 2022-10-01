@@ -1,8 +1,9 @@
-import { useSignInMutation } from '@/api/useApi';
 import React from 'react';
+import { useSignInMutation } from '@/api/useApi';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
+import { useCookies } from 'react-cookie';
 
 interface SignInFormInputs {
   email: string;
@@ -10,6 +11,7 @@ interface SignInFormInputs {
 }
 
 export default function SignInForm() {
+  const [cookies, setCookie, removeCookie] = useCookies();
   const navigate = useNavigate();
   const {
     register,
@@ -17,14 +19,16 @@ export default function SignInForm() {
     formState: { errors },
   } = useForm<SignInFormInputs>();
   const [requestSignIn] = useSignInMutation();
-  const onSubmit = (data: SignInFormInputs) => {
-    requestSignIn(data)
+  const onSubmit = (signInValue: SignInFormInputs) => {
+    requestSignIn(signInValue)
       .unwrap()
-      .then(() => {
+      .then((res) => {
+        console.log(res);
+        setCookie('accessToken', res.data.accessToken);
+        setCookie('refreshToken', res.data.refreshToken);
         navigate('/');
       });
   };
-
   return (
     <S.Container>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -34,7 +38,6 @@ export default function SignInForm() {
           <input {...register('email', { required: '이메일을 입력해 주세요' })} />
           {errors.email && <p>{errors.email.message}</p>}
         </article>
-
         <article>
           <label>비밀번호</label>
           <input
