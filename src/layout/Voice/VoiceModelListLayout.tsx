@@ -171,6 +171,7 @@ interface ButtonStyleProps {
 const ListBox = styled.div`
   width: 29.94rem;
   height: 100%;
+  overflow-y: scroll;
   .rhap_container {
     display: none;
   }
@@ -187,7 +188,7 @@ const UploadGuideBox = styled.div`
   text-align: center;
 `;
 const ModelCardBox = styled.div`
-  width: 100%;
+  width: 99%;
   height: 4.37rem;
   display: flex;
   align-items: center;

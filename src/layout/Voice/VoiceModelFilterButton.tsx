@@ -163,6 +163,7 @@ const LangListStyle = styled.div`
   top: 2rem;
   padding: 0.81rem 0;
   border-radius: 0 0 0.3rem 0.3rem;
+  z-index: 1;
 `;
 const LangButtonStyle = styled.button<LangButtonStyleProps>`
   background-color: transparent;
