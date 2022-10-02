@@ -6,6 +6,7 @@ import SearchVoiceModelLayout from '../../../../layout/Voice/SearchVoiceModelLay
 import VoiceModelFilterButton from '../../../../layout/Voice/VoiceModelFilterButton';
 import VoiceModelListLayout from '../../../../layout/Voice/VoiceModelListLayout';
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
+import { workingComponent } from '../../../../store/workingProject/projectControlSlice';
 import {
   modelDataAction,
   voiceOptionWorking,
@@ -38,9 +39,6 @@ function VoiceModel() {
   }
 
   // 음성 업로드 서버로 전송
-  interface Uploadtypes {
-    // 아직 뭐가 가야하고 뭐가 오는지 모름
-  }
   const [onModal, setOnModal] = useState(false);
   const [uploadFile, { data: url, isLoading: uploading, isError }] = useUploadVoiceMutation();
   const [audioFile, setAudioFile] = useState<Array<File>>([]);
@@ -76,6 +74,11 @@ function VoiceModel() {
       uploadFile(actionUpload);
     }
     setOnModal(false);
+  }
+
+  // 업로드시 아바타 작업으로 이동
+  function moveToAvartar() {
+    dispatch(workingComponent());
   }
 
   // 음성 모델 필터링
@@ -240,6 +243,7 @@ function VoiceModel() {
         audioHandler={audioHandler}
         isPlay={playController}
         audioFile={audioFile}
+        moveToAvartar={moveToAvartar}
       />
     </Container>
   );
