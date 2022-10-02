@@ -164,6 +164,12 @@ function VoiceModel() {
 
   // 선택하기 버튼 동작
   const { voiceData } = useAppSelector((state) => state.voice);
+  const [dataBox, setDataBox] = useState({
+    name: voiceData.avatarName,
+    sex: '',
+    lang: '',
+    url: '',
+  });
   interface voiceModeltypes {
     name: string;
     sex: string;
@@ -174,22 +180,16 @@ function VoiceModel() {
     // 변수에 담아서 마지막 선택하기 눌렀을때 변수에 있는 데이터를 api전송
     // 여기는 변수에 답는 로직이 있어야해
     // 이름, 성별, 언어 데이터 들어옴
-    if (voiceData.avatarName === model.name) {
-      dispatch(
-        modelDataAction({
-          name: '',
-          sex: 'female',
-          lang: 'kor',
-        }),
-      );
-    } else {
-      dispatch(modelDataAction(model));
-      dispatch(selectedModel({ color: modelNameColor, url: model.url }));
-    }
+    if (dataBox.name === model.name) setDataBox({ ...dataBox, name: '' });
+    else setDataBox(model);
   }
 
   function selectModel() {
-    dispatch(voiceOptionWorking());
+    if (dataBox.name.length > 0) {
+      dispatch(modelDataAction(dataBox));
+      dispatch(selectedModel({ color: modelNameColor, url: dataBox.url }));
+      dispatch(voiceOptionWorking());
+    } else alert('사용할 보이스를 선택해주세요.');
   }
 
   return (
