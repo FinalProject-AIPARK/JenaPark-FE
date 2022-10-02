@@ -4,6 +4,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import play from '/voiceModelPlay-icon.png';
 import pause from '/voiceModelPause-icon.png';
 import stop from '/voiceModelStop-icon.png';
+import { ReturnVoiceModelType } from '../../api/useApi';
 
 function VoiceModelListLayout({
   voiceModel,
@@ -22,7 +23,7 @@ function VoiceModelListLayout({
   const [onOff, setOnOff] = useState(false);
   const player: React.MutableRefObject<any> = useRef([]);
   useEffect(() => {
-    if (!player.current[audioIndex].audio) return;
+    if (!player.current[audioIndex]) return;
     // 선택 재생
     isPlay[audioIndex]
       ? player.current[audioIndex].audio.current.play()
@@ -46,7 +47,7 @@ function VoiceModelListLayout({
         ) : (
           <>
             {voiceModel &&
-              voiceModel.map((item, index) => {
+              voiceModel.data.map((item, index) => {
                 return (
                   <ModelCardBox
                     key={item.name}
@@ -132,12 +133,7 @@ function VoiceModelListLayout({
 }
 
 interface VoiceModelLayoutProps {
-  voiceModel: {
-    name: string;
-    sex: string;
-    audioFileUrl: string;
-    lang: string;
-  }[];
+  voiceModel: ReturnVoiceModelType;
   inputModel: (M: voiceModeltypes) => void;
   modelNameColor: string;
   audioIndex: number;

@@ -1,7 +1,7 @@
 import VoiceUploadModal from '@/layout/Voice/VoiceUploadModal';
 import React, { useEffect, useRef, useState, ChangeEvent, DragEvent } from 'react';
 import styled from 'styled-components';
-import { useGetVoiceModelQuery, useUploadVoiceMutation } from '../../../../api/useApi';
+import { useGetVoiceModelMutation, useUploadVoiceMutation } from '../../../../api/useApi';
 import SearchVoiceModelLayout from '../../../../layout/Voice/SearchVoiceModelLayout';
 import VoiceModelFilterButton from '../../../../layout/Voice/VoiceModelFilterButton';
 import VoiceModelListLayout from '../../../../layout/Voice/VoiceModelListLayout';
@@ -16,31 +16,26 @@ function VoiceModel() {
   const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
   const [voiceFilter, setVoiceFilter] = useState({ sex: 'female', lang: 'kor' });
-  const [voiceModelData, setVoiceModelData] = useState([
-    {
-      name: '김우주',
-      sex: 'female',
-      audioFileUrl: 'https://jenapark.s3.ap-northeast-2.amazonaws.com/audio/sample/chi_m_1.wav',
-      lang: 'kor',
-    },
-    {
-      name: '이우주',
-      sex: 'female',
-      audioFileUrl: 'https://jenapark.s3.ap-northeast-2.amazonaws.com/audio/sample/chi_m_3.wav',
-      lang: 'kor',
-    },
-  ]);
-  const { data: resVoiceModel } = useGetVoiceModelQuery(voiceFilter);
+  const [getVoice, { data: resVoiceModel }] = useGetVoiceModelMutation();
+  // 초기 음성 모델 데이터 부름
   useEffect(() => {
-    if (resVoiceModel) setVoiceModelData(resVoiceModel.data);
+    getVoiceHandler();
+  }, []);
+  // 음성 모델 카테고리
+  useEffect(() => {
+    getVoiceHandler();
+  }, [voiceFilter]);
+  function getVoiceHandler() {
+    getVoice(voiceFilter);
     nameBackColorHandler();
-    // 재생버튼 독립적으로 동작하기 위해 불린데이터 값을 리스트 갯수와 맞춰준다.
-    for (let i = 0; i < voiceModelData.length; i++) {
-      setPlayController((current) => {
-        return current.length ? [...current, false] : [false];
-      });
+    if (resVoiceModel) {
+      for (let i = 0; i < resVoiceModel!.data.length; i++) {
+        setPlayController((current) => {
+          return current.length ? [...current, false] : [false];
+        });
+      }
     }
-  }, [resVoiceModel]);
+  }
 
   // 음성 업로드 서버로 전송
   interface Uploadtypes {
@@ -57,7 +52,6 @@ function VoiceModel() {
   }
   // 이미지 파일 처리 ondrop
   function onDropFiles(event: DragEvent<HTMLDivElement>) {
-    // console.log({ event }, event.dataTransfer.files);
     event.preventDefault();
     handleFiles(event.dataTransfer.files);
   }
@@ -140,10 +134,12 @@ function VoiceModel() {
   useEffect(() => {
     setSelectModelCard([...playController]);
     initSelectCard();
-  }, [voiceModelData]);
+  }, [resVoiceModel]);
   function initSelectCard() {
-    const index = voiceModelData.findIndex((item) => item.name === voiceData.avatarName);
-    console.log(voiceModelData);
+    let index = 0;
+    if (resVoiceModel) {
+      index = resVoiceModel.data.findIndex((item) => item.name === voiceData.avatarName);
+    }
     if (index > -1) {
       setSelectModelCard((prev) => {
         const next = [...prev];
@@ -167,7 +163,7 @@ function VoiceModel() {
     switch (voiceFilter.sex) {
       case 'female':
         if (voiceFilter.lang === 'kor') setModelNameColor(backColorList[1]);
-        else if (voiceFilter.lang === 'eng') dispatch(selectedModel(backColorList[3]));
+        else if (voiceFilter.lang === 'eng') setModelNameColor(backColorList[3]);
         else setModelNameColor(backColorList[4]);
         break;
       case 'male':
@@ -234,7 +230,7 @@ function VoiceModel() {
         audioFile={audioFile}
       />
       <VoiceModelListLayout
-        voiceModel={voiceModelData}
+        voiceModel={resVoiceModel!}
         inputModel={InputVoiceModel}
         selectModelCardHandler={selectModelCardHandler}
         selectModelCard={selectModelCard}
