@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import styled from 'styled-components';
 import questionMark from '/questionMark-icon.png';
@@ -6,7 +6,7 @@ import play from '/voiceModelPlay-icon.png';
 import pause from '/voiceModelPause-icon.png';
 import stop from '/voiceModelStop-icon.png';
 
-function VoiceOptionTitleLayout({ selectedModel }: VoiceOptionTitleProps) {
+const VoiceOptionTitleLayout = memo(({ selectedModel }: VoiceOptionTitleProps) => {
   const [guideText, setGuideText] = useState(false);
   const [onOff, setOnOff] = useState(false);
   const player: React.MutableRefObject<any> = useRef([]);
@@ -80,7 +80,7 @@ function VoiceOptionTitleLayout({ selectedModel }: VoiceOptionTitleProps) {
       </ModelCardBox>
     </div>
   );
-}
+});
 
 interface VoiceOptionTitleProps {
   selectedModel: {
