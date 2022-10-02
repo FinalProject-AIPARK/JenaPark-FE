@@ -135,11 +135,27 @@ function VoiceModel() {
   }
 
   // 음성 모델 카드 스타일링
+  const { voiceData } = useAppSelector((state) => state.voice);
   const [selectModelCard, setSelectModelCard] = useState<boolean[]>([...playController]);
+  useEffect(() => {
+    setSelectModelCard([...playController]);
+    initSelectCard();
+  }, [voiceModelData]);
+  function initSelectCard() {
+    const index = voiceModelData.findIndex((item) => item.name === voiceData.avatarName);
+    console.log(voiceModelData);
+    if (index > -1) {
+      setSelectModelCard((prev) => {
+        const next = [...prev];
+        next[index] = true;
+        return next;
+      });
+    }
+  }
   function selectModelCardHandler(index: number) {
     setSelectModelCard((prev) => {
       let card = prev.map((item) => (item = false));
-      card.splice(index, 1, !prev[index]);
+      card[index] = !card[index];
       return card;
     });
   }
@@ -163,7 +179,6 @@ function VoiceModel() {
   }
 
   // 선택하기 버튼 동작
-  const { voiceData } = useAppSelector((state) => state.voice);
   const [dataBox, setDataBox] = useState({
     name: voiceData.avatarName,
     sex: '',
