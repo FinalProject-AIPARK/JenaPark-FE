@@ -123,7 +123,7 @@ const ModalBox = styled.div`
   right: calc(50vw - 23.25rem);
   padding: 2.06rem 1.87rem;
   border-radius: 0.63rem;
-  z-index: 2;
+  z-index: 99;
 `;
 const ModalBack = styled.div`
   background-color: #000;
@@ -133,7 +133,7 @@ const ModalBack = styled.div`
   top: 0;
   right: 0;
   opacity: 40%;
-  z-index: 1;
+  z-index: 2;
 `;
 const LabelStyle = styled.label`
   background-color: #0d1a4c;
