@@ -76,6 +76,7 @@ function VoiceOption() {
         requestVoice={requestVoice}
         optionGuide={optionGuide}
         guideHandler={guideHandler}
+        selectedModel={selectedModel}
       />
     </Container>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import volume from '/volume-icon.png';
 import mic from '/voiceMic-icon.png';
@@ -13,11 +13,11 @@ function VoiceOptionDetailLayout({
   requestVoice,
   optionGuide,
   guideHandler,
+  selectedModel,
 }: VoiceOptionDetailProps) {
   const layoutInfo = [
     {
       icon: volume,
-      imgSrc: '',
       optionName: '음성 속도',
       step: 0.1,
       max: 0.5,
@@ -30,7 +30,6 @@ function VoiceOptionDetailLayout({
     },
     {
       icon: mic,
-      imgSrc: '',
       optionName: '톤 조절',
       step: 0.1,
       max: 0.5,
@@ -42,6 +41,7 @@ function VoiceOptionDetailLayout({
       topPosition: '-2rem',
     },
   ];
+
   return (
     <>
       <OptionsContainter>
@@ -77,6 +77,7 @@ function VoiceOptionDetailLayout({
                 step={item.step}
                 onChange={(event) => rangeHandler(event, index)}
                 ref={(elem) => (inputRange.current[index] = elem!)}
+                disabled={selectedModel.nameColor.length < 1 ? true : false}
               />
             </RangeBox>
             {/* 설정 최소 최대이름 */}
@@ -115,6 +116,7 @@ function VoiceOptionDetailLayout({
                 id="호흡 조절"
                 value={rangeValue.duration}
                 onChange={(event) => breathInputHandler(event)}
+                disabled={selectedModel.nameColor.length < 1 ? true : false}
               />
             </BreathInputBox>
             <TextStyle size="0.9rem" weight="700" maginLeft="0.3rem">
@@ -143,6 +145,11 @@ interface VoiceOptionDetailProps {
   requestVoice: () => void;
   optionGuide: boolean[];
   guideHandler: (state: boolean, index: number) => void;
+  selectedModel: {
+    nameColor: string;
+    name: string;
+    audioUrl: string;
+  };
 }
 interface TextStyleProps {
   maginLeft?: string;
@@ -154,7 +161,15 @@ interface GuideTextBox {
   left: string;
 }
 
+const BlindBox = styled.div`
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0.5;
+`;
 const OptionsContainter = styled.div`
+  position: relative;
   margin-top: 1.25rem;
 `;
 const OptionBox = styled.div`
