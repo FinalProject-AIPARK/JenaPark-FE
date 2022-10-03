@@ -8,7 +8,7 @@ const SearchVoiceModelLayout = memo(({ setOnModal, audioFile }: VoiceModelLayout
     <>
       <TitleBox>
         <TextStyle size="1.2rem" weight="700" color="#fff">
-          사용하실 보이스를 선택해주세요.
+          사용하실 음성을 선택해주세요.
         </TextStyle>
         <ButtonStyle
           onClick={() => setOnModal(true)}

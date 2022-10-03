@@ -11,7 +11,7 @@ const VoiceWorkingButtonLayout = memo(
           backColor={modelOn ? '#fff' : 'transparent'}
           color={modelOn ? '#000' : '#BDBDBD'}
         >
-          보이스 선택
+          음성 선택
         </Button>
         <Button
           onClick={OptionButton}
@@ -20,7 +20,7 @@ const VoiceWorkingButtonLayout = memo(
           backColor={optionOn ? '#fff' : 'transparent'}
           color={optionOn ? '#000' : '#BDBDBD'}
         >
-          보이스 옵션
+          음성 옵션
         </Button>
       </ButtonBox>
     );
