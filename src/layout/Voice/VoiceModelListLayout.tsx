@@ -4,6 +4,7 @@ import AudioPlayer from 'react-h5-audio-player';
 import play from '/voiceModelPlay-icon.png';
 import pause from '/voiceModelPause-icon.png';
 import stop from '/voiceModelStop-icon.png';
+import { ReturnVoiceModelType } from '../../api/useApi';
 
 function VoiceModelListLayout({
   voiceModel,
@@ -16,13 +17,14 @@ function VoiceModelListLayout({
   isPlay,
   selectModel,
   audioFile,
+  moveToAvartar,
 }: VoiceModelLayoutProps) {
   // 재생 도중 다른 음성을 재생했을때 버튼에 직접적으로 자신 정지 동작하기
   // 재생, 일시정지 버튼으로 onOff 값이 바뀔떄마다 useEffect 동작
   const [onOff, setOnOff] = useState(false);
   const player: React.MutableRefObject<any> = useRef([]);
   useEffect(() => {
-    if (!player.current[audioIndex].audio) return;
+    if (!player.current[audioIndex]) return;
     // 선택 재생
     isPlay[audioIndex]
       ? player.current[audioIndex].audio.current.play()
@@ -46,7 +48,7 @@ function VoiceModelListLayout({
         ) : (
           <>
             {voiceModel &&
-              voiceModel.map((item, index) => {
+              voiceModel.data.map((item, index) => {
                 return (
                   <ModelCardBox
                     key={item.name}
@@ -117,27 +119,34 @@ function VoiceModelListLayout({
         )}
       </ListBox>
       <div>
-        <ButtonStyle
-          onClick={selectModel}
-          backColor="#fff"
-          width="100%"
-          height="3.1rem"
-          radius="0.3rem"
-        >
-          {audioFile.length > 0 ? '아바타 선택으로 이동' : '선택하기'}
-        </ButtonStyle>
+        {audioFile.length > 0 ? (
+          <ButtonStyle
+            onClick={moveToAvartar}
+            backColor="#fff"
+            width="100%"
+            height="3.1rem"
+            radius="0.3rem"
+          >
+            아바타 선택으로 이동
+          </ButtonStyle>
+        ) : (
+          <ButtonStyle
+            onClick={selectModel}
+            backColor="#fff"
+            width="100%"
+            height="3.1rem"
+            radius="0.3rem"
+          >
+            선택하기
+          </ButtonStyle>
+        )}
       </div>
     </>
   );
 }
 
 interface VoiceModelLayoutProps {
-  voiceModel: {
-    name: string;
-    sex: string;
-    audioFileUrl: string;
-    lang: string;
-  }[];
+  voiceModel: ReturnVoiceModelType;
   inputModel: (M: voiceModeltypes) => void;
   modelNameColor: string;
   audioIndex: number;
@@ -147,6 +156,7 @@ interface VoiceModelLayoutProps {
   selectModelCard: boolean[];
   selectModel: () => void;
   audioFile: Array<File>;
+  moveToAvartar: () => void;
 }
 interface voiceModeltypes {
   name: string;

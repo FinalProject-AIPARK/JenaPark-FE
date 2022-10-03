@@ -36,7 +36,7 @@ export const useApi = createApi({
         body: data.formData,
       }),
     }),
-    getVoiceModel: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+    getVoiceModel: builder.mutation<ReturnVoiceModelType, ActionVoiceModelType>({
       query: (data) => ({
         url: '/api/v1/audio/sample',
         method: 'POST',
@@ -58,7 +58,7 @@ export const {
   useSignUpMutation,
   useLogOutMutation,
   useUploadVoiceMutation,
-  useGetVoiceModelQuery,
+  useGetVoiceModelMutation,
   useInputTextSynMutation,
 } = useApi;
 
@@ -96,7 +96,7 @@ interface ReturnUploadVoiceType {
   error: [];
 }
 [];
-interface ReturnVoiceModelType {
+export interface ReturnVoiceModelType {
   data: [
     {
       name: string;
