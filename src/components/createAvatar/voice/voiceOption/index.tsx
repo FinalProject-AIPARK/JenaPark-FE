@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import VoiceOptionDetailLayout from '@/layout/Voice/VoiceOptionDetailLayout';
 import VoiceOptionTitleLayout from '@/layout/Voice/VoiceOptionTitleLayout';
@@ -10,6 +10,16 @@ import { workingComponent } from '../../../../store/workingProject/projectContro
 function VoiceOption() {
   const { selectedModel, voiceOption, voiceData } = useAppSelector((state) => state.voice);
   const dispatch = useAppDispatch();
+
+  // 도움말 핸들러
+  const [optionGuide, setOptionGuide] = useState([false, false, false]);
+  function guideHandler(state: boolean, index: number) {
+    setOptionGuide((prev) => {
+      const next = [...prev];
+      next[index] = state;
+      return next;
+    });
+  }
 
   // Option input range
   const inputRange: React.MutableRefObject<HTMLInputElement[]> = useRef([]);
@@ -64,6 +74,8 @@ function VoiceOption() {
         inputRange={inputRange}
         breathInputHandler={breathInputHandler}
         requestVoice={requestVoice}
+        optionGuide={optionGuide}
+        guideHandler={guideHandler}
       />
     </Container>
   );

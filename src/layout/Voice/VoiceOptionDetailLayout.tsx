@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import volume from '/volume-icon.png';
 import mic from '/voiceMic-icon.png';
 import breath from '/breathOption-icon.png';
+import questionMark from '/questionMark-icon.png';
 
 function VoiceOptionDetailLayout({
   rangeValue,
@@ -10,6 +11,8 @@ function VoiceOptionDetailLayout({
   inputRange,
   breathInputHandler,
   requestVoice,
+  optionGuide,
+  guideHandler,
 }: VoiceOptionDetailProps) {
   const layoutInfo = [
     {
@@ -21,6 +24,9 @@ function VoiceOptionDetailLayout({
       min: -0.5,
       maxGuide: '빠르게',
       minGuide: '느리게',
+      guide: '아바타의 말하는 속도를 조절할 수 있습니다.',
+      leftPosition: '7rem',
+      topPosition: '-2rem',
     },
     {
       icon: mic,
@@ -31,6 +37,9 @@ function VoiceOptionDetailLayout({
       min: -0.5,
       maxGuide: '0.5',
       minGuide: '-0.5',
+      guide: '목소리 톤의 높낮이를 조절할 수 있습니다.',
+      leftPosition: '6rem',
+      topPosition: '-2rem',
     },
   ];
   return (
@@ -44,6 +53,18 @@ function VoiceOptionDetailLayout({
               <TextStyle size="1rem" weight="700" maginLeft="0.5rem">
                 {item.optionName}
               </TextStyle>
+              <img
+                src={questionMark}
+                alt="음성설정도움말아이콘"
+                onMouseEnter={() => guideHandler(true, index)}
+                onMouseLeave={() => guideHandler(false, index)}
+                style={{ width: '1.5rem', marginLeft: '0.3rem' }}
+              />
+              {optionGuide[index] ? (
+                <GuideTextBox top={item.topPosition} left={item.leftPosition}>
+                  <span>{item.guide}</span>
+                </GuideTextBox>
+              ) : null}
             </TitleBox>
             {/* 설정 바 */}
             <RangeBox>
@@ -71,6 +92,21 @@ function VoiceOptionDetailLayout({
             <TextStyle size="1rem" weight="700" maginLeft="0.5rem">
               호흡 조절
             </TextStyle>
+            <img
+              src={questionMark}
+              alt="음성설정도움말아이콘"
+              onMouseEnter={() => guideHandler(true, 2)}
+              onMouseLeave={() => guideHandler(false, 2)}
+              style={{ width: '1.5rem', marginLeft: '0.3rem' }}
+            />
+            {optionGuide[2] ? (
+              <GuideTextBox top="-3rem" left="7.2rem">
+                <span>
+                  문장과 문장 사이의 공백 시간을 <br />
+                  조절할 수 있습니다.
+                </span>
+              </GuideTextBox>
+            ) : null}
           </TitleBox>
           <BreathGuideBox>
             <BreathInputBox>
@@ -105,11 +141,17 @@ interface VoiceOptionDetailProps {
   inputRange: React.MutableRefObject<HTMLInputElement[]>;
   breathInputHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
   requestVoice: () => void;
+  optionGuide: boolean[];
+  guideHandler: (state: boolean, index: number) => void;
 }
 interface TextStyleProps {
   maginLeft?: string;
   size: string;
   weight: string;
+}
+interface GuideTextBox {
+  top: string;
+  left: string;
 }
 
 const OptionsContainter = styled.div`
@@ -119,8 +161,10 @@ const OptionBox = styled.div`
   margin-bottom: 2.25rem;
 `;
 const TitleBox = styled.div`
+  flex-grow: 1;
   display: flex;
   align-items: center;
+  position: relative;
   margin-bottom: 0.5rem;
 `;
 const TextStyle = styled.span<TextStyleProps>`
@@ -141,6 +185,17 @@ const ButtonStyle = styled.button`
 `;
 const RangeBox = styled.div`
   margin-bottom: 0.5rem;
+`;
+const GuideTextBox = styled.div<GuideTextBox>`
+  background-color: #fff;
+  position: absolute;
+  top: ${({ top }) => top};
+  left: ${({ left }) => left};
+  padding: 0.6rem;
+  font-size: 0.81rem;
+  line-height: 1.2rem;
+  color: #333;
+  border-radius: 0.6rem;
 `;
 const RangeStyle = styled.input`
   -webkit-appearance: none;
@@ -181,7 +236,7 @@ const BreathInputBox = styled.div`
   border-radius: 0.31rem;
 `;
 const BreathInput = styled.input`
-  width: 5rem;
+  width: 4rem;
   font-size: 1rem;
   font-weight: 700;
   text-align: center;

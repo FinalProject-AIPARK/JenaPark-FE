@@ -110,13 +110,13 @@ const TitleBox = styled.div`
 const GuideTextBox = styled.div`
   background-color: #fff;
   width: 15rem;
-  height: 6.6rem;
   position: absolute;
-  top: -8.3rem;
-  right: 0;
+  top: -9rem;
+  right: 0rem;
   padding: 0.8rem;
   font-size: 0.81rem;
-  line-height: 1.1rem;
+  line-height: 1.2rem;
+  color: #333;
   border-radius: 1rem;
 `;
 const ModelCardBox = styled.div`
