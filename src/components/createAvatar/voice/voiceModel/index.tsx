@@ -133,7 +133,7 @@ function VoiceModel() {
 
   // 음성 모델 카드 스타일링
   const { voiceData } = useAppSelector((state) => state.voice);
-  const [selectModelCard, setSelectModelCard] = useState<boolean[]>([...playController]);
+  const [selectModelCard, setSelectModelCard] = useState<boolean[]>([]);
   useEffect(() => {
     setSelectModelCard([...playController]);
     initSelectCard();
@@ -154,7 +154,7 @@ function VoiceModel() {
   function selectModelCardHandler(index: number) {
     setSelectModelCard((prev) => {
       let card = prev.map((item) => (item = false));
-      card[index] = !card[index];
+      card[index] = !prev[index];
       return card;
     });
   }

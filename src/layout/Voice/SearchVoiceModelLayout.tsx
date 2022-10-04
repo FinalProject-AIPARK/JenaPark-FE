@@ -1,14 +1,14 @@
-import React, { DragEvent, ChangeEvent } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import 'react-h5-audio-player/lib/styles.css';
 import searchIcon from '/search-icon.png';
 
-function SearchVoiceModelLayout({ setOnModal, audioFile }: VoiceModelLayoutProps) {
+const SearchVoiceModelLayout = memo(({ setOnModal, audioFile }: VoiceModelLayoutProps) => {
   return (
     <>
       <TitleBox>
         <TextStyle size="1.2rem" weight="700" color="#fff">
-          사용하실 보이스를 선택해주세요.
+          사용하실 음성을 선택해주세요.
         </TextStyle>
         <ButtonStyle
           onClick={() => setOnModal(true)}
@@ -41,7 +41,7 @@ function SearchVoiceModelLayout({ setOnModal, audioFile }: VoiceModelLayoutProps
       </SearchBox>
     </>
   );
-}
+});
 
 interface VoiceModelLayoutProps {
   setOnModal: React.Dispatch<React.SetStateAction<boolean>>;
