@@ -11,8 +11,10 @@ const VoiceOptionTitleLayout = memo(({ selectedModel }: VoiceOptionTitleProps) =
   const [onOff, setOnOff] = useState(false);
   const player: React.MutableRefObject<any> = useRef([]);
   useEffect(() => {
-    // 선택 재생
-    onOff ? player.current.audio.current.play() : player.current.audio.current.pause();
+    if (selectedModel.nameColor.length > 0) {
+      // 선택 재생
+      onOff ? player.current.audio.current.play() : player.current.audio.current.pause();
+    }
   }, [onOff]);
   return (
     <div>
@@ -36,48 +38,58 @@ const VoiceOptionTitleLayout = memo(({ selectedModel }: VoiceOptionTitleProps) =
           </GuideTextBox>
         ) : null}
       </TitleBox>
-      <ModelCardBox>
-        <ModelNameBox backColor={selectedModel.nameColor}>
-          <ModelName>{selectedModel.name}</ModelName>
-        </ModelNameBox>
-        <AudioBox>
-          <AudioPlayer
-            preload="metadata"
-            src={selectedModel.audioUrl}
-            volume={1}
-            onPause={() => setOnOff(false)}
-            ref={(elem) => (player.current = elem)}
-          />
-          <ButtonStyle
-            onClick={(event) => {
-              setOnOff(!onOff);
-              event.stopPropagation();
-            }}
-            height="2rem"
-          >
-            {onOff ? (
-              <img src={pause} alt="음성일시정지아이콘" style={{ width: '2rem', height: '2rem' }} />
-            ) : (
-              <img
-                src={play}
-                alt="음성재생일시정지아이콘"
-                style={{ width: '2rem', height: '2rem' }}
-              />
-            )}
-          </ButtonStyle>
-          <ButtonStyle
-            onClick={(event) => {
-              player.current.audio!.current.load();
-              setOnOff(false);
-              event.stopPropagation();
-            }}
-            height="2rem"
-            marginLeft="0.83rem"
-          >
-            <img src={stop} alt="음성정지아이콘" style={{ width: '2rem', height: '2rem' }} />
-          </ButtonStyle>
-        </AudioBox>
-      </ModelCardBox>
+      {selectedModel.nameColor.length > 0 ? (
+        <ModelCardBox border="#0DFF1E" shadow="#0DFF1E">
+          <ModelNameBox backColor={selectedModel.nameColor}>
+            <ModelName>{selectedModel.name}</ModelName>
+          </ModelNameBox>
+          <AudioBox>
+            <AudioPlayer
+              preload="metadata"
+              src={selectedModel.audioUrl}
+              volume={1}
+              onPause={() => setOnOff(false)}
+              ref={(elem) => (player.current = elem)}
+            />
+            <ButtonStyle
+              onClick={(event) => {
+                setOnOff(!onOff);
+                event.stopPropagation();
+              }}
+              height="2rem"
+            >
+              {onOff ? (
+                <img
+                  src={pause}
+                  alt="음성일시정지아이콘"
+                  style={{ width: '2rem', height: '2rem' }}
+                />
+              ) : (
+                <img
+                  src={play}
+                  alt="음성재생일시정지아이콘"
+                  style={{ width: '2rem', height: '2rem' }}
+                />
+              )}
+            </ButtonStyle>
+            <ButtonStyle
+              onClick={(event) => {
+                player.current.audio!.current.load();
+                setOnOff(false);
+                event.stopPropagation();
+              }}
+              height="2rem"
+              marginLeft="0.83rem"
+            >
+              <img src={stop} alt="음성정지아이콘" style={{ width: '2rem', height: '2rem' }} />
+            </ButtonStyle>
+          </AudioBox>
+        </ModelCardBox>
+      ) : (
+        <ModelCardBox border="#656565" shadow="#B0FFB6">
+          <GuideTextStyle>이전 단계에서 음성을 선택해 주세요.</GuideTextStyle>
+        </ModelCardBox>
+      )}
     </div>
   );
 });
@@ -88,6 +100,10 @@ interface VoiceOptionTitleProps {
     name: string;
     audioUrl: string;
   };
+}
+interface ModelCardBoxProps {
+  border: string;
+  shadow: string;
 }
 interface ModelNameBoxProps {
   backColor: string;
@@ -110,25 +126,30 @@ const TitleBox = styled.div`
 const GuideTextBox = styled.div`
   background-color: #fff;
   width: 15rem;
-  height: 6.6rem;
   position: absolute;
-  top: -8.3rem;
-  right: 0;
+  top: -9rem;
+  right: 0rem;
   padding: 0.8rem;
   font-size: 0.81rem;
-  line-height: 1.1rem;
+  line-height: 1.2rem;
+  color: #333;
   border-radius: 1rem;
 `;
-const ModelCardBox = styled.div`
+const GuideTextStyle = styled.span`
+  margin: auto;
+  font-size: 1.1rem;
+  color: #fff;
+`;
+const ModelCardBox = styled.div<ModelCardBoxProps>`
   width: 100%;
   height: 4.37rem;
   display: flex;
   align-items: center;
   position: relative;
   margin: 0.87rem 0;
-  border: 2px solid #0dff1e;
+  border: 2px solid ${({ border }) => border};
   border-radius: 0.3rem;
-  box-shadow: 0 0 0.62rem 0 rgba(13, 255, 30, 1);
+  box-shadow: 0 0 0.62rem 0 ${({ shadow }) => shadow};
   box-sizing: border-box;
   .rhap_container {
     display: none;
