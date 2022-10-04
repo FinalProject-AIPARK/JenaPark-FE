@@ -1,101 +1,103 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import arrowDown from '/arrowDown-icon.png';
 
-function VoiceModelFilterButton({
-  sexButton,
-  sexFilterHandler,
-  langFilterHandler,
-  langButton,
-  dropdown,
-  dropdownHandler,
-  offDropdown,
-  audioFile,
-}: FilterButtonProps) {
-  return (
-    <ModelOptionButtonBox>
-      {audioFile.length > 0 ? (
-        <>
-          <div>
-            <ButtonStyle
-              backColor="transparent"
-              color="#828282"
-              border="1px solid #828282"
-              width="3rem"
-            >
-              남
-            </ButtonStyle>
-            <ButtonStyle
-              backColor="transparent"
-              color="#828282"
-              border="1px solid #828282"
-              width="3rem"
-              marginLeft="0.5rem"
-            >
-              여
-            </ButtonStyle>
-          </div>
-          <div style={{ marginLeft: 'auto', position: 'relative' }}>
-            <DropDownBoxStyle backColor="transparent" border="1px solid #828282" color="#828282">
-              <span>업로드 음성</span>
-            </DropDownBoxStyle>
-          </div>
-        </>
-      ) : (
-        <>
-          <div>
-            <ButtonStyle
-              onClick={() => sexFilterHandler('male')}
-              backColor={sexButton ? 'transparent' : '#fff'}
-              color={sexButton ? '#828282' : '#000'}
-              border={sexButton ? '1px solid #828282' : 'none'}
-              width="3rem"
-            >
-              남
-            </ButtonStyle>
-            <ButtonStyle
-              onClick={() => sexFilterHandler('female')}
-              backColor={sexButton ? '#fff' : 'transparent'}
-              color={sexButton ? '#000' : '#828282'}
-              border={sexButton ? 'none' : '1px solid #828282'}
-              width="3rem"
-              marginLeft="0.5rem"
-            >
-              여
-            </ButtonStyle>
-          </div>
-          <div style={{ marginLeft: 'auto', position: 'relative' }}>
-            <DropDownBoxStyle
-              onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-                dropdownHandler(event)
-              }
-            >
-              <span ref={offDropdown}>{langButton}</span>
-              <img
-                src={arrowDown}
-                alt="언어선택메뉴여는아이콘"
-                style={{ width: '1.5rem', marginLeft: '0.5rem' }}
-              />
-            </DropDownBoxStyle>
-            {dropdown ? (
-              <LangListStyle>
-                <LangButtonStyle onClick={() => langFilterHandler('한국어')}>
-                  한국어
-                </LangButtonStyle>
-                <LangButtonStyle onClick={() => langFilterHandler('영어')} margin="0.5rem">
-                  영어
-                </LangButtonStyle>
-                <LangButtonStyle onClick={() => langFilterHandler('중국어')}>
-                  중국어
-                </LangButtonStyle>
-              </LangListStyle>
-            ) : null}
-          </div>
-        </>
-      )}
-    </ModelOptionButtonBox>
-  );
-}
+const VoiceModelFilterButton = memo(
+  ({
+    sexButton,
+    sexFilterHandler,
+    langFilterHandler,
+    langButton,
+    dropdown,
+    dropdownHandler,
+    offDropdown,
+    audioFile,
+  }: FilterButtonProps) => {
+    return (
+      <ModelOptionButtonBox>
+        {audioFile.length > 0 ? (
+          <>
+            <div>
+              <ButtonStyle
+                backColor="transparent"
+                color="#828282"
+                border="1px solid #828282"
+                width="3rem"
+              >
+                남
+              </ButtonStyle>
+              <ButtonStyle
+                backColor="transparent"
+                color="#828282"
+                border="1px solid #828282"
+                width="3rem"
+                marginLeft="0.5rem"
+              >
+                여
+              </ButtonStyle>
+            </div>
+            <div style={{ marginLeft: 'auto', position: 'relative' }}>
+              <DropDownBoxStyle backColor="transparent" border="1px solid #828282" color="#828282">
+                <span>업로드 음성</span>
+              </DropDownBoxStyle>
+            </div>
+          </>
+        ) : (
+          <>
+            <div>
+              <ButtonStyle
+                onClick={() => sexFilterHandler('male')}
+                backColor={sexButton ? 'transparent' : '#fff'}
+                color={sexButton ? '#828282' : '#000'}
+                border={sexButton ? '1px solid #828282' : 'none'}
+                width="3rem"
+              >
+                남
+              </ButtonStyle>
+              <ButtonStyle
+                onClick={() => sexFilterHandler('female')}
+                backColor={sexButton ? '#fff' : 'transparent'}
+                color={sexButton ? '#000' : '#828282'}
+                border={sexButton ? 'none' : '1px solid #828282'}
+                width="3rem"
+                marginLeft="0.5rem"
+              >
+                여
+              </ButtonStyle>
+            </div>
+            <div style={{ marginLeft: 'auto', position: 'relative' }}>
+              <DropDownBoxStyle
+                onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+                  dropdownHandler(event)
+                }
+              >
+                <span ref={offDropdown}>{langButton}</span>
+                <img
+                  src={arrowDown}
+                  alt="언어선택메뉴여는아이콘"
+                  style={{ width: '1.5rem', marginLeft: '0.5rem' }}
+                />
+              </DropDownBoxStyle>
+              {dropdown ? (
+                <LangListStyle>
+                  <LangButtonStyle onClick={() => langFilterHandler('한국어')}>
+                    한국어
+                  </LangButtonStyle>
+                  <LangButtonStyle onClick={() => langFilterHandler('영어')} margin="0.5rem">
+                    영어
+                  </LangButtonStyle>
+                  <LangButtonStyle onClick={() => langFilterHandler('중국어')}>
+                    중국어
+                  </LangButtonStyle>
+                </LangListStyle>
+              ) : null}
+            </div>
+          </>
+        )}
+      </ModelOptionButtonBox>
+    );
+  },
+);
 
 interface FilterButtonProps {
   sexButton: boolean;

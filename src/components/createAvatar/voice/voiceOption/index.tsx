@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import VoiceOptionDetailLayout from '@/layout/Voice/VoiceOptionDetailLayout';
 import VoiceOptionTitleLayout from '@/layout/Voice/VoiceOptionTitleLayout';
@@ -54,6 +54,7 @@ function VoiceOption() {
     synthesis(voiceData);
     dispatch(workingComponent());
   }
+
   return (
     <Container>
       <VoiceOptionTitleLayout selectedModel={selectedModel} />
