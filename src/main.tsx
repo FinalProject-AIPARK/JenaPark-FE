@@ -21,7 +21,11 @@ body {
   background-position: center;
 }
 button {
+  border: none;
   cursor: pointer;
+  :focus {
+    outline: none;
+  }
 }
 input {
   background-color: transparent;

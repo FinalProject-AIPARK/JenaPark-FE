@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import questionMark from '/questionMark-icon.png';
 import previewIcon from '/previewAvatar-icon.png';
 
-function ProjectPreviewAvatar() {
+function ProjectPreviewAvatar({ guide, setGuide, workingHandler, moved }: PreviewAvatarProps) {
   return (
     <Container>
       <InnerBox>
@@ -14,20 +14,49 @@ function ProjectPreviewAvatar() {
           <img
             src={questionMark}
             alt="텍스트입력 도움말 아이콘"
+            onMouseEnter={() => setGuide(true)}
+            onMouseLeave={() => setGuide(false)}
             style={{ width: '1.5rem', marginLeft: '0.3rem' }}
           />
+          {guide ? (
+            <GuideTextBox>
+              <span>
+                음성과 합성할 가상 아바타를
+                <br />
+                미리 확인할 수 있습니다.
+                <br />
+                아바타를 선택해 주세요.
+              </span>
+            </GuideTextBox>
+          ) : null}
         </TitleBox>
         <MoveAvatarBox>
-          <img src={previewIcon} alt="아바타 작업 이동 아이콘" style={{ width: '3rem' }} />
-          <TextStyle size="0.9rem" weight="400" color="#828282" marginTop="1.3rem">
-            가상 아바타 선택으로 이동
-          </TextStyle>
+          {moved ? (
+            <TextStyle size="0.9rem" weight="400" color="#828282">
+              아바타를 선택해주세요.
+            </TextStyle>
+          ) : (
+            <>
+              <Button onClick={workingHandler}>
+                <Img src={previewIcon} alt="아바타 작업 이동 아이콘" />
+              </Button>
+              <TextStyle size="0.9rem" weight="400" color="#828282" marginTop="1.3rem">
+                가상 아바타 선택으로 이동
+              </TextStyle>
+            </>
+          )}
         </MoveAvatarBox>
       </InnerBox>
     </Container>
   );
 }
 
+interface PreviewAvatarProps {
+  guide: boolean;
+  setGuide: React.Dispatch<React.SetStateAction<boolean>>;
+  workingHandler: () => void;
+  moved: boolean;
+}
 interface TextStyleProps {
   size: string;
   weight: string;
@@ -39,6 +68,7 @@ const Container = styled.div`
   background-color: #001334;
   width: 18.75rem;
   height: 22.75rem;
+  position: relative;
   padding: 1.5rem;
   border-radius: 0.63rem;
 `;
@@ -48,7 +78,6 @@ const InnerBox = styled.div`
 const TitleBox = styled.div`
   display: flex;
   align-items: center;
-  position: relative;
   margin-bottom: 0.6rem;
 `;
 const TextStyle = styled.span<TextStyleProps>`
@@ -60,8 +89,8 @@ const TextStyle = styled.span<TextStyleProps>`
 const GuideTextBox = styled.div`
   background-color: #fff;
   position: absolute;
-  top: -4.3rem;
-  left: 6.6rem;
+  top: -2.8rem;
+  right: -0.6rem;
   padding: 0.6rem;
   font-size: 0.81rem;
   line-height: 1.2rem;
@@ -76,6 +105,19 @@ const MoveAvatarBox = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 0.63rem;
+`;
+const Button = styled.button`
+  background-color: transparent;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+`;
+const Img = styled.img`
+  width: 3rem;
+  border-radius: 50%;
+  :hover {
+    width: 3.2rem;
+  }
 `;
 
 export default ProjectPreviewAvatar;

@@ -1,8 +1,9 @@
 import ProjectInputText from '@/layout/ProjectInputText';
 import React, { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '../../../../store/store';
+import { useAppSelector, useAppDispatch } from '@/store/store';
 import { inputText } from '@/store/voice/voiceSlice';
 import ProjectPreviewAvatar from '@/layout/ProjectPreviewAvatar';
+import { moveToAvatar } from '@/store/workingProject/projectControlSlice';
 
 function InputText() {
   const { text } = useAppSelector((state) => state.voice.voiceData);
@@ -19,17 +20,30 @@ function InputText() {
   }
 
   // 도움말 동작
-  const [guide, setGuide] = useState(false);
+  const [inputTextGuide, setInputTextGuide] = useState(false);
+  const [previewGuide, setPreviewGuide] = useState(false);
+
+  // 아바타 작업으로 이동
+  const [moved, setMoved] = useState(false);
+  function workingHandler() {
+    dispatch(moveToAvatar());
+    setMoved(true);
+  }
 
   return (
     <div style={{ display: 'flex' }}>
       <ProjectInputText
         text={updateText}
         textHandler={textHandler}
-        guide={guide}
-        setGuide={setGuide}
+        guide={inputTextGuide}
+        setGuide={setInputTextGuide}
       />
-      <ProjectPreviewAvatar />
+      <ProjectPreviewAvatar
+        guide={previewGuide}
+        setGuide={setPreviewGuide}
+        workingHandler={workingHandler}
+        moved={moved}
+      />
     </div>
   );
 }
