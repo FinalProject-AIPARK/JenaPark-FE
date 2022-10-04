@@ -2,6 +2,7 @@ import ProjectInputText from '@/layout/ProjectInputText';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
 import { inputText } from '@/store/voice/voiceSlice';
+import ProjectPreviewAvatar from '@/layout/ProjectPreviewAvatar';
 
 function InputText() {
   const { text } = useAppSelector((state) => state.voice.voiceData);
@@ -21,12 +22,15 @@ function InputText() {
   const [guide, setGuide] = useState(false);
 
   return (
-    <ProjectInputText
-      text={updateText}
-      textHandler={textHandler}
-      guide={guide}
-      setGuide={setGuide}
-    />
+    <div style={{ display: 'flex' }}>
+      <ProjectInputText
+        text={updateText}
+        textHandler={textHandler}
+        guide={guide}
+        setGuide={setGuide}
+      />
+      <ProjectPreviewAvatar />
+    </div>
   );
 }
 
