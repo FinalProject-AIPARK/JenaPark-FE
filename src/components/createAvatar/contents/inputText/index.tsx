@@ -1,9 +1,8 @@
-import React from 'react'
+import ProjectInputText from '@/layout/ProjectInputText';
+import React from 'react';
 
-function index() {
-  return (
-    <div>index</div>
-  )
+function InputText() {
+  return <ProjectInputText />;
 }
 
-export default index
+export default InputText;
