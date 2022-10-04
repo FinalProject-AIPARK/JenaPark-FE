@@ -15,18 +15,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
-      </Routes>
-    );
-  } else {
-    return (
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/history" element={<History />} />
         <Route path="/project" element={<CreateAvatar />} />
       </Routes>
     );
+  } else {
   }
 }
 
