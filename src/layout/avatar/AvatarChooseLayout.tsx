@@ -10,9 +10,7 @@ function AvatarChooseStyle({
     avatarListDress,
     avatarModelSelect,
     avatarModelReset,
-    createAvatar,
-    avartarDress,
-    // createAvatars
+    createAvatarHandler
   } : Test) {
 
   return (
@@ -20,7 +18,7 @@ function AvatarChooseStyle({
       <Avatar>
         <AvatarTitle>음성이랑 합성할 버추얼 아바타를 선택해주세요.</AvatarTitle>
         <div>
-          <VirtualAvatarText>버추얼 아바타</VirtualAvatarText>
+          <VirtualAvatarText>AI 아바타</VirtualAvatarText>
           <VirtualAvatarContainer>
             <MaskIcon src={left} />
               <FlexBox>
@@ -119,7 +117,7 @@ function AvatarChooseStyle({
           </div>
         </Scroolbar>
         <SubButtonContainer>
-          <SubButton onClick={() => createAvatar(avartarDress)}>아바타 선택하기</SubButton>
+          <SubButton onClick={createAvatarHandler}>아바타 선택하기</SubButton>
         </SubButtonContainer>
       </Avatar>
     </>
@@ -157,17 +155,7 @@ interface Test {
       ]
     }
   }[] | any;
-  createAvatar: {
-    accessoryId: number,
-    attitudeId: number,
-    avatarId: number,
-    clothesId: number,
-    projectId: number,
-  } | any
-
-  avartarDress: {
-    data:string
-  } | any
+  createAvatarHandler: () => void
   avatarId: number;
   setAvatarId: React.Dispatch<React.SetStateAction<number>>;
   avatarModelSelect: (id: number, kind: string) => void;
