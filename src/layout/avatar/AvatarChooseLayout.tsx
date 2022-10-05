@@ -1,20 +1,19 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import styled from 'styled-components';
-import left from '../../../public/icon/maskLeft-icon.png';
-import right from '../../../public/icon/maskRight-icon.png';
+import left from '@/src/icon/maskLeft-icon.png';
+import right from '@/src/icon/maskRight-icon.png';
 
 function AvatarChooseStyle({
-    avatarList,
-    setAvatarId,
-    avatarId,
-    avatarListDress,
-    avatarModelSelect,
-    avatarModelReset,
-    createAvatar,
-    avartarDress,
-    // createAvatars
-  } : Test) {
-
+  avatarList,
+  setAvatarId,
+  avatarId,
+  avatarListDress,
+  avatarModelSelect,
+  avatarModelReset,
+  createAvatar,
+  avartarDress,
+}: // createAvatars
+Test) {
   return (
     <>
       <Avatar>
@@ -23,28 +22,23 @@ function AvatarChooseStyle({
           <VirtualAvatarText>버추얼 아바타</VirtualAvatarText>
           <VirtualAvatarContainer>
             <MaskIcon src={left} />
-              <FlexBox>
-                {avatarList?.data &&
-                  avatarList?.data.map((list : any) => {
-                    return (
-                      <Box
+            <FlexBox>
+              {avatarList?.data &&
+                avatarList?.data.map((list: any) => {
+                  return (
+                    <Box
                       borderColor={true ? '2px solid #fff' : '2px solid #000'}
                       key={list.id}
                       onClick={() => {
                         avatarModelReset(list.id);
                         setAvatarId(list.id);
                       }}
-
-                      >
-                        <ImgthumbNail 
-                        src={list.thumbNail} 
-                        alt="아바타 이미지"
-                         />
-                      </Box>
-                    )
-                  })
-                }
-              </FlexBox>
+                    >
+                      <ImgthumbNail src={list.thumbNail} alt="아바타 이미지" />
+                    </Box>
+                  );
+                })}
+            </FlexBox>
             <MaskIcon src={right} />
           </VirtualAvatarContainer>
         </div>
@@ -55,18 +49,18 @@ function AvatarChooseStyle({
             <VirtualAvatarContainer>
               <MaskIcon src={left} />
               <FlexBox>
-              {avatarListDress?.data.accUrl &&
-                  avatarListDress?.data.accUrl.map((list : any) => {
+                {avatarListDress?.data.accUrl &&
+                  avatarListDress?.data.accUrl.map((list: any) => {
                     return (
-                        <Box 
+                      <Box
                         borderColor={true ? '2px solid #fff' : '2px solid #000'}
                         onClick={() => avatarModelSelect(list.id, 'accessoryId')}
-                        key={list.id}>
-                          <ImgthumbNail src={list.accessoryUrl} alt="아바타 이미지"/>
-                        </Box>
-                    )
-                  })
-                }
+                        key={list.id}
+                      >
+                        <ImgthumbNail src={list.accessoryUrl} alt="아바타 이미지" />
+                      </Box>
+                    );
+                  })}
               </FlexBox>
               <MaskIcon src={right} />
             </VirtualAvatarContainer>
@@ -76,18 +70,18 @@ function AvatarChooseStyle({
             <VirtualAvatarContainer>
               <MaskIcon src={left} />
               <FlexBox>
-              {avatarListDress?.data.attitudeUrl &&
-                  avatarListDress?.data.attitudeUrl.map((list : any) => {
+                {avatarListDress?.data.attitudeUrl &&
+                  avatarListDress?.data.attitudeUrl.map((list: any) => {
                     return (
-                      <Box 
-                      borderColor={true ? '2px solid #fff' : '2px solid #000'}
-                      onClick={() => avatarModelSelect(list.id, 'hatId')}
-                      key={list.id}>
-                        <ImgthumbNail src={list.hatUrl} alt="아바타 이미지"/>
+                      <Box
+                        borderColor={true ? '2px solid #fff' : '2px solid #000'}
+                        onClick={() => avatarModelSelect(list.id, 'hatId')}
+                        key={list.id}
+                      >
+                        <ImgthumbNail src={list.hatUrl} alt="아바타 이미지" />
                       </Box>
-                    )
-                  })
-              }
+                    );
+                  })}
               </FlexBox>
               <MaskIcon src={right} />
             </VirtualAvatarContainer>
@@ -97,22 +91,18 @@ function AvatarChooseStyle({
             <VirtualAvatarContainer>
               <MaskIcon src={left} />
               <FlexBox>
-              {avatarListDress?.data.clothesUrl &&
-                  avatarListDress?.data.clothesUrl.map((list : any) => {
+                {avatarListDress?.data.clothesUrl &&
+                  avatarListDress?.data.clothesUrl.map((list: any) => {
                     return (
-                      <Box 
-                      borderColor={true ? '2px solid #fff' : '2px solid #000'}
-                      onClick={() => avatarModelSelect(list.id, 'clothesId')}
-                      key={list.id}
+                      <Box
+                        borderColor={true ? '2px solid #fff' : '2px solid #000'}
+                        onClick={() => avatarModelSelect(list.id, 'clothesId')}
+                        key={list.id}
                       >
-                        <ImgthumbNail 
-                        src={list.clothesUrl} 
-                        alt="아바타 이미지"
-                         />
+                        <ImgthumbNail src={list.clothesUrl} alt="아바타 이미지" />
                       </Box>
-                    )
-                  })
-                }
+                    );
+                  })}
               </FlexBox>
               <MaskIcon src={right} />
             </VirtualAvatarContainer>
@@ -128,46 +118,54 @@ function AvatarChooseStyle({
 
 // 타입 지정
 interface Test {
-  avatarList: {
-    data: {
-      id: number,
-      name: string,
-      thumbNail: string,
-    }
-  }[] | any
-  avatarListDress: {
-    data: {
-      accUrl: [
-        {
-          id : number;
-          accessoryUrl: string;
-        }
-      ],
-      clothesUrl: [
-        {
-          id : number;
-          clothesUrl: string;
-        }
-      ],
-      attitudeUrl: [
-        {
-          id : number;
-          hatUrl: string;
-        }
-      ]
-    }
-  }[] | any;
-  createAvatar: {
-    accessoryId: number,
-    attitudeId: number,
-    avatarId: number,
-    clothesId: number,
-    projectId: number,
-  } | any
+  avatarList:
+    | {
+        data: {
+          id: number;
+          name: string;
+          thumbNail: string;
+        };
+      }[]
+    | any;
+  avatarListDress:
+    | {
+        data: {
+          accUrl: [
+            {
+              id: number;
+              accessoryUrl: string;
+            },
+          ];
+          clothesUrl: [
+            {
+              id: number;
+              clothesUrl: string;
+            },
+          ];
+          attitudeUrl: [
+            {
+              id: number;
+              hatUrl: string;
+            },
+          ];
+        };
+      }[]
+    | any;
+  createAvatar:
+    | {
+        accessoryId: number;
+        attitudeId: number;
+        avatarId: number;
+        clothesId: number;
+        projectId: number;
+      }
+    | any;
 
-  avartarDress: {
-    data:string
-  } | any
+  avartarDress:
+    | {
+        data: string;
+      }
+    | any;
   avatarId: number;
   setAvatarId: React.Dispatch<React.SetStateAction<number>>;
   avatarModelSelect: (id: number, kind: string) => void;
@@ -175,7 +173,7 @@ interface Test {
 }
 
 interface borderColors {
-  borderColor: string | number
+  borderColor: string | number;
 }
 
 // 스타일 관련
@@ -237,16 +235,16 @@ const Box = styled.div<borderColors>`
   align-items: center;
   width: 6.25rem;
   height: 7.5rem;
-  border: ${({borderColor}) => borderColor};
+  border: ${({ borderColor }) => borderColor};
   border-radius: 10px;
   background-color: #fff;
   overflow: hidden;
   cursor: pointer;
 `;
 
-const ImgthumbNail = styled.img `
+const ImgthumbNail = styled.img`
   width: 7.5rem;
-`
+`;
 
 const AvatarTitle = styled.div`
   font-size: 18px;
