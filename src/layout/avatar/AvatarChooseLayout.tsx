@@ -1,25 +1,23 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import styled from 'styled-components';
-import left from '@/src/icon/maskLeft-icon.png';
-import right from '@/src/icon/maskRight-icon.png';
+import left from '../../../public/icon/maskLeft-icon.png';
+import right from '../../../public/icon/maskRight-icon.png';
 
 function AvatarChooseStyle({
-  avatarList,
-  setAvatarId,
-  avatarId,
-  avatarListDress,
-  avatarModelSelect,
-  avatarModelReset,
-  createAvatar,
-  avartarDress,
-}: // createAvatars
-Test) {
+    avatarList,
+    setAvatarId,
+    avatarId,
+    avatarListDress,
+    avatarModelSelect,
+    avatarModelReset,
+    createAvatarHandler
+  } : Test) {
   return (
     <>
       <Avatar>
         <AvatarTitle>음성이랑 합성할 버추얼 아바타를 선택해주세요.</AvatarTitle>
         <div>
-          <VirtualAvatarText>버추얼 아바타</VirtualAvatarText>
+          <VirtualAvatarText>AI 아바타</VirtualAvatarText>
           <VirtualAvatarContainer>
             <MaskIcon src={left} />
             <FlexBox>
@@ -109,7 +107,7 @@ Test) {
           </div>
         </Scroolbar>
         <SubButtonContainer>
-          <SubButton onClick={() => createAvatar(avartarDress)}>아바타 선택하기</SubButton>
+          <SubButton onClick={createAvatarHandler}>아바타 선택하기</SubButton>
         </SubButtonContainer>
       </Avatar>
     </>
@@ -118,54 +116,36 @@ Test) {
 
 // 타입 지정
 interface Test {
-  avatarList:
-    | {
-        data: {
-          id: number;
-          name: string;
-          thumbNail: string;
-        };
-      }[]
-    | any;
-  avatarListDress:
-    | {
-        data: {
-          accUrl: [
-            {
-              id: number;
-              accessoryUrl: string;
-            },
-          ];
-          clothesUrl: [
-            {
-              id: number;
-              clothesUrl: string;
-            },
-          ];
-          attitudeUrl: [
-            {
-              id: number;
-              hatUrl: string;
-            },
-          ];
-        };
-      }[]
-    | any;
-  createAvatar:
-    | {
-        accessoryId: number;
-        attitudeId: number;
-        avatarId: number;
-        clothesId: number;
-        projectId: number;
-      }
-    | any;
-
-  avartarDress:
-    | {
-        data: string;
-      }
-    | any;
+  avatarList: {
+    data: {
+      id: number,
+      name: string,
+      thumbNail: string,
+    }
+  }[] | any
+  avatarListDress: {
+    data: {
+      accUrl: [
+        {
+          id : number;
+          accessoryUrl: string;
+        }
+      ],
+      clothesUrl: [
+        {
+          id : number;
+          clothesUrl: string;
+        }
+      ],
+      attitudeUrl: [
+        {
+          id : number;
+          hatUrl: string;
+        }
+      ]
+    }
+  }[] | any;
+  createAvatarHandler: () => void
   avatarId: number;
   setAvatarId: React.Dispatch<React.SetStateAction<number>>;
   avatarModelSelect: (id: number, kind: string) => void;
