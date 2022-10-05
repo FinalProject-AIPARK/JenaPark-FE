@@ -8,8 +8,6 @@ function AvatarOptionStyle() {
 
   // 슬라이드 로직
   let [counter, setCounter] = useState(0)
-  console.log(counter)
-
 
   // 배경 업로드 로직
   const [bgImgData, setBgImgData] = useState<any>([]);
@@ -87,7 +85,7 @@ function AvatarOptionStyle() {
         <Test>
           <FlexBox 
           justifyContent ="flex-start" 
-          height = "321px"
+          height = "20.688rem"
           flexWrap = "wrap" 
           overflowY = "scroll"
           paddingLeft = '22px'
@@ -144,11 +142,6 @@ const TestTransForm = styled.div<Test20> `
   gap: 10px;
   width: 9999px;
   transform: translateX(${props => `${props.counter}px`});
-`
-
-const TestIcon = styled.div `
-  position: absolute;
-  left: 10px;
 `
 
 const Test = styled.div `
@@ -259,7 +252,7 @@ const PlusIcon = styled.img `
 `
 const SubButtonContainer = styled.div`
   width: 32.5rem;
-  height: 85px;
+  height: 4.7222rem;
   display: flex;
   justify-content: center;
   align-items: center;
