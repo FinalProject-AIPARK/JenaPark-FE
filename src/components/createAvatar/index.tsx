@@ -5,6 +5,7 @@ import Voice from './voice';
 import Avatar from './avatar/index';
 import Header from '../Header';
 import { useAppSelector, useAppDispatch } from '../../store/store';
+import Contents from './contents';
 
 function CreateAvatar() {
   const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
@@ -13,6 +14,7 @@ function CreateAvatar() {
       <Header />
       <Contain>
         <Navbar />
+        <Contents />
         {isVoiceWoking ? <Voice /> : <Avatar />}
       </Contain>
     </>
