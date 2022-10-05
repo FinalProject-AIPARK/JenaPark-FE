@@ -15,9 +15,7 @@ function ProjectHeader() {
           <ProjectNameText>프로젝트 명</ProjectNameText>
           <NameEditImage />
         </ProjectNameContainer>
-        <div>
-          <SoundPlayer />
-        </div>
+        <SoundPlayer />
         <ImageButtonContainer>
           <SaveButton>
             프로젝트 저장
@@ -52,8 +50,7 @@ const ProjectHeaderContainer = styled.div`
 const ProjectNameContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 10.25rem;
-  height: 2.06rem;
+  flex-shrink: 0;
 `;
 
 const LeftArrow = styled.img.attrs({

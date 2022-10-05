@@ -1,17 +1,12 @@
-import React from 'react';
-import AvatarOptionLayout from '../../../../layout/AvatarOptionLayout';
-import { useState,useRef } from 'react';
+import React, { useState } from 'react';
+import AvatarOptionLayout from '../../../../layout/avatar/AvatarOptionStyle';
 
 function index() {
-  const photoInput :any = useRef(null);
 
-  const handleClick =() => {
-    photoInput.current.click()
-  }
 
   return (
     <>
-      <AvatarOptionLayout/>
+      <AvatarOptionLayout></AvatarOptionLayout>
     </>
   )
 }

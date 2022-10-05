@@ -15,20 +15,19 @@ function ProjectHeader() {
           <ProjectNameText>프로젝트 명</ProjectNameText>
           <NameEditImage />
         </ProjectNameContainer>
-        <div>
-          <SoundPlayer />
-        </div>
+        <SoundPlayer />
         <ImageButtonContainer>
           <SaveButton>
             프로젝트 저장
             <SaveImage />
           </SaveButton>
-          <DownloadButton
-            onClick={() => alert('음성과 합성된 프로젝트 영상을 다운 받으시겠습니까?')}
+          <OffButton
+            className="download"
+            // onClick={() => alert('음성과 합성된 프로젝트 영상을 다운 받으시겠습니까?')}
           >
             음성 다운로드
             <VoiceImage />
-          </DownloadButton>
+          </OffButton>
           <DownloadButton onClick={() => alert('프로젝트를 저장 후 다운로드를 진행해주세요')}>
             음성 합성하기
             <VoiceImage />
@@ -52,8 +51,6 @@ const ProjectHeaderContainer = styled.div`
 const ProjectNameContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 10.25rem;
-  height: 2.06rem;
 `;
 
 const LeftArrow = styled.img.attrs({
@@ -139,6 +136,29 @@ const VoiceImage = styled.img.attrs({
   display: inline;
   width: 1.5rem;
   height: 1.5rem;
+`;
+
+const OffButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9.5rem;
+  height: 2.5rem;
+  background: #80a4ff;
+  border: 0.0625rem solid #80a4ff;
+  border-radius: 0.3125rem;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.3125rem;
+  letter-spacing: -0.005em;
+  color: #000;
+  cursor: not-allowed;
+  margin-right: 1.5rem;
+  opacity: 0.6;
+
+  :last-child {
+    margin-right: 0;
+  }
 `;
 
 export default ProjectHeader;
