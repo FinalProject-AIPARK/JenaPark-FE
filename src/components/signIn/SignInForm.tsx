@@ -11,7 +11,7 @@ interface SignInFormInputs {
 }
 
 export default function SignInForm() {
-  const [cookies, setCookie, removeCookie] = useCookies();
+  const [cookies, setCookie] = useCookies();
   const navigate = useNavigate();
   const {
     register,
@@ -27,6 +27,9 @@ export default function SignInForm() {
         setCookie('accessToken', res.data.accessToken);
         setCookie('refreshToken', res.data.refreshToken);
         navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   return (

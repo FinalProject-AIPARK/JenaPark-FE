@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const { VITE_BASE_URL } = import.meta.env;
+
 export const useApi = createApi({
   reducerPath: 'useApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_URL,
+    baseUrl: VITE_BASE_URL,
     credentials: 'include',
   }),
-  // 헤더 토큰 연결
   endpoints: (builder) => ({
     signUp: builder.mutation<null, ActionSignUpType>({
       query: (data) => ({
@@ -22,9 +23,16 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-    logOut: builder.mutation<null, ActionLogOutType>({
+    logOut: builder.mutation<RetrunLogOutType, ActionLogOutType>({
       query: (data) => ({
         url: '/api/v1/members/logout',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    reissueToken: builder.mutation<ReturnReissueTokenType, ActionReissueTokenType>({
+      query: (data) => ({
+        url: '/api/v1/members/reissue',
         method: 'POST',
         body: data,
       }),
@@ -50,6 +58,33 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    getAvatarChooseList: builder.query<AvatarList, null>({
+      query: (token) => ({
+        url: '/api/v1/projects/avatar',
+        method: 'GET',
+      }),
+    }),
+    getAvatarChooseListId: builder.query<AvatarListId, AvatarId>({
+      query: (id) => ({
+        url: `/api/v1/projects/avatar/${id}`,
+        method: 'GET',
+      }),
+    }),
+    postCreateAvatar: builder.mutation<CreateAvatarRespses, CreateAvatar>({
+      query: (data) => ({
+        url: '/api/v1/projects/avatar/createAvatar',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+
+    // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+    //   query: (data) => ({
+    //     url: '/api/v1/audio/sample',
+    //     method: 'GET',
+    //     body: data,
+    //   }),
+    // }),
   }),
 });
 
@@ -57,8 +92,12 @@ export const {
   useSignInMutation,
   useSignUpMutation,
   useLogOutMutation,
+  useReissueTokenMutation,
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
+  useGetAvatarChooseListQuery,
+  useGetAvatarChooseListIdQuery,
+  usePostCreateAvatarMutation,
   useInputTextSynMutation,
 } = useApi;
 
@@ -69,12 +108,13 @@ interface ActionSignUpType {
   confirmPassword: string;
 }
 interface ReturnSignInType {
-  [x: string]: any;
-  grantType: string;
-  accessToken: string;
-  refreshToken: string;
-  accessTokenExpirationTime: number;
-  refreshTokenExpirationTime: number;
+  data: {
+    grantType: string;
+    accessToken: string;
+    refreshToken: string;
+    accessTokenExpirationTime: number;
+    refreshTokenExpirationTime: number;
+  };
 }
 interface ActionSignInType {
   email: string;
@@ -83,6 +123,30 @@ interface ActionSignInType {
 interface ActionLogOutType {
   accessToken: string;
   refreshToken: string;
+}
+interface RetrunLogOutType {
+  state: number;
+  result: string;
+  message: string;
+  data: [];
+  error: [];
+}
+interface ActionReissueTokenType {
+  accessToken: string;
+  refreshToken: string;
+}
+interface ReturnReissueTokenType {
+  state: number;
+  result: string;
+  message: string;
+  data: {
+    grantType: string;
+    accessToken: string;
+    refreshToken: string;
+    accessTokenExpirationTime: number;
+    refreshTokenExpirationTime: number;
+  };
+  error: [];
 }
 interface ActionUploadVoiceType {
   formData: FormData;
@@ -109,6 +173,61 @@ export interface ReturnVoiceModelType {
 interface ActionVoiceModelType {
   lang: string;
   sex: string;
+}
+
+export interface AvatarList {
+  id: any;
+  data:
+    | [
+        {
+          id: number;
+          name: string;
+          thumbNail: string;
+        },
+      ]
+    | undefined;
+  avatarId: number;
+}
+
+interface AvatarId {
+  avatarId: number;
+}
+
+export interface AvatarListId {
+  data:
+    | {
+        accUrl: [
+          {
+            id: number;
+            accessoryUrl: string;
+          },
+        ];
+        clothesUrl: [
+          {
+            id: number;
+            clothesUrl: string;
+          },
+        ];
+        attitudeUrl: [
+          {
+            id: number;
+            hatUrl: string;
+          },
+        ];
+      }[]
+    | undefined;
+}
+
+interface CreateAvatar {
+  accessoryId: number;
+  attitudeId: number;
+  avatarId: number;
+  clothesId: number;
+  projectId: number;
+}
+
+interface CreateAvatarRespses {
+  data: string;
 }
 interface ReturnInpTextSynthesisType {
   audioInfoDtos: [

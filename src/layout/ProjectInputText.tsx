@@ -49,13 +49,13 @@ interface ProjectInputTextProps {
 const Container = styled.div`
   background-color: #001334;
   width: 49.75rem;
-  height: 25.75rem;
+  height: 22.75rem;
   margin-right: 1.5rem;
   padding: 1.5rem;
   border-radius: 0.63rem;
 `;
 const InnerBox = styled.div`
-  height: 23.65rem;
+  height: 20.65rem;
 `;
 const TitleBox = styled.div`
   display: flex;

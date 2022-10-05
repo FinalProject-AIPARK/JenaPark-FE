@@ -1,11 +1,10 @@
-import React from 'react';
-import AvatarOptionStyle from '../../../../styles/AvatarOptionStyle';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import AvatarOptionLayout from '../../../../layout/avatar/AvatarOptionStyle';
 
 function index() {
   return (
     <>
-      <AvatarOptionStyle />
+      <AvatarOptionLayout></AvatarOptionLayout>
     </>
   )
 }
