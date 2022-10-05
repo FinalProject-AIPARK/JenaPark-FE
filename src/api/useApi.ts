@@ -63,6 +63,33 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    getAvatarChooseList: builder.query<AvatarList, null>({
+      query: (token) => ({
+        url: '/api/v1/projects/avatar',
+        method: 'GET',
+      })
+    }),
+    getAvatarChooseListId: builder.query<AvatarListId, AvatarId>({
+      query: (id) => ({
+        url: `/api/v1/projects/avatar/${id}`,
+        method: 'GET',
+      })
+    }),
+    postCreateAvatar: builder.mutation<CreateAvatarRespses, CreateAvatar>({
+      query: (data) => ({
+        url: '/api/v1/projects/avatar/createAvatar',
+        method: 'POST',
+        body: data,
+      })
+    })
+
+    // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+    //   query: (data) => ({
+    //     url: '/api/v1/audio/sample',
+    //     method: 'GET',
+    //     body: data,
+    //   }),
+    // }),
   }),
 });
 
@@ -73,6 +100,9 @@ export const {
   useReissueTokenMutation,
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
+  useGetAvatarChooseListQuery,
+  useGetAvatarChooseListIdQuery,
+  usePostCreateAvatarMutation,
   useInputTextSynMutation,
 } = useApi;
 
@@ -148,6 +178,57 @@ export interface ReturnVoiceModelType {
 interface ActionVoiceModelType {
   lang: string;
   sex: string;
+}
+
+export interface AvatarList {
+  id: any;
+  data: [
+    {
+      id: number;
+      name: string;
+      thumbNail: string;
+    },
+  ] | undefined;
+  avatarId: number
+}
+
+interface AvatarId {
+  avatarId: number
+}
+
+export interface AvatarListId {
+  data: {
+    accUrl: [
+      {
+        id : number;
+        accessoryUrl: string;
+      }
+    ],
+    clothesUrl: [
+      {
+        id : number;
+        clothesUrl: string;
+      }
+    ],
+    attitudeUrl: [
+      {
+        id : number;
+        hatUrl: string;
+      }
+    ]
+  }[] | undefined,
+}
+
+interface CreateAvatar {
+  accessoryId: number,
+  attitudeId: number,
+  avatarId: number,
+  clothesId: number,
+  projectId: number,
+}
+
+interface CreateAvatarRespses {
+  data: string;
 }
 interface ReturnInpTextSynthesisType {
   audioInfoDtos: [

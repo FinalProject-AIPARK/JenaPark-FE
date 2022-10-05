@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useApi } from '../api/useApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { avatarReducer } from './Avatar/avatarSlice'
 import { voiceReducer } from './voice/voiceSlice';
 import { projectControlReducer } from './workingProject/projectControlSlice';
 
 export const store = configureStore({
   reducer: {
     [useApi.reducerPath]: useApi.reducer,
+    avatar: avatarReducer,
     voice: voiceReducer,
     projectControl: projectControlReducer,
   },
