@@ -1,9 +1,20 @@
-import React from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import styled from 'styled-components';
 import left from '../../../public/icon/maskLeft-icon.png';
 import right from '../../../public/icon/maskRight-icon.png';
 
-function AvatarChooseStyle() {
+function AvatarChooseStyle({
+    avatarList,
+    setAvatarId,
+    avatarId,
+    avatarListDress,
+    avatarModelSelect,
+    avatarModelReset,
+    createAvatar,
+    avartarDress,
+    // createAvatars
+  } : Test) {
+
   return (
     <>
       <Avatar>
@@ -12,12 +23,28 @@ function AvatarChooseStyle() {
           <VirtualAvatarText>버추얼 아바타</VirtualAvatarText>
           <VirtualAvatarContainer>
             <MaskIcon src={left} />
-            <FlexBox>
-              <Box></Box>
-              <Box></Box>
-              <Box></Box>
-              <Box></Box>
-            </FlexBox>
+              <FlexBox>
+                {avatarList?.data &&
+                  avatarList?.data.map((list : any) => {
+                    return (
+                      <Box
+                      borderColor={true ? '2px solid #fff' : '2px solid #000'}
+                      key={list.id}
+                      onClick={() => {
+                        avatarModelReset(list.id);
+                        setAvatarId(list.id);
+                      }}
+
+                      >
+                        <ImgthumbNail 
+                        src={list.thumbNail} 
+                        alt="아바타 이미지"
+                         />
+                      </Box>
+                    )
+                  })
+                }
+              </FlexBox>
             <MaskIcon src={right} />
           </VirtualAvatarContainer>
         </div>
@@ -28,10 +55,17 @@ function AvatarChooseStyle() {
             <VirtualAvatarContainer>
               <MaskIcon src={left} />
               <FlexBox>
-                <Box></Box>
-                <Box></Box>
-                <Box></Box>
-                <Box></Box>
+              {avatarListDress?.data.accUrl &&
+                  avatarListDress?.data.accUrl.map((list : any) => {
+                    return (
+                        <Box 
+                        onClick={() => avatarModelSelect(list.id, 'accessoryId')}
+                        key={list.id}>
+                          <ImgthumbNail src={list.accessoryUrl} alt="아바타 이미지"/>
+                        </Box>
+                    )
+                  })
+                }
               </FlexBox>
               <MaskIcon src={right} />
             </VirtualAvatarContainer>
@@ -41,10 +75,17 @@ function AvatarChooseStyle() {
             <VirtualAvatarContainer>
               <MaskIcon src={left} />
               <FlexBox>
-                <Box></Box>
-                <Box></Box>
-                <Box></Box>
-                <Box></Box>
+              {avatarListDress?.data.attitudeUrl &&
+                  avatarListDress?.data.attitudeUrl.map((list : any) => {
+                    return (
+                      <Box 
+                      onClick={() => avatarModelSelect(list.id, 'hatId')}
+                      key={list.id}>
+                        <ImgthumbNail src={list.hatUrl} alt="아바타 이미지"/>
+                      </Box>
+                    )
+                  })
+              }
               </FlexBox>
               <MaskIcon src={right} />
             </VirtualAvatarContainer>
@@ -54,30 +95,87 @@ function AvatarChooseStyle() {
             <VirtualAvatarContainer>
               <MaskIcon src={left} />
               <FlexBox>
-                <Box></Box>
-                <Box></Box>
-                <Box></Box>
-                <Box></Box>
+              {avatarListDress?.data.clothesUrl &&
+                  avatarListDress?.data.clothesUrl.map((list : any) => {
+                    return (
+                      <Box 
+                      onClick={() => avatarModelSelect(list.id, 'clothesId')}
+                      key={list.id}
+                      >
+                        <ImgthumbNail 
+                        src={list.clothesUrl} 
+                        alt="아바타 이미지"
+                         />
+                      </Box>
+                    )
+                  })
+                }
               </FlexBox>
               <MaskIcon src={right} />
             </VirtualAvatarContainer>
           </div>
         </Scroolbar>
         <SubButtonContainer>
-          <SubButton>선택하기</SubButton>
+          <SubButton onClick={() => createAvatar(avartarDress)}>아바타 선택하기</SubButton>
         </SubButtonContainer>
       </Avatar>
     </>
   );
 }
 
-interface testCord {
-  avatarData: {
-    id: number;
-    name: string;
-    thumbNail: string;
+// 타입 지정
+interface Test {
+  avatarList: {
+    data: {
+      id: number,
+      name: string,
+      thumbNail: string,
+    }
+  }[] | any
+  avatarListDress: {
+    data: {
+      accUrl: [
+        {
+          id : number;
+          accessoryUrl: string;
+        }
+      ],
+      clothesUrl: [
+        {
+          id : number;
+          clothesUrl: string;
+        }
+      ],
+      attitudeUrl: [
+        {
+          id : number;
+          hatUrl: string;
+        }
+      ]
+    }
+  }[] | any;
+  createAvatar: {
+    accessoryId: number,
+    attitudeId: number,
+    avatarId: number,
+    clothesId: number,
+    projectId: number,
   }
-}[];
+
+  avartarDress: {
+    data:string
+  }
+  avatarId: number;
+  setAvatarId: React.Dispatch<React.SetStateAction<number>>;
+  avatarModelSelect: (id: number, kind: string) => void;
+  avatarModelReset: (id: number) => void;
+}
+
+interface borderColors {
+  border: string | number
+}
+
+// 스타일 관련
 
 const Scroolbar = styled.div`
   height: 24.563rem;
@@ -107,19 +205,6 @@ const VirtualAvatarContainer = styled.div`
   align-items: center;
 `;
 
-const WomanButton = styled.button`
-  width: 3rem;
-  height: 2.3rem;
-  padding: 8px 16px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 19, 52, 0);
-  border: 1px solid #828282;
-  border-radius: 5px;
-`;
-
 const VirtualAvatarText = styled.p`
   margin: 1rem 2.6rem;
   color: #fff;
@@ -137,18 +222,28 @@ const MaskIcon = styled.img`
 
 const FlexBox = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   width: 86%;
+  gap: 10px;
 `;
 
-const Box = styled.div`
+const Box = styled.div<borderColors>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 6.25rem;
   height: 7.5rem;
-  border: 2px solid #001334;
+  border: ${({borderColor}) => borderColor};
   border-radius: 10px;
   background-color: #fff;
+  overflow: hidden;
+  cursor: pointer;
 `;
+
+const ImgthumbNail = styled.img `
+  width: 7.5rem;
+`
 
 const AvatarTitle = styled.div`
   font-size: 18px;
@@ -159,7 +254,7 @@ const AvatarTitle = styled.div`
 
 const SubButtonContainer = styled.div`
   width: 32.5rem;
-  height: 85px;
+  height: 4.7222rem;
   display: flex;
   justify-content: center;
   align-items: center;
