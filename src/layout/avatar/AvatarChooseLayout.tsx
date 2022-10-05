@@ -59,6 +59,7 @@ function AvatarChooseStyle({
                   avatarListDress?.data.accUrl.map((list : any) => {
                     return (
                         <Box 
+                        borderColor={true ? '2px solid #fff' : '2px solid #000'}
                         onClick={() => avatarModelSelect(list.id, 'accessoryId')}
                         key={list.id}>
                           <ImgthumbNail src={list.accessoryUrl} alt="아바타 이미지"/>
@@ -79,6 +80,7 @@ function AvatarChooseStyle({
                   avatarListDress?.data.attitudeUrl.map((list : any) => {
                     return (
                       <Box 
+                      borderColor={true ? '2px solid #fff' : '2px solid #000'}
                       onClick={() => avatarModelSelect(list.id, 'hatId')}
                       key={list.id}>
                         <ImgthumbNail src={list.hatUrl} alt="아바타 이미지"/>
@@ -99,6 +101,7 @@ function AvatarChooseStyle({
                   avatarListDress?.data.clothesUrl.map((list : any) => {
                     return (
                       <Box 
+                      borderColor={true ? '2px solid #fff' : '2px solid #000'}
                       onClick={() => avatarModelSelect(list.id, 'clothesId')}
                       key={list.id}
                       >
@@ -160,11 +163,11 @@ interface Test {
     avatarId: number,
     clothesId: number,
     projectId: number,
-  }
+  } | any
 
   avartarDress: {
     data:string
-  }
+  } | any
   avatarId: number;
   setAvatarId: React.Dispatch<React.SetStateAction<number>>;
   avatarModelSelect: (id: number, kind: string) => void;
@@ -172,7 +175,7 @@ interface Test {
 }
 
 interface borderColors {
-  border: string | number
+  borderColor: string | number
 }
 
 // 스타일 관련

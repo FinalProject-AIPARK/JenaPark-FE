@@ -26,7 +26,7 @@ export const avatarSlice = createSlice({
       state.elementData.isAvatarChoose = false
       state.elementData.isAvatarOption = true
     },
-    avatarModelKindSelect: (state, action) => {
+    avatarModelKindSelect: (state: any, action) => {
       state.avatarModel[action.payload.kind] = action.payload.id;
     },
     avatarModelKindReset: (state, action) => {

@@ -8,23 +8,36 @@ import { store } from './store/store';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import background from '/background.png';
+import { CookiesProvider } from 'react-cookie';
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
 body {
-font-family: 'Noto Sans KR', 'Roboto', sans-serif;
-background-image: url(${background});
-background-size: cover;
-background-repeat: no-repeat;
-background-position: center;
+  font-size: 1rem;
+  font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+  background-image: url(${background});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+button {
+  cursor: pointer;
+}
+input {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  :focus {
+    outline: none;
+  }
 }
 `;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter>
+  <CookiesProvider>
     <Provider store={store}>
       <GlobalStyle />
       <App />
     </Provider>
-  </BrowserRouter>,
+  </CookiesProvider>,
 );

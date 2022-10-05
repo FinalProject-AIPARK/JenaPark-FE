@@ -4,14 +4,9 @@ export const useApi = createApi({
   reducerPath: 'useApi',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
-    prepareHeaders: async (headers, { getState, extra }) => {
-      let token = localStorage.getItem('accessToken');
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
+    credentials: 'include',
   }),
+  // 헤더 토큰 연결
   endpoints: (builder) => ({
     signUp: builder.mutation<null, ActionSignUpType>({
       query: (data) => ({
@@ -27,17 +22,31 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-    uploadVoice: builder.mutation<any, any>({
+    logOut: builder.mutation<null, ActionLogOutType>({
       query: (data) => ({
-        url: '/api/v1/projects/audio/upload',
-        method: 'GET',
+        url: '/api/v1/members/logout',
+        method: 'POST',
         body: data,
       }),
     }),
-    getVoiceModel: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+    uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
+      query: (data) => ({
+        url: `/api/v1/projects/${data.projectID}/audio/upload`,
+        method: 'POST',
+        body: data.formData,
+      }),
+    }),
+    getVoiceModel: builder.mutation<ReturnVoiceModelType, ActionVoiceModelType>({
       query: (data) => ({
         url: '/api/v1/audio/sample',
-        method: 'GET',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    inputTextSyn: builder.mutation<ReturnInpTextSynthesisType, ActionInpTextSynthesisType>({
+      query: (data) => ({
+        url: '/api/v1/projects/create-tts',
+        method: 'POST',
         body: data,
       }),
     }),
@@ -45,18 +54,12 @@ export const useApi = createApi({
       query: (token) => ({
         url: '/api/v1/projects/avatar',
         method: 'GET',
-        headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NDk0ODc1N30.MyADPEYZKeuc6xhfmoxVYrMss48IAjGAyQlrWu0xfOU'
-        }
       })
     }),
     getAvatarChooseListId: builder.query<AvatarListId, AvatarId>({
       query: (id) => ({
         url: `/api/v1/projects/avatar/${id}`,
         method: 'GET',
-        headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NDk0ODc1N30.MyADPEYZKeuc6xhfmoxVYrMss48IAjGAyQlrWu0xfOU'
-        }
       })
     }),
     postCreateAvatar: builder.mutation<CreateAvatarRespses, CreateAvatar>({
@@ -64,9 +67,6 @@ export const useApi = createApi({
         url: '/api/v1/projects/avatar/createAvatar',
         method: 'POST',
         body: data,
-        headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NDk0ODc1N30.MyADPEYZKeuc6xhfmoxVYrMss48IAjGAyQlrWu0xfOU'
-        }
       })
     })
 
@@ -83,11 +83,13 @@ export const useApi = createApi({
 export const {
   useSignInMutation,
   useSignUpMutation,
+  useLogOutMutation,
   useUploadVoiceMutation,
-  useGetVoiceModelQuery,
+  useGetVoiceModelMutation,
   useGetAvatarChooseListQuery,
   useGetAvatarChooseListIdQuery,
   usePostCreateAvatarMutation,
+  useInputTextSynMutation,
 } = useApi;
 
 interface ActionSignUpType {
@@ -97,6 +99,7 @@ interface ActionSignUpType {
   confirmPassword: string;
 }
 interface ReturnSignInType {
+  [x: string]: any;
   grantType: string;
   accessToken: string;
   refreshToken: string;
@@ -107,7 +110,23 @@ interface ActionSignInType {
   email: string;
   password: string;
 }
-interface ReturnVoiceModelType {
+interface ActionLogOutType {
+  accessToken: string;
+  refreshToken: string;
+}
+interface ActionUploadVoiceType {
+  formData: FormData;
+  projectID: number;
+}
+interface ReturnUploadVoiceType {
+  state: number;
+  result: string;
+  message: string;
+  data: [];
+  error: [];
+}
+[];
+export interface ReturnVoiceModelType {
   data: [
     {
       name: string;
@@ -171,4 +190,27 @@ interface CreateAvatar {
 
 interface CreateAvatarRespses {
   data: string;
+}
+interface ReturnInpTextSynthesisType {
+  audioInfoDtos: [
+    {
+      audioId: string;
+      lineNumber: number;
+      splitText: string;
+      audioFileUrl: string;
+      durationSilence: number;
+      pitch: number;
+      speed: number;
+    },
+  ];
+}
+interface ActionInpTextSynthesisType {
+  projectID: number;
+  avatarName: string;
+  sex: string;
+  lang: string;
+  durationSilence: number;
+  pitch: number;
+  speed: number;
+  text: string;
 }

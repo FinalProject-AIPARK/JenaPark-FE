@@ -20,7 +20,7 @@ function index() {
   }
 
   // 아바타 불러오기
-  let [avatarId, setAvartarId] = useState(0);
+  let [avatarId, setAvartarId] = useState<any>(0);
   const { data: avatarList } = useGetAvatarChooseListQuery(null)
 
   // 아바타 선택
