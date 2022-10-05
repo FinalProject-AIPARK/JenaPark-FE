@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import mic from '/voiceMic-icon.png';
 import people from '/avatarPeople-icon.png';
 
-function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: WorkingNavbarProps) {
+function WorkingNavbarLayout({ buttonHandler, iconBg }: WorkingNavbarProps) {
   return (
     <Container>
       <TitleBox>
@@ -11,27 +11,25 @@ function WorkingNavbarLayout({ voiceButton, avatarButton, voiceBg, avatarBg }: W
       </TitleBox>
       <ButtonBox>
         <Button
-          onClick={voiceButton}
+          onClick={buttonHandler}
           marginbottom="1.5rem"
-          backColor={voiceBg ? '#80A4FF' : 'transparent'}
+          backColor={iconBg ? '#80A4FF' : 'transparent'}
         >
           <Image src={mic} alt="보이스작업창아이콘" />
         </Button>
-        <Button onClick={avatarButton} backColor={avatarBg ? '#80A4FF' : 'transparent'}>
+        <Button onClick={buttonHandler} backColor={iconBg ? 'transparent' : '#80A4FF'}>
           <Image src={people} alt="아바타작업창아이콘" />
         </Button>
         <Background backColor="#002868" radius="0.63rem" />
       </ButtonBox>
-      <Background backColor='#001334' />
+      <Background backColor="#001334" />
     </Container>
   );
 }
 
 interface WorkingNavbarProps {
-  voiceButton: () => void;
-  avatarButton: () => void;
-  voiceBg: boolean;
-  avatarBg: boolean;
+  buttonHandler: () => void;
+  iconBg: boolean;
 }
 interface ButtonProps {
   marginbottom?: string;

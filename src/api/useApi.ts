@@ -4,36 +4,77 @@ export const useApi = createApi({
   reducerPath: 'useApi',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
+    credentials: 'include',
   }),
   endpoints: (builder) => ({
-    signIn: builder.mutation<ReturnLoginType, ActionLoginType>({
-      query: (data) => ({
-        url: '/api/v1/members/login',
-        method: 'POST',
-        body: data,
-      }),
-    }),
-    signUp: builder.mutation<ReturnSignupType, ActionSignupType>({
+    signUp: builder.mutation<null, ActionSignUpType>({
       query: (data) => ({
         url: '/api/v1/members/signup',
         method: 'POST',
         body: data,
       }),
     }),
-    uploadVoice: builder.mutation<any, any>({
+    signIn: builder.mutation<ReturnSignInType, ActionSignInType>({
       query: (data) => ({
-        url: '/api/v1/projects/audio/upload',
-        method: 'GET',
+        url: '/api/v1/members/login',
+        method: 'POST',
         body: data,
       }),
     }),
-    getVoiceModel: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+    logOut: builder.mutation<RetrunLogOutType, ActionLogOutType>({
+      query: (data) => ({
+        url: '/api/v1/members/logout',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    reissueToken: builder.mutation<ReturnReissueTokenType, ActionReissueTokenType>({
+      query: (data) => ({
+        url: '/api/v1/members/reissue',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
+      query: (data) => ({
+        url: `/api/v1/projects/${data.projectID}/audio/upload`,
+        method: 'POST',
+        body: data.formData,
+      }),
+    }),
+    getVoiceModel: builder.mutation<ReturnVoiceModelType, ActionVoiceModelType>({
       query: (data) => ({
         url: '/api/v1/audio/sample',
-        method: 'GET',
+        method: 'POST',
         body: data,
       }),
     }),
+    inputTextSyn: builder.mutation<ReturnInpTextSynthesisType, ActionInpTextSynthesisType>({
+      query: (data) => ({
+        url: '/api/v1/projects/create-tts',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    getAvatarChooseList: builder.query<AvatarList, null>({
+      query: (token) => ({
+        url: '/api/v1/projects/avatar',
+        method: 'GET',
+      })
+    }),
+    getAvatarChooseListId: builder.query<AvatarListId, AvatarId>({
+      query: (id) => ({
+        url: `/api/v1/projects/avatar/${id}`,
+        method: 'GET',
+      })
+    }),
+    postCreateAvatar: builder.mutation<CreateAvatarRespses, CreateAvatar>({
+      query: (data) => ({
+        url: '/api/v1/projects/avatar/createAvatar',
+        method: 'POST',
+        body: data,
+      })
+    })
 
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
@@ -48,27 +89,76 @@ export const useApi = createApi({
 export const {
   useSignInMutation,
   useSignUpMutation,
+  useLogOutMutation,
+  useReissueTokenMutation,
   useUploadVoiceMutation,
-  useGetVoiceModelQuery,
+  useGetVoiceModelMutation,
+  useGetAvatarChooseListQuery,
+  useGetAvatarChooseListIdQuery,
+  usePostCreateAvatarMutation,
+  useInputTextSynMutation,
 } = useApi;
 
-interface ReturnSignupType {}
-
-interface ActionSignupType {
-  name: string;
+interface ActionSignUpType {
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
 }
-interface ReturnLoginType {
-  grantType: string;
-  accessToken: string;
-  refreshToken: string;
-  accessTokenExpirationTime: number;
-  refreshTokenExpirationTime: number;
+interface ReturnSignInType {
+  data: {
+    grantType: string;
+    accessToken: string;
+    refreshToken: string;
+    accessTokenExpirationTime: number;
+    refreshTokenExpirationTime: number;
+  };
 }
-interface ActionLoginType {
+interface ActionSignInType {
   email: string;
   password: string;
 }
-interface ReturnVoiceModelType {
+interface ActionLogOutType {
+  accessToken: string;
+  refreshToken: string;
+}
+interface RetrunLogOutType {
+  state: number;
+  result: string;
+  message: string;
+  data: [];
+  error: [];
+}
+interface ActionReissueTokenType {
+  accessToken: string;
+  refreshToken: string;
+}
+interface ReturnReissueTokenType {
+  state: number;
+  result: string;
+  message: string;
+  data: {
+    grantType: string;
+    accessToken: string;
+    refreshToken: string;
+    accessTokenExpirationTime: number;
+    refreshTokenExpirationTime: number;
+  };
+  error: [];
+}
+interface ActionUploadVoiceType {
+  formData: FormData;
+  projectID: number;
+}
+interface ReturnUploadVoiceType {
+  state: number;
+  result: string;
+  message: string;
+  data: [];
+  error: [];
+}
+[];
+export interface ReturnVoiceModelType {
   data: [
     {
       name: string;
@@ -81,4 +171,78 @@ interface ReturnVoiceModelType {
 interface ActionVoiceModelType {
   lang: string;
   sex: string;
+}
+
+export interface AvatarList {
+  id: any;
+  data: [
+    {
+      id: number;
+      name: string;
+      thumbNail: string;
+    },
+  ] | undefined;
+  avatarId: number
+}
+
+interface AvatarId {
+  avatarId: number
+}
+
+export interface AvatarListId {
+  data: {
+    accUrl: [
+      {
+        id : number;
+        accessoryUrl: string;
+      }
+    ],
+    clothesUrl: [
+      {
+        id : number;
+        clothesUrl: string;
+      }
+    ],
+    attitudeUrl: [
+      {
+        id : number;
+        hatUrl: string;
+      }
+    ]
+  }[] | undefined,
+}
+
+interface CreateAvatar {
+  accessoryId: number,
+  attitudeId: number,
+  avatarId: number,
+  clothesId: number,
+  projectId: number,
+}
+
+interface CreateAvatarRespses {
+  data: string;
+}
+interface ReturnInpTextSynthesisType {
+  audioInfoDtos: [
+    {
+      audioId: string;
+      lineNumber: number;
+      splitText: string;
+      audioFileUrl: string;
+      durationSilence: number;
+      pitch: number;
+      speed: number;
+    },
+  ];
+}
+interface ActionInpTextSynthesisType {
+  projectID: number;
+  avatarName: string;
+  sex: string;
+  lang: string;
+  durationSilence: number;
+  pitch: number;
+  speed: number;
+  text: string;
 }

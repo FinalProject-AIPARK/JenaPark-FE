@@ -8,4 +8,7 @@ export default defineConfig({
     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
   },
   plugins: [react()],
+  define: {
+    'process.env.VITE_BASE_URL': `"${process.env.VITE_BASE_URL}"`,
+  },
 });

@@ -1,36 +1,21 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import UserNavbarLayout from '../../../layout/UserNavbarLayout';
-import WorkingNavbarLayout from '../../../layout/WorkingNavbarLayout';
+import React from 'react';
+import UserNavbarLayout from '../../../layout/NavigationBar/UserNavbarLayout';
+import WorkingNavbarLayout from '../../../layout/NavigationBar/WorkingNavbarLayout';
+import { useAppSelector, useAppDispatch } from '../../../store/store';
+import { workingComponent } from '../../../store/workingProject/projectControlSlice';
 
-function Navbar({ isVoiceWoking }: navbarProps) {
-  const [voiceSection, setVoiceSection] = useState(true);
-  const [avatarSection, setAvatarSection] = useState(false);
-  function voiceHandler() {
-    isVoiceWoking(true);
-    setVoiceSection(true);
-    setAvatarSection(false);
-  }
-  function avatarHandler() {
-    isVoiceWoking(false);
-    setAvatarSection(true);
-    setVoiceSection(false);
+function Navbar() {
+  const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
+  const dispatch = useAppDispatch();
+  function buttonHandler() {
+    dispatch(workingComponent());
   }
   return (
     <>
       <UserNavbarLayout />
-      <WorkingNavbarLayout
-        voiceButton={voiceHandler}
-        avatarButton={avatarHandler}
-        voiceBg={voiceSection}
-        avatarBg={avatarSection}
-      />
+      <WorkingNavbarLayout buttonHandler={buttonHandler} iconBg={isVoiceWoking} />
     </>
   );
-}
-
-interface navbarProps {
-  isVoiceWoking: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default Navbar;

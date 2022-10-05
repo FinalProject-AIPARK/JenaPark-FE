@@ -2,7 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import * as S from './HeaderStyle';
+import styled from 'styled-components';
+import playbutton from '/images/play-circle.png';
+import stopbutton from '/images/stop-circle.png';
 import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 
 function SoundPlayer(this: any) {
@@ -20,7 +22,7 @@ function SoundPlayer(this: any) {
   };
 
   return (
-    <S.PlayerContainer>
+    <PlayerContainer>
       <AudioPlayer
         src="https://t1.daumcdn.net/cfile/tistory/27510D425854D91F34?original"
         autoPlay={false}
@@ -28,16 +30,48 @@ function SoundPlayer(this: any) {
         onPlay={(e) => console.log('onPlay')}
         hasDefaultKeyBindings={false}
       />
-      <S.PlayButton />
-      <S.StopButton />
-      <AudioPlayer
+      <PlayButton />
+      <StopButton />
+      {/* <AudioPlayer
         // ref={this.player}
         src="https://t1.daumcdn.net/cfile/tistory/27510D425854D91F34?original"
         customProgressBarSection={[RHAP_UI.PROGRESS_BAR]}
         customControlsSection={[]}
-      />
-    </S.PlayerContainer>
+      /> */}
+    </PlayerContainer>
   );
 }
+
+const PlayButton = styled.img.attrs({
+  src: `${playbutton}`,
+})`
+  display: inline;
+  width: 1.7rem;
+  height: 1.7rem;
+`;
+
+const StopButton = styled.img.attrs({
+  src: `${stopbutton}`,
+})`
+  display: inline;
+  width: 1.7rem;
+  height: 1.7rem;
+`;
+
+const PlayerContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-grow: 1;
+
+  .rhap_container {
+    background-color: transparent;
+    box-shadow: none;
+
+    .rhap_progress-indicator {
+      background-color: #fff;
+    }
+  }
+`;
 
 export default SoundPlayer;

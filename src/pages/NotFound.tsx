@@ -1,8 +1,19 @@
 const NotFound = () => {
   return (
-    <>
-      <h1>페이지를 찾을 수 없어요 ㅜㅜ</h1>
-    </>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 64,
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+      }}
+    >
+      404 <br />
+      페이지를 찾을 수 없습니다.
+    </div>
   );
 };
 
