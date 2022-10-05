@@ -5,8 +5,14 @@ export const useApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
     credentials: 'include',
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
-  // 헤더 토큰 연결
   endpoints: (builder) => ({
     signUp: builder.mutation<null, ActionSignUpType>({
       query: (data) => ({
@@ -22,9 +28,16 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-    logOut: builder.mutation<null, ActionLogOutType>({
+    logOut: builder.mutation<RetrunLogOutType, ActionLogOutType>({
       query: (data) => ({
         url: '/api/v1/members/logout',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    reissueToken: builder.mutation<ReturnReissueTokenType, ActionReissueTokenType>({
+      query: (data) => ({
+        url: '/api/v1/members/reissue',
         method: 'POST',
         body: data,
       }),
@@ -57,6 +70,7 @@ export const {
   useSignInMutation,
   useSignUpMutation,
   useLogOutMutation,
+  useReissueTokenMutation,
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
   useInputTextSynMutation,
@@ -69,12 +83,13 @@ interface ActionSignUpType {
   confirmPassword: string;
 }
 interface ReturnSignInType {
-  [x: string]: any;
-  grantType: string;
-  accessToken: string;
-  refreshToken: string;
-  accessTokenExpirationTime: number;
-  refreshTokenExpirationTime: number;
+  data: {
+    grantType: string;
+    accessToken: string;
+    refreshToken: string;
+    accessTokenExpirationTime: number;
+    refreshTokenExpirationTime: number;
+  };
 }
 interface ActionSignInType {
   email: string;
@@ -83,6 +98,30 @@ interface ActionSignInType {
 interface ActionLogOutType {
   accessToken: string;
   refreshToken: string;
+}
+interface RetrunLogOutType {
+  state: number;
+  result: string;
+  message: string;
+  data: [];
+  error: [];
+}
+interface ActionReissueTokenType {
+  accessToken: string;
+  refreshToken: string;
+}
+interface ReturnReissueTokenType {
+  state: number;
+  result: string;
+  message: string;
+  data: {
+    grantType: string;
+    accessToken: string;
+    refreshToken: string;
+    accessTokenExpirationTime: number;
+    refreshTokenExpirationTime: number;
+  };
+  error: [];
 }
 interface ActionUploadVoiceType {
   formData: FormData;

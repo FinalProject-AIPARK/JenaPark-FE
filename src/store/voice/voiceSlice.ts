@@ -11,14 +11,14 @@ const initialState = {
     audioUrl: '',
   },
   voiceData: {
-    projectID: 23,
+    projectID: 0,
     avatarName: '',
     sex: 'female',
     lang: 'kor',
     durationSilence: 0,
     pitch: 0,
     speed: 0,
-    text: '우영우김밥 맛있어. 강프로 코카인.',
+    text: '',
   },
   voiceOption: {
     speed: 0,
@@ -69,6 +69,9 @@ export const voiceSlice = createSlice({
       state.voiceData.pitch = state.voiceOption.tone;
       state.voiceData.speed = state.voiceOption.speed;
     },
+    inputText: (state, action) => {
+      state.voiceData.text = action.payload;
+    },
   },
 });
 
@@ -79,6 +82,7 @@ export const {
   selectedModel,
   voiceOptionAction,
   collectOption,
+  inputText,
 } = voiceSlice.actions;
 
 export const voiceReducer = voiceSlice.reducer;
