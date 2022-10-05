@@ -1,5 +1,6 @@
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import LandingPage from '@/components/LandingPage';
+import styled from 'styled-components';
+
 
 const Home = () => {
   // log out
@@ -18,13 +19,18 @@ const Home = () => {
   };
 
   return (
-    <>
-      <h1>랜딩페이지</h1>
-      <button onClick={logInClick}>로그인</button>
-      <button onClick={logOutClick}>로그아웃</button>
-      <button onClick={myPageClick}>내 정보</button>
-    </>
+
+    <HomeContainer>
+      <LandingPage />
+    </HomeContainer>
+
   );
 };
+
+const HomeContainer = styled.div`
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15;
+`;
 
 export default Home;
