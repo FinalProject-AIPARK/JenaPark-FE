@@ -1,34 +1,31 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
-function VoiceWorkingButtonLayout({
-  modelButton,
-  OptionButton,
-  modelOn,
-  optionOn,
-}: VoiceWorkingButtonLayoutProps) {
-  return (
-    <ButtonBox>
-      <Button
-        onClick={modelButton}
-        borderColor={modelOn ? 'none' : '1px solid #BDBDBD'}
-        backColor={modelOn ? '#fff' : 'transparent'}
-        color={modelOn ? '#000' : '#BDBDBD'}
-      >
-        보이스 선택
-      </Button>
-      <Button
-        onClick={OptionButton}
-        marginLeft="1.1rem"
-        borderColor={optionOn ? 'none' : '1px solid #BDBDBD'}
-        backColor={optionOn ? '#fff' : 'transparent'}
-        color={optionOn ? '#000' : '#BDBDBD'}
-      >
-        보이스 옵션
-      </Button>
-    </ButtonBox>
-  );
-}
+const VoiceWorkingButtonLayout = memo(
+  ({ modelButton, OptionButton, modelOn, optionOn }: VoiceWorkingButtonLayoutProps) => {
+    return (
+      <ButtonBox>
+        <Button
+          onClick={modelButton}
+          borderColor={modelOn ? 'none' : '1px solid #BDBDBD'}
+          backColor={modelOn ? '#fff' : 'transparent'}
+          color={modelOn ? '#000' : '#BDBDBD'}
+        >
+          음성 선택
+        </Button>
+        <Button
+          onClick={OptionButton}
+          marginLeft="1.1rem"
+          borderColor={optionOn ? 'none' : '1px solid #BDBDBD'}
+          backColor={optionOn ? '#fff' : 'transparent'}
+          color={optionOn ? '#000' : '#BDBDBD'}
+        >
+          음성 옵션
+        </Button>
+      </ButtonBox>
+    );
+  },
+);
 
 interface VoiceWorkingButtonLayoutProps {
   modelButton: () => void;
