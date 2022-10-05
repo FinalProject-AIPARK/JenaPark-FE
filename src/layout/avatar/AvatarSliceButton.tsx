@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function AvatarComponent({ 
+function AvatarSliceButton({ 
   ChooseButton,
   OptionButton,
   chooseOn,
@@ -58,4 +58,4 @@ const AvatarButton = styled.button<ButtonStyle>`
   color: ${({ color }) => color};
 `
 
-export default AvatarComponent
+export default AvatarSliceButton
