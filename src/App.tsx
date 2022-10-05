@@ -6,7 +6,7 @@ import SignUp from '@/pages/SignUp';
 import Account from '@/pages/Account';
 import CreateAvatar from '@/pages/CreateAvatar';
 import History from '@/pages/History';
-
+import MyPage from './pages/MyPage';
 function App() {
   if (false) {
     return (
@@ -23,6 +23,9 @@ function App() {
     return (
       <BrowserRouter>
         <Routes>
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Home />} />
           <Route path="/account" element={<Account />} />

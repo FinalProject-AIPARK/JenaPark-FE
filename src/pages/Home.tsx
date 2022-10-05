@@ -1,9 +1,28 @@
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
+  // log out
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const navigate = useNavigate();
+  const myPageClick = () => {
+    navigate('/mypage');
+  };
+  const logInClick = () => {
+    navigate('/signin');
+  };
+  const logOutClick = () => {
+    removeCookie('accessToken');
+    removeCookie('refreshToken');
+    navigate('/signin');
+  };
+
   return (
     <>
-      <h1>홈</h1>
-      <p>이 곳은 홈입니다. 가장 먼저 보여지는 페이지죠.</p>
-      <button type="submit">로그아웃</button>
+      <h1>랜딩페이지</h1>
+      <button onClick={logInClick}>로그인</button>
+      <button onClick={logOutClick}>로그아웃</button>
+      <button onClick={myPageClick}>내 정보</button>
     </>
   );
 };
