@@ -68,7 +68,7 @@ export const useApi = createApi({
         method: 'GET',
       })
     }),
-    postCreateAvatar: builder.mutation<CreateAvatarRespses, CreateAvatar>({
+    postCreateAvatar: builder.mutation<CreateAvatarRespses, CreateAvatarAction>({
       query: (data) => ({
         url: '/api/v1/projects/avatar/createAvatar',
         method: 'POST',
@@ -212,9 +212,9 @@ export interface AvatarListId {
   }[] | undefined,
 }
 
-interface CreateAvatar {
+export interface CreateAvatarAction {
   accessoryId: number,
-  attitudeId: number,
+  hatId: number,
   avatarId: number,
   clothesId: number,
   projectId: number,
@@ -222,6 +222,7 @@ interface CreateAvatar {
 
 interface CreateAvatarRespses {
   data: string;
+  message: string
 }
 interface ReturnInpTextSynthesisType {
   audioInfoDtos: [
