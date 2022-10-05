@@ -1,9 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+const { VITE_BASE_URL } = import.meta.env;
+
 export const useApi = createApi({
   reducerPath: 'useApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_URL,
+    baseUrl: VITE_BASE_URL,
     credentials: 'include',
   }),
   endpoints: (builder) => ({
@@ -60,21 +62,21 @@ export const useApi = createApi({
       query: (token) => ({
         url: '/api/v1/projects/avatar',
         method: 'GET',
-      })
+      }),
     }),
     getAvatarChooseListId: builder.query<AvatarListId, AvatarId>({
       query: (id) => ({
         url: `/api/v1/projects/avatar/${id}`,
         method: 'GET',
-      })
+      }),
     }),
     postCreateAvatar: builder.mutation<CreateAvatarRespses, CreateAvatarAction>({
       query: (data) => ({
         url: '/api/v1/projects/avatar/createAvatar',
         method: 'POST',
         body: data,
-      })
-    })
+      }),
+    }),
 
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
@@ -175,41 +177,45 @@ interface ActionVoiceModelType {
 
 export interface AvatarList {
   id: any;
-  data: [
-    {
-      id: number;
-      name: string;
-      thumbNail: string;
-    },
-  ] | undefined;
-  avatarId: number
+  data:
+    | [
+        {
+          id: number;
+          name: string;
+          thumbNail: string;
+        },
+      ]
+    | undefined;
+  avatarId: number;
 }
 
 interface AvatarId {
-  avatarId: number
+  avatarId: number;
 }
 
 export interface AvatarListId {
-  data: {
-    accUrl: [
-      {
-        id : number;
-        accessoryUrl: string;
-      }
-    ],
-    clothesUrl: [
-      {
-        id : number;
-        clothesUrl: string;
-      }
-    ],
-    attitudeUrl: [
-      {
-        id : number;
-        hatUrl: string;
-      }
-    ]
-  }[] | undefined,
+  data:
+    | {
+        accUrl: [
+          {
+            id: number;
+            accessoryUrl: string;
+          },
+        ];
+        clothesUrl: [
+          {
+            id: number;
+            clothesUrl: string;
+          },
+        ];
+        attitudeUrl: [
+          {
+            id: number;
+            hatUrl: string;
+          },
+        ];
+      }[]
+    | undefined;
 }
 
 export interface CreateAvatarAction {
