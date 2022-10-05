@@ -3,7 +3,14 @@ import styled from 'styled-components';
 import questionMark from '/questionMark-icon.png';
 import previewIcon from '/previewAvatar-icon.png';
 
-function ProjectPreviewAvatar({ guide, setGuide, workingHandler, moved }: PreviewAvatarProps) {
+function ProjectPreviewAvatar({
+  guide,
+  setGuide,
+  workingHandler,
+  isVoiceWoking,
+  backgroundUrl,
+  avatarUrl,
+}: PreviewAvatarProps) {
   return (
     <Container>
       <InnerBox>
@@ -31,11 +38,7 @@ function ProjectPreviewAvatar({ guide, setGuide, workingHandler, moved }: Previe
           ) : null}
         </TitleBox>
         <MoveAvatarBox>
-          {moved ? (
-            <TextStyle size="0.9rem" weight="400" color="#828282">
-              아바타를 선택해주세요.
-            </TextStyle>
-          ) : (
+          {isVoiceWoking && !backgroundUrl && !avatarUrl ? (
             <>
               <Button onClick={workingHandler}>
                 <Img src={previewIcon} alt="아바타 작업 이동 아이콘" />
@@ -44,7 +47,24 @@ function ProjectPreviewAvatar({ guide, setGuide, workingHandler, moved }: Previe
                 가상 아바타 선택으로 이동
               </TextStyle>
             </>
-          )}
+          ) : null}
+          {!isVoiceWoking && !backgroundUrl && !avatarUrl ? (
+            <TextStyle size="0.9rem" weight="400" color="#828282">
+              아바타를 선택해주세요.
+            </TextStyle>
+          ) : null}
+
+          {backgroundUrl ? (
+            <PreviewImg src={backgroundUrl} alt="아바타 배경 미리보기 이미지" height="100%" />
+          ) : null}
+          {avatarUrl ? (
+            <PreviewImg
+              src={avatarUrl}
+              alt="아바타 미리보기 이미지"
+              width="110%"
+              bottom="-0.5rem"
+            />
+          ) : null}
         </MoveAvatarBox>
       </InnerBox>
     </Container>
@@ -55,13 +75,20 @@ interface PreviewAvatarProps {
   guide: boolean;
   setGuide: React.Dispatch<React.SetStateAction<boolean>>;
   workingHandler: () => void;
-  moved: boolean;
+  isVoiceWoking: boolean;
+  backgroundUrl: string;
+  avatarUrl: string;
 }
 interface TextStyleProps {
   size: string;
   weight: string;
   color: string;
   marginTop?: string;
+}
+interface PreviewImgProps {
+  width?: string;
+  height?: string;
+  bottom?: string;
 }
 
 const Container = styled.div`
@@ -104,7 +131,9 @@ const MoveAvatarBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   border-radius: 0.63rem;
+  overflow: hidden;
 `;
 const Button = styled.button`
   background-color: transparent;
@@ -118,6 +147,12 @@ const Img = styled.img`
   :hover {
     width: 3.2rem;
   }
+`;
+const PreviewImg = styled.img<PreviewImgProps>`
+  width: ${({ width }) => (width ? width : 'auto')}
+  height: ${({ height }) => (height ? height : 'auto')};
+  position: absolute;
+  bottom: ${({ bottom }) => (bottom ? bottom : 0)}
 `;
 
 export default ProjectPreviewAvatar;
