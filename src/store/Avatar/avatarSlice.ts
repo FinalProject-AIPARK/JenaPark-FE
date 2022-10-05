@@ -11,6 +11,10 @@ const initialState = {
     clothesId: 0,
     hatId: 0,
     projectId: 2
+  },
+  avatarDataUrl : {
+    backgroundUrl : '',
+    avatarUrl: '',
   }
 }
 
@@ -34,16 +38,22 @@ export const avatarSlice = createSlice({
       state.avatarModel.accessoryId = 0;
       state.avatarModel.clothesId = 0;
       state.avatarModel.hatId = 0;
-      // state.avatarModel.projectId = 0;
+    },
+    avatarChooseDataUrl: (state, action) => {
+      state.avatarDataUrl.avatarUrl = action.payload.data
+      console.log(action.payload.data)
+      console.log(action)
     }
   }
 })
+
 
 export const {
   avatarChooseWorking,
   avatarOptionWorking,
   avatarModelKindSelect,
-  avatarModelKindReset
+  avatarModelKindReset,
+  avatarChooseDataUrl,
 } = avatarSlice.actions;
 
 export const avatarReducer = avatarSlice.reducer;
