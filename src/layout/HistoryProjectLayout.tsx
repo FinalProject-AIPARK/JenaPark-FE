@@ -2,55 +2,43 @@ import React from 'react';
 import styled from 'styled-components';
 import accProject from '/addProject-icon.png';
 import projectIcon from '/project-icon.png';
+import question from '/questionMark-icon.png';
 
 function HistoryProjectLayout({
   projectList,
   createProjectHandler,
   prevProjectHandler,
+  isEdit,
+  editTitleHandler,
+  title,
+  changeTitle,
+  keyDownHandler,
+  guideText,
+  guideHandler,
 }: HistoryProjectLayoutProps) {
-  const dummy = [
-    {
-      projectId: 23,
-      title: '테스트 프로젝트',
-      thumbnail: null,
-      createDate: '2022-09-28',
-      modifiedDate: '2022-09-30T14:01:27',
-    },
-    {
-      projectId: 23,
-      title: '테스트 프로젝트',
-      thumbnail: null,
-      createDate: '2022-09-28',
-      modifiedDate: '2022-09-30T14:01:27',
-    },
-    {
-      projectId: 23,
-      title: '테스트 프로젝트',
-      thumbnail: null,
-      createDate: '2022-09-28',
-      modifiedDate: '2022-09-30T14:01:27',
-    },
-    {
-      projectId: 23,
-      title: '테스트 프로젝트',
-      thumbnail: null,
-      createDate: '2022-09-28',
-      modifiedDate: '2022-09-30T14:01:27',
-    },
-    {
-      projectId: 23,
-      title: '테스트 프로젝트',
-      thumbnail: null,
-      createDate: '2022-09-28',
-      modifiedDate: '2022-09-30T14:01:27',
-    },
-  ];
   return (
     <Container>
       <TitleBox>
-        <TextStyle size="1.5rem" weight="700" color="#fff">
-          프로젝트 히스토리
-        </TextStyle>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <TextStyle size="1.5rem" weight="700" color="#fff">
+            프로젝트 히스토리
+          </TextStyle>
+          <img
+            src={question}
+            alt="프로젝트 히스토리 도움말 아이콘"
+            onMouseEnter={() => guideHandler(true)}
+            onMouseLeave={() => guideHandler(false)}
+            style={{ width: '1.7rem', marginLeft: '1rem' }}
+          />
+          {guideText ? (
+            <GuideTextBox>
+              <span>
+                새 프로젝트를 생성하거나 이전 프로젝트 작업으로 이동합니다. <br />
+                프로젝트 이름 수정이 가능합니다. 프로젝트 이름에 더블클릭을 해주세요.
+              </span>
+            </GuideTextBox>
+          ) : null}
+        </div>
         <Button
           onClick={createProjectHandler}
           backColor="#fff"
@@ -66,22 +54,39 @@ function HistoryProjectLayout({
       </TitleBox>
       <ProjectListBox>
         <ListBox>
-          {projectList.map((item, index) => (
+          {projectList!.map((item, index) => (
             <ProjectCard key={index} onClick={() => prevProjectHandler(item.projectId)}>
               <img
                 src={projectIcon}
                 alt="생성한 프로젝트 아이콘"
                 style={{ width: '3rem', height: '3rem' }}
               />
-              <TextStyle
-                size="1.5rem"
-                weight="700"
-                color="#80A4FF"
-                marginTop="1.5rem"
-                display="-webkit-inline-box"
-              >
-                {item.title}
-              </TextStyle>
+              {isEdit[index] ? (
+                <EditInput
+                  type="text"
+                  maxLength={9}
+                  value={title[index]}
+                  onChange={(event) => changeTitle(event, index)}
+                  onClick={(event) => event.stopPropagation()}
+                  onKeyDown={(event) => keyDownHandler(event, index, item.projectId)}
+                />
+              ) : (
+                <TextStyle
+                  onClick={(event) => event.stopPropagation()}
+                  onDoubleClick={(event) => {
+                    event.stopPropagation();
+                    editTitleHandler(item.title, index);
+                  }}
+                  size="1.5rem"
+                  weight="700"
+                  color="#80A4FF"
+                  marginTop="1.5rem"
+                  display="-webkit-inline-box"
+                >
+                  {item.title}
+                </TextStyle>
+              )}
+
               <TextStyle color="#828282" marginTop="1.5rem">
                 {item.modifiedDate.split('T')[0]}
               </TextStyle>
@@ -107,6 +112,13 @@ interface HistoryProjectLayoutProps {
   }[];
   createProjectHandler: () => void;
   prevProjectHandler: (id: number) => void;
+  isEdit: boolean[];
+  editTitleHandler: (title: string, index: number) => void;
+  title: string[];
+  changeTitle: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
+  keyDownHandler: (event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) => void;
+  guideText: boolean;
+  guideHandler: (isOn: boolean) => void;
 }
 interface TextStyleProps {
   size?: string;
@@ -133,7 +145,20 @@ const TitleBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
   margin-bottom: 0.62rem;
+`;
+const GuideTextBox = styled.div`
+  background-color: #fff;
+  position: absolute;
+  top: -2.5rem;
+  left: 13.2rem;
+  padding: 0.6rem;
+  font-size: 0.81rem;
+  font-weight: 500;
+  line-height: 1.1rem;
+  color: #333;
+  border-radius: 0.6rem;
 `;
 const TextStyle = styled.span<TextStyleProps>`
   display: ${({ display }) => (display ? display : 'inline-block')};
@@ -179,6 +204,13 @@ const ProjectCard = styled.div`
   :last-child {
     margin-right: 0;
   }
+`;
+const EditInput = styled.input`
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #777;
+  text-align: center;
 `;
 const BackgroundBox = styled.div`
   background-color: #fff;

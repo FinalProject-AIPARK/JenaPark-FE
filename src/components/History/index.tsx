@@ -2,11 +2,16 @@ import HistoryProjectLayout from '@/layout/HistoryProjectLayout';
 import HistoryVideoLayout from '@/layout/HistoryVideoLayout';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useGetProjectHistoyQuery, useCreateProjectMutation } from '@/api/useApi';
+import {
+  useGetProjectHistoyQuery,
+  useCreateProjectMutation,
+  useEditProjectTitleMutation,
+} from '@/api/useApi';
 
 function History() {
   // 프로젝트 리스트 요청
-  const { data: project } = useGetProjectHistoyQuery(null);
+  const [update, setUpdate] = useState(0);
+  const { data: project } = useGetProjectHistoyQuery(update);
   const [projectList, setProjectList] = useState([
     {
       projectId: 0,
@@ -17,7 +22,15 @@ function History() {
     },
   ]);
   useEffect(() => {
-    if (project) setProjectList(project.data);
+    if (project) {
+      setProjectList(project.data);
+      setIsEdit([]);
+      setTitle([]);
+      for (let i = 0; i < project.data.length; i++) {
+        setIsEdit((prev) => [...prev, false]);
+        setTitle((prev) => [...prev, project.data[i].title]);
+      }
+    }
   }, [project]);
 
   // 프로젝트 생성
@@ -33,6 +46,48 @@ function History() {
   function prevProjectHandler(id: number) {
     window.location.href = `/project/${id}`;
   }
+
+  // 프로젝트 이름 수정
+  const [isEdit, setIsEdit] = useState([false]);
+  const [title, setTitle] = useState(['']);
+  const [edit, { data: resEdit }] = useEditProjectTitleMutation();
+  function changeTitle(event: React.ChangeEvent<HTMLInputElement>, index: number) {
+    setTitle((prev) => {
+      let next = [...prev];
+      next[index] = event.target.value;
+      return next;
+    });
+  }
+  function editTitleHandler(title: string, index: number) {
+    setIsEdit((prev) => {
+      let next = [...prev];
+      next[index] = true;
+      return next;
+    });
+  }
+  function keyDownHandler(event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) {
+    if (event.key === 'Enter') {
+      edit({
+        projectID: id,
+        title: title[index],
+      });
+      setIsEdit((prev) => {
+        let next = [...prev];
+        next[index] = false;
+        return next;
+      });
+    }
+  }
+  useEffect(() => {
+    setUpdate(update + 1);
+  }, [resEdit]);
+
+  // 도움말
+  const [guideText, setGuideText] = useState(false);
+  function guideHandler(isOn: boolean) {
+    setGuideText(isOn);
+  }
+
   return (
     <Container>
       <Header></Header>
@@ -41,6 +96,13 @@ function History() {
           projectList={projectList}
           createProjectHandler={createProjectHandler}
           prevProjectHandler={prevProjectHandler}
+          isEdit={isEdit}
+          editTitleHandler={editTitleHandler}
+          title={title}
+          changeTitle={changeTitle}
+          keyDownHandler={keyDownHandler}
+          guideText={guideText}
+          guideHandler={guideHandler}
         />
         {/* <HistoryVideoLayout /> */}
       </div>

@@ -38,12 +38,12 @@ export const useApi = createApi({
       }),
     }),
     // 히스토리
-    getProjectHistoy: builder.query<ReturnProjectHistoryType, null>({
+    getProjectHistoy: builder.query<ReturnProjectHistoryType, number>({
       query: () => ({
         url: '/api/v1/projects',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA1NzAwN30.ZpS-i4R8tglaA3ASXPKCWl1m5vNMVcZ2QhlAaBV1HNs',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
         },
       }),
     }),
@@ -53,7 +53,18 @@ export const useApi = createApi({
         method: 'POST',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA1NzAwN30.ZpS-i4R8tglaA3ASXPKCWl1m5vNMVcZ2QhlAaBV1HNs',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
+        },
+      }),
+    }),
+    editProjectTitle: builder.mutation<any, ActionEditProjectTitleType>({
+      query: (data) => ({
+        url: '/api/v1/projects/title ',
+        method: 'POST',
+        body: data,
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
         },
       }),
     }),
@@ -117,6 +128,7 @@ export const {
   // 히스토리
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
+  useEditProjectTitleMutation,
   // AI 음성
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
@@ -202,6 +214,10 @@ interface ReturnCreateProjectType {
   checkAudio: boolean;
   checkAvatar: boolean;
   audioInfos: [];
+}
+interface ActionEditProjectTitleType {
+  projectID: number;
+  title: string;
 }
 // AI 음성
 interface ActionUploadVoiceType {
