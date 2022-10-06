@@ -28,6 +28,11 @@ function History() {
   useEffect(() => {
     if (responseCreate) window.location.href = '/project';
   }, [createLoad]);
+
+  // 이전에 생성한 프로젝트로 이동
+  function prevProjectHandler(id: number) {
+    window.location.href = `/project/${id}`;
+  }
   return (
     <Container>
       <Header></Header>
@@ -35,6 +40,7 @@ function History() {
         <HistoryProjectLayout
           projectList={projectList}
           createProjectHandler={createProjectHandler}
+          prevProjectHandler={prevProjectHandler}
         />
         {/* <HistoryVideoLayout /> */}
       </div>

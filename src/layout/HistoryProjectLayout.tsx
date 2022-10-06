@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import accProject from '/addProject-icon.png';
 import projectIcon from '/project-icon.png';
 
-function HistoryProjectLayout({ projectList, createProjectHandler }: HistoryProjectLayoutProps) {
+function HistoryProjectLayout({
+  projectList,
+  createProjectHandler,
+  prevProjectHandler,
+}: HistoryProjectLayoutProps) {
   const dummy = [
     {
       projectId: 23,
@@ -63,7 +67,7 @@ function HistoryProjectLayout({ projectList, createProjectHandler }: HistoryProj
       <ProjectListBox>
         <ListBox>
           {projectList.map((item, index) => (
-            <ProjectCard key={index}>
+            <ProjectCard key={index} onClick={() => prevProjectHandler(item.projectId)}>
               <img
                 src={projectIcon}
                 alt="생성한 프로젝트 아이콘"
@@ -102,6 +106,7 @@ interface HistoryProjectLayoutProps {
     modifiedDate: string;
   }[];
   createProjectHandler: () => void;
+  prevProjectHandler: (id: number) => void;
 }
 interface TextStyleProps {
   size?: string;
@@ -170,6 +175,7 @@ const ProjectCard = styled.div`
   margin-right: 1.5rem;
   padding: 3.03rem 2.18rem;
   border-radius: 0.63rem;
+  cursor: pointer;
   :last-child {
     margin-right: 0;
   }

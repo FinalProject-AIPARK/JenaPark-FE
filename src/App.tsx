@@ -30,7 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/account" element={<Account />} />
           <Route path="/history" element={<History />} />
-          <Route path="/project" element={<CreateAvatar />} />
+          <Route path="/project/:projectId" element={<CreateAvatar />} />
         </Routes>
       </BrowserRouter>
     );
