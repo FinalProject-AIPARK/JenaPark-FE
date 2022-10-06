@@ -39,7 +39,23 @@ export const useApi = createApi({
     }),
     // 히스토리
     getProjectHistoy: builder.query<ReturnProjectHistoryType, null>({
-      query: () => '/api/v1/projects',
+      query: () => ({
+        url: '/api/v1/projects',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA1NzAwN30.ZpS-i4R8tglaA3ASXPKCWl1m5vNMVcZ2QhlAaBV1HNs',
+        },
+      }),
+    }),
+    createProject: builder.mutation<ReturnCreateProjectType, ''>({
+      query: () => ({
+        url: '/api/v1/projects',
+        method: 'POST',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA1NzAwN30.ZpS-i4R8tglaA3ASXPKCWl1m5vNMVcZ2QhlAaBV1HNs',
+        },
+      }),
     }),
     // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
@@ -98,7 +114,10 @@ export const {
   useSignUpMutation,
   useLogOutMutation,
   useReissueTokenMutation,
+  // 히스토리
   useGetProjectHistoyQuery,
+  useCreateProjectMutation,
+  // AI 음성
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
   useGetAvatarChooseListQuery,
@@ -155,7 +174,7 @@ interface ReturnReissueTokenType {
   error: [];
 }
 // 히스토리
-export interface ReturnProjectHistoryType {
+interface ReturnProjectHistoryType {
   data: {
     projectId: number;
     title: string;
@@ -164,7 +183,27 @@ export interface ReturnProjectHistoryType {
     modifiedDate: string;
   }[];
 }
-
+interface ReturnCreateProjectType {
+  projectId: number;
+  title: string;
+  sex: string;
+  lang: string;
+  speed: number;
+  pitch: number;
+  volume: number;
+  durationSilence: number;
+  backgroundUrl: string;
+  audioUpload: boolean;
+  audioMerge: boolean;
+  audioFileOriginName: null;
+  audioFileUrl: null;
+  avatarUrl: null;
+  checkText: boolean;
+  checkAudio: boolean;
+  checkAvatar: boolean;
+  audioInfos: [];
+}
+// AI 음성
 interface ActionUploadVoiceType {
   formData: FormData;
   projectID: number;

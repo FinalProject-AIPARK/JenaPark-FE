@@ -2,9 +2,10 @@ import HistoryProjectLayout from '@/layout/HistoryProjectLayout';
 import HistoryVideoLayout from '@/layout/HistoryVideoLayout';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useGetProjectHistoyQuery } from '@/api/useApi';
+import { useGetProjectHistoyQuery, useCreateProjectMutation } from '@/api/useApi';
 
 function History() {
+  // 프로젝트 리스트 요청
   const { data: project } = useGetProjectHistoyQuery(null);
   const [projectList, setProjectList] = useState([
     {
@@ -18,11 +19,23 @@ function History() {
   useEffect(() => {
     if (project) setProjectList(project.data);
   }, [project]);
+
+  // 프로젝트 생성
+  const [create, { data: responseCreate, isLoading: createLoad }] = useCreateProjectMutation();
+  function createProjectHandler() {
+    create('');
+  }
+  useEffect(() => {
+    if (responseCreate) window.location.href = '/project';
+  }, [createLoad]);
   return (
     <Container>
       <Header></Header>
       <div style={{ height: 'calc(100vh - 10.06rem)' }}>
-        <HistoryProjectLayout projectList={projectList} />
+        <HistoryProjectLayout
+          projectList={projectList}
+          createProjectHandler={createProjectHandler}
+        />
         {/* <HistoryVideoLayout /> */}
       </div>
     </Container>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import accProject from '/addProject-icon.png';
 import projectIcon from '/project-icon.png';
 
-function HistoryProjectLayout({ projectList }: HistoryProjectLayoutProps) {
+function HistoryProjectLayout({ projectList, createProjectHandler }: HistoryProjectLayoutProps) {
   const dummy = [
     {
       projectId: 23,
@@ -47,7 +47,13 @@ function HistoryProjectLayout({ projectList }: HistoryProjectLayoutProps) {
         <TextStyle size="1.5rem" weight="700" color="#fff">
           프로젝트 히스토리
         </TextStyle>
-        <Button backColor="#fff" width="12.44rem" height="2.5rem" radius="0.31rem">
+        <Button
+          onClick={createProjectHandler}
+          backColor="#fff"
+          width="12.44rem"
+          height="2.5rem"
+          radius="0.31rem"
+        >
           <TextStyle lineH="1rem" marginRight="0.25rem">
             새 프로젝트 생성하기
           </TextStyle>
@@ -56,8 +62,8 @@ function HistoryProjectLayout({ projectList }: HistoryProjectLayoutProps) {
       </TitleBox>
       <ProjectListBox>
         <ListBox>
-          {projectList.map((item) => (
-            <ProjectCard>
+          {projectList.map((item, index) => (
+            <ProjectCard key={index}>
               <img
                 src={projectIcon}
                 alt="생성한 프로젝트 아이콘"
@@ -76,7 +82,7 @@ function HistoryProjectLayout({ projectList }: HistoryProjectLayoutProps) {
                 {item.modifiedDate.split('T')[0]}
               </TextStyle>
               <TextStyle color="#828282" marginTop="0.7rem">
-                {item.modifiedDate.split(':')[1] + '시 ' + item.modifiedDate.split(':')[2] + '분'}
+                {item.modifiedDate.slice(11, 13) + '시 ' + item.modifiedDate.slice(14, 16) + '분'}
               </TextStyle>
             </ProjectCard>
           ))}
@@ -95,6 +101,7 @@ interface HistoryProjectLayoutProps {
     createDate: string;
     modifiedDate: string;
   }[];
+  createProjectHandler: () => void;
 }
 interface TextStyleProps {
   size?: string;
