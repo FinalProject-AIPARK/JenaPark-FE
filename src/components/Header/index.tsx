@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import * as S from '../../layout/HeaderStyle';
 import { useLocation } from 'react-router-dom';
 import RendingHeader from './RendingHeader';
 import ProjectVoiceHeader from './ProjectHeader/ProjectVoiceHeader';
