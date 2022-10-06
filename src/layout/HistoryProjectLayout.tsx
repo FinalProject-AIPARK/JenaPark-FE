@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import accProject from '/addProject-icon.png';
 import projectIcon from '/project-icon.png';
 
-function HistoryProjectLayout() {
+function HistoryProjectLayout({ projectList }: HistoryProjectLayoutProps) {
   const dummy = [
     {
       projectId: 23,
@@ -56,7 +56,7 @@ function HistoryProjectLayout() {
       </TitleBox>
       <ProjectListBox>
         <ListBox>
-          {dummy.map((item) => (
+          {projectList.map((item) => (
             <ProjectCard>
               <img
                 src={projectIcon}
@@ -87,6 +87,15 @@ function HistoryProjectLayout() {
   );
 }
 
+interface HistoryProjectLayoutProps {
+  projectList: {
+    projectId: number;
+    title: string;
+    thumbnail: null;
+    createDate: string;
+    modifiedDate: string;
+  }[];
+}
 interface TextStyleProps {
   size?: string;
   weight?: string;

@@ -37,6 +37,11 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    // 히스토리
+    getProjectHistoy: builder.query<ReturnProjectHistoryType, null>({
+      query: () => '/api/v1/projects',
+    }),
+    // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
       query: (data) => ({
         url: `/api/v1/projects/${data.projectID}/audio/upload`,
@@ -93,6 +98,7 @@ export const {
   useSignUpMutation,
   useLogOutMutation,
   useReissueTokenMutation,
+  useGetProjectHistoyQuery,
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
   useGetAvatarChooseListQuery,
@@ -148,6 +154,17 @@ interface ReturnReissueTokenType {
   };
   error: [];
 }
+// 히스토리
+export interface ReturnProjectHistoryType {
+  data: {
+    projectId: number;
+    title: string;
+    thumbnail: null;
+    createDate: string;
+    modifiedDate: string;
+  }[];
+}
+
 interface ActionUploadVoiceType {
   formData: FormData;
   projectID: number;
@@ -219,16 +236,16 @@ export interface AvatarListId {
 }
 
 export interface CreateAvatarAction {
-  accessoryId: number,
-  hatId: number,
-  avatarId: number,
-  clothesId: number,
-  projectId: number,
+  accessoryId: number;
+  hatId: number;
+  avatarId: number;
+  clothesId: number;
+  projectId: number;
 }
 
 interface CreateAvatarRespses {
   data: string;
-  message: string
+  message: string;
 }
 interface ReturnInpTextSynthesisType {
   audioInfoDtos: [
