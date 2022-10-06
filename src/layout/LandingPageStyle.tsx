@@ -10,6 +10,7 @@ function LandingPageStyle() {
         본 서비스는 인공지능과 영상 기술의 융햡을 통해 <br />
         영상 안에서 시간과 공간, 능력을 초월하기 위한 서비스입니다
       </SubTitle>
+      <StartButton>서비스 체험하기 →</StartButton>
       <YouTube
         videoId="hUgGblPDVxI"
         opts={{
@@ -45,6 +46,20 @@ const SubTitle = styled.div`
   font-size: 1.875rem;
   margin-top: 1rem;
   line-height: 2.6875rem;
+`;
+
+const StartButton = styled.div`
+  display: inline-block;
+  color: #fff;
+  width: 11.875rem;
+  height: 2rem;
+  border: 0.0625rem solid #fff;
+  border-radius: 14.5rem;
+  font-size: 1.25rem;
+  padding: 1.125rem 3.125rem;
+  margin-top: 2.5625rem;
+  text-align: center;
+  line-height: 2rem;
 `;
 
 export default LandingPageStyle;
