@@ -39,8 +39,10 @@ function History() {
     create('');
   }
   useEffect(() => {
-    if (responseCreate) window.location.href = '/project';
-  }, [createLoad]);
+    if (responseCreate?.data.projectId) {
+      window.location.href = `/project/${responseCreate.data.projectId}`;
+    }
+  }, [responseCreate]);
 
   // 이전에 생성한 프로젝트로 이동
   function prevProjectHandler(id: number) {
