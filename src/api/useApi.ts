@@ -109,6 +109,12 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    allListen: builder.query<ReturnAllListenType, ActionAllListenType>({
+      query: (id) => ({
+        url: `/api/v1/projects/${id}/audio`,
+        method: 'GET',
+      }),
+    }),
 
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
@@ -136,6 +142,7 @@ export const {
   useGetAvatarChooseListIdQuery,
   usePostCreateAvatarMutation,
   useInputTextSynMutation,
+  useAllListenQuery,
 } = useApi;
 
 interface ActionSignUpType {
@@ -324,4 +331,11 @@ interface ActionInpTextSynthesisType {
   pitch: number;
   speed: number;
   text: string;
+}
+interface ReturnAllListenType {
+  audioFileUrl: string;
+}
+
+interface ActionAllListenType {
+  projectId: number;
 }
