@@ -43,7 +43,7 @@ export const useApi = createApi({
         url: '/api/v1/projects',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
         },
       }),
     }),
@@ -53,7 +53,7 @@ export const useApi = createApi({
         method: 'POST',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
         },
       }),
     }),
@@ -188,32 +188,37 @@ interface ReturnReissueTokenType {
 // 히스토리
 interface ReturnProjectHistoryType {
   data: {
-    projectId: number;
-    title: string;
-    thumbnail: null;
-    createDate: string;
-    modifiedDate: string;
-  }[];
+    historyProjects: {
+      projectId: number;
+      title: string;
+      thumbnail: null;
+      createDate: string;
+      modifiedDate: string;
+    }[];
+    historyVideos: {};
+  };
 }
 interface ReturnCreateProjectType {
-  projectId: number;
-  title: string;
-  sex: string;
-  lang: string;
-  speed: number;
-  pitch: number;
-  volume: number;
-  durationSilence: number;
-  backgroundUrl: string;
-  audioUpload: boolean;
-  audioMerge: boolean;
-  audioFileOriginName: null;
-  audioFileUrl: null;
-  avatarUrl: null;
-  checkText: boolean;
-  checkAudio: boolean;
-  checkAvatar: boolean;
-  audioInfos: [];
+  data: {
+    projectId: number;
+    title: string;
+    sex: string;
+    lang: string;
+    speed: number;
+    pitch: number;
+    volume: number;
+    durationSilence: number;
+    backgroundUrl: string;
+    audioUpload: boolean;
+    audioMerge: boolean;
+    audioFileOriginName: null;
+    audioFileUrl: null;
+    avatarUrl: null;
+    checkText: boolean;
+    checkAudio: boolean;
+    checkAvatar: boolean;
+    audioInfos: [];
+  };
 }
 interface ActionEditProjectTitleType {
   projectID: number;
