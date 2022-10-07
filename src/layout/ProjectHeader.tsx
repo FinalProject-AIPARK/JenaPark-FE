@@ -3,7 +3,7 @@ import SoundPlayer from './SoundPlayer';
 import styled from 'styled-components';
 import leftarrow from '/images/arrow-ios-left.png';
 import editpencil from '/images/edit-pencil.png';
-import saveimage from '/images/save.png';
+import videoimage from '/images/video.png';
 import voiceimage from '/images/music.png';
 
 function ProjectHeader() {
@@ -17,20 +17,13 @@ function ProjectHeader() {
         </ProjectNameContainer>
         <SoundPlayer />
         <ImageButtonContainer>
-          <SaveButton>
-            프로젝트 저장
-            <SaveImage />
-          </SaveButton>
-          <OffButton
-            className="download"
-            // onClick={() => alert('음성과 합성된 프로젝트 영상을 다운 받으시겠습니까?')}
-          >
+          <DownloadButton onClick={() => alert('전체 음성을 다운 받으시겠습니까?')}>
             음성 다운로드
             <VoiceImage />
-          </OffButton>
+          </DownloadButton>
           <DownloadButton onClick={() => alert('프로젝트를 저장 후 다운로드를 진행해주세요')}>
-            음성 합성하기
-            <VoiceImage />
+            영상 합성하기
+            <VideoImage />
           </DownloadButton>
         </ImageButtonContainer>
       </ProjectHeaderContainer>
@@ -51,6 +44,7 @@ const ProjectHeaderContainer = styled.div`
 const ProjectNameContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 `;
 
 const LeftArrow = styled.img.attrs({
@@ -83,31 +77,6 @@ const ImageButtonContainer = styled.div`
   display: flex;
 `;
 
-const SaveButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 9.5rem;
-  height: 2.5rem;
-  border: 0.0625rem solid #aac2ff;
-  border-radius: 0.3125rem;
-  font-weight: 400;
-  font-size: 1.125rem;
-  line-height: 1.3125rem;
-  letter-spacing: -0.005em;
-  color: #000;
-  cursor: pointer;
-  margin-right: 1.5rem;
-`;
-
-const SaveImage = styled.img.attrs({
-  src: `${saveimage}`,
-})`
-  display: inline;
-  width: 1.5rem;
-  height: 1.5rem;
-`;
-
 const DownloadButton = styled.button`
   display: flex;
   justify-content: center;
@@ -138,27 +107,12 @@ const VoiceImage = styled.img.attrs({
   height: 1.5rem;
 `;
 
-const OffButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 9.5rem;
-  height: 2.5rem;
-  background: #80a4ff;
-  border: 0.0625rem solid #80a4ff;
-  border-radius: 0.3125rem;
-  font-weight: 400;
-  font-size: 1.125rem;
-  line-height: 1.3125rem;
-  letter-spacing: -0.005em;
-  color: #000;
-  cursor: not-allowed;
-  margin-right: 1.5rem;
-  opacity: 0.6;
-
-  :last-child {
-    margin-right: 0;
-  }
+const VideoImage = styled.img.attrs({
+  src: `${videoimage}`,
+})`
+  display: inline;
+  width: 1.5rem;
+  height: 1.5rem;
 `;
 
 export default ProjectHeader;

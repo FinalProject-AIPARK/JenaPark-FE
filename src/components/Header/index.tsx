@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import RendingHeader from './RendingHeader';
-import ProjectVoiceHeader from './ProjectHeader/ProjectVoiceHeader';
 import ProjectHeader from './ProjectHeader';
 
 function Header() {
