@@ -1,6 +1,6 @@
-import { useLogOutMutation } from '@/api/useApi';
+import { useCreateProjectMutation, useLogOutMutation } from '@/api/useApi';
 import { removeToken } from '@/store/Auth';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
@@ -21,6 +21,20 @@ function RendingHeader() {
     removeToken();
   };
 
+  const [create, { data: responseCreate, isLoading: createLoad }] = useCreateProjectMutation();
+  function createProjectHandler() {
+    if (!accessToken) {
+      window.location.href = '/signin';
+    } else {
+      create('');
+    }
+  }
+  useEffect(() => {
+    if (responseCreate?.data.projectId) {
+      window.location.href = `/project/${responseCreate.data.projectId}`;
+    }
+  }, [responseCreate]);
+
   return (
     <>
       <RendingHeaderContainer>
@@ -28,9 +42,9 @@ function RendingHeader() {
           <LogoImage />
         </Link>
         <div>
-          <Link to={accessToken ? '/project' : '/signin'}>
+          <div onClick={createProjectHandler}>
             <CProjectButton>프로젝트 생성</CProjectButton>
-          </Link>
+          </div>
 
           {accessToken && refreshToken ? (
             <Link to="/">
