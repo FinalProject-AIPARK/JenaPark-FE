@@ -15,7 +15,9 @@ function ProjectHeader() {
           <ProjectNameText>프로젝트 명</ProjectNameText>
           <NameEditImage />
         </ProjectNameContainer>
-        <SoundPlayer />
+        <SoundPlayerContainer>
+          <SoundPlayer />
+        </SoundPlayerContainer>
         <ImageButtonContainer>
           <DownloadButton onClick={() => alert('전체 음성을 다운 받으시겠습니까?')}>
             음성 다운로드
@@ -71,6 +73,10 @@ const NameEditImage = styled.img.attrs({
   color: #000;
   margin-left: 0.3125rem;
   filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(258deg) brightness(107%) contrast(101%);
+`;
+
+const SoundPlayerContainer = styled.div`
+  width: 40%;
 `;
 
 const ImageButtonContainer = styled.div`
