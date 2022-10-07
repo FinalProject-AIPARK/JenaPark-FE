@@ -23,12 +23,12 @@ function History() {
   ]);
   useEffect(() => {
     if (project) {
-      setProjectList(project.data);
+      setProjectList(project.data.historyProjects);
       setIsEdit([]);
       setTitle([]);
-      for (let i = 0; i < project.data.length; i++) {
+      for (let i = 0; i < project.data.historyProjects.length; i++) {
         setIsEdit((prev) => [...prev, false]);
-        setTitle((prev) => [...prev, project.data[i].title]);
+        setTitle((prev) => [...prev, project.data.historyProjects[i].title]);
       }
     }
   }, [project]);
