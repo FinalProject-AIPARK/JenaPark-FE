@@ -1,3 +1,4 @@
+import { getToken } from '@/store/Auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const { VITE_BASE_URL } = import.meta.env;
@@ -7,6 +8,13 @@ export const useApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: VITE_BASE_URL,
     credentials: 'include',
+    prepareHeaders: (headers) => {
+      const token = getToken();
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     signUp: builder.mutation<null, ActionSignUpType>({
@@ -87,6 +95,23 @@ export const useApi = createApi({
     // }),
   }),
 });
+
+// const baseQueryWithReissue = async (args, api, extraOptions) => {
+//   let result = await api.baseQuery(args, api, extraOptions);
+//   if (result?.error?.status === 401) {
+//     const [cookies] = useCookies();
+//     const { data } = await api.endpoints.reissueToken.initiate({
+//       refreshToken: cookies.refreshToken,
+//     });
+//     if (data) {
+//       const { accessToken, refreshToken } = data;
+//       document.cookie = `accessToken=${accessToken}; path=/;`;
+//       document.cookie = `refreshToken=${refreshToken}; path=/;`;
+//       result = await api.baseQuery(args, api, extraOptions);
+//     }
+//   }
+//   return result;
+// };
 
 export const {
   useSignInMutation,
@@ -219,16 +244,16 @@ export interface AvatarListId {
 }
 
 export interface CreateAvatarAction {
-  accessoryId: number,
-  hatId: number,
-  avatarId: number,
-  clothesId: number,
-  projectId: number,
+  accessoryId: number;
+  hatId: number;
+  avatarId: number;
+  clothesId: number;
+  projectId: number;
 }
 
 interface CreateAvatarRespses {
   data: string;
-  message: string
+  message: string;
 }
 interface ReturnInpTextSynthesisType {
   audioInfoDtos: [

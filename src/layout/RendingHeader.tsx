@@ -1,9 +1,26 @@
+import { useLogOutMutation } from '@/api/useApi';
+import { removeToken } from '@/store/Auth';
 import React from 'react';
+import { Cookies } from 'react-cookie';
+import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '/images/Logo.png';
 
 function RendingHeader() {
+  const cookies = new Cookies();
+  const [requestLogOut] = useLogOutMutation();
+  const accessToken = cookies.get('accessToken');
+  const refreshToken = cookies.get('refreshToken');
+  const logOutClick = () => {
+    requestLogOut({ accessToken, refreshToken })
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+      });
+    removeToken();
+  };
+
   return (
     <>
       <RendingHeaderContainer>
@@ -11,12 +28,19 @@ function RendingHeader() {
           <LogoImage />
         </Link>
         <div>
-          <Link to="/project">
+          <Link to={accessToken ? '/project' : '/signin'}>
             <CProjectButton>프로젝트 생성</CProjectButton>
           </Link>
-          <Link to="/Signin">
-            <SignButton>로그인 / 회원가입</SignButton>
-          </Link>
+
+          {accessToken && refreshToken ? (
+            <Link to="/">
+              <SignButton onClick={logOutClick}>로그아웃</SignButton>
+            </Link>
+          ) : (
+            <Link to="/Signin">
+              <SignButton>로그인</SignButton>
+            </Link>
+          )}
         </div>
       </RendingHeaderContainer>
     </>

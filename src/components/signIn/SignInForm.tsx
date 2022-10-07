@@ -3,7 +3,7 @@ import { useSignInMutation } from '@/api/useApi';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
-import { useCookies } from 'react-cookie';
+import { Cookies } from 'react-cookie';
 
 interface SignInFormInputs {
   email: string;
@@ -11,7 +11,7 @@ interface SignInFormInputs {
 }
 
 export default function SignInForm() {
-  const [cookies, setCookie] = useCookies();
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const {
     register,
@@ -24,13 +24,13 @@ export default function SignInForm() {
       .unwrap()
       .then((res) => {
         console.log(res);
-        setCookie('accessToken', res.data.accessToken);
-        setCookie('refreshToken', res.data.refreshToken);
+        cookies.set('accessToken', res.data.accessToken);
+        cookies.set('refreshToken', res.data.refreshToken);
         navigate('/');
-      })
-      .catch((err) => {
-        console.log(err);
       });
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   };
   return (
     <S.Container>
