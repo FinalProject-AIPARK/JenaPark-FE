@@ -1,3 +1,4 @@
+import { getToken } from '@/store/Auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const { VITE_BASE_URL } = import.meta.env;
@@ -7,6 +8,13 @@ export const useApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: VITE_BASE_URL,
     credentials: 'include',
+    prepareHeaders: (headers) => {
+      const token = getToken();
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     signUp: builder.mutation<null, ActionSignUpType>({
@@ -119,6 +127,32 @@ export const useApi = createApi({
     // }),
   }),
 });
+
+// RESTful API
+// METHOD + URL (GET, POST, DELETE)
+// Status code for response
+// 401 => Unauthorized
+// 400 => Bad request (wrong parameter)
+// 404 => Not found
+
+// server defines the way to reissue(data in body or data in cookie)
+
+// const baseQueryWithReissue = async (args, api, extraOptions) => {
+//   let result = await api.baseQuery(args, api, extraOptions);
+//   if (result?.error?.status === 401) {
+//     const [cookies] = useCookies();
+//     const { data } = await api.endpoints.reissueToken.initiate({
+//       refreshToken: cookies.refreshToken,
+//     });
+//     if (data) {
+//       const { accessToken, refreshToken } = data;
+//       document.cookie = `accessToken=${accessToken}; path=/;`;
+//       document.cookie = `refreshToken=${refreshToken}; path=/;`;
+//       result = await api.baseQuery(args, api, extraOptions);
+//     }
+//   }
+//   return result;
+// };
 
 export const {
   useSignInMutation,

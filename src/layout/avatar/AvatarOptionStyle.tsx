@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import left from '../../../public/icon/maskLeft-icon.png';
-import right from '../../../public/icon/maskRight-icon.png';
-import plus from '../../../public/icon/plus-icon.png';
+import left from '@/src/maskLeft-icon.png';
+import right from '@/src/icon/maskRight-icon.png';
+import plus from '@/src/icon/plus-icon.png';
 
 function AvatarOptionStyle() {
   // 슬라이드 로직
