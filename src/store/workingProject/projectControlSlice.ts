@@ -13,9 +13,12 @@ export const projectControlSlice = createSlice({
     workingComponent: (state) => {
       state.elementData.isVoiceWoking = !state.elementData.isVoiceWoking;
     },
+    moveToAvatar: (state) => {
+      state.elementData.isVoiceWoking = false;
+    },
   },
 });
 
-export const { workingComponent } = projectControlSlice.actions;
+export const { workingComponent, moveToAvatar } = projectControlSlice.actions;
 
 export const projectControlReducer = projectControlSlice.reducer;

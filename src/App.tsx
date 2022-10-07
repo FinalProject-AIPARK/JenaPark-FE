@@ -5,7 +5,7 @@ import SignIn from '@/pages/SignIn';
 import SignUp from '@/pages/SignUp';
 import Account from '@/pages/Account';
 import CreateAvatar from '@/pages/CreateAvatar';
-import History from '@/pages/History';
+import History from '@/pages/HistoryPage';
 import MyPage from './pages/MyPage';
 function App() {
   if (false) {
@@ -30,7 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/account" element={<Account />} />
           <Route path="/history" element={<History />} />
-          <Route path="/project" element={<CreateAvatar />} />
+          <Route path="/project/:projectId" element={<CreateAvatar />} />
         </Routes>
       </BrowserRouter>
     );
