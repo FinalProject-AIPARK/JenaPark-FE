@@ -14,6 +14,14 @@ function Header() {
     console.log(state);
   }, [location]);
 
-  return <>{state === '/project' ? <ProjectHeader localstate={state} /> : <RendingHeader />}</>;
+  return (
+    <>
+      {state === '/project' ? (
+        <ProjectHeader localstate={state} />
+      ) : (
+        <ProjectHeader localstate={state} />
+      )}
+    </>
+  );
 }
 export default Header;

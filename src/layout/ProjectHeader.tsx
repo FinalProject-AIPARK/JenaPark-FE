@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SoundPlayer from './SoundPlayer';
 import styled from 'styled-components';
 import leftarrow from '/images/arrow-ios-left.png';
@@ -19,8 +20,18 @@ function ProjectHeader() {
           <SoundPlayer />
         </SoundPlayerContainer>
         <ImageButtonContainer>
-          <DownloadButton onClick={() => alert('전체 음성을 다운 받으시겠습니까?')}>
-            음성 다운로드
+          <DownloadButton
+          // onClick={() => {
+          //   alert('전체 음성을 다운 받으시겠습니까?');
+          // }}
+          >
+            <a
+              href="jenapark.s3.ap-northeast-2.amazonaws.com/audio/sample/kor_w_1.wav"
+              download
+              target="_self"
+            >
+              음성 다운로드
+            </a>
             <VoiceImage />
           </DownloadButton>
           <DownloadButton onClick={() => alert('프로젝트를 저장 후 다운로드를 진행해주세요')}>
