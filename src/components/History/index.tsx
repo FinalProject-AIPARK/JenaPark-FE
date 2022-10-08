@@ -85,9 +85,13 @@ function History() {
   }, [resEdit]);
 
   // 도움말
-  const [guideText, setGuideText] = useState(false);
-  function guideHandler(isOn: boolean) {
-    setGuideText(isOn);
+  const [guideText, setGuideText] = useState([false, false]);
+  function guideHandler(isOn: boolean, index: number) {
+    setGuideText((prev) => {
+      let next = [...prev];
+      next[index] = isOn;
+      return next;
+    });
   }
 
   return (
@@ -103,10 +107,10 @@ function History() {
           title={title}
           changeTitle={changeTitle}
           keyDownHandler={keyDownHandler}
-          guideText={guideText}
+          guideText={guideText[0]}
           guideHandler={guideHandler}
         />
-        <HistoryVideoLayout />
+        <HistoryVideoLayout guideText={guideText[1]} guideHandler={guideHandler} />
       </div>
     </Container>
   );

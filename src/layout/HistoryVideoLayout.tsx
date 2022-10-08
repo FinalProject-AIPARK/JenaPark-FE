@@ -2,44 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import question from '/questionMark-icon.png';
 
-function HistoryVideoLayout() {
+function HistoryVideoLayout({ guideText, guideHandler }: HistoryVideoProps) {
   const dummy = [
-    {
-      videoId: 1,
-      title: '32번 프로젝트',
-      backgroundUrl:
-        'https://img9.yna.co.kr/etc/inner/KR/2022/09/01/AKR20220901103800005_01_i_P2.jpg',
-      avatarUrl: 'https://jenapark.s3.ap-northeast-2.amazonaws.com/avatar/ming/ming_hat_2.png',
-      videoFileUrl: '제작 중',
-      createDate: '2022-10-07T06:00:16',
-    },
-    {
-      videoId: 1,
-      title: '32번 프로젝트',
-      backgroundUrl:
-        'https://img9.yna.co.kr/etc/inner/KR/2022/09/01/AKR20220901103800005_01_i_P2.jpg',
-      avatarUrl: 'https://jenapark.s3.ap-northeast-2.amazonaws.com/avatar/ming/ming_hat_2.png',
-      videoFileUrl: '제작 중',
-      createDate: '2022-10-07T06:00:16',
-    },
-    {
-      videoId: 1,
-      title: '32번 프로젝트',
-      backgroundUrl:
-        'https://img9.yna.co.kr/etc/inner/KR/2022/09/01/AKR20220901103800005_01_i_P2.jpg',
-      avatarUrl: 'https://jenapark.s3.ap-northeast-2.amazonaws.com/avatar/ming/ming_hat_2.png',
-      videoFileUrl: '제작 중',
-      createDate: '2022-10-07T06:00:16',
-    },
-    {
-      videoId: 1,
-      title: '32번 프로젝트',
-      backgroundUrl:
-        'https://img9.yna.co.kr/etc/inner/KR/2022/09/01/AKR20220901103800005_01_i_P2.jpg',
-      avatarUrl: 'https://jenapark.s3.ap-northeast-2.amazonaws.com/avatar/ming/ming_hat_2.png',
-      videoFileUrl: '제작 중',
-      createDate: '2022-10-07T06:00:16',
-    },
     {
       videoId: 1,
       title: '32번 프로젝트',
@@ -59,17 +23,19 @@ function HistoryVideoLayout() {
         <img
           src={question}
           alt="프로젝트 히스토리 도움말 아이콘"
+          onMouseEnter={() => guideHandler(true, 1)}
+          onMouseLeave={() => guideHandler(false, 1)}
           style={{ width: '1.7rem', marginLeft: '1rem' }}
         />
-        {/* {guideText ? (
-            <GuideTextBox>
-              <span>
-                프로젝트에서 생성한 영상이 5개까지 노출됩니다. 그 이전 영상은 자동 삭제됩니다. <br />
-                다운로드 버튼을 클릭하면 영상 확인과 다운로드를 받을 수 있습니다.<br />
-                영상 이름 수정이 가능합니다. 영상 이름에 더블클릭을 해주세요.
-              </span>
-            </GuideTextBox>
-          ) : null} */}
+        {guideText ? (
+          <GuideTextBox>
+            <span>
+              프로젝트에서 생성한 영상이 5개까지 노출됩니다. 그 이전 영상은 자동 삭제됩니다.
+              <br />
+              다운로드 버튼을 클릭하면 영상 확인과 다운로드를 받을 수 있습니다.
+            </span>
+          </GuideTextBox>
+        ) : null}
       </TitleBox>
       <ProjectListBox>
         <ListBox>
@@ -101,6 +67,10 @@ function HistoryVideoLayout() {
   );
 }
 
+interface HistoryVideoProps {
+  guideText: boolean;
+  guideHandler: (isOn: boolean, index: number) => void;
+}
 interface TextStyleProps {
   size?: string;
   weight?: string;
@@ -125,8 +95,8 @@ const TitleBox = styled.div`
 const GuideTextBox = styled.div`
   background-color: #fff;
   position: absolute;
-  top: -2.5rem;
-  left: 13.2rem;
+  top: -3.8rem;
+  left: 10.8rem;
   padding: 0.6rem;
   font-size: 0.81rem;
   font-weight: 500;

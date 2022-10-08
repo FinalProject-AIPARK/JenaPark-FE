@@ -26,8 +26,8 @@ function HistoryProjectLayout({
           <img
             src={question}
             alt="프로젝트 히스토리 도움말 아이콘"
-            onMouseEnter={() => guideHandler(true)}
-            onMouseLeave={() => guideHandler(false)}
+            onMouseEnter={() => guideHandler(true, 0)}
+            onMouseLeave={() => guideHandler(false, 0)}
             style={{ width: '1.7rem', marginLeft: '1rem' }}
           />
           {guideText ? (
@@ -118,7 +118,7 @@ interface HistoryProjectLayoutProps {
   changeTitle: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   keyDownHandler: (event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) => void;
   guideText: boolean;
-  guideHandler: (isOn: boolean) => void;
+  guideHandler: (isOn: boolean, index: number) => void;
 }
 interface TextStyleProps {
   size?: string;
