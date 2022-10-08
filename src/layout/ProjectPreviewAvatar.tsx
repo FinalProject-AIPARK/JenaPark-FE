@@ -149,10 +149,10 @@ const Img = styled.img`
   }
 `;
 const PreviewImg = styled.img<PreviewImgProps>`
-  width: ${({ width }) => (width ? width : 'auto')}
+  width: ${({ width }) => (width ? width : 'auto')};
   height: ${({ height }) => (height ? height : 'auto')};
   position: absolute;
-  bottom: ${({ bottom }) => (bottom ? bottom : 0)}
+  bottom: ${({ bottom }) => (bottom ? bottom : 0)};
 `;
 
 export default ProjectPreviewAvatar;
