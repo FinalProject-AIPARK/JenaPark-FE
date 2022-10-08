@@ -106,7 +106,7 @@ function History() {
           guideText={guideText}
           guideHandler={guideHandler}
         />
-        {/* <HistoryVideoLayout /> */}
+        <HistoryVideoLayout />
       </div>
     </Container>
   );
