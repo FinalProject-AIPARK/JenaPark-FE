@@ -52,12 +52,6 @@ function SoundPlayer(this: any) {
         customProgressBarSection={[RHAP_UI.PROGRESS_BAR]}
         customControlsSection={[]}
       />
-      {/* <AudioPlayer
-        // ref={this.player}
-        src="https://t1.daumcdn.net/cfile/tistory/27510D425854D91F34?original"
-        customProgressBarSection={[RHAP_UI.PROGRESS_BAR]}
-        customControlsSection={[]}
-      /> */}
     </PlayerContainer>
   );
 }
