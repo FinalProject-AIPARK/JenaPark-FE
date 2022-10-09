@@ -229,7 +229,13 @@ interface ReturnProjectHistoryType {
       createDate: string;
       modifiedDate: string;
     }[];
-    historyVideos: {};
+    historyVideos: {
+      videoId: number;
+      title: string;
+      thumbnail: null;
+      videoFileUrl: string;
+      createDate: string;
+    }[];
   };
 }
 interface ReturnCreateProjectType {

@@ -22,9 +22,19 @@ function History() {
       modifiedDate: '',
     },
   ]);
+  const [videoList, setVideoList] = useState([
+    {
+      videoId: 0,
+      title: '',
+      thumbnail: null,
+      videoFileUrl: '',
+      createDate: '',
+    },
+  ]);
   useEffect(() => {
     if (project) {
       setProjectList(project.data.historyProjects);
+      setVideoList(project.data.historyVideos);
       setIsEdit([]);
       setTitle([]);
       for (let i = 0; i < project.data.historyProjects.length; i++) {
@@ -111,9 +121,13 @@ function History() {
           guideText={guideText[0]}
           guideHandler={guideHandler}
         />
-        <HistoryVideoLayout guideText={guideText[1]} guideHandler={guideHandler} />
+        <HistoryVideoLayout
+          videoList={videoList}
+          guideText={guideText[1]}
+          guideHandler={guideHandler}
+        />
       </div>
-      <VideoDownloaddModal />
+      {/* <VideoDownloaddModal /> */}
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import question from '/questionMark-icon.png';
 
-function HistoryVideoLayout({ guideText, guideHandler }: HistoryVideoProps) {
+function HistoryVideoLayout({ videoList, guideText, guideHandler }: HistoryVideoProps) {
   const dummy = [
     {
       videoId: 1,
@@ -68,6 +68,13 @@ function HistoryVideoLayout({ guideText, guideHandler }: HistoryVideoProps) {
 }
 
 interface HistoryVideoProps {
+  videoList: {
+    videoId: number;
+    title: string;
+    thumbnail: null;
+    videoFileUrl: string;
+    createDate: string;
+  }[];
   guideText: boolean;
   guideHandler: (isOn: boolean, index: number) => void;
 }
