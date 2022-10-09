@@ -76,6 +76,10 @@ export const useApi = createApi({
         },
       }),
     }),
+    // 개별 프로젝트 데이터
+    getProjectData: builder.query<ReturnProjectDataType, string>({
+      query: (projectId) => `/api/v1/projects/${projectId}`,
+    }),
     // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
       query: (data) => ({
@@ -163,6 +167,8 @@ export const {
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
   useEditProjectTitleMutation,
+  // 개별 프로젝트 데이터
+  useGetProjectDataQuery,
   // AI 음성
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
@@ -257,6 +263,29 @@ interface ReturnCreateProjectType {
 interface ActionEditProjectTitleType {
   projectID: number;
   title: string;
+}
+// 개별 프로젝트 데이터
+interface ReturnProjectDataType {
+  data: {
+    projectId: number;
+    title: string;
+    sex: string;
+    lang: string;
+    speed: number;
+    pitch: number;
+    volume: number;
+    durationSilence: number;
+    backgroundUrl: string;
+    audioUpload: boolean;
+    audioMerge: boolean;
+    audioFileOriginName: string | null;
+    audioFileUrl: string | null;
+    avatarUrl: string | null;
+    checkText: boolean;
+    checkAudio: boolean;
+    checkAvatar: boolean;
+    audioInfos: [];
+  };
 }
 // AI 음성
 interface ActionUploadVoiceType {
