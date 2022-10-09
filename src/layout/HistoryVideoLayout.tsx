@@ -30,7 +30,9 @@ function HistoryVideoLayout({ videoList, guideText, guideHandler }: HistoryVideo
         {guideText ? (
           <GuideTextBox>
             <span>
-              프로젝트에서 생성한 영상이 5개까지 노출됩니다. 그 이전 영상은 자동 삭제됩니다.
+              프로젝트에서 생성한 영상이 5개까지 노출됩니다.
+              <br />
+              영상 생성일 기준으로 5개 이외 영상은 자동 삭제됩니다.
               <br />
               다운로드 버튼을 클릭하면 영상 확인과 다운로드를 받을 수 있습니다.
             </span>
@@ -90,7 +92,7 @@ interface TextStyleProps {
 
 const Container = styled.div`
   width: 78rem;
-  margin-top: 2.93rem;
+  margin-top: 3.3rem;
 `;
 const TitleBox = styled.div`
   width: 100%;
