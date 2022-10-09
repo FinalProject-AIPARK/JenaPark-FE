@@ -7,6 +7,7 @@ import {
   useCreateProjectMutation,
   useEditProjectTitleMutation,
 } from '@/api/useApi';
+import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 
 function History() {
   // 프로젝트 리스트 요청
@@ -112,6 +113,7 @@ function History() {
         />
         <HistoryVideoLayout guideText={guideText[1]} guideHandler={guideHandler} />
       </div>
+      <VideoDownloaddModal />
     </Container>
   );
 }
@@ -119,6 +121,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 const Header = styled.div`
   height: 4.5rem;
