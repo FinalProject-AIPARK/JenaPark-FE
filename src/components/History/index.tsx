@@ -7,6 +7,7 @@ import {
   useCreateProjectMutation,
   useEditProjectTitleMutation,
 } from '@/api/useApi';
+import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 
 function History() {
   // 프로젝트 리스트 요청
@@ -21,9 +22,19 @@ function History() {
       modifiedDate: '',
     },
   ]);
+  const [videoList, setVideoList] = useState([
+    {
+      videoId: 0,
+      title: '',
+      thumbnail: null,
+      videoFileUrl: '',
+      createDate: '',
+    },
+  ]);
   useEffect(() => {
     if (project) {
       setProjectList(project.data.historyProjects);
+      setVideoList(project.data.historyVideos);
       setIsEdit([]);
       setTitle([]);
       for (let i = 0; i < project.data.historyProjects.length; i++) {
@@ -85,9 +96,13 @@ function History() {
   }, [resEdit]);
 
   // 도움말
-  const [guideText, setGuideText] = useState(false);
-  function guideHandler(isOn: boolean) {
-    setGuideText(isOn);
+  const [guideText, setGuideText] = useState([false, false]);
+  function guideHandler(isOn: boolean, index: number) {
+    setGuideText((prev) => {
+      let next = [...prev];
+      next[index] = isOn;
+      return next;
+    });
   }
 
   return (
@@ -103,11 +118,16 @@ function History() {
           title={title}
           changeTitle={changeTitle}
           keyDownHandler={keyDownHandler}
-          guideText={guideText}
+          guideText={guideText[0]}
           guideHandler={guideHandler}
         />
-        {/* <HistoryVideoLayout /> */}
+        <HistoryVideoLayout
+          videoList={videoList}
+          guideText={guideText[1]}
+          guideHandler={guideHandler}
+        />
       </div>
+      {/* <VideoDownloaddModal /> */}
     </Container>
   );
 }
@@ -115,6 +135,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 const Header = styled.div`
   height: 4.5rem;
