@@ -45,24 +45,19 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    userInfo: builder.query<ReturnUserInfoType, null>({
+      query: () => '/api/v1/members',
+    }),
     // 히스토리
     getProjectHistoy: builder.query<ReturnProjectHistoryType, number>({
       query: () => ({
         url: '/api/v1/projects',
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
-        },
       }),
     }),
     createProject: builder.mutation<ReturnCreateProjectType, ''>({
       query: () => ({
         url: '/api/v1/projects',
         method: 'POST',
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
-        },
       }),
     }),
     editProjectTitle: builder.mutation<any, ActionEditProjectTitleType>({
@@ -70,11 +65,11 @@ export const useApi = createApi({
         url: '/api/v1/projects/title ',
         method: 'POST',
         body: data,
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
-        },
       }),
+    }),
+    // 개별 프로젝트 데이터
+    getProjectData: builder.query<ReturnProjectDataType, string>({
+      query: (projectId) => `/api/v1/projects/${projectId}`,
     }),
     // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
@@ -159,10 +154,13 @@ export const {
   useSignUpMutation,
   useLogOutMutation,
   useReissueTokenMutation,
+  useUserInfoQuery,
   // 히스토리
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
   useEditProjectTitleMutation,
+  // 개별 프로젝트 데이터
+  useGetProjectDataQuery,
   // AI 음성
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
@@ -219,6 +217,14 @@ interface ReturnReissueTokenType {
   };
   error: [];
 }
+interface ReturnUserInfoType {
+  data: {
+    username: string;
+    email: string;
+    profileImg: string | null;
+    createDate: string;
+  };
+}
 // 히스토리
 interface ReturnProjectHistoryType {
   data: {
@@ -263,6 +269,29 @@ interface ReturnCreateProjectType {
 interface ActionEditProjectTitleType {
   projectID: number;
   title: string;
+}
+// 개별 프로젝트 데이터
+interface ReturnProjectDataType {
+  data: {
+    projectId: number;
+    title: string;
+    sex: string;
+    lang: string;
+    speed: number;
+    pitch: number;
+    volume: number;
+    durationSilence: number;
+    backgroundUrl: string;
+    audioUpload: boolean;
+    audioMerge: boolean;
+    audioFileOriginName: string | null;
+    audioFileUrl: string | null;
+    avatarUrl: string | null;
+    checkText: boolean;
+    checkAudio: boolean;
+    checkAvatar: boolean;
+    audioInfos: [];
+  };
 }
 // AI 음성
 interface ActionUploadVoiceType {

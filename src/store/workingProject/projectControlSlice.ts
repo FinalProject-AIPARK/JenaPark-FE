@@ -4,6 +4,11 @@ const initialState = {
   elementData: {
     isVoiceWoking: true,
   },
+  projectData: {
+    checkText: false,
+    checkAudio: false,
+    checkAvatar: false,
+  },
 };
 
 export const projectControlSlice = createSlice({
@@ -16,9 +21,12 @@ export const projectControlSlice = createSlice({
     moveToAvatar: (state) => {
       state.elementData.isVoiceWoking = false;
     },
+    getData: (state, action) => {
+      state.projectData = action.payload;
+    },
   },
 });
 
-export const { workingComponent, moveToAvatar } = projectControlSlice.actions;
+export const { workingComponent, moveToAvatar, getData } = projectControlSlice.actions;
 
 export const projectControlReducer = projectControlSlice.reducer;

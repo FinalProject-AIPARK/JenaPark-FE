@@ -20,6 +20,10 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+a {
+  color: #000;
+  text-decoration: none;
+}
 button {
   border: none;
   cursor: pointer;
