@@ -25,7 +25,9 @@ function CreateAvatar() {
     <>
       <Header />
       <Contain>
-        <Navbar />
+        <div>
+          <Navbar />
+        </div>
         <Contents />
         {isVoiceWoking ? <Voice /> : <Avatar />}
       </Contain>

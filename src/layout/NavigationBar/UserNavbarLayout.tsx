@@ -9,7 +9,7 @@ import textIcon from '/text-icon.png';
 import mic from '/voiceMic-icon.png';
 import myInfo from '/myInfo-icon.png';
 
-function UserNavbarLayout({ projectStep }: UserNavbarProps) {
+function UserNavbarLayout({ projectStep, userInfoData, myInfoButton, myInfoBtn }: UserNavbarProps) {
   return (
     <Container>
       <LogoBox>
@@ -56,9 +56,24 @@ function UserNavbarLayout({ projectStep }: UserNavbarProps) {
       </HistoryLinkBox>
       {/* 내계정 */}
       <MyInfoBox>
-        <LinkButton to="/">
-          <ImageStyle src={myInfo} alt="사용자계정정보아이콘" />
-        </LinkButton>
+        <Button>
+          <ImageStyle src={myInfo} alt="사용자계정정보아이콘" ref={myInfoBtn} />
+        </Button>
+        {myInfoButton ? (
+          <MyInfoInnerBox>
+            <UserNameBox>
+              <MyInfoText size="1rem" borderBottom="1.6px solid #555">
+                {userInfoData}
+              </MyInfoText>
+            </UserNameBox>
+            <LinkButton to="/account" marginbottom="0.6rem">
+              <MyInfoText>계정 정보</MyInfoText>
+            </LinkButton>
+            <Button>
+              <MyInfoText>로그아웃</MyInfoText>
+            </Button>
+          </MyInfoInnerBox>
+        ) : null}
       </MyInfoBox>
       <Background backColor="#001334"></Background>
     </Container>
@@ -71,6 +86,9 @@ interface UserNavbarProps {
     checkAudio: boolean;
     checkAvatar: boolean;
   };
+  userInfoData: string;
+  myInfoButton: boolean;
+  myInfoBtn: React.MutableRefObject<null>;
 }
 interface LinkButtonProps {
   marginbottom?: string;
@@ -82,6 +100,10 @@ interface ImageStyleProps {
 interface BackgroundProps {
   backColor: string;
   radius?: string;
+}
+interface MyInfoTextProps {
+  size?: string;
+  borderBottom?: string;
 }
 
 const Background = styled.div<BackgroundProps>`
@@ -155,11 +177,42 @@ const HistoryLinkBox = styled.div`
   text-align: center;
 `;
 const MyInfoBox = styled.div`
+  position: relative;
   margin-bottom: 1.62rem;
   text-align: center;
 `;
 const LinkButton = styled(Link)<LinkButtonProps>`
   margin-bottom: ${({ marginbottom }) => marginbottom};
+`;
+const MyInfoInnerBox = styled.div`
+  background-color: #fff;
+  width: 6.4rem;
+  height: 5.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: -5.8rem;
+  right: -5.4rem;
+  padding: 0.6rem 0.2rem;
+  border-radius: 0.63rem;
+  box-shadow: 0 0 0.6rem 0 #555;
+`;
+const UserNameBox = styled.div`
+  width: 5rem;
+  height: 1.3rem;
+  margin-bottom: 0.8rem;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+const MyInfoText = styled.span<MyInfoTextProps>`
+  font-size: ${({ size }) => (size ? size : '0.87rem')};
+  border-bottom: ${({ borderBottom }) => (borderBottom ? borderBottom : '0')};
+`;
+const Button = styled.button`
+  background-color: transparent;
 `;
 
 export default UserNavbarLayout;

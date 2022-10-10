@@ -45,24 +45,19 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    userInfo: builder.query<ReturnUserInfoType, null>({
+      query: () => '/api/v1/members',
+    }),
     // 히스토리
     getProjectHistoy: builder.query<ReturnProjectHistoryType, number>({
       query: () => ({
         url: '/api/v1/projects',
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
-        },
       }),
     }),
     createProject: builder.mutation<ReturnCreateProjectType, ''>({
       query: () => ({
         url: '/api/v1/projects',
         method: 'POST',
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
-        },
       }),
     }),
     editProjectTitle: builder.mutation<any, ActionEditProjectTitleType>({
@@ -70,10 +65,6 @@ export const useApi = createApi({
         url: '/api/v1/projects/title ',
         method: 'POST',
         body: data,
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
-        },
       }),
     }),
     // 개별 프로젝트 데이터
@@ -163,6 +154,7 @@ export const {
   useSignUpMutation,
   useLogOutMutation,
   useReissueTokenMutation,
+  useUserInfoQuery,
   // 히스토리
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
@@ -224,6 +216,14 @@ interface ReturnReissueTokenType {
     refreshTokenExpirationTime: number;
   };
   error: [];
+}
+interface ReturnUserInfoType {
+  data: {
+    username: string;
+    email: string;
+    profileImg: string | null;
+    createDate: string;
+  };
 }
 // 히스토리
 interface ReturnProjectHistoryType {
