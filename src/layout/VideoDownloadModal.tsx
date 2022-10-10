@@ -3,57 +3,80 @@ import styled from 'styled-components';
 import close from '/close-icon.png';
 import pencil from '/images/edit-pencil.png';
 
-const VideoDownloadModal = memo(({ selectItem, closeModal }: VideoModalProps) => {
-  return (
-    <>
-      <ModalBox>
-        <HeadBox>
-          <TitleBox>
-            <span>{selectItem.title}</span>
-            <img
-              src={pencil}
-              alt="영상 이름 수정 아이콘"
-              style={{ width: '1.3rem', marginLeft: '0.6rem' }}
-            />
-          </TitleBox>
-          <ButtonStyle backColor="transparent" onClick={closeModal}>
-            <img src={close} alt="닫기 버튼 아이콘" style={{ width: '1.6rem' }} />
-          </ButtonStyle>
-        </HeadBox>
-        <Video controls>
-          <source src={selectItem.videoFileUrl} type="video/mp4"></source>
-        </Video>
-        <DownloadDeleteBox>
-          <a href={selectItem.downloadFileUrl} download>
-            <ButtonStyle
-              backColor="#80A4FF"
-              width="17rem"
-              height="2.6rem"
-              size="1.2rem"
-              weight="600"
-              color="#fff"
-            >
-              다운로드
+const VideoDownloadModal = memo(
+  ({
+    selectItem,
+    closeModal,
+    isEditVideo,
+    videoTitle,
+    keyDownVideoHandler,
+    editVideoHandler,
+    changeVideoTitle,
+  }: VideoModalProps) => {
+    return (
+      <>
+        <ModalBox>
+          <HeadBox>
+            <TitleBox>
+              {isEditVideo ? (
+                <EditInput
+                  value={videoTitle}
+                  onChange={(event) => changeVideoTitle(event)}
+                  onKeyDown={(event) => keyDownVideoHandler(event, selectItem.videoId)}
+                />
+              ) : (
+                <>
+                  <InnerTitleBox>
+                    <span style={{ width: '10rem' }}>{selectItem.title}</span>
+                  </InnerTitleBox>
+                  <img
+                    src={pencil}
+                    alt="영상 이름 수정 아이콘"
+                    onClick={editVideoHandler}
+                    style={{ width: '1.3rem', marginLeft: '0.6rem' }}
+                  />
+                </>
+              )}
+            </TitleBox>
+            <ButtonStyle backColor="transparent" onClick={closeModal}>
+              <img src={close} alt="닫기 버튼 아이콘" style={{ width: '1.6rem' }} />
             </ButtonStyle>
-          </a>
+          </HeadBox>
+          <Video controls>
+            <source src={selectItem.videoFileUrl} type="video/mp4"></source>
+          </Video>
+          <DownloadDeleteBox>
+            <a href={selectItem.downloadFileUrl} download>
+              <ButtonStyle
+                backColor="#80A4FF"
+                width="17rem"
+                height="2.6rem"
+                size="1.2rem"
+                weight="600"
+                color="#fff"
+              >
+                다운로드
+              </ButtonStyle>
+            </a>
 
-          <ButtonStyle
-            backColor="#fff"
-            width="7rem"
-            height="2.6rem"
-            size="1.1rem"
-            weight="400"
-            border="0.07rem solid #777"
-            color="#333"
-          >
-            삭제
-          </ButtonStyle>
-        </DownloadDeleteBox>
-      </ModalBox>
-      <ModalBack>modalbackground</ModalBack>
-    </>
-  );
-});
+            <ButtonStyle
+              backColor="#fff"
+              width="7rem"
+              height="2.6rem"
+              size="1.1rem"
+              weight="400"
+              border="0.07rem solid #777"
+              color="#333"
+            >
+              삭제
+            </ButtonStyle>
+          </DownloadDeleteBox>
+        </ModalBox>
+        <ModalBack>modalbackground</ModalBack>
+      </>
+    );
+  },
+);
 
 interface VideoModalProps {
   selectItem: {
@@ -66,6 +89,11 @@ interface VideoModalProps {
     downloadFileUrl: string;
   };
   closeModal: () => void;
+  isEditVideo: boolean;
+  videoTitle: string;
+  keyDownVideoHandler: (event: React.KeyboardEvent<HTMLInputElement>, id: number) => void;
+  editVideoHandler: () => void;
+  changeVideoTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 interface ButtonStyleProps {
   backColor: string;
@@ -95,11 +123,25 @@ const HeadBox = styled.div`
   margin-bottom: 1rem;
 `;
 const TitleBox = styled.div`
+  width: 22rem;
   display: flex;
   align-items: center;
   font-size: 1.4rem;
   font-weight: 600;
   color: #444;
+`;
+const EditInput = styled.input`
+  width: 100%;
+  height: 100%;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #555;
+`;
+const InnerTitleBox = styled.div`
+  height: 1.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const ButtonStyle = styled.button<ButtonStyleProps>`
   background-color: ${({ backColor }) => backColor};

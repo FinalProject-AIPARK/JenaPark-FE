@@ -67,6 +67,13 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    editVideoTitle: builder.mutation<any, ActionEditVideoTitleType>({
+      query: (data) => ({
+        url: `/api/v1/projects/video/${data.videoId}`,
+        method: 'POST',
+        body: data.action,
+      }),
+    }),
     // 개별 프로젝트 데이터
     getProjectData: builder.query<ReturnProjectDataType, string>({
       query: (projectId) => `/api/v1/projects/${projectId}`,
@@ -118,14 +125,6 @@ export const useApi = createApi({
         method: 'GET',
       }),
     }),
-
-    // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
-    //   query: (data) => ({
-    //     url: '/api/v1/audio/sample',
-    //     method: 'GET',
-    //     body: data,
-    //   }),
-    // }),
   }),
 });
 
@@ -165,6 +164,7 @@ export const {
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
   useEditProjectTitleMutation,
+  useEditVideoTitleMutation,
   // 개별 프로젝트 데이터
   useGetProjectDataQuery,
   // AI 음성
@@ -278,6 +278,12 @@ interface ReturnCreateProjectType {
 interface ActionEditProjectTitleType {
   projectID: number;
   title: string;
+}
+interface ActionEditVideoTitleType {
+  videoId: number;
+  action: {
+    title: string;
+  };
 }
 // 개별 프로젝트 데이터
 interface ReturnProjectDataType {

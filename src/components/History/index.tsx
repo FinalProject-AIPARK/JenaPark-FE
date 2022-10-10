@@ -6,6 +6,7 @@ import {
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
   useEditProjectTitleMutation,
+  useEditVideoTitleMutation,
 } from '@/api/useApi';
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 
@@ -36,10 +37,10 @@ function History() {
     if (project) {
       setProjectList(project.data.historyProjects);
       setVideoList(project.data.historyVideos);
-      setIsEdit([]);
+      setIsEditProject([]);
       setTitle([]);
       for (let i = 0; i < project.data.historyProjects.length; i++) {
-        setIsEdit((prev) => [...prev, false]);
+        setIsEditProject((prev) => [...prev, false]);
         setTitle((prev) => [...prev, project.data.historyProjects[i].title]);
       }
     }
@@ -62,10 +63,10 @@ function History() {
   }
 
   // 프로젝트 이름 수정
-  const [isEdit, setIsEdit] = useState([false]);
+  const [isEditProject, setIsEditProject] = useState([false]);
   const [title, setTitle] = useState(['']);
-  const [edit, { data: resEdit }] = useEditProjectTitleMutation();
-  function changeTitle(event: React.ChangeEvent<HTMLInputElement>, index: number) {
+  const [editProjectName, { data: resEditProject }] = useEditProjectTitleMutation();
+  function changeProjectTitle(event: React.ChangeEvent<HTMLInputElement>, index: number) {
     setTitle((prev) => {
       let next = [...prev];
       next[index] = event.target.value;
@@ -73,28 +74,58 @@ function History() {
     });
   }
   function editTitleHandler(title: string, index: number) {
-    setIsEdit((prev) => {
+    setIsEditProject((prev) => {
       let next = [...prev];
       next[index] = true;
       return next;
     });
   }
-  function keyDownHandler(event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) {
+  function keyDownProjectHandler(
+    event: React.KeyboardEvent<HTMLInputElement>,
+    index: number,
+    id: number,
+  ) {
     if (event.key === 'Enter') {
-      edit({
+      editProjectName({
         projectID: id,
         title: title[index],
       });
-      setIsEdit((prev) => {
+      setIsEditProject((prev) => {
         let next = [...prev];
         next[index] = false;
         return next;
       });
     }
   }
+
+  // 영상 이름 수정
+  const [isEditVideo, setIsEditVideo] = useState(false);
+  const [videoTitle, setVideoTitle] = useState('');
+  const [editVideoName, { data: resEditVideo }] = useEditVideoTitleMutation();
+  function editVideoHandler() {
+    setIsEditVideo(true);
+  }
+  function changeVideoTitle(event: React.ChangeEvent<HTMLInputElement>) {
+    setVideoTitle(event.target.value);
+  }
+  function keyDownVideoHandler(event: React.KeyboardEvent<HTMLInputElement>, id: number) {
+    if (event.key === 'Enter') {
+      editVideoName({
+        videoId: id,
+        action: {
+          title: videoTitle,
+        },
+      });
+      setSelectItem((prev) => {
+        let next = { ...prev, title: videoTitle };
+        return next;
+      });
+      setIsEditVideo(false);
+    }
+  }
   useEffect(() => {
     setUpdate(update + 1);
-  }, [resEdit]);
+  }, [resEditProject, resEditVideo]);
 
   // 도움말
   const [guideText, setGuideText] = useState([false, false]);
@@ -131,6 +162,7 @@ function History() {
   }
   function selectVideoHandler(item: selectTypes) {
     setSelectItem(item);
+    setVideoTitle(item.title);
     setModal(true);
   }
 
@@ -142,11 +174,11 @@ function History() {
           projectList={projectList}
           createProjectHandler={createProjectHandler}
           prevProjectHandler={prevProjectHandler}
-          isEdit={isEdit}
+          isEdit={isEditProject}
           editTitleHandler={editTitleHandler}
           title={title}
-          changeTitle={changeTitle}
-          keyDownHandler={keyDownHandler}
+          changeTitle={changeProjectTitle}
+          keyDownHandler={keyDownProjectHandler}
           guideText={guideText[0]}
           guideHandler={guideHandler}
         />
@@ -157,7 +189,17 @@ function History() {
           selectVideoHandler={selectVideoHandler}
         />
       </div>
-      {modal ? <VideoDownloaddModal selectItem={selectItem} closeModal={closeModal} /> : null}
+      {modal ? (
+        <VideoDownloaddModal
+          selectItem={selectItem}
+          closeModal={closeModal}
+          isEditVideo={isEditVideo}
+          videoTitle={videoTitle}
+          editVideoHandler={editVideoHandler}
+          keyDownVideoHandler={keyDownVideoHandler}
+          changeVideoTitle={changeVideoTitle}
+        />
+      ) : null}
     </Container>
   );
 }
