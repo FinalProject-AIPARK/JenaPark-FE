@@ -11,25 +11,44 @@ function LandingPageStyle() {
         영상 안에서 시간과 공간, 능력을 초월하기 위한 서비스입니다
       </SubTitle>
       <StartButton>서비스 체험하기 →</StartButton>
-      <YouTube
-        videoId="hUgGblPDVxI"
-        opts={{
-          width: '600',
-          height: '374',
-          playerVars: {
-            autoplay: 1,
-            rel: 0,
-            modestbranding: 1,
-            loop: 1,
-            playlist: 'hUgGblPDVxI',
-            controls: 0,
-            end: 20,
-            fs: 1,
-            disablekb: 1,
-            mute: 1,
-          },
-        }}
-      />
+      <ContentContainer>
+        <ContentBox>
+          <ContentNumber>01</ContentNumber>
+          <ContentTitle>News</ContentTitle>
+          <ContentText>
+            뉴스영상을 빠르고 쉽게 만들어
+            <br /> 정보를 전달해보세요.
+          </ContentText>
+        </ContentBox>
+        <ContentBox>
+          <ContentNumber>02</ContentNumber>
+          <ContentTitle>IR/PR</ContentTitle>
+          <ContentText>
+            기업에서 필요한 IR/PR 영상을 <br /> 만들어보세요.
+          </ContentText>
+        </ContentBox>
+        <VideoContainer>
+          <YouTube
+            videoId="hUgGblPDVxI"
+            opts={{
+              width: '600',
+              height: '374',
+              playerVars: {
+                autoplay: 1,
+                rel: 0,
+                modestbranding: 1,
+                loop: 1,
+                playlist: 'hUgGblPDVxI',
+                controls: 0,
+                end: 20,
+                fs: 1,
+                disablekb: 1,
+                mute: 1,
+              },
+            }}
+          />
+        </VideoContainer>
+      </ContentContainer>
     </>
   );
 }
@@ -57,9 +76,54 @@ const StartButton = styled.div`
   border-radius: 14.5rem;
   font-size: 1.25rem;
   padding: 1.125rem 3.125rem;
+  margin-left: 4%;
   margin-top: 2.5625rem;
   text-align: center;
   line-height: 2rem;
+`;
+
+const ContentContainer = styled.div`
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 75rem;
+  height: 13.75rem;
+  margin-top: 8%;
+`;
+
+const VideoContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 0%;
+`;
+
+const ContentBox = styled.div`
+  position: absolute;
+  margin-left: 3.375rem;
+  margin-top: 2.2625rem;
+
+  &:nth-child(2) {
+    left: 25%;
+  }
+
+  &:last-child {
+    left: 50%;
+  }
+`;
+
+const ContentNumber = styled.div`
+  color: #ccffff;
+  font-weight: 500;
+`;
+
+const ContentTitle = styled.div`
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.25rem;
+`;
+
+const ContentText = styled.div`
+  line-height: 1.4375rem;
+  color: #fff;
 `;
 
 export default LandingPageStyle;
