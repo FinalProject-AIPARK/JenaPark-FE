@@ -1,9 +1,9 @@
-import React from 'react';
 import { useSignInMutation } from '@/api/useApi';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import { Cookies } from 'react-cookie';
+import { useState } from 'react';
 
 interface SignInFormInputs {
   email: string;
@@ -18,40 +18,79 @@ export default function SignInForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<SignInFormInputs>();
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const toggleShowPassword = () => setShowPassword(!showPassword);
+
   const [requestSignIn] = useSignInMutation();
   const onSubmit = (signInValue: SignInFormInputs) => {
     requestSignIn(signInValue)
       .unwrap()
       .then((res) => {
-        console.log(res);
         cookies.set('accessToken', res.data.accessToken);
         cookies.set('refreshToken', res.data.refreshToken);
         navigate('/');
       });
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   };
+  const KAKAO_AUTH_LOGIN = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_API_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&response_type=code`;
+  const kakaoLogin = () => {
+    window.location.href = KAKAO_AUTH_LOGIN;
+  };
+  const GOOGLE_AUTH_LOGIN = 'https://api.fafago.link/oauth2/authorization/google';
+  const googleLogin = () => {
+    window.location.href = GOOGLE_AUTH_LOGIN;
+  };
+
   return (
     <S.Container>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>서비스를 이용하기 위해 로그인을 진행해주세요.</h1>
-        <article>
-          <label>이메일</label>
-          <input {...register('email', { required: '이메일을 입력해 주세요' })} />
-          {errors.email && <p>{errors.email.message}</p>}
-        </article>
-        <article>
-          <label>비밀번호</label>
-          <input
-            type="password"
-            {...register('password', { required: '비밀번호를 입력해 주세요' })}
-          />
-          {errors.password && <p>{errors.password.message}</p>}
-        </article>
-        <span onClick={() => navigate('/signup')}>회원가입</span>
-        <button type="submit">로그인</button>
-      </form>
+      <div className="wrap">
+        <img className="loginMan" src="/images/login-man.svg" alt="로그인맨" />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h1>서비스를 이용하기 위해 로그인을 진행해주세요.</h1>
+
+          <div className="signInput">
+            <input {...register('email', { required: '이메일을 입력해 주세요' })} />
+            <label>이메일</label>
+            {errors.email && <p>{errors.email.message}</p>}
+          </div>
+
+          <div className="signInput">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              {...register('password', { required: '비밀번호를 입력해 주세요' })}
+            />
+            <label>비밀번호</label>
+            <div className="toggleShowPw">
+              {showPassword ? (
+                <img src="/icon/showPassword.svg" onClick={toggleShowPassword}></img>
+              ) : (
+                <img src="/icon/hidePassword.svg" onClick={toggleShowPassword}></img>
+              )}
+            </div>
+            {errors.password && <p>{errors.password.message}</p>}
+          </div>
+
+          <button type="submit">로그인</button>
+
+          <div className="links">
+            <span onClick={() => navigate('/signup')}>회원가입</span>
+            <span onClick={() => navigate('/signup')}>비밀번호 찾기</span>
+          </div>
+
+          <div className="snsLogin">
+            <h2>SNS계정으로 로그인/가입</h2>
+            <div className="snsImgBox">
+              <img onClick={googleLogin} src="/images/googleLogin.svg" alt="구글 로그인 버튼" />
+              <img onClick={kakaoLogin} src="/images/kakaoLogin.svg" alt="카카오 로그인 버튼" />
+            </div>
+          </div>
+
+          <div className="terms">
+            <span>개인정보 처리방침</span>
+            <span>서비스 이용약관</span>
+          </div>
+        </form>
+      </div>
     </S.Container>
   );
 }

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import background from '/background.png';
+import background from '/background.svg';
 import { CookiesProvider } from 'react-cookie';
 
 const GlobalStyle = createGlobalStyle`
