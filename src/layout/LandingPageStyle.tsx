@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import YouTube from 'react-youtube';
 
@@ -10,7 +11,9 @@ function LandingPageStyle() {
         본 서비스는 인공지능과 영상 기술의 융햡을 통해 <br />
         영상 안에서 시간과 공간, 능력을 초월하기 위한 서비스입니다
       </SubTitle>
-      <StartButton>서비스 체험하기 →</StartButton>
+      <Link to="/signin">
+        <StartButton>서비스 체험하기 →</StartButton>
+      </Link>
       <ContentContainer>
         <ContentBox>
           <ContentNumber>01</ContentNumber>
@@ -80,6 +83,7 @@ const StartButton = styled.div`
   margin-top: 2.5625rem;
   text-align: center;
   line-height: 2rem;
+  cursor: pointer;
 `;
 
 const ContentContainer = styled.div`
