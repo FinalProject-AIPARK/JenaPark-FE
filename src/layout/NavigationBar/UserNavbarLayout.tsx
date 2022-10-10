@@ -56,7 +56,7 @@ function UserNavbarLayout({
       </GuideBox>
       {/* 히스토리링크 */}
       <HistoryLinkBox>
-        <LinkButton to="/" marginbottom="1.4rem">
+        <LinkButton to="/history" marginbottom="1.4rem">
           <ImageStyle src={projectIcon} alt="프로젝트히스토리아이콘" />
         </LinkButton>
       </HistoryLinkBox>
