@@ -41,7 +41,7 @@ function HistoryVideoLayout({ videoList, guideText, guideHandler }: HistoryVideo
       </TitleBox>
       <ProjectListBox>
         <ListBox>
-          {dummy.map((item) => (
+          {videoList.map((item) => (
             <ProjectCard>
               <ThumbnailVideo>
                 <ThumnailImg src={item.backgroundUrl} alt="배경 썸네일" />
@@ -73,9 +73,11 @@ interface HistoryVideoProps {
   videoList: {
     videoId: number;
     title: string;
-    thumbnail: null;
     videoFileUrl: string;
     createDate: string;
+    avatarUrl: string;
+    backgroundUrl: string;
+    downloadFileUrl: string;
   }[];
   guideText: boolean;
   guideHandler: (isOn: boolean, index: number) => void;

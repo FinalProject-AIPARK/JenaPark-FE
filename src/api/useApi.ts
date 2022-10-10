@@ -238,7 +238,6 @@ interface ReturnProjectHistoryType {
     historyProjects: {
       projectId: number;
       title: string;
-      thumbnail: null;
       createDate: string;
       modifiedDate: string;
     }[];
@@ -248,6 +247,9 @@ interface ReturnProjectHistoryType {
       thumbnail: null;
       videoFileUrl: string;
       createDate: string;
+      avatarUrl: string;
+      backgroundUrl: string;
+      downloadFileUrl: string;
     }[];
   };
 }

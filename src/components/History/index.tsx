@@ -17,7 +17,6 @@ function History() {
     {
       projectId: 0,
       title: '',
-      thumbnail: null,
       createDate: '',
       modifiedDate: '',
     },
@@ -26,8 +25,10 @@ function History() {
     {
       videoId: 0,
       title: '',
-      thumbnail: null,
+      avatarUrl: '',
+      backgroundUrl: '',
       videoFileUrl: '',
+      downloadFileUrl: '',
       createDate: '',
     },
   ]);

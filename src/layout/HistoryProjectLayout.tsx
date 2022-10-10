@@ -106,7 +106,6 @@ interface HistoryProjectLayoutProps {
   projectList: {
     projectId: number;
     title: string;
-    thumbnail: null;
     createDate: string;
     modifiedDate: string;
   }[];
