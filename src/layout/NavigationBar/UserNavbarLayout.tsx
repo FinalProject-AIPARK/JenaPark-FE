@@ -9,7 +9,7 @@ import textIcon from '/text-icon.png';
 import mic from '/voiceMic-icon.png';
 import myInfo from '/myInfo-icon.png';
 
-function UserNavbarLayout() {
+function UserNavbarLayout({ projectStep }: UserNavbarProps) {
   return (
     <Container>
       <LogoBox>
@@ -22,14 +22,28 @@ function UserNavbarLayout() {
         </GuideTitleBox>
         <GuideViewBox>
           <WorkingView>
-            <ImageStyle src={textIcon} alt="텍스트입력아이콘" />
-            <DoneProcess />
+            <ImageStyle
+              src={textIcon}
+              alt="텍스트입력아이콘"
+              opacity={projectStep.checkText ? '1' : '0.4'}
+            />
+            {projectStep.checkText ? <DoneProcess /> : null}
           </WorkingView>
           <WorkingView>
-            <ImageStyle src={mic} alt="음성수정아이콘" />
+            <ImageStyle
+              src={mic}
+              alt="음성수정아이콘"
+              opacity={projectStep.checkAudio ? '1' : '0.4'}
+            />
+            {projectStep.checkAudio ? <DoneProcess /> : null}
           </WorkingView>
           <WorkingView>
-            <ImageStyle src={people} alt="아바타작업단계아이콘" />
+            <ImageStyle
+              src={people}
+              alt="아바타작업단계아이콘"
+              opacity={projectStep.checkAvatar ? '1' : '0.4'}
+            />
+            {projectStep.checkAvatar ? <DoneProcess /> : null}
           </WorkingView>
           <Background backColor="#002868" radius="0.63rem"></Background>
         </GuideViewBox>
@@ -51,11 +65,19 @@ function UserNavbarLayout() {
   );
 }
 
+interface UserNavbarProps {
+  projectStep: {
+    checkText: boolean;
+    checkAudio: boolean;
+    checkAvatar: boolean;
+  };
+}
 interface LinkButtonProps {
   marginbottom?: string;
 }
 interface ImageStyleProps {
   width?: string;
+  opacity?: string;
 }
 interface BackgroundProps {
   backColor: string;
@@ -85,6 +107,7 @@ const LogoBox = styled.div`
 `;
 const ImageStyle = styled.img<ImageStyleProps>`
   width: ${({ width }) => (width ? width : '1.5rem')};
+  opacity: ${({ opacity }) => (opacity ? opacity : '1')};
 `;
 const GuideBox = styled.div`
   display: flex;

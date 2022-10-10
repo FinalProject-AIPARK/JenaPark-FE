@@ -4,7 +4,11 @@ const initialState = {
   elementData: {
     isVoiceWoking: true,
   },
-  projectData: {},
+  projectData: {
+    checkText: false,
+    checkAudio: false,
+    checkAvatar: false,
+  },
 };
 
 export const projectControlSlice = createSlice({
@@ -19,7 +23,6 @@ export const projectControlSlice = createSlice({
     },
     getData: (state, action) => {
       state.projectData = action.payload;
-      console.log(state.projectData);
     },
   },
 });
