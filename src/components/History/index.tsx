@@ -12,6 +12,10 @@ import {
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 
 function History() {
+  // 빈 박스
+  const [projectEmpty, setProjectEmpty] = useState([0]);
+  const [videoEmpty, setVideoEmpty] = useState([0]);
+
   // 프로젝트 리스트 요청
   const [update, setUpdate] = useState(0);
   const { data: project } = useGetProjectHistoyQuery(update);
@@ -43,6 +47,25 @@ function History() {
       for (let i = 0; i < project.data.historyProjects.length; i++) {
         setIsEditProject((prev) => [...prev, false]);
         setTitle((prev) => [...prev, project.data.historyProjects[i].title]);
+      }
+      // 리스트 빈 박스 표시
+      setProjectEmpty([]);
+      setVideoEmpty([]);
+      let projectCount = 5 - project.data.historyProjects.length;
+      let VideoCount = 5 - project.data.historyVideos.length;
+      for (let i = 0; i < projectCount; i++) {
+        setProjectEmpty((prev) => {
+          let next = [...prev];
+          next.push(i + 1);
+          return next;
+        });
+      }
+      for (let i = 0; i < VideoCount; i++) {
+        setVideoEmpty((prev) => {
+          let next = [...prev];
+          next.push(i + 1);
+          return next;
+        });
       }
     }
   }, [project]);
@@ -192,12 +215,14 @@ function History() {
           keyDownHandler={keyDownProjectHandler}
           guideText={guideText[0]}
           guideHandler={guideHandler}
+          projectEmpty={projectEmpty}
         />
         <HistoryVideoLayout
           videoList={videoList}
           guideText={guideText[1]}
           guideHandler={guideHandler}
           selectVideoHandler={selectVideoHandler}
+          videoEmpty={videoEmpty}
         />
       </div>
       {modal ? (

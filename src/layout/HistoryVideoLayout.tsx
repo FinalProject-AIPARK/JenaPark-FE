@@ -7,6 +7,7 @@ function HistoryVideoLayout({
   guideText,
   guideHandler,
   selectVideoHandler,
+  videoEmpty,
 }: HistoryVideoProps) {
   return (
     <Container>
@@ -56,6 +57,9 @@ function HistoryVideoLayout({
               <Button onClick={() => selectVideoHandler(item)}>다운로드</Button>
             </ProjectCard>
           ))}
+          {videoEmpty.map((item) => (
+            <EmptyBox key={item}></EmptyBox>
+          ))}
         </ListBox>
         <BackgroundBox></BackgroundBox>
       </ProjectListBox>
@@ -76,6 +80,7 @@ interface HistoryVideoProps {
   guideText: boolean;
   guideHandler: (isOn: boolean, index: number) => void;
   selectVideoHandler: (item: ItemTypes) => void;
+  videoEmpty: number[];
 }
 interface ItemTypes {
   videoId: number;
@@ -147,9 +152,14 @@ const ProjectCard = styled.div`
   flex-direction: column;
   align-items: center;
   margin-right: 1.5rem;
-  :last-child {
-    margin-right: 0;
-  }
+`;
+const EmptyBox = styled.div`
+  background-color: #fff;
+  width: 11rem;
+  height: 13.13rem;
+  border-radius: 0.63rem;
+  margin-left: 3rem;
+  opacity: 0.3;
 `;
 const ThumbnailVideo = styled.div`
   width: 100%;
