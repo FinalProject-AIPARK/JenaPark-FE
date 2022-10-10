@@ -1,8 +1,11 @@
 import React from 'react'
+import EditTextLayout from '../../../../layout/editText/EditTextLayout'
 
 function index() {
   return (
-    <div>index</div>
+    <div>
+      <EditTextLayout/>
+    </div>
   )
 }
 
