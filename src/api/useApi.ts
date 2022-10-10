@@ -1,3 +1,4 @@
+import { getToken } from '@/store/Auth';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const { VITE_BASE_URL } = import.meta.env;
@@ -7,6 +8,13 @@ export const useApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: VITE_BASE_URL,
     credentials: 'include',
+    prepareHeaders: (headers) => {
+      const token = getToken();
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     signUp: builder.mutation<null, ActionSignUpType>({
@@ -37,6 +45,38 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    // 히스토리
+    getProjectHistoy: builder.query<ReturnProjectHistoryType, number>({
+      query: () => ({
+        url: '/api/v1/projects',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
+        },
+      }),
+    }),
+    createProject: builder.mutation<ReturnCreateProjectType, ''>({
+      query: () => ({
+        url: '/api/v1/projects',
+        method: 'POST',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
+        },
+      }),
+    }),
+    editProjectTitle: builder.mutation<any, ActionEditProjectTitleType>({
+      query: (data) => ({
+        url: '/api/v1/projects/title ',
+        method: 'POST',
+        body: data,
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
+        },
+      }),
+    }),
+    // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
       query: (data) => ({
         url: `/api/v1/projects/${data.projectID}/audio/upload`,
@@ -114,11 +154,42 @@ export const useApi = createApi({
   }),
 });
 
+// RESTful API
+// METHOD + URL (GET, POST, DELETE)
+// Status code for response
+// 401 => Unauthorized
+// 400 => Bad request (wrong parameter)
+// 404 => Not found
+
+// server defines the way to reissue(data in body or data in cookie)
+
+// const baseQueryWithReissue = async (args, api, extraOptions) => {
+//   let result = await api.baseQuery(args, api, extraOptions);
+//   if (result?.error?.status === 401) {
+//     const [cookies] = useCookies();
+//     const { data } = await api.endpoints.reissueToken.initiate({
+//       refreshToken: cookies.refreshToken,
+//     });
+//     if (data) {
+//       const { accessToken, refreshToken } = data;
+//       document.cookie = `accessToken=${accessToken}; path=/;`;
+//       document.cookie = `refreshToken=${refreshToken}; path=/;`;
+//       result = await api.baseQuery(args, api, extraOptions);
+//     }
+//   }
+//   return result;
+// };
+
 export const {
   useSignInMutation,
   useSignUpMutation,
   useLogOutMutation,
   useReissueTokenMutation,
+  // 히스토리
+  useGetProjectHistoyQuery,
+  useCreateProjectMutation,
+  useEditProjectTitleMutation,
+  // AI 음성
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
   useGetAvatarChooseListQuery,
@@ -177,6 +248,46 @@ interface ReturnReissueTokenType {
   };
   error: [];
 }
+// 히스토리
+interface ReturnProjectHistoryType {
+  data: {
+    historyProjects: {
+      projectId: number;
+      title: string;
+      thumbnail: null;
+      createDate: string;
+      modifiedDate: string;
+    }[];
+    historyVideos: {};
+  };
+}
+interface ReturnCreateProjectType {
+  data: {
+    projectId: number;
+    title: string;
+    sex: string;
+    lang: string;
+    speed: number;
+    pitch: number;
+    volume: number;
+    durationSilence: number;
+    backgroundUrl: string;
+    audioUpload: boolean;
+    audioMerge: boolean;
+    audioFileOriginName: null;
+    audioFileUrl: null;
+    avatarUrl: null;
+    checkText: boolean;
+    checkAudio: boolean;
+    checkAvatar: boolean;
+    audioInfos: [];
+  };
+}
+interface ActionEditProjectTitleType {
+  projectID: number;
+  title: string;
+}
+// AI 음성
 interface ActionUploadVoiceType {
   formData: FormData;
   projectID: number;
@@ -248,11 +359,11 @@ export interface AvatarListId {
 }
 
 export interface CreateAvatarAction {
-  accessoryId: number,
-  hatId: number,
-  avatarId: number,
-  clothesId: number,
-  projectId: number,
+  accessoryId: number;
+  hatId: number;
+  avatarId: number;
+  clothesId: number;
+  projectId: number;
 }
 
 interface CreateAvatarRespses {

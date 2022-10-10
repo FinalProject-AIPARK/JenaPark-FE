@@ -1,17 +1,22 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import styled from 'styled-components';
+<<<<<<< HEAD
 import left from '../../images/maskLeft-icon.png';
 import right from '../../images/maskRight-icon.png';
+=======
+import left from '@/src/icon/maskLeft-icon.png';
+import right from '@/src/icon/maskRight-icon.png';
+>>>>>>> 3a8838294e746f9fdd0cb97ae288fc00256efabb
 
 function AvatarChooseStyle({
-    avatarList,
-    setAvatarId,
-    avatarId,
-    avatarListDress,
-    avatarModelSelect,
-    avatarModelReset,
-    createAvatarHandler
-  } : Test) {
+  avatarList,
+  setAvatarId,
+  avatarId,
+  avatarListDress,
+  avatarModelSelect,
+  avatarModelReset,
+  createAvatarHandler,
+}: Test) {
   return (
     <>
       <Avatar>
@@ -116,36 +121,40 @@ function AvatarChooseStyle({
 
 // 타입 지정
 interface Test {
-  avatarList: {
-    data: {
-      id: number,
-      name: string,
-      thumbNail: string,
-    }
-  }[] | any
-  avatarListDress: {
-    data: {
-      accUrl: [
-        {
-          id : number;
-          accessoryUrl: string;
-        }
-      ],
-      clothesUrl: [
-        {
-          id : number;
-          clothesUrl: string;
-        }
-      ],
-      attitudeUrl: [
-        {
-          id : number;
-          hatUrl: string;
-        }
-      ]
-    }
-  }[] | any;
-  createAvatarHandler: () => void
+  avatarList:
+    | {
+        data: {
+          id: number;
+          name: string;
+          thumbNail: string;
+        };
+      }[]
+    | any;
+  avatarListDress:
+    | {
+        data: {
+          accUrl: [
+            {
+              id: number;
+              accessoryUrl: string;
+            },
+          ];
+          clothesUrl: [
+            {
+              id: number;
+              clothesUrl: string;
+            },
+          ];
+          attitudeUrl: [
+            {
+              id: number;
+              hatUrl: string;
+            },
+          ];
+        };
+      }[]
+    | any;
+  createAvatarHandler: () => void;
   avatarId: number;
   setAvatarId: React.Dispatch<React.SetStateAction<number>>;
   avatarModelSelect: (id: number, kind: string) => void;

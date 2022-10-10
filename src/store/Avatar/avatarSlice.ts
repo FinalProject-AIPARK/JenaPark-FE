@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   elementData: {
@@ -12,23 +12,23 @@ const initialState = {
     hatId: 0,
     projectId: 1,
   },
-  avatarDataUrl : {
-    backgroundUrl : '',
+  avatarDataUrl: {
+    backgroundUrl: '',
     avatarUrl: '',
-  }
-}
+  },
+};
 
 export const avatarSlice = createSlice({
   name: 'avatar',
   initialState,
   reducers: {
     avatarChooseWorking: (state) => {
-      state.elementData.isAvatarChoose = true
-      state.elementData.isAvatarOption = false
+      state.elementData.isAvatarChoose = true;
+      state.elementData.isAvatarOption = false;
     },
     avatarOptionWorking: (state) => {
-      state.elementData.isAvatarChoose = false
-      state.elementData.isAvatarOption = true
+      state.elementData.isAvatarChoose = false;
+      state.elementData.isAvatarOption = true;
     },
     avatarModelKindSelect: (state: any, action) => {
       state.avatarModel[action.payload.kind] = action.payload.id;
@@ -49,7 +49,6 @@ export const avatarSlice = createSlice({
     }
   }
 })
-
 
 export const {
   avatarChooseWorking,
