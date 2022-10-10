@@ -7,6 +7,7 @@ import {
   useCreateProjectMutation,
   useEditProjectTitleMutation,
   useEditVideoTitleMutation,
+  useDeleteVideoMutation,
 } from '@/api/useApi';
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 
@@ -166,6 +167,16 @@ function History() {
     setModal(true);
   }
 
+  // 영상 삭제
+  const [deleteVideo, { data: resDelete }] = useDeleteVideoMutation();
+  function deleteVideoHandler(id: number) {
+    deleteVideo(id);
+  }
+  useEffect(() => {
+    setModal(false);
+    setUpdate(update + 1);
+  }, [resDelete]);
+
   return (
     <Container>
       <Header></Header>
@@ -198,6 +209,7 @@ function History() {
           editVideoHandler={editVideoHandler}
           keyDownVideoHandler={keyDownVideoHandler}
           changeVideoTitle={changeVideoTitle}
+          deleteVideoHandler={deleteVideoHandler}
         />
       ) : null}
     </Container>

@@ -12,6 +12,7 @@ const VideoDownloadModal = memo(
     keyDownVideoHandler,
     editVideoHandler,
     changeVideoTitle,
+    deleteVideoHandler,
   }: VideoModalProps) => {
     return (
       <>
@@ -67,6 +68,7 @@ const VideoDownloadModal = memo(
               weight="400"
               border="0.07rem solid #777"
               color="#333"
+              onClick={() => deleteVideoHandler(selectItem.videoId)}
             >
               삭제
             </ButtonStyle>
@@ -94,6 +96,7 @@ interface VideoModalProps {
   keyDownVideoHandler: (event: React.KeyboardEvent<HTMLInputElement>, id: number) => void;
   editVideoHandler: () => void;
   changeVideoTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  deleteVideoHandler: (id: number) => void;
 }
 interface ButtonStyleProps {
   backColor: string;

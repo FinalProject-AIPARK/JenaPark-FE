@@ -74,6 +74,12 @@ export const useApi = createApi({
         body: data.action,
       }),
     }),
+    deleteVideo: builder.mutation<any, number>({
+      query: (videoId) => ({
+        url: `/api/v1/projects/video/${videoId}`,
+        method: 'DELETE',
+      }),
+    }),
     // 개별 프로젝트 데이터
     getProjectData: builder.query<ReturnProjectDataType, string>({
       query: (projectId) => `/api/v1/projects/${projectId}`,
@@ -165,6 +171,7 @@ export const {
   useCreateProjectMutation,
   useEditProjectTitleMutation,
   useEditVideoTitleMutation,
+  useDeleteVideoMutation,
   // 개별 프로젝트 데이터
   useGetProjectDataQuery,
   // AI 음성
