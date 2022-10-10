@@ -1,31 +1,18 @@
-import React, { useState, useRef } from 'react';
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 import left from '../../images/maskLeft-icon.png';
 import right from '../../images/maskRight-icon.png';
 import plus from '../../images/plus-icon.png';
 
-function AvatarOptionStyle({
-  avatarBackgroundList
-}: TestAvatar) {
-  // 슬라이드 로직
-  let [counter, setCounter] = useState(0);
-
-  // 배경 업로드 로직
-  const [bgImgData, setBgImgData] = useState<any>([]);
-  const photoInput = useRef<any>(null);
-
-  const handlePhoto = (e: any) => {
-    const copy: any = [...bgImgData];
-    const photoToAdd = e.target.files;
-    copy.push({
-      id: photoToAdd[0].name,
-      file: photoToAdd[0],
-      url: URL.createObjectURL(photoToAdd[0]),
-    });
-    setBgImgData(copy);
-    console.log(handlePhoto)
-  };
-  console.log(bgImgData)
+function AvatarOptionLayout({
+  avatarBackgroundList,
+  setBackgroundId,
+  backgroundId,
+  backgroundEvent,
+  backgroundImgUpload,
+  backgroundImg,
+  setBackgroundImgFile
+}: AvatarBackgroundType) {
 
   return (
     <Avatar>
@@ -37,9 +24,6 @@ function AvatarOptionStyle({
           <div>
             <MaskIcon
               src={left}
-              onClick={() => {
-                setCounter((counter += 110));
-              }}
             />
           </div>
           <FlexBox
@@ -48,40 +32,27 @@ function AvatarOptionStyle({
             justifyContent={'flex-start'}
             alignItems={'center'}
           >
-            <div>
+            <form onSubmit={(event) => backgroundImgUpload(event)}>
               <BackgrounddBox
-                onClick={() => {
-                  photoInput.current.click();
-                }}
+              onClick={()=> setBackgroundImgFile([])}
               >
                 <PlusIcon src={plus} />
-                <ImgUploadInput ref={photoInput} onChange={(e: any) => handlePhoto(e)} />
+                <ImgUploadInput onChange={backgroundImg} />
               </BackgrounddBox>
-            </div>
+            </form>
             <div
               style={{
                 width: '100%',
                 overflow: 'hidden',
               }}
             >
-              <TestTransForm counter={counter}>
-                {bgImgData.map((list: { id: string; url: string | undefined }) => {
-                  return (
-                    <BackgrounddBox
-                     key={list.id}>
-                      <ImgInput src={list.url} />
-                    </BackgrounddBox>
-                  );
-                })}
+              <TestTransForm>
               </TestTransForm>
             </div>
           </FlexBox>
           <div>
             <MaskIcon
               src={right}
-              onClick={() => {
-                setCounter((counter -= 110));
-              }}
             />
           </div>
         </Test2>
@@ -89,9 +60,9 @@ function AvatarOptionStyle({
 
       <Line></Line>
 
-      <div>
+      <>
         <BgText>배경선택</BgText>
-        <Test>
+        <Flex>
           <FlexBox
             justifyContent="flex-start"
             height="20.688rem"
@@ -105,7 +76,7 @@ function AvatarOptionStyle({
                 avatarBackgroundList?.data.backgroundDefaults.map((list : any) => {
                   return (
                     <BackgrounddBox
-                    onClick={() => console.log(list.bgId)}
+                    onClick={() => setBackgroundId(list.bgId)}
                     key={list.bgId}>
                     <ImgthumbNail
                       src={list.bgUrl}
@@ -115,11 +86,11 @@ function AvatarOptionStyle({
                   )
                 })}
           </FlexBox>
-        </Test>
-      </div>
+        </Flex>
+      </>
 
       <SubButtonContainer>
-        <SubButton>배경 선택하기</SubButton>
+        <SubButton onClick={backgroundEvent}>배경 선택하기</SubButton>
       </SubButtonContainer>
     </Avatar>
   );
@@ -129,10 +100,6 @@ function AvatarOptionStyle({
 
 interface InputImg {
   ref: any;
-}
-
-interface Test20 {
-  counter: any;
 }
 
 interface style {
@@ -149,7 +116,7 @@ interface style {
   whiteSpace: string;
 }
 
-interface TestAvatar {
+interface AvatarBackgroundType {
   avatarBackgroundList: {
     data : {
       backgroundDefaults: 
@@ -161,18 +128,30 @@ interface TestAvatar {
       backgroundUploads: []
     }
   }[]
+  backgroundChoose: {
+    data: string,
+    bgId: number
+  }
+  backgroundEvent: {
+    projectId: number
+    backgroundId: number
+  }
+  backgroundImgUpload: (event: React.FormEvent<HTMLFormElement>) => void;
+  backgroundImg: (event: ChangeEvent<HTMLInputElement>) => void;
+  setBackgroundImgFile :  React.Dispatch<React.SetStateAction<File[]>>;
+  backgroundId: number
+  setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 // 테스트 코드
 
-const TestTransForm = styled.div<Test20>`
+const TestTransForm = styled.div`
   display: flex;
   gap: 10px;
   width: 9999px;
-  transform: translateX(${(props) => `${props.counter}px`});
 `;
 
-const Test = styled.div`
+const Flex = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -201,6 +180,10 @@ const ImgUploadInput: any = styled.input.attrs((props) => ({
 }))<InputImg>`
   display: none;
 `;
+
+// const ImgUploadInput = styled.input`
+
+// `
 
 const Avatar = styled.div`
   width: 32.5em;
@@ -300,4 +283,4 @@ const SubButton = styled.button`
   font-size: 18px;
   border-radius: 5px;
 `;
-export default AvatarOptionStyle;
+export default AvatarOptionLayout;
