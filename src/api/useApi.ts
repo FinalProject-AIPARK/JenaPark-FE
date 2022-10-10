@@ -77,7 +77,33 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-
+    getBackgroundAvatarList: builder.query<BackgroundAvatar, null>({
+      query: () => ({
+        url: '/api/v1/projects/background',
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1Mzg4MTMyfQ.ha2f8lcpK5z9hH73MtpeF43I4BUiRsenlskOpn7m_7E'
+        }
+      })
+    }),
+    postBackgroundAvatarListChoose: builder.mutation<BackgroundChoose, BackgroundId>({
+      query: ({data, projectId, backgroundId}) => ({
+        url: `/api/v1/projects/${projectId}/background/${backgroundId}`,
+        method: 'POST',
+        body: data,
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1Mzg4MTMyfQ.ha2f8lcpK5z9hH73MtpeF43I4BUiRsenlskOpn7m_7E'
+        }
+      })
+    }),
+    postUploadBackground: builder.mutation<BackgroundUpload, BackgroundImgUpload>({
+      query: (data) => ({
+        url: `/api/v1/projects/${data.projectId}/background/upload`,
+        method: 'POST',
+        body: data.formData,
+      })
+    })
+    
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
     //     url: '/api/v1/audio/sample',
@@ -99,6 +125,9 @@ export const {
   useGetAvatarChooseListIdQuery,
   usePostCreateAvatarMutation,
   useInputTextSynMutation,
+  useGetBackgroundAvatarListQuery,
+  usePostBackgroundAvatarListChooseMutation,
+  usePostUploadBackgroundMutation,
 } = useApi;
 
 interface ActionSignUpType {
@@ -228,7 +257,7 @@ export interface CreateAvatarAction {
 
 interface CreateAvatarRespses {
   data: string;
-  message: string
+  message: string;
 }
 interface ReturnInpTextSynthesisType {
   audioInfoDtos: [
@@ -253,3 +282,46 @@ interface ActionInpTextSynthesisType {
   speed: number;
   text: string;
 }
+
+interface BackgroundAvatar {
+  message: string
+  data: {
+    backgroundDefaults: [
+      {
+        bgId: number,
+        bgName: string,
+        bgUrl: string
+      }
+    ]
+    backgroundUploads: [
+      {
+        bgId: number,
+        bgName: string,
+        bgUrl: string
+    }
+    ]
+  }
+}
+
+interface BackgroundChoose {
+  data : string,
+  message: string,
+}
+
+interface BackgroundId {
+  projectId: number;
+  backgroundId: number;
+  data: any;
+}
+
+interface BackgroundUpload {
+  data: {},
+  message: string,
+}
+
+interface BackgroundImgUpload {
+  data: {}
+  formData: FormData,
+  projectId: number,
+}
+
