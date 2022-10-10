@@ -107,7 +107,6 @@ function History() {
   }
 
   // 모달창 영상 재생, 다운로드
-  const [modal, setModal] = useState(false);
   interface selectTypes {
     videoId: number;
     title: string;
@@ -117,6 +116,7 @@ function History() {
     backgroundUrl: string;
     downloadFileUrl: string;
   }
+  const [modal, setModal] = useState(false);
   const [selectItem, setSelectItem] = useState({
     videoId: 0,
     title: '',
@@ -126,6 +126,9 @@ function History() {
     downloadFileUrl: '',
     createDate: '',
   });
+  function closeModal() {
+    setModal(false);
+  }
   function selectVideoHandler(item: selectTypes) {
     setSelectItem(item);
     setModal(true);
@@ -154,7 +157,7 @@ function History() {
           selectVideoHandler={selectVideoHandler}
         />
       </div>
-      {modal ? <VideoDownloaddModal selectItem={selectItem} /> : null}
+      {modal ? <VideoDownloaddModal selectItem={selectItem} closeModal={closeModal} /> : null}
     </Container>
   );
 }

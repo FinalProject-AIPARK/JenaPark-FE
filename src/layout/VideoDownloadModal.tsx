@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import close from '/close-icon.png';
 import pencil from '/images/edit-pencil.png';
 
-const VideoDownloadModal = memo(({ selectItem }: VideoModalProps) => {
+const VideoDownloadModal = memo(({ selectItem, closeModal }: VideoModalProps) => {
   return (
     <>
       <ModalBox>
@@ -16,7 +16,7 @@ const VideoDownloadModal = memo(({ selectItem }: VideoModalProps) => {
               style={{ width: '1.3rem', marginLeft: '0.6rem' }}
             />
           </TitleBox>
-          <ButtonStyle backColor="transparent">
+          <ButtonStyle backColor="transparent" onClick={closeModal}>
             <img src={close} alt="닫기 버튼 아이콘" style={{ width: '1.6rem' }} />
           </ButtonStyle>
         </HeadBox>
@@ -65,6 +65,7 @@ interface VideoModalProps {
     backgroundUrl: string;
     downloadFileUrl: string;
   };
+  closeModal: () => void;
 }
 interface ButtonStyleProps {
   backColor: string;

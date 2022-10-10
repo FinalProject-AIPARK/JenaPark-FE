@@ -36,7 +36,7 @@ function HistoryVideoLayout({
       <ProjectListBox>
         <ListBox>
           {videoList.map((item) => (
-            <ProjectCard>
+            <ProjectCard key={item.videoId}>
               <ThumbnailVideo>
                 <ThumnailImg src={item.backgroundUrl} alt="배경 썸네일" />
                 <ThumnailImg src={item.avatarUrl} alt="아바타 썸네일" />
