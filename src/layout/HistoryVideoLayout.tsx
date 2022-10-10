@@ -2,18 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import question from '/questionMark-icon.png';
 
-function HistoryVideoLayout({ videoList, guideText, guideHandler }: HistoryVideoProps) {
-  const dummy = [
-    {
-      videoId: 1,
-      title: '32번 프로젝트',
-      backgroundUrl:
-        'https://img9.yna.co.kr/etc/inner/KR/2022/09/01/AKR20220901103800005_01_i_P2.jpg',
-      avatarUrl: 'https://jenapark.s3.ap-northeast-2.amazonaws.com/avatar/ming/ming_hat_2.png',
-      videoFileUrl: '제작 중',
-      createDate: '2022-10-07T06:00:16',
-    },
-  ];
+function HistoryVideoLayout({
+  videoList,
+  guideText,
+  guideHandler,
+  selectVideoHandler,
+}: HistoryVideoProps) {
   return (
     <Container>
       <TitleBox>
@@ -59,7 +53,7 @@ function HistoryVideoLayout({ videoList, guideText, guideHandler }: HistoryVideo
                   {item.createDate.slice(11, 13) + '시 ' + item.createDate.slice(14, 16) + '분'}
                 </TextStyle>
               </VideoDateBox>
-              <Button>다운로드</Button>
+              <Button onClick={() => selectVideoHandler(item)}>다운로드</Button>
             </ProjectCard>
           ))}
         </ListBox>
@@ -81,6 +75,16 @@ interface HistoryVideoProps {
   }[];
   guideText: boolean;
   guideHandler: (isOn: boolean, index: number) => void;
+  selectVideoHandler: (item: ItemTypes) => void;
+}
+interface ItemTypes {
+  videoId: number;
+  title: string;
+  videoFileUrl: string;
+  createDate: string;
+  avatarUrl: string;
+  backgroundUrl: string;
+  downloadFileUrl: string;
 }
 interface TextStyleProps {
   size?: string;

@@ -106,6 +106,31 @@ function History() {
     });
   }
 
+  // 모달창 영상 재생, 다운로드
+  const [modal, setModal] = useState(false);
+  interface selectTypes {
+    videoId: number;
+    title: string;
+    videoFileUrl: string;
+    createDate: string;
+    avatarUrl: string;
+    backgroundUrl: string;
+    downloadFileUrl: string;
+  }
+  const [selectItem, setSelectItem] = useState({
+    videoId: 0,
+    title: '',
+    avatarUrl: '',
+    backgroundUrl: '',
+    videoFileUrl: '',
+    downloadFileUrl: '',
+    createDate: '',
+  });
+  function selectVideoHandler(item: selectTypes) {
+    setSelectItem(item);
+    setModal(true);
+  }
+
   return (
     <Container>
       <Header></Header>
@@ -126,9 +151,10 @@ function History() {
           videoList={videoList}
           guideText={guideText[1]}
           guideHandler={guideHandler}
+          selectVideoHandler={selectVideoHandler}
         />
       </div>
-      {/* <VideoDownloaddModal /> */}
+      {modal ? <VideoDownloaddModal selectItem={selectItem} /> : null}
     </Container>
   );
 }

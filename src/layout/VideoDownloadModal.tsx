@@ -1,47 +1,126 @@
 import React, { memo } from 'react';
 import styled from 'styled-components';
-import dummy from '/dummyVideo.mp4';
+import close from '/close-icon.png';
+import pencil from '/images/edit-pencil.png';
 
-const VideoDownloaddModal = memo(() => {
+const VideoDownloadModal = memo(({ selectItem }: VideoModalProps) => {
   return (
-    <div>
+    <>
       <ModalBox>
+        <HeadBox>
+          <TitleBox>
+            <span>{selectItem.title}</span>
+            <img
+              src={pencil}
+              alt="영상 이름 수정 아이콘"
+              style={{ width: '1.3rem', marginLeft: '0.6rem' }}
+            />
+          </TitleBox>
+          <ButtonStyle backColor="transparent">
+            <img src={close} alt="닫기 버튼 아이콘" style={{ width: '1.6rem' }} />
+          </ButtonStyle>
+        </HeadBox>
         <Video controls>
-          <source
-            src="https://jenapark.s3.ap-northeast-2.amazonaws.com/video/TestVideo.mp4"
-            type="video/mp4"
-          ></source>
+          <source src={selectItem.videoFileUrl} type="video/mp4"></source>
         </Video>
-        <button>
-          <a
-            href="https://dcobz7rlzesm7.cloudfront.net/video/3f22c7862cd24b0787b3ff5d1d1d92c7.mp4"
-            download
-          >
-            테스트 다운로드
+        <DownloadDeleteBox>
+          <a href={selectItem.downloadFileUrl} download>
+            <ButtonStyle
+              backColor="#80A4FF"
+              width="17rem"
+              height="2.6rem"
+              size="1.2rem"
+              weight="600"
+              color="#fff"
+            >
+              다운로드
+            </ButtonStyle>
           </a>
-        </button>
+
+          <ButtonStyle
+            backColor="#fff"
+            width="7rem"
+            height="2.6rem"
+            size="1.1rem"
+            weight="400"
+            border="0.07rem solid #777"
+            color="#333"
+          >
+            삭제
+          </ButtonStyle>
+        </DownloadDeleteBox>
       </ModalBox>
       <ModalBack>modalbackground</ModalBack>
-    </div>
+    </>
   );
 });
 
+interface VideoModalProps {
+  selectItem: {
+    videoId: number;
+    title: string;
+    videoFileUrl: string;
+    createDate: string;
+    avatarUrl: string;
+    backgroundUrl: string;
+    downloadFileUrl: string;
+  };
+}
+interface ButtonStyleProps {
+  backColor: string;
+  width?: string;
+  height?: string;
+  size?: string;
+  weight?: string;
+  border?: string;
+  color?: string;
+}
+
 const ModalBox = styled.div`
   background-color: #fff;
-  width: 25rem;
-  height: 30rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: absolute;
   top: calc(50vh - 18rem);
   right: calc(50vw - 12.5rem);
-  padding: 2.06rem 1.87rem;
+  padding: 1.7rem 1.87rem;
   border-radius: 0.63rem;
   z-index: 99;
 `;
+const HeadBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+const TitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #444;
+`;
+const ButtonStyle = styled.button<ButtonStyleProps>`
+  background-color: ${({ backColor }) => backColor};
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${({ size }) => size};
+  font-weight: ${({ weight }) => weight};
+  color: ${({ color }) => color};
+  border: ${({ border }) => (border ? border : 'none')};
+  border-radius: 0.43rem;
+  box-sizing: border-box;
+`;
 const Video = styled.video`
-  width: 100%;
+  width: 25rem;
+`;
+const DownloadDeleteBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
 `;
 const ModalBack = styled.div`
   background-color: #000;
@@ -54,4 +133,4 @@ const ModalBack = styled.div`
   z-index: 2;
 `;
 
-export default VideoDownloaddModal;
+export default VideoDownloadModal;
