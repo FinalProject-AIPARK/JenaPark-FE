@@ -9,7 +9,13 @@ import textIcon from '/text-icon.png';
 import mic from '/voiceMic-icon.png';
 import myInfo from '/myInfo-icon.png';
 
-function UserNavbarLayout({ projectStep, userInfoData, myInfoButton, myInfoBtn }: UserNavbarProps) {
+function UserNavbarLayout({
+  projectStep,
+  userInfoData,
+  myInfoButton,
+  myInfoBtn,
+  logoutHanlder,
+}: UserNavbarProps) {
   return (
     <Container>
       <LogoBox>
@@ -69,7 +75,12 @@ function UserNavbarLayout({ projectStep, userInfoData, myInfoButton, myInfoBtn }
             <LinkButton to="/account" marginbottom="0.6rem">
               <MyInfoText>계정 정보</MyInfoText>
             </LinkButton>
-            <Button>
+            <Button
+              onClick={(event) => {
+                logoutHanlder();
+                event.stopPropagation();
+              }}
+            >
               <MyInfoText>로그아웃</MyInfoText>
             </Button>
           </MyInfoInnerBox>
@@ -89,6 +100,7 @@ interface UserNavbarProps {
   userInfoData: string;
   myInfoButton: boolean;
   myInfoBtn: React.MutableRefObject<null>;
+  logoutHanlder: () => void;
 }
 interface LinkButtonProps {
   marginbottom?: string;
