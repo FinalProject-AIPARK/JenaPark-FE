@@ -183,6 +183,7 @@ function History() {
   });
   function closeModal() {
     setModal(false);
+    setIsEditVideo(false);
   }
   function selectVideoHandler(item: selectTypes) {
     setSelectItem(item);

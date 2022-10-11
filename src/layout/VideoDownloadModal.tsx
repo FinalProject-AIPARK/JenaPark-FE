@@ -22,6 +22,7 @@ const VideoDownloadModal = memo(
               {isEditVideo ? (
                 <EditInput
                   value={videoTitle}
+                  maxLength={12}
                   onChange={(event) => changeVideoTitle(event)}
                   onKeyDown={(event) => keyDownVideoHandler(event, selectItem.videoId)}
                 />

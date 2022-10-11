@@ -25,11 +25,13 @@ function HistoryVideoLayout({
         {guideText ? (
           <GuideTextBox>
             <span>
-              프로젝트에서 생성한 영상이 5개까지 노출됩니다.
+              프로젝트에서 생성한 영상은 5개까지 만들 수 있습니다.
               <br />
               영상 생성일 기준으로 5개 이외 영상은 자동 삭제됩니다.
               <br />
               다운로드 버튼을 클릭하면 영상 확인과 다운로드를 받을 수 있습니다.
+              <br />
+              영상 이름은 12글자 이하로 수정 가능합니다.
             </span>
           </GuideTextBox>
         ) : null}
@@ -115,7 +117,7 @@ const TitleBox = styled.div`
 const GuideTextBox = styled.div`
   background-color: #fff;
   position: absolute;
-  top: -3.8rem;
+  top: -4.8rem;
   left: 10.8rem;
   padding: 0.6rem;
   font-size: 0.81rem;
@@ -123,6 +125,7 @@ const GuideTextBox = styled.div`
   line-height: 1.1rem;
   color: #333;
   border-radius: 0.6rem;
+  box-shadow: 0 0 0.08rem #999;
 `;
 const TextStyle = styled.span<TextStyleProps>`
   display: ${({ display }) => (display ? display : 'inline-block')};
