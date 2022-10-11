@@ -131,7 +131,7 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-    allListen: builder.query<ReturnAllListenType, ActionAllListenType>({
+    allListen: builder.query<ReturnAllListenType, number>({
       query: (id) => ({
         url: `/api/v1/projects/${id}/audio`,
         method: 'GET',
