@@ -54,11 +54,7 @@ export const useApi = createApi({
         url: '/api/v1/projects',
         headers: {
           Authorization:
-<<<<<<< Updated upstream
             'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
-=======
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA2NjY5fQ.rm8-qxjUXo93wuC37YBfzwXGC03YQyNwCeoDxrf8I64',
->>>>>>> Stashed changes
         },
       }),
     }),
@@ -68,11 +64,7 @@ export const useApi = createApi({
         method: 'POST',
         headers: {
           Authorization:
-<<<<<<< Updated upstream
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
-=======
             'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA2NjY5fQ.rm8-qxjUXo93wuC37YBfzwXGC03YQyNwCeoDxrf8I64',
->>>>>>> Stashed changes
         },
       }),
     }),
@@ -154,11 +146,7 @@ export const useApi = createApi({
         url: '/api/v1/projects/background',
         method: 'GET',
         headers: {
-<<<<<<< Updated upstream
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw'
-=======
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA2NjY5fQ.rm8-qxjUXo93wuC37YBfzwXGC03YQyNwCeoDxrf8I64'
->>>>>>> Stashed changes
         }
       })
     }),
@@ -168,11 +156,7 @@ export const useApi = createApi({
         method: 'POST',
         body: data,
         headers: {
-<<<<<<< Updated upstream
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw'
-=======
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA2NjY5fQ.rm8-qxjUXo93wuC37YBfzwXGC03YQyNwCeoDxrf8I64'
->>>>>>> Stashed changes
         }
       })
     }),
@@ -182,11 +166,7 @@ export const useApi = createApi({
         method: 'POST',
         body: data.formData,
         headers: {
-<<<<<<< Updated upstream
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw'
-=======
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA2NjY5fQ.rm8-qxjUXo93wuC37YBfzwXGC03YQyNwCeoDxrf8I64'
->>>>>>> Stashed changes
         }
       })
     }),
@@ -545,7 +525,6 @@ interface BackgroundUpload {
 }
 
 interface BackgroundImgUpload {
-  data : {}
   formData: FormData,
   projectId: number,
 }
