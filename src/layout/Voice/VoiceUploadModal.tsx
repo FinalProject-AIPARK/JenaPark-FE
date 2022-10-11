@@ -9,7 +9,8 @@ const VoiceUploadModal = memo(
     dragOver,
     onInputFile,
     audioFile,
-    setAudioFile,
+    deleteUpload,
+    prevUpload,
   }: VoiceUploadModalProps) => {
     return (
       <form name="audio" encType="multipart/form-data" onSubmit={(event) => submitHandler(event)}>
@@ -24,7 +25,7 @@ const VoiceUploadModal = memo(
               <br />
               업로드 후 버추얼 아바타를 선택 적용하여 저장 및 합성이 가능합니다.
             </TextStyle>
-            {audioFile.length === 0 ? (
+            {audioFile.length === 0 && !prevUpload ? (
               <div onDrop={onDropFiles} onDragOver={dragOver}>
                 <LabelStyle htmlFor="inputFile">
                   <img
@@ -48,14 +49,9 @@ const VoiceUploadModal = memo(
               <UploadedBox>
                 <UploadFileBox>
                   <UploadNameBox className="div_preview">
-                    <div>{audioFile[0].name}</div>
+                    <div>{!prevUpload ? audioFile[0].name : prevUpload}</div>
                   </UploadNameBox>
-                  <button
-                    onClick={() => {
-                      setAudioFile([]);
-                    }}
-                    style={{ marginLeft: '9rem' }}
-                  >
+                  <button onClick={deleteUpload} style={{ marginLeft: '9rem' }}>
                     삭제
                   </button>
                 </UploadFileBox>
@@ -71,13 +67,14 @@ const VoiceUploadModal = memo(
 );
 
 interface VoiceUploadModalProps {
-  submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
   onModal: boolean;
+  prevUpload: string;
+  audioFile: Array<File>;
+  deleteUpload: () => void;
+  submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
   onDropFiles: (event: DragEvent<HTMLDivElement>) => void;
   dragOver: (e: DragEvent<HTMLDivElement>) => void;
   onInputFile: (event: ChangeEvent<HTMLInputElement>) => void;
-  audioFile: Array<File>;
-  setAudioFile: React.Dispatch<React.SetStateAction<File[]>>;
 }
 interface TextStyleProps {
   display?: string;

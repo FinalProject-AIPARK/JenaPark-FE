@@ -12,10 +12,11 @@ const VoiceModelFilterButton = memo(
     dropdownHandler,
     offDropdown,
     audioFile,
+    prevUpload,
   }: FilterButtonProps) => {
     return (
       <ModelOptionButtonBox>
-        {audioFile.length > 0 ? (
+        {audioFile.length > 0 || prevUpload ? (
           <>
             <div>
               <ButtonStyle
@@ -101,13 +102,14 @@ const VoiceModelFilterButton = memo(
 
 interface FilterButtonProps {
   sexButton: boolean;
-  sexFilterHandler: (filter: string) => void;
+  prevUpload: string;
   langButton: string;
-  langFilterHandler: (filter: string) => void;
   dropdown: boolean;
-  dropdownHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   offDropdown: React.LegacyRef<HTMLSpanElement>;
   audioFile: Array<File>;
+  sexFilterHandler: (filter: string) => void;
+  langFilterHandler: (filter: string) => void;
+  dropdownHandler: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 interface ButtonStyleProps {
   backColor: string;
