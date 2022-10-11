@@ -39,6 +39,9 @@ export const voiceSlice = createSlice({
       state.elementData.isVoiceModel = false;
       state.elementData.isVoiceOption = true;
     },
+    getProjectId: (state, action) => {
+      state.voiceData.projectID = action.payload;
+    },
     modelDataAction: (state, action) => {
       state.voiceData.avatarName = action.payload.name;
       state.selectedModel.name = action.payload.name;
@@ -84,6 +87,7 @@ export const {
   modelDataAction,
   voiceModelWorking,
   voiceOptionWorking,
+  getProjectId,
   selectedModel,
   voiceOptionAction,
   initVoiceOption,

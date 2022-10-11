@@ -10,6 +10,7 @@ import { workingComponent } from '../../../../store/workingProject/projectContro
 import {
   modelDataAction,
   voiceOptionWorking,
+  getProjectId,
   selectedModel,
 } from '../../../../store/voice/voiceSlice';
 
@@ -25,11 +26,12 @@ function VoiceModel() {
   useEffect(() => {
     if (sex) {
       setVoiceFilter({ sex, lang });
+      dispatch(getProjectId(projectId));
     }
   }, [sex]);
   // 음성 모델 카테고리
   useEffect(() => {
-    if (sex && !audioMerge) {
+    if (sex) {
       getVoiceHandler();
     }
   }, [voiceFilter]);
