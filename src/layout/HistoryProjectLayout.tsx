@@ -15,6 +15,7 @@ function HistoryProjectLayout({
   keyDownHandler,
   guideText,
   guideHandler,
+  projectEmpty,
 }: HistoryProjectLayoutProps) {
   return (
     <Container>
@@ -95,6 +96,9 @@ function HistoryProjectLayout({
               </TextStyle>
             </ProjectCard>
           ))}
+          {projectEmpty.map((item) => (
+            <EmptyBox key={item}></EmptyBox>
+          ))}
         </ListBox>
         <BackgroundBox></BackgroundBox>
       </ProjectListBox>
@@ -106,7 +110,6 @@ interface HistoryProjectLayoutProps {
   projectList: {
     projectId: number;
     title: string;
-    thumbnail: null;
     createDate: string;
     modifiedDate: string;
   }[];
@@ -119,6 +122,7 @@ interface HistoryProjectLayoutProps {
   keyDownHandler: (event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) => void;
   guideText: boolean;
   guideHandler: (isOn: boolean, index: number) => void;
+  projectEmpty: number[];
 }
 interface TextStyleProps {
   size?: string;
@@ -204,6 +208,14 @@ const ProjectCard = styled.div`
   :last-child {
     margin-right: 0;
   }
+`;
+const EmptyBox = styled.div`
+  background-color: #fff;
+  width: 11rem;
+  height: 13.13rem;
+  border-radius: 0.63rem;
+  margin-left: 3rem;
+  opacity: 0.3;
 `;
 const EditInput = styled.input`
   margin-top: 1.5rem;
