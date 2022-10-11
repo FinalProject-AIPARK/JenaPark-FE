@@ -7,11 +7,11 @@ import plus from '../../images/plus-icon.png';
 function AvatarOptionLayout({
   avatarBackgroundList,
   setBackgroundId,
-  backgroundId,
   backgroundEvent,
   backgroundImgUpload,
-  backgroundImg,
-  setBackgroundImgFile
+  setackgroundFile,
+  inputFileRef,
+  onInputFile,
 }: AvatarBackgroundType) {
 
   return (
@@ -22,9 +22,7 @@ function AvatarOptionLayout({
         <BgText>배경업로드</BgText>
         <Test2>
           <div>
-            <MaskIcon
-              src={left}
-            />
+            <MaskIcon src={left} />
           </div>
           <FlexBox
             className="products"
@@ -32,28 +30,44 @@ function AvatarOptionLayout({
             justifyContent={'flex-start'}
             alignItems={'center'}
           >
-            <form onSubmit={(event) => backgroundImgUpload(event)}>
-              <BackgrounddBox
-              onClick={()=> setBackgroundImgFile([])}
-              >
+          <form name="background" encType="multipart/form-data" onSubmit={(e) => {e.preventDefault(), backgroundImgUpload(e)}}>
+            <BackgrounddBox onClick={() => {
+              setackgroundFile([])
+              inputFileRef.current?.click()
+              }}>
                 <PlusIcon src={plus} />
-                <ImgUploadInput onChange={backgroundImg} />
+                  <input
+                    type="file"
+                    name="background"
+                    onChange={onInputFile}
+                    ref={inputFileRef}
+                    accept="image/jpg, image/jpeg, image/png"
+                  />
               </BackgrounddBox>
-            </form>
-            <div
-              style={{
-                width: '100%',
-                overflow: 'hidden',
-              }}
-            >
-              <TestTransForm>
-              </TestTransForm>
-            </div>
-          </FlexBox>
+          </form>
+                <input type="submit"
+                ref={inputFileRef} />
+            {
+              avatarBackgroundList?.data.backgroundUploads &&
+                avatarBackgroundList?.data.backgroundUploads.map((list : any) => {
+                  return (
+                    <TestTransForm>
+                      <BackgrounddBox
+                      onClick={() => setBackgroundId(list.bgId)}
+                      key={list.bgId}
+                      >
+                      <ImgthumbNail
+                        src={list.bgUrl}
+                        alt="아바타 이미지"
+                        />
+                      </BackgrounddBox>
+                    </TestTransForm>
+                  )})
+              }
+            
+              </FlexBox>
           <div>
-            <MaskIcon
-              src={right}
-            />
+            <MaskIcon src={right}/>
           </div>
         </Test2>
       </div>
@@ -96,11 +110,6 @@ function AvatarOptionLayout({
   );
 }
 
-// 타입 지정
-
-interface InputImg {
-  ref: any;
-}
 
 interface style {
   sliderWidth: number;
@@ -127,20 +136,21 @@ interface AvatarBackgroundType {
         }[]
       backgroundUploads: []
     }
-  }[]
+  }[] | any
   backgroundChoose: {
     data: string,
     bgId: number
-  }
+  } | any
   backgroundEvent: {
     projectId: number
     backgroundId: number
-  }
+  } | any
   backgroundImgUpload: (event: React.FormEvent<HTMLFormElement>) => void;
-  backgroundImg: (event: ChangeEvent<HTMLInputElement>) => void;
-  setBackgroundImgFile :  React.Dispatch<React.SetStateAction<File[]>>;
-  backgroundId: number
+  setackgroundFile :  React.Dispatch<React.SetStateAction<File[]>>;
   setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
+  inputFileRef: any
+  backgroundFiles: any
+  onInputFile: any
 }
 
 // 테스트 코드
@@ -149,6 +159,7 @@ const TestTransForm = styled.div`
   display: flex;
   gap: 10px;
   width: 9999px;
+
 `;
 
 const Flex = styled.div`
@@ -172,13 +183,6 @@ const ImgthumbNail = styled.img`
 const ImgInput = styled.img`
   width: 100%;
   height: 100%;
-`;
-
-const ImgUploadInput: any = styled.input.attrs((props) => ({
-  type: 'file',
-  accept: 'image/jpg, image/jpeg, image/png',
-}))<InputImg>`
-  display: none;
 `;
 
 // const ImgUploadInput = styled.input`
@@ -240,6 +244,10 @@ const BackgrounddBox = styled.div`
   background-color: #fff;
   overflow: hidden;
   cursor: pointer;
+
+  input[type="file"] {
+    display: none;
+  }
 `;
 
 const BgText = styled.p`
