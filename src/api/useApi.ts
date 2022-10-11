@@ -526,6 +526,7 @@ interface BackgroundImgUpload {
   formData: FormData,
   projectId: number,
 }
+
 interface ReturnAllListenType {
   audioFileUrl: string;
 }

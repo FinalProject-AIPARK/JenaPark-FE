@@ -13,13 +13,10 @@ function index() {
   const inputFileRef = useRef()
   const [backgroundUploadFile] = usePostUploadBackgroundMutation()
   const [backgroundFile, setackgroundFile] = useState<Array<File>>([])
-  console.log(backgroundFile)
 
-  
   function backgroundFiles (files: FileList) {
     const file: File = files[0]
     setackgroundFile([file])
-    // backgroundImgUpload()
   }
 
   function backgroundImgUpload(event : any) {
@@ -37,7 +34,6 @@ function index() {
     event.preventDefault()
     backgroundFiles(event.target.files!)
   }
-  
 
   // 배경 리스트
   const { data : avatarBackgroundList } = useGetBackgroundAvatarListQuery(null)
@@ -57,16 +53,10 @@ function index() {
     backgroundChoose(actionBackground)
   }
 
-  // dispatch(backgroundDataUrl(backgroundFile))
-
   // 배경 store 전역 관리
   useEffect(() => {
     (backgroundUrlData !== undefined ? dispatch(avatarOptionDataUrl(backgroundUrlData!.data)) : null)
   }, [backgroundEvent])
-
-  // function backgroundChooseHandler() {
-  //   backgroundChoose(backgroundId);
-  // }
 
   return (
     <>
