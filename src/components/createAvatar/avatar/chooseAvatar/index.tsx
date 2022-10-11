@@ -32,8 +32,11 @@ function index() {
   const [createAvatar, {data: avatarUrlData}] = usePostCreateAvatarMutation();
   function createAvatarHandler() {
     createAvatar(avartarDress)
-    dispatch(avatarChooseDataUrl(avatarUrlData!.data))
+    // dispatch(avatarChooseDataUrl(avatarUrlData!.data))
   }
+  useEffect(() => {
+      (avatarUrlData !== undefined ? dispatch(avatarChooseDataUrl(avatarUrlData!.data)) : null)
+  }, [avatarUrlData])
 
   return (
     <>

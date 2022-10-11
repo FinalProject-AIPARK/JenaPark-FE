@@ -61,7 +61,7 @@ export const useApi = createApi({
         method: 'POST',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDAxNjQ5fQ.q1VID7JOvOU1SBmP9JuXLSamBLS2rv4_Ago_k_IKIwY',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
         },
       }),
     }),
@@ -75,6 +75,10 @@ export const useApi = createApi({
             'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDAxNjQ5fQ.q1VID7JOvOU1SBmP9JuXLSamBLS2rv4_Ago_k_IKIwY',
         },
       }),
+    }),
+    // 개별 프로젝트 데이터
+    getProjectData: builder.query<ReturnProjectDataType, string>({
+      query: (projectId) => `/api/v1/projects/${projectId}`,
     }),
     // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
@@ -98,6 +102,7 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    // 아바타 Api
     getAvatarChooseList: builder.query<AvatarList, null>({
       query: (token) => ({
         url: '/api/v1/projects/avatar',
@@ -117,7 +122,37 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-
+    // 배경 Api
+    getBackgroundAvatarList: builder.query<BackgroundAvatar, null>({
+      query: () => ({
+        url: '/api/v1/projects/background',
+        method: 'GET',
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+        }
+      })
+    }),
+    postBackgroundAvatarListChoose: builder.mutation<BackgroundChoose, BackgroundId>({
+      query: ({data, projectId, backgroundId}) => ({
+        url: `/api/v1/projects/${projectId}/background/${backgroundId}`,
+        method: 'POST',
+        body: data,
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+        }
+      })
+    }),
+    postUploadBackground: builder.mutation<BackgroundUpload, BackgroundImgUpload>({
+      query: (data) => ({
+        url: `/api/v1/projects/${data.projectId}/background/upload`,
+        method: 'POST',
+        body: data.formData,
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+        }
+      })
+    })
+    
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
     //     url: '/api/v1/audio/sample',
@@ -163,6 +198,8 @@ export const {
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
   useEditProjectTitleMutation,
+  // 개별 프로젝트 데이터
+  useGetProjectDataQuery,
   // AI 음성
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
@@ -170,6 +207,9 @@ export const {
   useGetAvatarChooseListIdQuery,
   usePostCreateAvatarMutation,
   useInputTextSynMutation,
+  useGetBackgroundAvatarListQuery,
+  usePostBackgroundAvatarListChooseMutation,
+  usePostUploadBackgroundMutation,
 } = useApi;
 
 interface ActionSignUpType {
@@ -257,6 +297,29 @@ interface ReturnCreateProjectType {
 interface ActionEditProjectTitleType {
   projectID: number;
   title: string;
+}
+// 개별 프로젝트 데이터
+interface ReturnProjectDataType {
+  data: {
+    projectId: number;
+    title: string;
+    sex: string;
+    lang: string;
+    speed: number;
+    pitch: number;
+    volume: number;
+    durationSilence: number;
+    backgroundUrl: string;
+    audioUpload: boolean;
+    audioMerge: boolean;
+    audioFileOriginName: string | null;
+    audioFileUrl: string | null;
+    avatarUrl: string | null;
+    checkText: boolean;
+    checkAudio: boolean;
+    checkAvatar: boolean;
+    audioInfos: [];
+  };
 }
 // AI 음성
 interface ActionUploadVoiceType {
@@ -364,3 +427,45 @@ interface ActionInpTextSynthesisType {
   speed: number;
   text: string;
 }
+
+interface BackgroundAvatar {
+  message: string
+  data: {
+    backgroundDefaults: [
+      {
+        bgId: number,
+        bgName: string,
+        bgUrl: string
+      }
+    ]
+    backgroundUploads: [
+      {
+        bgId: number,
+        bgName: string,
+        bgUrl: string
+    }
+    ]
+  }
+}
+
+interface BackgroundChoose {
+  data : string,
+  message: string,
+}
+
+interface BackgroundId {
+  projectId: number;
+  backgroundId: number;
+  data: any;
+}
+
+interface BackgroundUpload {
+  data: string,
+  message: string,
+}
+
+interface BackgroundImgUpload {
+  formData: FormData,
+  projectId: number,
+}
+
