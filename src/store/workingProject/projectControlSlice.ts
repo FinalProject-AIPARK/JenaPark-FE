@@ -7,6 +7,7 @@ const initialState = {
   projectData: {
     projectId: 0,
     title: '',
+    text: '',
     sex: '',
     lang: '',
     audioModel: null,

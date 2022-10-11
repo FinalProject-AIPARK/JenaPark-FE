@@ -21,7 +21,7 @@ function CreateAvatar() {
   }, [projectData]);
 
   // 음성 옵션 초기값
-  const { speed, pitch, durationSilence } = useAppSelector(
+  const { text, speed, pitch, durationSilence } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
   useEffect(() => {
