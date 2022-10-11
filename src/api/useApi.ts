@@ -128,8 +128,8 @@ export const useApi = createApi({
       }),
     }),
     getAvatarChooseListId: builder.query<AvatarListId, AvatarId>({
-      query: (id) => ({
-        url: `/api/v1/projects/avatar/${id}`,
+      query: (avatarId) => ({
+        url: `/api/v1/projects/avatar/${avatarId}`,
         method: 'GET',
       }),
     }),
@@ -146,7 +146,7 @@ export const useApi = createApi({
         url: '/api/v1/projects/background',
         method: 'GET',
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc5MzA0fQ.qNhW-L1QONE4TFQOISQEd3zKptatfev0ZK1-NQ0GiD0'
         }
       })
     }),
@@ -156,7 +156,7 @@ export const useApi = createApi({
         method: 'POST',
         body: data,
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc5MzA0fQ.qNhW-L1QONE4TFQOISQEd3zKptatfev0ZK1-NQ0GiD0'
         }
       })
     }),
@@ -166,8 +166,16 @@ export const useApi = createApi({
         method: 'POST',
         body: data.formData,
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc5MzA0fQ.qNhW-L1QONE4TFQOISQEd3zKptatfev0ZK1-NQ0GiD0'
         }
+      })
+    }),
+    // 텍스트 수정
+    postUpdataTts: builder.mutation<TextData, TextUpdata>({
+      query: (data) => ({
+        url: '/api/v1/projects/update-tts',
+        method: 'POST',
+        body: data
       })
     }),
     
@@ -521,7 +529,27 @@ interface BackgroundImgUpload {
 interface ReturnAllListenType {
   audioFileUrl: string;
 }
-
 interface ActionAllListenType {
   projectId: number;
 }
+// 텍스트 수정
+
+interface TextData {
+  message: string
+  data : {
+    audioId: number,
+    allText: string,
+    audioFileUrl: string
+  }
+}
+
+interface TextUpdata {
+  projectID : number,
+  audioID: number,
+  durationSilence: number,
+  pitch : number,
+  speed: number,
+  volume: number,
+  text: string
+}
+
