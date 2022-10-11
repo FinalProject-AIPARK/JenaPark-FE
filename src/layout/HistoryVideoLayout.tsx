@@ -2,18 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import question from '/questionMark-icon.png';
 
-function HistoryVideoLayout({ videoList, guideText, guideHandler }: HistoryVideoProps) {
-  const dummy = [
-    {
-      videoId: 1,
-      title: '32번 프로젝트',
-      backgroundUrl:
-        'https://img9.yna.co.kr/etc/inner/KR/2022/09/01/AKR20220901103800005_01_i_P2.jpg',
-      avatarUrl: 'https://jenapark.s3.ap-northeast-2.amazonaws.com/avatar/ming/ming_hat_2.png',
-      videoFileUrl: '제작 중',
-      createDate: '2022-10-07T06:00:16',
-    },
-  ];
+function HistoryVideoLayout({
+  videoList,
+  guideText,
+  guideHandler,
+  selectVideoHandler,
+  videoEmpty,
+}: HistoryVideoProps) {
   return (
     <Container>
       <TitleBox>
@@ -30,19 +25,21 @@ function HistoryVideoLayout({ videoList, guideText, guideHandler }: HistoryVideo
         {guideText ? (
           <GuideTextBox>
             <span>
-              프로젝트에서 생성한 영상이 5개까지 노출됩니다.
+              프로젝트에서 생성한 영상은 5개까지 만들 수 있습니다.
               <br />
               영상 생성일 기준으로 5개 이외 영상은 자동 삭제됩니다.
               <br />
               다운로드 버튼을 클릭하면 영상 확인과 다운로드를 받을 수 있습니다.
+              <br />
+              영상 이름은 12글자 이하로 수정 가능합니다.
             </span>
           </GuideTextBox>
         ) : null}
       </TitleBox>
       <ProjectListBox>
         <ListBox>
-          {dummy.map((item) => (
-            <ProjectCard>
+          {videoList.map((item) => (
+            <ProjectCard key={item.videoId}>
               <ThumbnailVideo>
                 <ThumnailImg src={item.backgroundUrl} alt="배경 썸네일" />
                 <ThumnailImg src={item.avatarUrl} alt="아바타 썸네일" />
@@ -59,8 +56,11 @@ function HistoryVideoLayout({ videoList, guideText, guideHandler }: HistoryVideo
                   {item.createDate.slice(11, 13) + '시 ' + item.createDate.slice(14, 16) + '분'}
                 </TextStyle>
               </VideoDateBox>
-              <Button>다운로드</Button>
+              <Button onClick={() => selectVideoHandler(item)}>다운로드</Button>
             </ProjectCard>
+          ))}
+          {videoEmpty.map((item) => (
+            <EmptyBox key={item}></EmptyBox>
           ))}
         </ListBox>
         <BackgroundBox></BackgroundBox>
@@ -73,12 +73,25 @@ interface HistoryVideoProps {
   videoList: {
     videoId: number;
     title: string;
-    thumbnail: null;
     videoFileUrl: string;
     createDate: string;
+    avatarUrl: string;
+    backgroundUrl: string;
+    downloadFileUrl: string;
   }[];
   guideText: boolean;
   guideHandler: (isOn: boolean, index: number) => void;
+  selectVideoHandler: (item: ItemTypes) => void;
+  videoEmpty: number[];
+}
+interface ItemTypes {
+  videoId: number;
+  title: string;
+  videoFileUrl: string;
+  createDate: string;
+  avatarUrl: string;
+  backgroundUrl: string;
+  downloadFileUrl: string;
 }
 interface TextStyleProps {
   size?: string;
@@ -104,7 +117,7 @@ const TitleBox = styled.div`
 const GuideTextBox = styled.div`
   background-color: #fff;
   position: absolute;
-  top: -3.8rem;
+  top: -4.8rem;
   left: 10.8rem;
   padding: 0.6rem;
   font-size: 0.81rem;
@@ -112,6 +125,7 @@ const GuideTextBox = styled.div`
   line-height: 1.1rem;
   color: #333;
   border-radius: 0.6rem;
+  box-shadow: 0 0 0.08rem #999;
 `;
 const TextStyle = styled.span<TextStyleProps>`
   display: ${({ display }) => (display ? display : 'inline-block')};
@@ -141,9 +155,14 @@ const ProjectCard = styled.div`
   flex-direction: column;
   align-items: center;
   margin-right: 1.5rem;
-  :last-child {
-    margin-right: 0;
-  }
+`;
+const EmptyBox = styled.div`
+  background-color: #fff;
+  width: 11rem;
+  height: 13.13rem;
+  border-radius: 0.63rem;
+  margin-left: 3rem;
+  opacity: 0.3;
 `;
 const ThumbnailVideo = styled.div`
   width: 100%;
