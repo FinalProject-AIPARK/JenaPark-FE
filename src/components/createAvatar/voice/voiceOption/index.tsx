@@ -7,6 +7,7 @@ import {
   voiceOptionAction,
   initVoiceOption,
   collectOption,
+  inputSynthAction,
 } from '../../../../store/voice/voiceSlice';
 import { useInputTextSynMutation } from '../../../../api/useApi';
 import { workingComponent } from '../../../../store/workingProject/projectControlSlice';
@@ -74,14 +75,19 @@ function VoiceOption() {
   }
 
   // 일괄 적용하기
-  const [synthesis] = useInputTextSynMutation();
+  const [synthesis, { data: resSynth }] = useInputTextSynMutation();
   function requestVoice() {
     // 슬라이스 넣기
     dispatch(collectOption());
     // api 요청
     synthesis(voiceData);
-    dispatch(workingComponent());
   }
+  useEffect(() => {
+    if (resSynth) {
+      dispatch(inputSynthAction(resSynth.data.audioInfoDtos));
+      dispatch(workingComponent());
+    }
+  }, [resSynth]);
 
   return (
     <Container>

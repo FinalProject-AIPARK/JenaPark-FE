@@ -406,17 +406,19 @@ interface CreateAvatarRespses {
   message: string;
 }
 interface ReturnInpTextSynthesisType {
-  audioInfoDtos: [
-    {
-      audioId: string;
-      lineNumber: number;
-      splitText: string;
-      audioFileUrl: string;
-      durationSilence: number;
-      pitch: number;
-      speed: number;
-    },
-  ];
+  data: {
+    audioInfoDtos: [
+      {
+        audioId: string;
+        lineNumber: number;
+        splitText: string;
+        audioFileUrl: string;
+        durationSilence: number;
+        pitch: number;
+        speed: number;
+      },
+    ];
+  };
 }
 interface ActionInpTextSynthesisType {
   projectID: number;
