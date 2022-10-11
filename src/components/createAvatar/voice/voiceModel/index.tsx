@@ -10,26 +10,38 @@ import { workingComponent } from '../../../../store/workingProject/projectContro
 import {
   modelDataAction,
   voiceOptionWorking,
+  getProjectId,
+  initSelectedModel,
   selectedModel,
 } from '../../../../store/voice/voiceSlice';
 
 function VoiceModel() {
-  const { projectId, sex, lang, audioFileOriginName, audioMerge } = useAppSelector(
-    (state) => state.projectControl.projectData,
-  );
+  const { projectId, sex, lang, audioModel, audioModelUrl, audioFileOriginName, audioMerge } =
+    useAppSelector((state) => state.projectControl.projectData);
   const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
   const [voiceFilter, setVoiceFilter] = useState({ sex: '', lang: '' });
   const [getVoice, { data: resVoiceModel }] = useGetVoiceModelMutation();
   // 초기 음성 모델 데이터 부름
+  const [initColor, setInitColor] = useState('');
   useEffect(() => {
     if (sex) {
       setVoiceFilter({ sex, lang });
+      dispatch(getProjectId(projectId));
     }
   }, [sex]);
+  useEffect(() => {
+    dispatch(
+      initSelectedModel({
+        name: audioModel,
+        color: initColor,
+        url: audioModelUrl,
+      }),
+    );
+  }, [initColor]);
   // 음성 모델 카테고리
   useEffect(() => {
-    if (sex && !audioMerge) {
+    if (sex) {
       getVoiceHandler();
     }
   }, [voiceFilter]);
@@ -181,15 +193,31 @@ function VoiceModel() {
   function nameBackColorHandler() {
     switch (voiceFilter.sex) {
       case 'female':
-        if (voiceFilter.lang === 'kor') setModelNameColor(backColorList[1]);
-        else if (voiceFilter.lang === 'eng') setModelNameColor(backColorList[3]);
-        else setModelNameColor(backColorList[4]);
+        if (voiceFilter.lang === 'kor') {
+          setModelNameColor(backColorList[1]);
+          !initColor ? setInitColor(backColorList[1]) : null;
+        } else if (voiceFilter.lang === 'eng') {
+          setModelNameColor(backColorList[3]);
+          !initColor ? setInitColor(backColorList[3]) : null;
+        } else {
+          setModelNameColor(backColorList[4]);
+          !initColor ? setInitColor(backColorList[4]) : null;
+        }
         break;
       case 'male':
-        if (voiceFilter.lang === 'kor') setModelNameColor(backColorList[0]);
-        else if (voiceFilter.lang === 'eng') setModelNameColor(backColorList[2]);
-        else setModelNameColor(backColorList[5]);
+        if (voiceFilter.lang === 'kor') {
+          setModelNameColor(backColorList[0]);
+          !initColor ? setInitColor(backColorList[0]) : null;
+        } else if (voiceFilter.lang === 'eng') {
+          setModelNameColor(backColorList[2]);
+          !initColor ? setInitColor(backColorList[2]) : null;
+        } else {
+          setModelNameColor(backColorList[5]);
+          !initColor ? setInitColor(backColorList[5]) : null;
+        }
         break;
+      default:
+        return;
     }
   }
 

@@ -9,6 +9,8 @@ const initialState = {
     title: '',
     sex: '',
     lang: '',
+    audioModel: null,
+    audioModelUrl: null,
     speed: 0,
     pitch: 0,
     volume: 0,
