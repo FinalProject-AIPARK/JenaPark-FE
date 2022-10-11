@@ -11,6 +11,7 @@ import {
   useDeleteProjectMutation,
 } from '@/api/useApi';
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
+import LoadingAnimationBlue from '@/layout/LoadingAnimationBlue';
 
 function History() {
   // 빈 박스
@@ -19,7 +20,7 @@ function History() {
 
   // 프로젝트 리스트 요청
   const [update, setUpdate] = useState(0);
-  const { data: project } = useGetProjectHistoyQuery(update);
+  const { data: project, isLoading: loadingProject } = useGetProjectHistoyQuery(update);
   const [projectList, setProjectList] = useState([
     {
       projectId: 0,
@@ -213,6 +214,14 @@ function History() {
 
   return (
     <Container>
+      {loadingProject ? (
+        <LoadingContain>
+          <LoadingBox>
+            <LoadingAnimationBlue ballSize="4rem" />
+          </LoadingBox>
+          <Background />
+        </LoadingContain>
+      ) : null}
       <Header></Header>
       <div style={{ height: 'calc(100vh - 10.06rem)' }}>
         <HistoryProjectLayout
@@ -228,6 +237,7 @@ function History() {
           guideHandler={guideHandler}
           projectEmpty={projectEmpty}
           deleteProjectHandler={deleteProjectHandler}
+          loadingProject={loadingProject}
         />
         <HistoryVideoLayout
           videoList={videoList}
@@ -257,6 +267,27 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+`;
+const LoadingContain = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+`;
+const LoadingBox = styled.div`
+  width: 13rem;
+  height: 13rem;
+  z-index: 3;
+`;
+const Background = styled.div`
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2;
 `;
 const Header = styled.div`
   height: 4.5rem;
