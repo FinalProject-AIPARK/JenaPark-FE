@@ -36,10 +36,10 @@ function HistoryVideoLayout({
           </GuideTextBox>
         ) : null}
       </TitleBox>
-      <ProjectListBox>
+      <VideoListBox>
         <ListBox>
           {videoList.map((item) => (
-            <ProjectCard key={item.videoId}>
+            <VideoCard key={item.videoId}>
               <ThumbnailVideo>
                 <ThumnailImg src={item.backgroundUrl} alt="배경 썸네일" />
                 <ThumnailImg src={item.avatarUrl} alt="아바타 썸네일" />
@@ -57,14 +57,16 @@ function HistoryVideoLayout({
                 </TextStyle>
               </VideoDateBox>
               <Button onClick={() => selectVideoHandler(item)}>다운로드</Button>
-            </ProjectCard>
+            </VideoCard>
           ))}
+        </ListBox>
+        <EmptyContain>
           {videoEmpty.map((item) => (
             <EmptyBox key={item}></EmptyBox>
           ))}
-        </ListBox>
+        </EmptyContain>
         <BackgroundBox></BackgroundBox>
-      </ProjectListBox>
+      </VideoListBox>
     </Container>
   );
 }
@@ -137,31 +139,44 @@ const TextStyle = styled.span<TextStyleProps>`
   line-height: ${({ lineH }) => (lineH ? lineH : 'inherit')};
   white-space: nowrap;
 `;
-const ProjectListBox = styled.div`
+const VideoListBox = styled.div`
   width: 100%;
   height: 18.75rem;
   position: relative;
-`;
-const ListBox = styled.div`
   display: flex;
   align-items: center;
-  position: absolute;
+  position: relative;
   padding: 1rem;
 `;
-const ProjectCard = styled.div`
+const ListBox = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+`;
+const VideoCard = styled.div`
   width: 14rem;
   height: 16.75rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-right: 1.5rem;
+  :last-child {
+    margin-right: 0;
+  }
+`;
+const EmptyContain = styled.div`
+  flex-shirink: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const EmptyBox = styled.div`
   background-color: #fff;
   width: 11rem;
   height: 13.13rem;
   border-radius: 0.63rem;
-  margin-left: 3rem;
+  margin: 0 1.5rem;
   opacity: 0.3;
 `;
 const ThumbnailVideo = styled.div`
