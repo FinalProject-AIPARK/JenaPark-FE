@@ -45,7 +45,7 @@ function AvatarOptionLayout({
                   />
               </BackgrounddBox>
           </form>
-                <input type="submit" />
+                <input type="submit"/>
             {
               avatarBackgroundList?.data.backgroundUploads &&
                 avatarBackgroundList?.data.backgroundUploads.map((list : any) => {
@@ -138,13 +138,13 @@ interface AvatarBackgroundType {
   backgroundEvent: {
     projectId: number
     backgroundId: number
-  } | any
+  }
   backgroundImgUpload: (event: React.FormEvent<HTMLFormElement>) => void;
   setackgroundFile :  React.Dispatch<React.SetStateAction<File[]>>;
   setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
-  inputFileRef: any
+  inputFileRef: any;
   backgroundFiles: any
-  onInputFile: any
+  onInputFile: React.MutableRefObject<HTMLInputElement>;
 }
 
 // 테스트 코드

@@ -14,25 +14,27 @@ function index() {
   const [backgroundUploadFile] = usePostUploadBackgroundMutation()
   const [backgroundFile, setackgroundFile] = useState<Array<File>>([])
 
+  
+  function backgroundImgUpload() {
+    let formData = new FormData()
+    formData.append('backgroundFile', backgroundFile[0])
+    const data = '';
+    const actionBackgroundupload = {
+      data,
+      formData,
+      projectId
+    }
+    backgroundUploadFile(actionBackgroundupload)
+  }
+  
   function backgroundFiles (files: FileList) {
     const file: File = files[0]
     setackgroundFile([file])
   }
-
-  function backgroundImgUpload(event : any) {
-      event.preventDefault()
-      let formData = new FormData()
-      formData.append('backgroundFile', backgroundFile[0])
-      const actionBackgroundupload = {
-        formData,
-        projectId
-      }
-      backgroundUploadFile(actionBackgroundupload)
-  }
-  
   function onInputFile(event : React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault()
     backgroundFiles(event.target.files!)
+    backgroundImgUpload()
   }
 
   // 배경 리스트
