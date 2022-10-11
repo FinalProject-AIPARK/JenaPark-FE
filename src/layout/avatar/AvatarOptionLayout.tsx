@@ -18,12 +18,12 @@ function AvatarOptionLayout({
     <Avatar>
       <AvatarTitle>배경을 선택해주세요</AvatarTitle>
 
-      <div>
+      <>
         <BgText>배경업로드</BgText>
         <Test2>
-          <div>
+          <>
             <MaskIcon src={left} />
-          </div>
+          </>
           <FlexBox
             className="products"
             width="85%"
@@ -66,11 +66,11 @@ function AvatarOptionLayout({
               }
             
               </FlexBox>
-          <div>
+          <>
             <MaskIcon src={right}/>
-          </div>
+          </>
         </Test2>
-      </div>
+      </>
 
       <Line></Line>
 
@@ -79,7 +79,6 @@ function AvatarOptionLayout({
         <Flex>
           <FlexBox
             justifyContent="flex-start"
-            height="20.688rem"
             flexWrap="wrap"
             overflowY="scroll"
             paddingLeft="22px"
@@ -137,10 +136,6 @@ interface AvatarBackgroundType {
       backgroundUploads: []
     }
   }[] | any
-  backgroundChoose: {
-    data: string,
-    bgId: number
-  } | any
   backgroundEvent: {
     projectId: number
     backgroundId: number
@@ -165,7 +160,8 @@ const TestTransForm = styled.div`
 const Flex = styled.div`
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
+  height: 30rem;
 `;
 
 const Test2 = styled.div`
@@ -179,15 +175,6 @@ const Test2 = styled.div`
 const ImgthumbNail = styled.img`
   width: 7.5rem;
 `;
-
-const ImgInput = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
-// const ImgUploadInput = styled.input`
-
-// `
 
 const Avatar = styled.div`
   width: 32.5em;
@@ -251,7 +238,7 @@ const BackgrounddBox = styled.div`
 `;
 
 const BgText = styled.p`
-  margin: 10px 0 9.5px 40px;
+  margin: 10px 0 14.5px 40px;
   color: #fff;
   font-weight: 700;
 `;
