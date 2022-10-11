@@ -5,48 +5,50 @@ import { avatarOptionDataUrl } from '@/store/Avatar/avatarSlice';
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
 
 function index() {
-  
-  const inputRef = useRef()
+
+  const { projectId } = useAppSelector((state) => state.projectControl.projectData)
   const dispatch = useAppDispatch()
-
+  
   // 배경 업로드
+  const inputFileRef = useRef()
   const [backgroundUploadFile] = usePostUploadBackgroundMutation()
-  const [backgroundImgFile, setBackgroundImgFile] = useState<Array<File>>([])
+  const [backgroundFile, setackgroundFile] = useState<Array<File>>([])
+  console.log(backgroundFile)
 
-  function backgroundImgUpload(e : any) {
-    if (e.target.files[0]) {
-      const formData = new FormData()
-      formData.append('backgroundImg', e.target.files[0])
-      const data = '';
-      const projectId = 1;
-      const actionBackgroundupload = {
-        data,
-        formData,
-        projectId
-    }
-      backgroundUploadFile(actionBackgroundupload)
-    }
-  }
-
+  
   function backgroundFiles (files: FileList) {
     const file: File = files[0]
-    setBackgroundImgFile([file])
+    setackgroundFile([file])
+    // backgroundImgUpload()
   }
-  function backgroundImg (event : any) {
+
+  function backgroundImgUpload(event : any) {
+      event.preventDefault()
+      let formData = new FormData()
+      formData.append('backgroundFile', backgroundFile[0])
+      const actionBackgroundupload = {
+        formData,
+        projectId
+      }
+      backgroundUploadFile(actionBackgroundupload)
+  }
+  
+  function onInputFile(event : React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault()
-    backgroundFiles(event.dataTransfer.files)
+    backgroundFiles(event.target.files!)
   }
+  
 
   // 배경 리스트
   const { data : avatarBackgroundList } = useGetBackgroundAvatarListQuery(null)
   useEffect(() => {}, [avatarBackgroundList])
+  console.log(avatarBackgroundList)
 
   // 배경 선택버튼
   const [backgroundId, setBackgroundId] = useState(0)
   const [ backgroundChoose, {data : backgroundUrlData} ] = usePostBackgroundAvatarListChooseMutation()
   function backgroundEvent() {
     const data = '';
-    const projectId = 1;
     const actionBackground = {
       data,
       projectId,
@@ -55,11 +57,12 @@ function index() {
     backgroundChoose(actionBackground)
   }
 
+  // dispatch(backgroundDataUrl(backgroundFile))
+
   // 배경 store 전역 관리
   useEffect(() => {
     (backgroundUrlData !== undefined ? dispatch(avatarOptionDataUrl(backgroundUrlData!.data)) : null)
   }, [backgroundEvent])
-  console.log(backgroundUrlData)
 
   // function backgroundChooseHandler() {
   //   backgroundChoose(backgroundId);
@@ -70,11 +73,12 @@ function index() {
       <AvatarOptionLayout
       avatarBackgroundList={avatarBackgroundList}
       setBackgroundId={setBackgroundId}
-      backgroundId={backgroundId}
       backgroundEvent={backgroundEvent}
-      backgroundImg={backgroundImg}
       backgroundImgUpload={backgroundImgUpload}
-      setBackgroundImgFile={setBackgroundImgFile}
+      setackgroundFile={setackgroundFile}
+      backgroundFiles={backgroundFiles}
+      inputFileRef={inputFileRef}
+      onInputFile={onInputFile}
       ></AvatarOptionLayout>
     </>
   )
