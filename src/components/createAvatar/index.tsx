@@ -9,7 +9,7 @@ import Contents from './contents';
 import { useGetProjectDataQuery } from '@/api/useApi';
 import { useParams } from 'react-router-dom';
 import { getData } from '@/store/workingProject/projectControlSlice';
-import { initVoiceOption } from '@/store/voice/voiceSlice';
+import { initVoiceOption, initVoiceModel } from '@/store/voice/voiceSlice';
 
 function CreateAvatar() {
   // 프로젝트 데이터 가져오기
@@ -32,7 +32,6 @@ function CreateAvatar() {
         durationSilence,
       }),
     );
-    console.log(speed);
   }, [speed]);
 
   // 음성 작업 파트 구분

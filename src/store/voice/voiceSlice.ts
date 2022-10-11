@@ -48,11 +48,16 @@ export const voiceSlice = createSlice({
       state.voiceData.sex = action.payload.sex;
       state.voiceData.lang = action.payload.lang;
     },
-    initSelectedModel: (state, action) => {
+    initVoiceModel: (state, action) => {
+      state.voiceData.projectID = action.payload.projectId;
+      state.voiceData.sex = action.payload.sex;
+      state.voiceData.lang = action.payload.lang;
       state.voiceData.avatarName = action.payload.name;
       state.selectedModel.name = action.payload.name;
-      state.selectedModel.nameColor = action.payload.color;
       state.selectedModel.audioUrl = action.payload.url;
+    },
+    initModelColor: (state, action) => {
+      state.selectedModel.nameColor = action.payload;
     },
     selectedModel: (state, action) => {
       // 컬러와 url
@@ -97,7 +102,8 @@ export const {
   voiceModelWorking,
   voiceOptionWorking,
   getProjectId,
-  initSelectedModel,
+  initVoiceModel,
+  initModelColor,
   selectedModel,
   voiceOptionAction,
   initVoiceOption,

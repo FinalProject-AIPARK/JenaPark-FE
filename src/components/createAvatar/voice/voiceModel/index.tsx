@@ -10,14 +10,15 @@ import { workingComponent } from '../../../../store/workingProject/projectContro
 import {
   modelDataAction,
   voiceOptionWorking,
-  getProjectId,
-  initSelectedModel,
   selectedModel,
+  initModelColor,
+  initVoiceModel,
 } from '../../../../store/voice/voiceSlice';
 
 function VoiceModel() {
-  const { projectId, sex, lang, audioModel, audioModelUrl, audioFileOriginName, audioMerge } =
-    useAppSelector((state) => state.projectControl.projectData);
+  const { projectId, sex, lang, audioModelUrl, audioFileOriginName, audioModel } = useAppSelector(
+    (state) => state.projectControl.projectData,
+  );
   const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
   const [voiceFilter, setVoiceFilter] = useState({ sex: '', lang: '' });
@@ -27,23 +28,23 @@ function VoiceModel() {
   useEffect(() => {
     if (sex) {
       setVoiceFilter({ sex, lang });
-      dispatch(getProjectId(projectId));
     }
   }, [sex]);
   useEffect(() => {
+    dispatch(initModelColor(initColor));
     dispatch(
-      initSelectedModel({
+      initVoiceModel({
+        projectId,
+        sex,
+        lang,
         name: audioModel,
-        color: initColor,
         url: audioModelUrl,
       }),
     );
   }, [initColor]);
   // 음성 모델 카테고리
   useEffect(() => {
-    if (sex) {
-      getVoiceHandler();
-    }
+    getVoiceHandler();
   }, [voiceFilter]);
   function getVoiceHandler() {
     getVoice(voiceFilter);
@@ -59,7 +60,7 @@ function VoiceModel() {
 
   // 음성 업로드 서버로 전송
   const [onModal, setOnModal] = useState(false);
-  const [uploadFile, { data: url, isLoading: uploading, isError }] = useUploadVoiceMutation();
+  const [uploadFile] = useUploadVoiceMutation();
   const [audioFile, setAudioFile] = useState<Array<File>>([]);
   const [prevUpload, setPrevUpload] = useState('');
   useEffect(() => {
@@ -129,8 +130,6 @@ function VoiceModel() {
       setSexButton(false);
       setVoiceFilter({ ...voiceFilter, sex: 'male' });
     }
-    // 리스트 요청
-    // 값이 바뀌면 데이터도 자동으로 바뀌는걸로 암
   }
   function langFilterHandler(filter: string) {
     if (filter === '한국어') {
@@ -143,8 +142,6 @@ function VoiceModel() {
       setLangButton('중국어');
       setVoiceFilter({ ...voiceFilter, lang: 'chi' });
     }
-    // 리스트 요청
-    // 값이 바뀌면 데이터도 자동으로 바뀌는걸로 암
   }
 
   // 음성 샘플 오디오 컨트롤
