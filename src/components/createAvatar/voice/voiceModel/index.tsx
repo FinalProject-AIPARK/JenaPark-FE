@@ -10,6 +10,7 @@ import { workingComponent } from '../../../../store/workingProject/projectContro
 import {
   modelDataAction,
   voiceOptionWorking,
+  getProjectId,
   selectedModel,
   initModelColor,
   initVoiceModel,
