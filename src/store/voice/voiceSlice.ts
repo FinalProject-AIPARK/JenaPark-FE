@@ -64,6 +64,11 @@ export const voiceSlice = createSlice({
           return;
       }
     },
+    initVoiceOption: (state, action) => {
+      state.voiceOption.speed = action.payload.speed;
+      state.voiceOption.tone = action.payload.pitch;
+      state.voiceOption.duration = action.payload.durationSilence;
+    },
     collectOption: (state) => {
       state.voiceData.durationSilence = state.voiceOption.duration;
       state.voiceData.pitch = state.voiceOption.tone;
@@ -81,6 +86,7 @@ export const {
   voiceOptionWorking,
   selectedModel,
   voiceOptionAction,
+  initVoiceOption,
   collectOption,
   inputText,
 } = voiceSlice.actions;
