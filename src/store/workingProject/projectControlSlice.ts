@@ -18,6 +18,7 @@ const initialState = {
     audioMerge: false,
     audioFileOriginName: null,
     audioFileUrl: null,
+    downloadAudioUrl: null,
     avatarUrl: null,
     checkText: false,
     checkAudio: false,
