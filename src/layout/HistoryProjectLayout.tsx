@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import accProject from '/addProject-icon.png';
 import projectIcon from '/project-icon.png';
 import question from '/questionMark-icon.png';
+import close from '/close-icon.png';
 
 function HistoryProjectLayout({
   projectList,
@@ -16,6 +17,7 @@ function HistoryProjectLayout({
   guideText,
   guideHandler,
   projectEmpty,
+  deleteProjectHandler,
 }: HistoryProjectLayoutProps) {
   return (
     <Container>
@@ -57,6 +59,14 @@ function HistoryProjectLayout({
         <ListBox>
           {projectList!.map((item, index) => (
             <ProjectCard key={index} onClick={() => prevProjectHandler(item.projectId)}>
+              <DeleteButton
+                onClick={(event) => {
+                  event.stopPropagation();
+                  deleteProjectHandler(item.projectId);
+                }}
+              >
+                <img src={close} alt="프로젝트 삭제 아이콘" style={{ width: '1.4rem' }} />
+              </DeleteButton>
               <img
                 src={projectIcon}
                 alt="생성한 프로젝트 아이콘"
@@ -96,10 +106,13 @@ function HistoryProjectLayout({
               </TextStyle>
             </ProjectCard>
           ))}
+        </ListBox>
+        <EmptyContain>
           {projectEmpty.map((item) => (
             <EmptyBox key={item}></EmptyBox>
           ))}
-        </ListBox>
+        </EmptyContain>
+
         <BackgroundBox></BackgroundBox>
       </ProjectListBox>
     </Container>
@@ -113,16 +126,17 @@ interface HistoryProjectLayoutProps {
     createDate: string;
     modifiedDate: string;
   }[];
+  isEdit: boolean[];
+  title: string[];
+  guideText: boolean;
+  projectEmpty: number[];
   createProjectHandler: () => void;
   prevProjectHandler: (id: number) => void;
-  isEdit: boolean[];
   editTitleHandler: (title: string, index: number) => void;
-  title: string[];
   changeTitle: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   keyDownHandler: (event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) => void;
-  guideText: boolean;
   guideHandler: (isOn: boolean, index: number) => void;
-  projectEmpty: number[];
+  deleteProjectHandler: (id: number) => void;
 }
 interface TextStyleProps {
   size?: string;
@@ -186,13 +200,15 @@ const Button = styled.button<ButtonProps>`
 const ProjectListBox = styled.div`
   width: 100%;
   height: 18.75rem;
-  position: relative;
-`;
-const ListBox = styled.div`
   display: flex;
   align-items: center;
-  position: absolute;
+  position: relative;
   padding: 1rem;
+`;
+const ListBox = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 `;
 const ProjectCard = styled.div`
   background-color: #fff;
@@ -201,6 +217,7 @@ const ProjectCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   margin-right: 1.5rem;
   padding: 3.03rem 2.18rem;
   border-radius: 0.63rem;
@@ -209,12 +226,26 @@ const ProjectCard = styled.div`
     margin-right: 0;
   }
 `;
+const DeleteButton = styled.button`
+  background-color: transparent;
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  opacity: 0.6;
+`;
+const EmptyContain = styled.div`
+  flex-shirink: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const EmptyBox = styled.div`
   background-color: #fff;
   width: 11rem;
   height: 13.13rem;
   border-radius: 0.63rem;
-  margin-left: 3rem;
+  margin: 0 1.5rem;
   opacity: 0.3;
 `;
 const EditInput = styled.input`
