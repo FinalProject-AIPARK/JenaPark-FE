@@ -45,8 +45,7 @@ function AvatarOptionLayout({
                   />
               </BackgrounddBox>
           </form>
-                <input type="submit"
-                ref={inputFileRef} />
+                <input type="submit" />
             {
               avatarBackgroundList?.data.backgroundUploads &&
                 avatarBackgroundList?.data.backgroundUploads.map((list : any) => {
