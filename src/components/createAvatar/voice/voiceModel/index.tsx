@@ -14,17 +14,24 @@ import {
 } from '../../../../store/voice/voiceSlice';
 
 function VoiceModel() {
+  const { projectId, sex, lang, audioFileOriginName, audioMerge } = useAppSelector(
+    (state) => state.projectControl.projectData,
+  );
   const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
-  const [voiceFilter, setVoiceFilter] = useState({ sex: 'female', lang: 'kor' });
+  const [voiceFilter, setVoiceFilter] = useState({ sex: '', lang: '' });
   const [getVoice, { data: resVoiceModel }] = useGetVoiceModelMutation();
   // 초기 음성 모델 데이터 부름
   useEffect(() => {
-    getVoiceHandler();
-  }, []);
+    if (sex) {
+      setVoiceFilter({ sex, lang });
+    }
+  }, [sex]);
   // 음성 모델 카테고리
   useEffect(() => {
-    getVoiceHandler();
+    if (sex && !audioMerge) {
+      getVoiceHandler();
+    }
   }, [voiceFilter]);
   function getVoiceHandler() {
     getVoice(voiceFilter);
@@ -42,7 +49,10 @@ function VoiceModel() {
   const [onModal, setOnModal] = useState(false);
   const [uploadFile, { data: url, isLoading: uploading, isError }] = useUploadVoiceMutation();
   const [audioFile, setAudioFile] = useState<Array<File>>([]);
-
+  const [prevUpload, setPrevUpload] = useState('');
+  useEffect(() => {
+    if (audioFileOriginName) setPrevUpload(audioFileOriginName);
+  }, [audioFileOriginName]);
   // 이미지 파일 처리 input
   function onInputFile(event: ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
@@ -66,14 +76,20 @@ function VoiceModel() {
       let formData = new FormData();
       formData.append('audioFile', audioFile[0], audioFile[0].name);
       // 나중에 프로젝트아이디 연결해야해
-      const projectID = 23;
+      const projectID = projectId;
       const actionUpload = {
         formData,
         projectID,
       };
       uploadFile(actionUpload);
+    } else {
+      getVoiceHandler();
     }
     setOnModal(false);
+  }
+  function deleteUpload() {
+    setAudioFile([]);
+    setPrevUpload('');
   }
 
   // 업로드시 아바타 작업으로 이동
@@ -215,11 +231,12 @@ function VoiceModel() {
         <VoiceUploadModal
           onModal={onModal}
           audioFile={audioFile}
-          setAudioFile={setAudioFile}
+          deleteUpload={deleteUpload}
           onDropFiles={onDropFiles}
           dragOver={dragOver}
           onInputFile={onInputFile}
           submitHandler={submitHandler}
+          prevUpload={prevUpload}
         />
       ) : null}
       <VoiceModelFilterButton
@@ -231,6 +248,7 @@ function VoiceModel() {
         dropdownHandler={dropdownHandler}
         offDropdown={offDropdown}
         audioFile={audioFile}
+        prevUpload={prevUpload}
       />
       <VoiceModelListLayout
         voiceModel={resVoiceModel!}
@@ -243,6 +261,7 @@ function VoiceModel() {
         audioHandler={audioHandler}
         isPlay={playController}
         audioFile={audioFile}
+        prevUpload={prevUpload}
         moveToAvartar={moveToAvartar}
       />
     </Container>
