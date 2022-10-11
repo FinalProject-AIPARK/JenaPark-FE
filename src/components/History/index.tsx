@@ -8,6 +8,7 @@ import {
   useEditProjectTitleMutation,
   useEditVideoTitleMutation,
   useDeleteVideoMutation,
+  useDeleteProjectMutation,
 } from '@/api/useApi';
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 
@@ -191,15 +192,24 @@ function History() {
     setModal(true);
   }
 
+  // 프로젝트 삭제
+  const [deleteProject, { data: resDeleteProject }] = useDeleteProjectMutation();
+  function deleteProjectHandler(id: number) {
+    deleteProject(id);
+  }
+  useEffect(() => {
+    setUpdate(update + 1);
+  }, [resDeleteProject]);
+
   // 영상 삭제
-  const [deleteVideo, { data: resDelete }] = useDeleteVideoMutation();
+  const [deleteVideo, { data: resDeleteVideo }] = useDeleteVideoMutation();
   function deleteVideoHandler(id: number) {
     deleteVideo(id);
   }
   useEffect(() => {
     setModal(false);
     setUpdate(update + 1);
-  }, [resDelete]);
+  }, [resDeleteVideo]);
 
   return (
     <Container>
@@ -217,6 +227,7 @@ function History() {
           guideText={guideText[0]}
           guideHandler={guideHandler}
           projectEmpty={projectEmpty}
+          deleteProjectHandler={deleteProjectHandler}
         />
         <HistoryVideoLayout
           videoList={videoList}
