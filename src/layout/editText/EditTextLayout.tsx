@@ -37,8 +37,8 @@ const Icon = styled.img `
 
 const Container = styled.div `
   background-color: #001334;
-  width: 67rem;
-  height: 18.9rem;
+  width: 55.9vw;
+  height: 41.9vh;
   padding: 1.5rem;
   margin-top: 16px;
   border-radius: 0.63rem;
