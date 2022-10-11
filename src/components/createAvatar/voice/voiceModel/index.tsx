@@ -27,7 +27,19 @@ function VoiceModel() {
   const [initColor, setInitColor] = useState('');
   useEffect(() => {
     if (sex) {
+      console.log('hi');
       setVoiceFilter({ sex, lang });
+      sex === 'male' ? setSexButton(false) : null;
+      switch (lang) {
+        case 'eng':
+          setLangButton('영어');
+          break;
+        case 'chi':
+          setLangButton('중국어');
+          break;
+        default:
+          return;
+      }
     }
   }, [sex]);
   useEffect(() => {
@@ -132,10 +144,10 @@ function VoiceModel() {
     }
   }
   function langFilterHandler(filter: string) {
-    if (filter === '한국어') {
+    if (filter === ('한국어' || 'kor')) {
       setLangButton('한국어');
       setVoiceFilter({ ...voiceFilter, lang: 'kor' });
-    } else if (filter === '영어') {
+    } else if (filter === ('영어' || 'eng')) {
       setLangButton('영어');
       setVoiceFilter({ ...voiceFilter, lang: 'eng' });
     } else {
