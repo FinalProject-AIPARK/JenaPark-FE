@@ -32,7 +32,7 @@ export default function SignInForm() {
         navigate('/');
       });
   };
-  const KAKAO_AUTH_LOGIN = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.KAKAO_REST_API_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&response_type=code`;
+  const KAKAO_AUTH_LOGIN = 'https://api.fafago.link/oauth2/authorization/kakao';
   const kakaoLogin = () => {
     window.location.href = KAKAO_AUTH_LOGIN;
   };
