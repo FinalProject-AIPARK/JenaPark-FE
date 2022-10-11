@@ -24,13 +24,15 @@ export default function SignUpForm() {
     requestSignUp(data)
       .unwrap()
       .then(() => {
-        navigate('/');
+        navigate('/signin');
       });
   };
 
   return (
     <S.Container>
+      <img className="registerGirl" src="/images/register-girl.svg" alt="레지스터걸" />
       <form onSubmit={handleSubmit(onSubmit)}>
+        <h1>서비스를 이용하기 위해 회원가입을 진행해주세요.</h1>
         <article>
           <label>이메일</label>
           <input

@@ -1,9 +1,12 @@
 import React from 'react';
-import ProjectVoiceHeader from './ProjectVoiceHeader';
-import ProjectVideoHeader from './ProjectVideoHeader';
+import ProjectHeaderStyle from '@/layout/ProjectHeader';
 
 function ProjectHeader({ localstate }: any) {
-  return <>{localstate === '/video' ? <ProjectVoiceHeader /> : <ProjectVideoHeader />}</>;
+  return (
+    <>
+      <ProjectHeaderStyle />
+    </>
+  );
 }
 
 export default ProjectHeader;

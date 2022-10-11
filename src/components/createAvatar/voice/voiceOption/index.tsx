@@ -3,13 +3,31 @@ import styled from 'styled-components';
 import VoiceOptionDetailLayout from '@/layout/Voice/VoiceOptionDetailLayout';
 import VoiceOptionTitleLayout from '@/layout/Voice/VoiceOptionTitleLayout';
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
-import { voiceOptionAction, collectOption } from '../../../../store/voice/voiceSlice';
+import {
+  voiceOptionAction,
+  initVoiceOption,
+  collectOption,
+} from '../../../../store/voice/voiceSlice';
 import { useInputTextSynMutation } from '../../../../api/useApi';
 import { workingComponent } from '../../../../store/workingProject/projectControlSlice';
 
 function VoiceOption() {
   const { selectedModel, voiceOption, voiceData } = useAppSelector((state) => state.voice);
+  const { speed, pitch, durationSilence } = useAppSelector(
+    (state) => state.projectControl.projectData,
+  );
   const dispatch = useAppDispatch();
+
+  // 음성 옵션 초기값
+  useEffect(() => {
+    dispatch(
+      initVoiceOption({
+        speed,
+        pitch,
+        durationSilence,
+      }),
+    );
+  }, [speed]);
 
   // 도움말 핸들러
   const [optionGuide, setOptionGuide] = useState([false, false, false]);

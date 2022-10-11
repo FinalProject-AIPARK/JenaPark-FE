@@ -2,7 +2,6 @@ import { useCreateProjectMutation, useLogOutMutation } from '@/api/useApi';
 import { removeToken } from '@/store/Auth';
 import React, { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
-import { render } from 'react-dom';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '/images/Logo.png';

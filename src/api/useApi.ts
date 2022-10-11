@@ -45,6 +45,9 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    userInfo: builder.query<ReturnUserInfoType, null>({
+      query: () => '/api/v1/members',
+    }),
     // 히스토리
     getProjectHistoy: builder.query<ReturnProjectHistoryType, number>({
       query: () => ({
@@ -70,10 +73,25 @@ export const useApi = createApi({
         url: '/api/v1/projects/title ',
         method: 'POST',
         body: data,
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
-        },
+      }),
+    }),
+    editVideoTitle: builder.mutation<any, ActionEditVideoTitleType>({
+      query: (data) => ({
+        url: `/api/v1/projects/video/${data.videoId}`,
+        method: 'POST',
+        body: data.action,
+      }),
+    }),
+    deleteProject: builder.mutation<any, number>({
+      query: (projectId) => ({
+        url: `/api/v1/projects/${projectId}`,
+        method: 'DELETE',
+      }),
+    }),
+    deleteVideo: builder.mutation<any, number>({
+      query: (videoId) => ({
+        url: `/api/v1/projects/video/${videoId}`,
+        method: 'DELETE',
       }),
     }),
     // 개별 프로젝트 데이터
@@ -151,7 +169,7 @@ export const useApi = createApi({
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
         }
       })
-    })
+    }),
     
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
@@ -160,6 +178,12 @@ export const useApi = createApi({
     //     body: data,
     //   }),
     // }),
+    allListen: builder.query<ReturnAllListenType, ActionAllListenType>({
+      query: (id) => ({
+        url: `/api/v1/projects/${id}/audio`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -194,10 +218,14 @@ export const {
   useSignUpMutation,
   useLogOutMutation,
   useReissueTokenMutation,
+  useUserInfoQuery,
   // 히스토리
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
   useEditProjectTitleMutation,
+  useEditVideoTitleMutation,
+  useDeleteProjectMutation,
+  useDeleteVideoMutation,
   // 개별 프로젝트 데이터
   useGetProjectDataQuery,
   // AI 음성
@@ -210,6 +238,7 @@ export const {
   useGetBackgroundAvatarListQuery,
   usePostBackgroundAvatarListChooseMutation,
   usePostUploadBackgroundMutation,
+  useAllListenQuery,
 } = useApi;
 
 interface ActionSignUpType {
@@ -259,17 +288,33 @@ interface ReturnReissueTokenType {
   };
   error: [];
 }
+interface ReturnUserInfoType {
+  data: {
+    username: string;
+    email: string;
+    profileImg: string | null;
+    createDate: string;
+  };
+}
 // 히스토리
 interface ReturnProjectHistoryType {
   data: {
     historyProjects: {
       projectId: number;
       title: string;
-      thumbnail: null;
       createDate: string;
       modifiedDate: string;
     }[];
-    historyVideos: {};
+    historyVideos: {
+      videoId: number;
+      title: string;
+      thumbnail: null;
+      videoFileUrl: string;
+      createDate: string;
+      avatarUrl: string;
+      backgroundUrl: string;
+      downloadFileUrl: string;
+    }[];
   };
 }
 interface ReturnCreateProjectType {
@@ -297,6 +342,12 @@ interface ReturnCreateProjectType {
 interface ActionEditProjectTitleType {
   projectID: number;
   title: string;
+}
+interface ActionEditVideoTitleType {
+  videoId: number;
+  action: {
+    title: string;
+  };
 }
 // 개별 프로젝트 데이터
 interface ReturnProjectDataType {
@@ -469,3 +520,10 @@ interface BackgroundImgUpload {
   projectId: number,
 }
 
+interface ReturnAllListenType {
+  audioFileUrl: string;
+}
+
+interface ActionAllListenType {
+  projectId: number;
+}

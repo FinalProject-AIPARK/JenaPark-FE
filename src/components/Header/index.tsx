@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import * as S from '../../layout/HeaderStyle';
 import { useLocation } from 'react-router-dom';
 import RendingHeader from './RendingHeader';
-import ProjectVoiceHeader from './ProjectHeader/ProjectVoiceHeader';
 import ProjectHeader from './ProjectHeader';
 
 function Header() {
@@ -10,12 +8,20 @@ function Header() {
   const [state, setState] = useState('');
 
   useEffect(() => {
-    console.log(location);
+    // console.log(location);
     setState(location.pathname);
-    console.log(state);
-    console.log(state);
+    // console.log(state);
+    // console.log(state);
   }, [location]);
 
-  return <>{state === '/project' ? <ProjectHeader localstate={state} /> : <RendingHeader />}</>;
+  return (
+    <>
+      {state === '/project' ? (
+        <ProjectHeader localstate={state} />
+      ) : (
+        <ProjectHeader localstate={state} />
+      )}
+    </>
+  );
 }
 export default Header;
