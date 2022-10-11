@@ -51,7 +51,7 @@ export const useApi = createApi({
         url: '/api/v1/projects',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
         },
       }),
     }),
@@ -61,7 +61,7 @@ export const useApi = createApi({
         method: 'POST',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTEzMjU5Nn0.4JcujUICUQ2K8RvwpbzrIhCoSyhuVx1VxI9LVRTMwV4',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
         },
       }),
     }),
@@ -72,9 +72,13 @@ export const useApi = createApi({
         body: data,
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYnNydWFAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY2NTA2NTEwNH0.61-KN6pFMeShiKSGK9Tps8F37NXKpIAlOZtfB-WeBd0',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
         },
       }),
+    }),
+    // 개별 프로젝트 데이터
+    getProjectData: builder.query<ReturnProjectDataType, string>({
+      query: (projectId) => `/api/v1/projects/${projectId}`,
     }),
     // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
@@ -98,6 +102,7 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    // 아바타 Api
     getAvatarChooseList: builder.query<AvatarList, null>({
       query: (token) => ({
         url: '/api/v1/projects/avatar',
@@ -117,12 +122,13 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    // 배경 Api
     getBackgroundAvatarList: builder.query<BackgroundAvatar, null>({
       query: () => ({
         url: '/api/v1/projects/background',
         method: 'GET',
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1Mzg4MTMyfQ.ha2f8lcpK5z9hH73MtpeF43I4BUiRsenlskOpn7m_7E'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
         }
       })
     }),
@@ -132,7 +138,7 @@ export const useApi = createApi({
         method: 'POST',
         body: data,
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1Mzg4MTMyfQ.ha2f8lcpK5z9hH73MtpeF43I4BUiRsenlskOpn7m_7E'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
         }
       })
     }),
@@ -141,6 +147,9 @@ export const useApi = createApi({
         url: `/api/v1/projects/${data.projectId}/background/upload`,
         method: 'POST',
         body: data.formData,
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+        }
       })
     })
     
@@ -189,6 +198,8 @@ export const {
   useGetProjectHistoyQuery,
   useCreateProjectMutation,
   useEditProjectTitleMutation,
+  // 개별 프로젝트 데이터
+  useGetProjectDataQuery,
   // AI 음성
   useUploadVoiceMutation,
   useGetVoiceModelMutation,
@@ -286,6 +297,29 @@ interface ReturnCreateProjectType {
 interface ActionEditProjectTitleType {
   projectID: number;
   title: string;
+}
+// 개별 프로젝트 데이터
+interface ReturnProjectDataType {
+  data: {
+    projectId: number;
+    title: string;
+    sex: string;
+    lang: string;
+    speed: number;
+    pitch: number;
+    volume: number;
+    durationSilence: number;
+    backgroundUrl: string;
+    audioUpload: boolean;
+    audioMerge: boolean;
+    audioFileOriginName: string | null;
+    audioFileUrl: string | null;
+    avatarUrl: string | null;
+    checkText: boolean;
+    checkAudio: boolean;
+    checkAvatar: boolean;
+    audioInfos: [];
+  };
 }
 // AI 음성
 interface ActionUploadVoiceType {
@@ -426,12 +460,11 @@ interface BackgroundId {
 }
 
 interface BackgroundUpload {
-  data: {},
+  data: string,
   message: string,
 }
 
 interface BackgroundImgUpload {
-  data: {}
   formData: FormData,
   projectId: number,
 }
