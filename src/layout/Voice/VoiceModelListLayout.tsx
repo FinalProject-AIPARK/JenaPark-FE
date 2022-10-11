@@ -18,6 +18,7 @@ function VoiceModelListLayout({
   selectModel,
   audioFile,
   moveToAvartar,
+  prevUpload,
 }: VoiceModelLayoutProps) {
   // 재생 도중 다른 음성을 재생했을때 버튼에 직접적으로 자신 정지 동작하기
   // 재생, 일시정지 버튼으로 onOff 값이 바뀔떄마다 useEffect 동작
@@ -33,7 +34,7 @@ function VoiceModelListLayout({
   return (
     <>
       <ListBox>
-        {audioFile.length > 0 ? (
+        {audioFile.length > 0 || prevUpload ? (
           <UploadGuideBox>
             <span>
               음성 업로드가 되었습니다.
@@ -119,7 +120,7 @@ function VoiceModelListLayout({
         )}
       </ListBox>
       <div>
-        {audioFile.length > 0 ? (
+        {audioFile.length > 0 || prevUpload ? (
           <ButtonStyle
             onClick={moveToAvartar}
             backColor="#fff"
@@ -146,6 +147,7 @@ function VoiceModelListLayout({
 }
 
 interface VoiceModelLayoutProps {
+  prevUpload: string;
   voiceModel: ReturnVoiceModelType;
   inputModel: (M: voiceModeltypes) => void;
   modelNameColor: string;
