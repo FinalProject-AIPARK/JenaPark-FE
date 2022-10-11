@@ -106,9 +106,11 @@ function HistoryProjectLayout({
               </TextStyle>
             </ProjectCard>
           ))}
-          {projectEmpty.map((item) => (
-            <EmptyBox key={item}></EmptyBox>
-          ))}
+          <EmptyContain>
+            {projectEmpty.map((item) => (
+              <EmptyBox key={item}></EmptyBox>
+            ))}
+          </EmptyContain>
         </ListBox>
         <BackgroundBox></BackgroundBox>
       </ProjectListBox>
@@ -197,13 +199,16 @@ const Button = styled.button<ButtonProps>`
 const ProjectListBox = styled.div`
   width: 100%;
   height: 18.75rem;
-  position: relative;
-`;
-const ListBox = styled.div`
   display: flex;
   align-items: center;
-  position: absolute;
+  position: relative;
   padding: 1rem;
+`;
+const ListBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 const ProjectCard = styled.div`
   background-color: #fff;
@@ -228,12 +233,19 @@ const DeleteButton = styled.button`
   right: 0.8rem;
   opacity: 0.6;
 `;
+const EmptyContain = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+`;
 const EmptyBox = styled.div`
   background-color: #fff;
   width: 11rem;
   height: 13.13rem;
   border-radius: 0.63rem;
-  margin-left: 3rem;
+  margin: 0 1.5rem;
   opacity: 0.3;
 `;
 const EditInput = styled.input`
