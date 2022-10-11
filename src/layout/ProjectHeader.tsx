@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useVideoSynthesisQuery } from '@/api/useApi';
+import { useAppSelector, useAppDispatch } from '@/store/store';
 import SoundPlayer from './SoundPlayer';
 import styled from 'styled-components';
 import leftarrow from '/images/arrow-ios-left.png';
@@ -8,6 +10,22 @@ import videoimage from '/images/video.png';
 import voiceimage from '/images/music.png';
 
 function ProjectHeader() {
+  const [videoId, setVideoId] = useState(0);
+
+  function ClickSynthesis() {
+    setVideoId(projectId);
+  }
+
+  const { projectId } = useAppSelector((state) => state.projectControl.projectData);
+
+  const { data: VideoSynthesis } = useVideoSynthesisQuery(projectId);
+
+  useEffect(() => {
+    if (VideoSynthesis!.result === 'success') {
+      window.location.href = '/history';
+    }
+  }, [VideoSynthesis]);
+
   return (
     <>
       <ProjectHeaderContainer>
@@ -34,7 +52,7 @@ function ProjectHeader() {
             </a>
             <VoiceImage />
           </DownloadButton>
-          <DownloadButton onClick={() => alert('프로젝트를 저장 후 다운로드를 진행해주세요')}>
+          <DownloadButton onClick={ClickSynthesis}>
             영상 합성하기
             <VideoImage />
           </DownloadButton>

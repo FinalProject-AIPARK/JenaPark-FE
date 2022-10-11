@@ -137,6 +137,12 @@ export const useApi = createApi({
         method: 'GET',
       }),
     }),
+    videoSynthesis: builder.query<ReturnvideoSynthesisType, number>({
+      query: (id) => ({
+        url: `/api/v1/projects/${id}/video`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -189,6 +195,7 @@ export const {
   usePostCreateAvatarMutation,
   useInputTextSynMutation,
   useAllListenQuery,
+  useVideoSynthesisQuery,
 } = useApi;
 
 interface ActionSignUpType {
@@ -432,6 +439,10 @@ interface ReturnAllListenType {
   audioFileUrl: string;
 }
 
-interface ActionAllListenType {
-  projectId: number;
+interface ReturnvideoSynthesisType {
+  state: number;
+  result: string;
+  message: string;
+  data: [];
+  error: [];
 }
