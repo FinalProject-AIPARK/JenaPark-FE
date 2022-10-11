@@ -106,12 +106,13 @@ function HistoryProjectLayout({
               </TextStyle>
             </ProjectCard>
           ))}
-          <EmptyContain>
-            {projectEmpty.map((item) => (
-              <EmptyBox key={item}></EmptyBox>
-            ))}
-          </EmptyContain>
         </ListBox>
+        <EmptyContain>
+          {projectEmpty.map((item) => (
+            <EmptyBox key={item}></EmptyBox>
+          ))}
+        </EmptyContain>
+
         <BackgroundBox></BackgroundBox>
       </ProjectListBox>
     </Container>
@@ -205,9 +206,8 @@ const ProjectListBox = styled.div`
   padding: 1rem;
 `;
 const ListBox = styled.div`
-  width: 100%;
+  flex-grow: 1;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 `;
 const ProjectCard = styled.div`
@@ -234,11 +234,11 @@ const DeleteButton = styled.button`
   opacity: 0.6;
 `;
 const EmptyContain = styled.div`
+  flex-shirink: 0;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
 `;
 const EmptyBox = styled.div`
   background-color: #fff;
