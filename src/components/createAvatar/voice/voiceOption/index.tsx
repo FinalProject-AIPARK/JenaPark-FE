@@ -6,12 +6,12 @@ import { useAppSelector, useAppDispatch } from '../../../../store/store';
 import {
   voiceOptionAction,
   initVoiceOption,
-  callProjectDataAction,
   collectOption,
   inputSynthAction,
 } from '../../../../store/voice/voiceSlice';
 import { useInputTextSynMutation } from '../../../../api/useApi';
 import {
+  callProjectDataAction,
   workingComponent,
   InputTextSynthLoadingAction,
   InputTextSynthErrorAction,
