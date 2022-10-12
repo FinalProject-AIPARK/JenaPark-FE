@@ -52,12 +52,20 @@ export const useApi = createApi({
     getProjectHistoy: builder.query<ReturnProjectHistoryType, number>({
       query: () => ({
         url: '/api/v1/projects',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
+        },
       }),
     }),
     createProject: builder.mutation<ReturnCreateProjectType, ''>({
       query: () => ({
         url: '/api/v1/projects',
         method: 'POST',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
+        },
       }),
     }),
     editProjectTitle: builder.mutation<any, ActionEditProjectTitleType>({
@@ -112,6 +120,7 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    // 아바타 Api
     getAvatarChooseList: builder.query<AvatarList, null>({
       query: (token) => ({
         url: '/api/v1/projects/avatar',
@@ -131,6 +140,47 @@ export const useApi = createApi({
         body: data,
       }),
     }),
+    // 배경 Api
+    getBackgroundAvatarList: builder.query<BackgroundAvatar, null>({
+      query: () => ({
+        url: '/api/v1/projects/background',
+        method: 'GET',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc',
+        },
+      }),
+    }),
+    postBackgroundAvatarListChoose: builder.mutation<BackgroundChoose, BackgroundId>({
+      query: ({ data, projectId, backgroundId }) => ({
+        url: `/api/v1/projects/${projectId}/background/${backgroundId}`,
+        method: 'POST',
+        body: data,
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc',
+        },
+      }),
+    }),
+    postUploadBackground: builder.mutation<BackgroundUpload, BackgroundImgUpload>({
+      query: (data) => ({
+        url: `/api/v1/projects/${data.projectId}/background/upload`,
+        method: 'POST',
+        body: data.formData,
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc',
+        },
+      }),
+    }),
+
+    // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+    //   query: (data) => ({
+    //     url: '/api/v1/audio/sample',
+    //     method: 'GET',
+    //     body: data,
+    //   }),
+    // }),
     allListen: builder.query<ReturnAllListenType, number>({
       query: (id) => ({
         url: `/api/v1/projects/${id}/audio`,
@@ -194,6 +244,9 @@ export const {
   useGetAvatarChooseListIdQuery,
   usePostCreateAvatarMutation,
   useInputTextSynMutation,
+  useGetBackgroundAvatarListQuery,
+  usePostBackgroundAvatarListChooseMutation,
+  usePostUploadBackgroundMutation,
   useAllListenQuery,
   useVideoSynthesisQuery,
 } = useApi;
@@ -438,6 +491,48 @@ interface ActionInpTextSynthesisType {
   speed: number;
   text: string;
 }
+
+interface BackgroundAvatar {
+  message: string;
+  data: {
+    backgroundDefaults: [
+      {
+        bgId: number;
+        bgName: string;
+        bgUrl: string;
+      },
+    ];
+    backgroundUploads: [
+      {
+        bgId: number;
+        bgName: string;
+        bgUrl: string;
+      },
+    ];
+  };
+}
+
+interface BackgroundChoose {
+  data: string;
+  message: string;
+}
+
+interface BackgroundId {
+  projectId: number;
+  backgroundId: number;
+  data: any;
+}
+
+interface BackgroundUpload {
+  data: string;
+  message: string;
+}
+
+interface BackgroundImgUpload {
+  formData: FormData;
+  projectId: number;
+}
+
 interface ReturnAllListenType {
   audioFileUrl: string;
 }
