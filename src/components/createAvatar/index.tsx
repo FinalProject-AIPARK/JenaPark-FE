@@ -4,6 +4,7 @@ import Navbar from './navbar';
 import Voice from './voice';
 import Avatar from './avatar/index';
 import Header from '../Header';
+import Footer from '../Footer/ProjectFooter';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import Contents from './contents';
 import { useGetProjectDataQuery } from '@/api/useApi';
@@ -46,6 +47,7 @@ function CreateAvatar() {
         <Contents />
         {isVoiceWoking ? <Voice /> : <Avatar />}
       </Contain>
+      <Footer />
     </>
   );
 }

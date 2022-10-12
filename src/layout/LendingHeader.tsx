@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '/images/Logo.png';
 
-function RendingHeader() {
+function LendingHeader() {
   const cookies = new Cookies();
   const [requestLogOut] = useLogOutMutation();
   const accessToken = cookies.get('accessToken');
@@ -36,11 +36,11 @@ function RendingHeader() {
 
   return (
     <>
-      <RendingHeaderContainer>
-        <Link to="/rendingpage">
+      <LendingHeaderContainer>
+        <Link to="/lendingpage">
           <LogoImage />
         </Link>
-        <div>
+        <ButtonContainer>
           <div onClick={createProjectHandler}>
             <CProjectButton>프로젝트 생성</CProjectButton>
           </div>
@@ -54,18 +54,22 @@ function RendingHeader() {
               <SignButton>로그인</SignButton>
             </Link>
           )}
-        </div>
-      </RendingHeaderContainer>
+        </ButtonContainer>
+      </LendingHeaderContainer>
     </>
   );
 }
 
-const RendingHeaderContainer = styled.div`
+const LendingHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
 `;
 
 const LogoImage = styled.img.attrs({
@@ -102,4 +106,4 @@ const SignButton = styled.button`
   cursor: pointer;
 `;
 
-export default RendingHeader;
+export default LendingHeader;

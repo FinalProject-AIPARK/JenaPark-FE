@@ -1,27 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import styled from 'styled-components';
 import playbutton from '/images/play-circle.png';
 import stopbutton from '/images/stop-circle.png';
-import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 import { useAllListenQuery } from '@/api/useApi';
+import { useAppSelector, useAppDispatch } from '@/store/store';
 
 function SoundPlayer(this: any) {
-  const [sound, setSound] = useState('');
+  const { projectId } = useAppSelector((state) => state.projectControl.projectData);
   const player: React.MutableRefObject<any> = useRef();
 
-  // const { data: allSound } = useAllListenQuery(id);
-  // const [audioUrl, setAudioUrl] = useState({
-  //   audioFileUrl: '',
-  // });
-  // useEffect(() => {
-  //   if (allSound) setAudioUrl(allSound);
-  // }, [allSound]);
-  // function Listen(id) {
-  //   console.log('play');
-  // }
+  const { data: allSound } = useAllListenQuery(projectId);
+  const [audioUrl, setAudioUrl] = useState({
+    audioFileUrl: '',
+  });
+
+  useEffect(() => {
+    if (allSound) setAudioUrl(allSound);
+  }, [allSound]);
 
   const [isPlay, setIsplay] = useState(false);
   function audiofunction() {
@@ -43,7 +40,7 @@ function SoundPlayer(this: any) {
         }}
       />
       <AudioPlayer
-        src="https://jenapark.s3.ap-northeast-2.amazonaws.com/audio/sample/kor_w_1.wav"
+        src={allSound}
         autoPlay={false}
         layout="horizontal-reverse"
         // onPlay={Listen}
