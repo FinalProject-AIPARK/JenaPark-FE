@@ -62,9 +62,9 @@ export default function SignInForm() {
             <label>비밀번호</label>
             <div className="toggleShowPw">
               {showPassword ? (
-                <img src="/icon/showPassword.svg" onClick={toggleShowPassword}></img>
+                <img src="/showPassword.svg" onClick={toggleShowPassword}></img>
               ) : (
-                <img src="/icon/hidePassword.svg" onClick={toggleShowPassword}></img>
+                <img src="/hidePassword.svg" onClick={toggleShowPassword}></img>
               )}
             </div>
             {errors.password && <p>{errors.password.message}</p>}

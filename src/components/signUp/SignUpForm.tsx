@@ -85,9 +85,9 @@ export default function SignUpForm() {
               <label>비밀번호</label>
               <div className="toggleShowPw">
                 {showPassword ? (
-                  <img src="/icon/showPassword.svg" onClick={toggleShowPassword}></img>
+                  <img src="/showPassword.svg" onClick={toggleShowPassword}></img>
                 ) : (
-                  <img src="/icon/hidePassword.svg" onClick={toggleShowPassword}></img>
+                  <img src="/hidePassword.svg" onClick={toggleShowPassword}></img>
                 )}
               </div>
               <span>{errors?.password?.message}</span>
@@ -106,9 +106,9 @@ export default function SignUpForm() {
               <label>비밀번호 확인</label>
               <div className="toggleShowPw">
                 {showConfirmPassword ? (
-                  <img src="/icon/showPassword.svg" onClick={toggleShowConfirmPassword}></img>
+                  <img src="/showPassword.svg" onClick={toggleShowConfirmPassword}></img>
                 ) : (
-                  <img src="/icon/hidePassword.svg" onClick={toggleShowConfirmPassword}></img>
+                  <img src="/hidePassword.svg" onClick={toggleShowConfirmPassword}></img>
                 )}
               </div>
               <span>{errors?.confirmPassword?.message}</span>
