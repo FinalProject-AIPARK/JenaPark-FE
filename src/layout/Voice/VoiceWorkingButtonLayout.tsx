@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 
 const VoiceWorkingButtonLayout = memo(
-  ({ modelButton, OptionButton, modelOn, optionOn }: VoiceWorkingButtonLayoutProps) => {
+  ({ modelButton, OptionButton, modelOn, optionOn, audioMerge }: VoiceWorkingButtonLayoutProps) => {
     return (
       <ButtonBox>
         <Button
@@ -14,7 +14,9 @@ const VoiceWorkingButtonLayout = memo(
           음성 선택
         </Button>
         <Button
-          onClick={OptionButton}
+          onClick={() => {
+            audioMerge ? null : OptionButton();
+          }}
           marginLeft="1.1rem"
           borderColor={optionOn ? 'none' : '1px solid #BDBDBD'}
           backColor={optionOn ? '#fff' : 'transparent'}
@@ -32,6 +34,7 @@ interface VoiceWorkingButtonLayoutProps {
   OptionButton: () => void;
   modelOn: boolean;
   optionOn: boolean;
+  audioMerge: boolean;
 }
 interface ButtonProps {
   marginLeft?: string;

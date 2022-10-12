@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: calc(100vh - 78.063px); // 100vh - header height
+  height: calc(100vh - 136px); // 100vh - header height
   display: flex;
   align-items: center;
   position: relative;
@@ -43,13 +43,9 @@ export const Container = styled.div`
     .signInput {
       position: relative;
       width: 500px;
-      /* margin: auto; */
       margin-bottom: 48px;
 
       input {
-        /* position: relative; */
-        /* top: 0;
-        left: 0; */
         width: 100%;
         font-size: 18px;
         letter-spacing: 0.1rem;
@@ -67,10 +63,10 @@ export const Container = styled.div`
         font-size: 18px;
       }
 
-      /* input:focus + label,
+      input:focus + label,
       input:valid + label {
         top: -20px;
-      } */
+      }
 
       .toggleShowPw {
         position: absolute;

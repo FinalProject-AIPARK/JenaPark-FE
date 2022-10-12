@@ -14,21 +14,8 @@ import { workingComponent } from '../../../../store/workingProject/projectContro
 
 function VoiceOption() {
   const { selectedModel, voiceOption, voiceData } = useAppSelector((state) => state.voice);
-  const { speed, pitch, durationSilence } = useAppSelector(
-    (state) => state.projectControl.projectData,
-  );
-  const dispatch = useAppDispatch();
 
-  // 음성 옵션 초기값
-  useEffect(() => {
-    dispatch(
-      initVoiceOption({
-        speed,
-        pitch,
-        durationSilence,
-      }),
-    );
-  }, [speed]);
+  const dispatch = useAppDispatch();
 
   // 도움말 핸들러
   const [optionGuide, setOptionGuide] = useState([false, false, false]);

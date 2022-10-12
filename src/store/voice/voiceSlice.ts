@@ -60,6 +60,17 @@ export const voiceSlice = createSlice({
       state.voiceData.sex = action.payload.sex;
       state.voiceData.lang = action.payload.lang;
     },
+    initVoiceModel: (state, action) => {
+      state.voiceData.projectID = action.payload.projectId;
+      state.voiceData.sex = action.payload.sex;
+      state.voiceData.lang = action.payload.lang;
+      state.voiceData.avatarName = action.payload.name;
+      state.selectedModel.name = action.payload.name;
+      state.selectedModel.audioUrl = action.payload.url;
+    },
+    initModelColor: (state, action) => {
+      state.selectedModel.nameColor = action.payload;
+    },
     selectedModel: (state, action) => {
       // 컬러와 url
       state.selectedModel.nameColor = action.payload.color;
@@ -69,12 +80,15 @@ export const voiceSlice = createSlice({
       switch (action.payload.id) {
         case '음성 속도':
           state.voiceOption.speed = action.payload.value;
+          state.voiceData.speed = action.payload.value;
           break;
         case '톤 조절':
           state.voiceOption.tone = action.payload.value;
+          state.voiceData.pitch = action.payload.value;
           break;
         case '호흡 조절':
           state.voiceOption.duration = action.payload.value;
+          state.voiceData.durationSilence = action.payload.value;
         default:
           return;
       }
@@ -103,6 +117,8 @@ export const {
   voiceModelWorking,
   voiceOptionWorking,
   getProjectId,
+  initVoiceModel,
+  initModelColor,
   selectedModel,
   voiceOptionAction,
   initVoiceOption,

@@ -7,33 +7,6 @@ import CreateAvatar from '@/pages/CreateAvatar';
 import History from '@/pages/HistoryPage';
 import MyPage from '@/pages/MyPage';
 function App() {
-  // if (false) {
-  //   return (
-  //     <BrowserRouter>
-  //       <Routes>
-  //         <Route path="*" element={<NotFound />} />
-  //         <Route path="/" element={<Home />} />
-  //         <Route path="/signin" element={<SignIn />} />
-  //         <Route path="/signup" element={<SignUp />} />
-  //       </Routes>
-  //     </BrowserRouter>
-  //   );
-  // } else {
-  //   return (
-  //     <BrowserRouter>
-  //       <Routes>
-  //         <Route path="/mypage" element={<MyPage />} />
-  //         <Route path="/signin" element={<SignIn />} />
-  //         <Route path="/signup" element={<SignUp />} />
-  //         <Route path="*" element={<NotFound />} />
-  //         <Route path="/" element={<Home />} />
-  //         <Route path="/history" element={<History />} />
-  //         <Route path="/project/:projectId" element={<CreateAvatar />} />
-  //       </Routes>
-  //     </BrowserRouter>
-  //   );
-  // }
-
   return (
     <BrowserRouter>
       <Routes>

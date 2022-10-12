@@ -57,9 +57,9 @@ export const {
   avatarOptionWorking,
   avatarModelKindSelect,
   avatarModelKindReset,
+  avatarProjectId,
   avatarChooseDataUrl,
   avatarOptionDataUrl,
-  avatarProjectId,
 } = avatarSlice.actions;
 
 export const avatarReducer = avatarSlice.reducer;

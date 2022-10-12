@@ -11,7 +11,7 @@ const VoiceOptionTitleLayout = memo(({ selectedModel }: VoiceOptionTitleProps) =
   const [onOff, setOnOff] = useState(false);
   const player: React.MutableRefObject<any> = useRef([]);
   useEffect(() => {
-    if (selectedModel.nameColor.length > 0) {
+    if (selectedModel.nameColor.length) {
       // 선택 재생
       onOff ? player.current.audio.current.play() : player.current.audio.current.pause();
     }
@@ -38,7 +38,7 @@ const VoiceOptionTitleLayout = memo(({ selectedModel }: VoiceOptionTitleProps) =
           </GuideTextBox>
         ) : null}
       </TitleBox>
-      {selectedModel.nameColor.length > 0 ? (
+      {selectedModel.nameColor.length ? (
         <ModelCardBox border="#0DFF1E" shadow="#0DFF1E">
           <ModelNameBox backColor={selectedModel.nameColor}>
             <ModelName>{selectedModel.name}</ModelName>

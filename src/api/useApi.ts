@@ -95,7 +95,7 @@ export const useApi = createApi({
       }),
     }),
     // 개별 프로젝트 데이터
-    getProjectData: builder.query<ReturnProjectDataType, string>({
+    getProjectData: builder.query<ReturnProjectDataType, number>({
       query: (projectId) => `/api/v1/projects/${projectId}`,
     }),
     // AI 음성
@@ -146,19 +146,21 @@ export const useApi = createApi({
         url: '/api/v1/projects/background',
         method: 'GET',
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw'
-        }
-      })
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc',
+        },
+      }),
     }),
     postBackgroundAvatarListChoose: builder.mutation<BackgroundChoose, BackgroundId>({
-      query: ({data, projectId, backgroundId}) => ({
+      query: ({ data, projectId, backgroundId }) => ({
         url: `/api/v1/projects/${projectId}/background/${backgroundId}`,
         method: 'POST',
         body: data,
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw'
-        }
-      })
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc',
+        },
+      }),
     }),
     postUploadBackground: builder.mutation<BackgroundUpload, BackgroundImgUpload>({
       query: (data) => ({
@@ -178,7 +180,6 @@ export const useApi = createApi({
         body: data
       })
     }),
-    
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
     //     url: '/api/v1/audio/sample',
@@ -186,9 +187,15 @@ export const useApi = createApi({
     //     body: data,
     //   }),
     // }),
-    allListen: builder.query<ReturnAllListenType, ActionAllListenType>({
+    allListen: builder.query<ReturnAllListenType, number>({
       query: (id) => ({
         url: `/api/v1/projects/${id}/audio`,
+        method: 'GET',
+      }),
+    }),
+    videoSynthesis: builder.query<ReturnvideoSynthesisType, number>({
+      query: (id) => ({
+        url: `/api/v1/projects/${id}/video`,
         method: 'GET',
       }),
     }),
@@ -247,6 +254,7 @@ export const {
   usePostBackgroundAvatarListChooseMutation,
   usePostUploadBackgroundMutation,
   useAllListenQuery,
+  useVideoSynthesisQuery,
 } = useApi;
 
 interface ActionSignUpType {
@@ -377,6 +385,7 @@ interface ReturnProjectDataType {
     checkText: boolean;
     checkAudio: boolean;
     checkAvatar: boolean;
+    downloadAudioUrl: null;
     audioInfos: [];
   };
 }
@@ -489,28 +498,28 @@ interface ActionInpTextSynthesisType {
   text: string;
 }
 interface BackgroundAvatar {
-  message: string
+  message: string;
   data: {
     backgroundDefaults: [
       {
-        bgId: number,
-        bgName: string,
-        bgUrl: string
-      }
-    ]
+        bgId: number;
+        bgName: string;
+        bgUrl: string;
+      },
+    ];
     backgroundUploads: [
       {
-        bgId: number,
-        bgName: string,
-        bgUrl: string
-    }
-    ]
-  }
+        bgId: number;
+        bgName: string;
+        bgUrl: string;
+      },
+    ];
+  };
 }
 
 interface BackgroundChoose {
-  data : string,
-  message: string,
+  data: string;
+  message: string;
 }
 
 interface BackgroundId {
@@ -520,20 +529,24 @@ interface BackgroundId {
 }
 
 interface BackgroundUpload {
-  data: string,
-  message: string,
+  data: string;
+  message: string;
 }
 
 interface BackgroundImgUpload {
-  formData: FormData,
-  projectId: number,
+  formData: FormData;
+  projectId: number;
 }
 
 interface ReturnAllListenType {
   audioFileUrl: string;
 }
-interface ActionAllListenType {
-  projectId: number;
+interface ReturnvideoSynthesisType {
+  state: number;
+  result: string;
+  message: string;
+  data: [];
+  error: [];
 }
 // 텍스트 수정
 
