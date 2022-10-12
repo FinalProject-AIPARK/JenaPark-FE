@@ -38,12 +38,14 @@ function CreateAvatar() {
   }, [speed]);
 
   // 음성 작업 파트 구분
-  const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
+  const { isVoiceWoking, isInputTextSynthLoading } = useAppSelector(
+    (state) => state.projectControl.elementData,
+  );
 
   return (
     <>
       {isError ? <ErrorBigLayout errorData={error!} /> : null}
-      {isLoading ? <LoadingBigLayout /> : null}
+      {isLoading || isInputTextSynthLoading ? <LoadingBigLayout /> : null}
       <Header />
       <Contain>
         <div>

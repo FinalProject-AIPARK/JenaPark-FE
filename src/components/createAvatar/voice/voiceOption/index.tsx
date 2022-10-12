@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import VoiceOptionDetailLayout from '@/layout/Voice/VoiceOptionDetailLayout';
 import VoiceOptionTitleLayout from '@/layout/Voice/VoiceOptionTitleLayout';
@@ -10,7 +10,12 @@ import {
   inputSynthAction,
 } from '../../../../store/voice/voiceSlice';
 import { useInputTextSynMutation } from '../../../../api/useApi';
-import { workingComponent } from '../../../../store/workingProject/projectControlSlice';
+import {
+  workingComponent,
+  InputTextSynthLoadingAction,
+} from '../../../../store/workingProject/projectControlSlice';
+import ErrorBigLayout from '@/layout/ErrorBigLayout';
+import LoadingBigLayout from '@/layout/LoadingBigLayout';
 
 function VoiceOption() {
   const { selectedModel, voiceOption, voiceData } = useAppSelector((state) => state.voice);
@@ -62,7 +67,7 @@ function VoiceOption() {
   }
 
   // 일괄 적용하기
-  const [synthesis, { data: resSynth }] = useInputTextSynMutation();
+  const [synthesis, { data: resSynth, isLoading, isError, error }] = useInputTextSynMutation();
   function requestVoice() {
     // 슬라이스 넣기
     dispatch(collectOption());
@@ -75,6 +80,11 @@ function VoiceOption() {
       dispatch(workingComponent());
     }
   }, [resSynth]);
+  useMemo(() => {
+    isLoading
+      ? dispatch(InputTextSynthLoadingAction(true))
+      : dispatch(InputTextSynthLoadingAction(false));
+  }, [isLoading]);
 
   return (
     <Container>

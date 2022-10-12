@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   elementData: {
     isVoiceWoking: true,
+    isInputTextSynthLoading: false,
   },
   projectData: {
     projectId: 0,
@@ -43,9 +44,13 @@ export const projectControlSlice = createSlice({
     getData: (state, action) => {
       state.projectData = action.payload;
     },
+    InputTextSynthLoadingAction: (state, action) => {
+      state.elementData.isInputTextSynthLoading = action.payload;
+    },
   },
 });
 
-export const { workingComponent, moveToAvatar, getData } = projectControlSlice.actions;
+export const { workingComponent, moveToAvatar, getData, InputTextSynthLoadingAction } =
+  projectControlSlice.actions;
 
 export const projectControlReducer = projectControlSlice.reducer;
