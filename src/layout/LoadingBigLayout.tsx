@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import LoadingAnimationBlue from '@/layout/LoadingAnimationBlue';
+import LoadingAnimation from './BigLoadingAnimation';
 
 function LoadingBigLayout() {
   return (
     <LoadingContain>
       <LoadingBox>
-        <LoadingAnimationBlue ballSize="4rem" />
+        <LoadingAnimation />
       </LoadingBox>
       <Background />
     </LoadingContain>
