@@ -12,6 +12,11 @@ function ErrorBigLayout({ errorData }: HistoryErrorProps) {
     case 400:
       alert(errorData.data.message);
       window.location.href = '/history';
+      break;
+    case 401:
+      alert(errorData.data.message);
+      window.location.href = '/';
+      break;
     default:
       alert(errorData.data.error);
   }
