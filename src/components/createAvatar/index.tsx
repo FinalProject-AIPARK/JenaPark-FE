@@ -30,7 +30,7 @@ function CreateAvatar() {
     });
     console.log('카운트');
   }, [callProjectData]);
-  const { data: projectData } = useGetProjectDataQuery(getProjectData);
+  const { data: projectData, isLoading, isError, error } = useGetProjectDataQuery(getProjectData);
 
   useMemo(() => {
     if (projectData) {

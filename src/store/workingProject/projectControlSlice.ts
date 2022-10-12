@@ -64,7 +64,7 @@ export const projectControlSlice = createSlice({
 });
 
 export const {
-callProjectDataAction
+  callProjectDataAction,
   workingComponent,
   moveToAvatar,
   getData,
