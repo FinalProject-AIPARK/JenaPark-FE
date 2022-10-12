@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-function HistoryErrorLayout({ error }: HistoryErrorProps) {
-  // if (error.data) alert(error.data.message);
-
-  console.log(error);
-  // window.location.href = '/';
+function HistoryErrorLayout({ errorData }: HistoryErrorProps) {
+  // 타입 에러..해결이 안됨 추후에 수정할 예정
+  switch (errorData.status) {
+    case 500:
+      alert('해당 회원을 찾을 수 없습니다.');
+      break;
+    default:
+      alert(errorData.data.error);
+  }
+  window.location.href = '/';
   return (
     <LoadingContain>
-      <button style={{ zIndex: '3' }} onClick={() => console.log(error)}>
-        aswegsdgas
-      </button>
       <Background />
     </LoadingContain>
   );
@@ -22,9 +24,11 @@ interface SerializedError {
   message?: string;
   stack?: string;
   code?: string;
+  data?: { error: string };
+  status?: number;
 }
 interface HistoryErrorProps {
-  error: FetchBaseQueryError | SerializedError;
+  errorData: FetchBaseQueryError | SerializedError;
 }
 
 const LoadingContain = styled.div`

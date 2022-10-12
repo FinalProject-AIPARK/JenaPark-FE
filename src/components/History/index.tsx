@@ -223,7 +223,7 @@ function History() {
 
   return (
     <Container>
-      {errorProject ? <HistoryErrorLayout error={error} /> : null}
+      {errorProject ? <HistoryErrorLayout errorData={error!} /> : null}
       {loadingProject ? <HistoryLoadingLayout /> : null}
       <Header></Header>
       <div style={{ height: 'calc(100vh - 10.06rem)' }}>
