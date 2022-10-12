@@ -183,7 +183,8 @@ const Flex = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-  height: 39vh;
+  height: 43vh;
+  position: relative;
 `;
 
 const Container = styled.div<{ bgSlideIndex: number }>`
@@ -318,6 +319,8 @@ const SubButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #091547;
+  position: absolute;
+  bottom: 10px;
 `;
 
 const SubButton = styled.button`
