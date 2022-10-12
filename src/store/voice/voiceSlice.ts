@@ -25,6 +25,18 @@ const initialState = {
     tone: 0,
     duration: 0.5,
   },
+  inputTextSynth: [
+    {
+      audioId: 0,
+      lineNumber: 0,
+      splitText: '',
+      audioFileUrl: '',
+      durationSilence: 0,
+      pitch: 0,
+      speed: 0,
+      volume: 0,
+    },
+  ],
 };
 
 export const voiceSlice = createSlice({
@@ -80,6 +92,9 @@ export const voiceSlice = createSlice({
     inputText: (state, action) => {
       state.voiceData.text = action.payload;
     },
+    inputSynthAction: (state, action) => {
+      state.inputTextSynth = action.payload;
+    },
   },
 });
 
@@ -93,6 +108,7 @@ export const {
   initVoiceOption,
   collectOption,
   inputText,
+  inputSynthAction,
 } = voiceSlice.actions;
 
 export const voiceReducer = voiceSlice.reducer;
