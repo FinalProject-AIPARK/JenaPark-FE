@@ -20,13 +20,13 @@ function ProjectHeader() {
     (state) => state.projectControl.projectData,
   );
 
-  const { data: VideoSynthesis } = useVideoSynthesisQuery(projectId);
+  // const { data: VideoSynthesis } = useVideoSynthesisQuery(projectId);
 
-  useEffect(() => {
-    if (VideoSynthesis!.result === 'success') {
-      window.location.href = '/history';
-    }
-  }, [VideoSynthesis]);
+  // useEffect(() => {
+  //   if (VideoSynthesis!.result === 'success') {
+  //     window.location.href = '/history';
+  //   }
+  // }, [VideoSynthesis]);
 
   return (
     <>
