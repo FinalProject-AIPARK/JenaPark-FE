@@ -13,6 +13,7 @@ import {
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
+import Header from '@/components/Header/ProjectHeader';
 
 function History() {
   // 빈 박스
@@ -225,7 +226,7 @@ function History() {
     <Container>
       {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
       {loadingProject ? <LoadingBigLayout /> : null}
-      <Header></Header>
+      <Header />
       <div style={{ height: 'calc(100vh - 10.06rem)' }}>
         <HistoryProjectLayout
           projectList={projectList}
@@ -270,9 +271,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-`;
-const Header = styled.div`
-  height: 4.5rem;
 `;
 
 export default History;

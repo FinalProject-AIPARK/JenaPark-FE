@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Navbar from './navbar';
 import Voice from './voice';
 import Avatar from './avatar/index';
-import Header from '../Header';
+import Header from '../Header/ProjectHeader';
 import Footer from '../Footer/ProjectFooter';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import Contents from './contents';
