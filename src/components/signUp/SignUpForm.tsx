@@ -57,6 +57,7 @@ export default function SignUpForm() {
 
             <article>
               <input
+                className={errors.username ? 'error' : ''}
                 {...register('username', {
                   required: '필수 정보입니다.',
                   pattern: {
@@ -71,6 +72,7 @@ export default function SignUpForm() {
 
             <article>
               <input
+                className={errors.password ? 'error' : ''}
                 type={showPassword ? 'text' : 'password'}
                 {...register('password', {
                   required: '필수 정보입니다.',
@@ -93,6 +95,7 @@ export default function SignUpForm() {
 
             <article>
               <input
+                className={errors.confirmPassword ? 'error' : ''}
                 type={showConfirmPassword ? 'text' : 'password'}
                 {...register('confirmPassword', {
                   required: '필수 정보입니다.',
