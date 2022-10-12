@@ -98,7 +98,7 @@ function AvatarOptionLayout({
               }
             />
           </>
-        </Test2>
+        </Container>
       </>
 
       <Line></Line>
