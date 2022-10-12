@@ -19,7 +19,6 @@ function index() {
   const submitRef = useRef<HTMLInputElement>();
   const [backgroundUploadFile] = usePostUploadBackgroundMutation();
   const [backgroundFile, setBackgroundFile] = useState<Array<File>>([]);
-  console.log(backgroundFile)
 
   function backgroundFiles(files: FileList) {
     const file: File = files[0];
@@ -42,12 +41,7 @@ function index() {
     event.preventDefault();
     backgroundFiles(event.target.files!);
     submitRef.current?.click()
-    // test()
   }
-
-  // function test(e: React.FormEvent<HTMLFormElement>) {
-  //   backgroundImgUpload(e)
-  // }
 
   // 배경 리스트
   const { data: avatarBackgroundList } = useGetBackgroundAvatarListQuery(null);
@@ -55,6 +49,7 @@ function index() {
 
   // 배경 선택버튼
   const [backgroundId, setBackgroundId] = useState(0);
+  console.log(backgroundId)
   const [backgroundChoose, { data: backgroundUrlData }] =
     usePostBackgroundAvatarListChooseMutation();
   function backgroundEvent() {
