@@ -146,7 +146,7 @@ export const useApi = createApi({
         url: '/api/v1/projects/background',
         method: 'GET',
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc'
         }
       })
     }),
@@ -156,7 +156,7 @@ export const useApi = createApi({
         method: 'POST',
         body: data,
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc'
         }
       })
     }),
@@ -166,7 +166,7 @@ export const useApi = createApi({
         method: 'POST',
         body: data.formData,
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDc1MzI0fQ.L_MyWOgbCWGlAs0JNgUvR4BzN3m7GU2IqcVD-ZVKhjw'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc'
         }
       })
     }),
