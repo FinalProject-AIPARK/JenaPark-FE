@@ -296,9 +296,10 @@ interface FlexBoxType {
 // 스타일 관련
 
 const Scroolbar = styled.div`
-  height: 49vh;
+  height: 43vh;
   overflow-y: hidden;
   overflow-y: auto;
+  position: relative;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -395,6 +396,8 @@ const SubButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #091547;
+  position: absolute;
+  bottom: 10px;
 `;
 
 const SubButton = styled.button`
