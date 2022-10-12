@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
+  height: calc(100vh - 136px);
   display: flex;
   align-items: center;
   position: relative;
@@ -80,10 +80,6 @@ export const Container = styled.div`
 
     .error {
       border-bottom: 2px solid #eb5757;
-    }
-
-    .success {
-      border-bottom: 2px solid #219653;
     }
 
     button {
