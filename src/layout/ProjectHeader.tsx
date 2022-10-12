@@ -16,16 +16,17 @@ function ProjectHeader() {
     setVideoId(projectId);
   }
 
-  const { projectId } = useAppSelector((state) => state.projectControl.projectData);
+  const { projectId, downloadAudioUrl } = useAppSelector(
+    (state) => state.projectControl.projectData,
+  );
 
-  const { data: VideoSynthesis } = useVideoSynthesisQuery(projectId);
-  const { data: ProjectData } = useGetProjectDataQuery(projectId);
+  // const { data: VideoSynthesis } = useVideoSynthesisQuery(projectId);
 
-  useEffect(() => {
-    if (VideoSynthesis!.result === 'success') {
-      window.location.href = '/history';
-    }
-  }, [VideoSynthesis]);
+  // useEffect(() => {
+  //   if (VideoSynthesis!.result === 'success') {
+  //     window.location.href = '/history';
+  //   }
+  // }, [VideoSynthesis]);
 
   return (
     <>
@@ -44,7 +45,7 @@ function ProjectHeader() {
               alert('전체 음성을 다운 받으시겠습니까?');
             }}
           >
-            <a href={ProjectData.downloadAudioUrl} download target="_self">
+            <a href={downloadAudioUrl ? downloadAudioUrl : ''} download target="_self">
               음성 다운로드
             </a>
             <VoiceImage />s
