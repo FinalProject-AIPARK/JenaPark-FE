@@ -11,10 +11,12 @@ function LandingPage() {
   const cookies = new Cookies();
   const url = new URL(window.location.href);
   const urlParams = url.searchParams;
+  console.log(urlParams.keys());
   useEffect(() => {
-    if (urlParams) {
+    if (urlParams.get('accessToken')) {
       cookies.set('accessToken', urlParams.get('accessToken'));
       cookies.set('refreshToken', urlParams.get('refreshToken'));
+      console.log('hi');
     }
   }, [urlParams]);
   console.log(urlParams.get('accessToken'));
