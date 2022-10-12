@@ -38,7 +38,7 @@ const VoiceOptionTitleLayout = memo(({ selectedModel }: VoiceOptionTitleProps) =
           </GuideTextBox>
         ) : null}
       </TitleBox>
-      {selectedModel.nameColor.length ? (
+      {selectedModel.nameColor.length > 0 ? (
         <ModelCardBox border="#0DFF1E" shadow="#0DFF1E">
           <ModelNameBox backColor={selectedModel.nameColor}>
             <ModelName>{selectedModel.name}</ModelName>
