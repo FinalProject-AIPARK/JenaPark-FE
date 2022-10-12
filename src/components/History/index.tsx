@@ -12,6 +12,7 @@ import {
 } from '@/api/useApi';
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 import HistoryLoadingLayout from '@/layout/HistoryLoadingLayout';
+import HistoryErrorLayout from '@/layout/HistoryErrorLayout';
 
 function History() {
   // 빈 박스
@@ -24,7 +25,9 @@ function History() {
     data: project,
     isLoading: loadingProject,
     isError: errorProject,
+    error,
   } = useGetProjectHistoyQuery(update);
+  const [errorState, setErrorState] = useState('');
   const [projectList, setProjectList] = useState([
     {
       projectId: 0,
@@ -46,6 +49,7 @@ function History() {
   ]);
   useEffect(() => {
     if (project) {
+      setErrorState(project.message);
       setProjectList(project.data.historyProjects);
       setVideoList(project.data.historyVideos);
       setIsEditProject([]);
@@ -74,6 +78,7 @@ function History() {
         });
       }
     }
+    console.log(error);
   }, [project]);
 
   // 프로젝트 생성
@@ -218,6 +223,7 @@ function History() {
 
   return (
     <Container>
+      {errorProject ? <HistoryErrorLayout error={error} /> : null}
       {loadingProject ? <HistoryLoadingLayout /> : null}
       <Header></Header>
       <div style={{ height: 'calc(100vh - 10.06rem)' }}>
