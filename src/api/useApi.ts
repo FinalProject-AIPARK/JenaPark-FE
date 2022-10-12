@@ -326,6 +326,7 @@ interface ReturnProjectHistoryType {
       downloadFileUrl: string;
     }[];
   };
+  message: string;
 }
 interface ReturnCreateProjectType {
   data: {

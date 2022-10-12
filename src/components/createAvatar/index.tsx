@@ -11,12 +11,14 @@ import { useGetProjectDataQuery } from '@/api/useApi';
 import { useParams } from 'react-router-dom';
 import { getData } from '@/store/workingProject/projectControlSlice';
 import { initVoiceOption, initVoiceModel } from '@/store/voice/voiceSlice';
+import LoadingBigLayout from '@/layout/LoadingBigLayout';
+import ErrorBigLayout from '@/layout/ErrorBigLayout';
 
 function CreateAvatar() {
   // 프로젝트 데이터 가져오기
   const dispatch = useAppDispatch();
   const { projectId } = useParams();
-  const { data: projectData } = useGetProjectDataQuery(projectId!);
+  const { data: projectData, isLoading, isError, error } = useGetProjectDataQuery(projectId!);
   useEffect(() => {
     if (projectData) dispatch(getData(projectData.data));
   }, [projectData]);
@@ -36,9 +38,15 @@ function CreateAvatar() {
   }, [speed]);
 
   // 음성 작업 파트 구분
-  const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
+  const { isVoiceWoking, isInputTextSynthLoading, isInputTextSynthError } = useAppSelector(
+    (state) => state.projectControl.elementData,
+  );
+  const { inputTextSynthError } = useAppSelector((state) => state.projectControl.err);
   return (
     <>
+      {isInputTextSynthError ? <ErrorBigLayout errorData={inputTextSynthError} /> : null}
+      {isError ? <ErrorBigLayout errorData={error!} /> : null}
+      {isLoading || isInputTextSynthLoading ? <LoadingBigLayout /> : null}
       <Header />
       <Contain>
         <div>
