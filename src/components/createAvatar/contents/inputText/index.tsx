@@ -1,15 +1,37 @@
 import ProjectInputText from '@/layout/ProjectInputText';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import { inputText } from '@/store/voice/voiceSlice';
 import ProjectPreviewAvatar from '@/layout/ProjectPreviewAvatar';
 import { moveToAvatar } from '@/store/workingProject/projectControlSlice';
 
 function InputText() {
-  const { text } = useAppSelector((state) => state.projectControl.projectData);
+  const { text, backgroundUrl, avatarUrl } = useAppSelector(
+    (state) => state.projectControl.projectData,
+  );
   const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
-  const { backgroundUrl, avatarUrl } = useAppSelector((state) => state.avatar.avatarDataUrl);
+  const { backgroundUrl: avatarBack, avatarUrl: avatar } = useAppSelector(
+    (state) => state.avatar.avatarDataUrl,
+  );
   const dispatch = useAppDispatch();
+
+  // 이미지 업데이트
+  const [preview, setPreview] = useState({
+    backgroundPreview: '',
+    avatarPreview: '',
+  });
+  useMemo(() => {
+    setPreview({
+      backgroundPreview: avatarBack,
+      avatarPreview: avatar,
+    });
+  }, [avatarBack, avatar]);
+  useMemo(() => {
+    setPreview({
+      backgroundPreview: backgroundUrl,
+      avatarPreview: avatarUrl,
+    });
+  }, [backgroundUrl, avatarUrl]);
   // 텍스트 업데이트
   const [updateText, setUpdateText] = useState('');
   useEffect(() => {
@@ -43,8 +65,7 @@ function InputText() {
         setGuide={setPreviewGuide}
         workingHandler={workingHandler}
         isVoiceWoking={isVoiceWoking}
-        backgroundUrl={backgroundUrl}
-        avatarUrl={avatarUrl}
+        preview={preview}
       />
     </div>
   );

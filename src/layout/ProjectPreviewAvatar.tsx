@@ -8,8 +8,7 @@ function ProjectPreviewAvatar({
   setGuide,
   workingHandler,
   isVoiceWoking,
-  backgroundUrl,
-  avatarUrl,
+  preview,
 }: PreviewAvatarProps) {
   return (
     <Container>
@@ -25,45 +24,35 @@ function ProjectPreviewAvatar({
             onMouseLeave={() => setGuide(false)}
             style={{ width: '1.5rem', marginLeft: '0.3rem' }}
           />
-          {guide ? (
+          {!guide ? (
             <GuideTextBox>
               <span>
-                음성과 합성할 가상 아바타를
+                음성과 합성할 가상 아바타를 미리 확인할 수 있습니다.
                 <br />
-                미리 확인할 수 있습니다.
-                <br />
-                아바타를 선택해 주세요.
+                아바타를 선택해 주세요. 기본 배경은 초록 배경입니다.
               </span>
             </GuideTextBox>
           ) : null}
         </TitleBox>
         <MoveAvatarBox>
-          {isVoiceWoking && !backgroundUrl && !avatarUrl ? (
+          {preview.backgroundPreview || preview.avatarPreview ? (
             <>
-              <Button onClick={workingHandler}>
-                <Img src={previewIcon} alt="아바타 작업 이동 아이콘" />
-              </Button>
-              <TextStyle size="0.9rem" weight="400" color="#828282" marginTop="1.3rem">
-                가상 아바타 선택으로 이동
-              </TextStyle>
+              {preview.backgroundPreview ? (
+                <PreviewImg
+                  src={preview.backgroundPreview}
+                  alt="아바타 배경 미리보기 이미지"
+                  height="100%"
+                />
+              ) : null}
+              {preview.avatarPreview ? (
+                <PreviewImg
+                  src={preview.avatarPreview}
+                  alt="아바타 미리보기 이미지"
+                  width="110%"
+                  bottom="-0.5rem"
+                />
+              ) : null}
             </>
-          ) : null}
-          {!isVoiceWoking && !backgroundUrl && !avatarUrl ? (
-            <TextStyle size="0.9rem" weight="400" color="#828282">
-              아바타를 선택해주세요.
-            </TextStyle>
-          ) : null}
-
-          {backgroundUrl ? (
-            <PreviewImg src={backgroundUrl} alt="아바타 배경 미리보기 이미지" height="100%" />
-          ) : null}
-          {avatarUrl ? (
-            <PreviewImg
-              src={avatarUrl}
-              alt="아바타 미리보기 이미지"
-              width="110%"
-              bottom="-0.5rem"
-            />
           ) : null}
         </MoveAvatarBox>
       </InnerBox>
@@ -72,12 +61,14 @@ function ProjectPreviewAvatar({
 }
 
 interface PreviewAvatarProps {
+  preview: {
+    backgroundPreview: string;
+    avatarPreview: string;
+  };
   guide: boolean;
+  isVoiceWoking: boolean;
   setGuide: React.Dispatch<React.SetStateAction<boolean>>;
   workingHandler: () => void;
-  isVoiceWoking: boolean;
-  backgroundUrl: string;
-  avatarUrl: string;
 }
 interface TextStyleProps {
   size: string;
@@ -116,13 +107,15 @@ const TextStyle = styled.span<TextStyleProps>`
 const GuideTextBox = styled.div`
   background-color: #fff;
   position: absolute;
-  top: -2.8rem;
-  right: -0.6rem;
+  top: -1.6rem;
+  right: -9.2rem;
   padding: 0.6rem;
   font-size: 0.81rem;
   line-height: 1.2rem;
   color: #333;
   border-radius: 0.6rem;
+  box-shadow: 0 0 0.08rem #999;
+  z-index: 2;
 `;
 const MoveAvatarBox = styled.div`
   background-color: #fff;
@@ -134,19 +127,6 @@ const MoveAvatarBox = styled.div`
   position: relative;
   border-radius: 0.63rem;
   overflow: hidden;
-`;
-const Button = styled.button`
-  background-color: transparent;
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-`;
-const Img = styled.img`
-  width: 3rem;
-  border-radius: 50%;
-  :hover {
-    width: 3.2rem;
-  }
 `;
 const PreviewImg = styled.img<PreviewImgProps>`
   width: ${({ width }) => (width ? width : 'auto')};
