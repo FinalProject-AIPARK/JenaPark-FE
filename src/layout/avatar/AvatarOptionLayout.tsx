@@ -1,8 +1,8 @@
-import React, { ChangeEvent } from 'react';
-import styled from 'styled-components';
-import left from '../../images/maskLeft-icon.png';
-import right from '../../images/maskRight-icon.png';
-import plus from '../../images/plus-icon.png';
+import React, { ChangeEvent } from "react";
+import styled from "styled-components";
+import left from "../../images/maskLeft-icon.png";
+import right from "../../images/maskRight-icon.png";
+import plus from "../../images/plus-icon.png";
 
 function AvatarOptionLayout({
   avatarBackgroundList,
@@ -11,63 +11,92 @@ function AvatarOptionLayout({
   backgroundImgUpload,
   setackgroundFile,
   inputFileRef,
+  submitRef,
   onInputFile,
+  bgSlideIndex,
+  moveBgSlide,
 }: AvatarBackgroundType) {
-
   return (
     <Avatar>
       <AvatarTitle>배경을 선택해주세요</AvatarTitle>
 
       <>
         <BgText>배경업로드</BgText>
-        <Test2>
+        <Container bgSlideIndex={bgSlideIndex}>
           <>
-            <MaskIcon src={left} />
+            <MaskIcon
+              src={left}
+              onClick={() =>
+                moveBgSlide(
+                  "left",
+                  avatarBackgroundList?.data.backgroundUploads.length - 1
+                )
+              }
+            />
           </>
           <FlexBox
             className="products"
             width="85%"
-            justifyContent={'flex-start'}
-            alignItems={'center'}
+            justifyContent={"flex-start"}
+            alignItems={"flex-start"}
           >
-          <form name="background" encType="multipart/form-data" onSubmit={(e) => {e.preventDefault(), backgroundImgUpload(e)}}>
-            <BackgrounddBox onClick={() => {
-              setackgroundFile([])
-              inputFileRef.current?.click()
-              }}>
+            <form
+              name="background"
+              encType="multipart/form-data"
+              ref={submitRef}
+              onSubmit={(event) => {
+                event.preventDefault(), 
+                backgroundImgUpload(event);
+              }}
+            >
+              <BackgrounddBox
+                onClick={() => {
+                  setackgroundFile([]);
+                  inputFileRef.current?.click();
+                }}
+              >
                 <PlusIcon src={plus} />
-                  <input
-                    type="file"
-                    name="background"
-                    onChange={onInputFile}
-                    ref={inputFileRef}
-                    accept="image/jpg, image/jpeg, image/png"
-                  />
               </BackgrounddBox>
-          </form>
-                <input type="submit"
-                ref={inputFileRef} />
-            {
-              avatarBackgroundList?.data.backgroundUploads &&
-                avatarBackgroundList?.data.backgroundUploads.map((list : any) => {
-                  return (
-                    <TestTransForm>
-                      <BackgrounddBox
-                      onClick={() => setBackgroundId(list.bgId)}
-                      key={list.bgId}
-                      >
-                      <ImgthumbNail
-                        src={list.bgUrl}
-                        alt="아바타 이미지"
-                        />
-                      </BackgrounddBox>
-                    </TestTransForm>
-                  )})
-              }
-            
-              </FlexBox>
+              <input
+                type="file"
+                name="background"
+                onChange={(event) => { 
+                  onInputFile(event)
+                  // backgroundImgUpload()
+                }}
+                ref={inputFileRef}
+                accept="image/jpg, image/jpeg, image/png"
+                />
+                {/* <input type="submit" ref={submitRef} /> */}
+            </form>
+            <div className="upload-bg__container">
+              <ul className="upload-bg__wrap">
+                {avatarBackgroundList?.data.backgroundUploads &&
+                  avatarBackgroundList?.data.backgroundUploads.map(
+                    (list: any) => {
+                      return (
+                        <li
+                          onClick={() => setBackgroundId(list.bgId)}
+                          key={list.bgId}
+                        >
+                          <img src={list.bgUrl} alt="업로드 배경 이미지" />
+                        </li>
+                      );
+                    }
+                  )}
+              </ul>
+            </div>
+          </FlexBox>
           <>
-            <MaskIcon src={right}/>
+            <MaskIcon
+              src={right}
+              onClick={() =>
+                moveBgSlide(
+                  "right",
+                  avatarBackgroundList?.data.backgroundUploads.length - 1
+                )
+              }
+            />
           </>
         </Test2>
       </>
@@ -84,20 +113,17 @@ function AvatarOptionLayout({
             paddingLeft="22px"
             width="90%"
           >
-            {
-              avatarBackgroundList?.data.backgroundDefaults &&
-                avatarBackgroundList?.data.backgroundDefaults.map((list : any) => {
-                  return (
-                    <BackgrounddBox
+            {avatarBackgroundList?.data.backgroundDefaults &&
+              avatarBackgroundList?.data.backgroundDefaults.map((list: any) => {
+                return (
+                  <BackgrounddBox
                     onClick={() => setBackgroundId(list.bgId)}
-                    key={list.bgId}>
-                    <ImgthumbNail
-                      src={list.bgUrl}
-                      alt="아바타 이미지"
-                    />
+                    key={list.bgId}
+                  >
+                    <ImgthumbNail src={list.bgUrl} alt="아바타 이미지" />
                   </BackgrounddBox>
-                  )
-                })}
+                );
+              })}
           </FlexBox>
         </Flex>
       </>
@@ -108,7 +134,6 @@ function AvatarOptionLayout({
     </Avatar>
   );
 }
-
 
 interface style {
   sliderWidth: number;
@@ -125,49 +150,77 @@ interface style {
 }
 
 interface AvatarBackgroundType {
-  avatarBackgroundList: {
-    data : {
-      backgroundDefaults: 
-        { 
-          bgId: number,
-          bgName: string,
-          bgUrl: string
-        }[]
-      backgroundUploads: []
-    }
-  }[] | any
-  backgroundEvent: {
-    projectId: number
-    backgroundId: number
-  } | any
+  avatarBackgroundList:
+    | {
+        data: {
+          backgroundDefaults: {
+            bgId: number;
+            bgName: string;
+            bgUrl: string;
+          }[];
+          backgroundUploads: [];
+        };
+      }[]
+    | any;
+  backgroundEvent:
+    | {
+        projectId: number;
+        backgroundId: number;
+      }
+    | any;
   backgroundImgUpload: (event: React.FormEvent<HTMLFormElement>) => void;
-  setackgroundFile :  React.Dispatch<React.SetStateAction<File[]>>;
+  setackgroundFile: React.Dispatch<React.SetStateAction<File[]>>;
   setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
-  inputFileRef: any
-  backgroundFiles: any
-  onInputFile: any
+  backgroundFiles: any;
+  inputFileRef: React.MutableRefObject<HTMLInputElement>;
+  onInputFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  submitRef: React.MutableRefObject<HTMLFormElement>;
+  bgSlideIndex: number;
+  moveBgSlide: (leftRight: string, maxLength: number) => void;
 }
-
-// 테스트 코드
-
-const TestTransForm = styled.div`
-  display: flex;
-  gap: 10px;
-  width: 9999px;
-
-`;
 
 const Flex = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-  height: 30rem;
+  height: 39vh;
 `;
 
-const Test2 = styled.div`
+const Container = styled.div<{ bgSlideIndex: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  input[type="file"] {
+    display: none;
+  }
+  input[type="submit"] {
+    display: none;
+  }
+
+  .upload-bg {
+    &__container {
+      width: 20.625rem;
+      overflow: hidden;
+    }
+    &__wrap {
+      display: flex;
+      flex-wrap: wrap;
+      width: 9999px;
+      gap: 10px;
+      transition: all 0.5s;
+      transform: ${(props) => `translateX(${props.bgSlideIndex * 7}rem)`};
+      li {
+        width: 6.25rem;
+        height: 7.5rem;
+        border: 1px solid #001334;
+        border-radius: 10px;
+        overflow: hidden;
+        img {
+          height: 100%;
+        }
+      }
+    }
+  }
 `;
 
 // 스타일 관련
@@ -231,10 +284,6 @@ const BackgrounddBox = styled.div`
   background-color: #fff;
   overflow: hidden;
   cursor: pointer;
-
-  input[type="file"] {
-    display: none;
-  }
 `;
 
 const BgText = styled.p`
@@ -252,6 +301,7 @@ const Line = styled.div`
 const MaskIcon = styled.img`
   height: 100%;
   padding: 15px;
+  cursor: pointer;
 `;
 
 const PlusIcon = styled.img`
