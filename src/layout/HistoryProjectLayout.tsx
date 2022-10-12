@@ -220,7 +220,6 @@ const Button = styled.button<ButtonProps>`
   border-radius: ${({ radius }) => radius};
 `;
 const ProjectListBox = styled.div`
-  width: 100%;
   height: 18.75rem;
   display: flex;
   align-items: center;
@@ -228,7 +227,6 @@ const ProjectListBox = styled.div`
   padding: 1rem;
 `;
 const ListBox = styled.div`
-  flex-grow: 1;
   display: flex;
   align-items: center;
 `;
@@ -244,9 +242,6 @@ const ProjectCard = styled.div`
   padding: 3.03rem 2.18rem;
   border-radius: 0.63rem;
   cursor: pointer;
-  :last-child {
-    margin-right: 0;
-  }
 `;
 const DeleteButton = styled.button`
   background-color: transparent;
@@ -256,18 +251,16 @@ const DeleteButton = styled.button`
   opacity: 0.6;
 `;
 const EmptyContain = styled.div`
-  flex-shirink: 0;
-  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 const EmptyBox = styled.div`
   background-color: #fff;
-  width: 11rem;
-  height: 13.13rem;
+  width: 14rem;
+  height: 16.75rem;
   border-radius: 0.63rem;
-  margin: 0 1.5rem;
+  margin-right: 1.5rem;
   opacity: 0.3;
 `;
 const EditInput = styled.input`

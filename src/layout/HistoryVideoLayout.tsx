@@ -140,7 +140,6 @@ const TextStyle = styled.span<TextStyleProps>`
   white-space: nowrap;
 `;
 const VideoListBox = styled.div`
-  width: 100%;
   height: 18.75rem;
   position: relative;
   display: flex;
@@ -149,7 +148,6 @@ const VideoListBox = styled.div`
   padding: 1rem;
 `;
 const ListBox = styled.div`
-  flex-grow: 1;
   display: flex;
   align-items: center;
 `;
@@ -160,23 +158,18 @@ const VideoCard = styled.div`
   flex-direction: column;
   align-items: center;
   margin-right: 1.5rem;
-  :last-child {
-    margin-right: 0;
-  }
 `;
 const EmptyContain = styled.div`
-  flex-shirink: 0;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 const EmptyBox = styled.div`
   background-color: #fff;
-  width: 11rem;
-  height: 13.13rem;
+  width: 14rem;
+  height: 16.75rem;
   border-radius: 0.63rem;
-  margin: 0 1.5rem;
+  margin-right: 1.5rem;
   opacity: 0.3;
 `;
 const ThumbnailVideo = styled.div`

@@ -95,8 +95,8 @@ export const useApi = createApi({
       }),
     }),
     // 개별 프로젝트 데이터
-    getProjectData: builder.query<ReturnProjectDataType, number>({
-      query: (projectId) => `/api/v1/projects/${projectId}`,
+    getProjectData: builder.query<ReturnProjectDataType, ActionProjectDataType>({
+      query: (data) => `/api/v1/projects/${data.projectId}`,
     }),
     // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
@@ -361,6 +361,10 @@ interface ActionEditVideoTitleType {
   };
 }
 // 개별 프로젝트 데이터
+interface ActionProjectDataType {
+  count: number;
+  projectId: string;
+}
 interface ReturnProjectDataType {
   data: {
     projectId: number;
