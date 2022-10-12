@@ -87,7 +87,7 @@ export const useApi = createApi({
       }),
     }),
     // 개별 프로젝트 데이터
-    getProjectData: builder.query<ReturnProjectDataType, string>({
+    getProjectData: builder.query<ReturnProjectDataType, number>({
       query: (projectId) => `/api/v1/projects/${projectId}`,
     }),
     // AI 음성
@@ -326,6 +326,7 @@ interface ReturnProjectDataType {
     checkText: boolean;
     checkAudio: boolean;
     checkAvatar: boolean;
+    downloadAudioUrl: null;
     audioInfos: [];
   };
 }
