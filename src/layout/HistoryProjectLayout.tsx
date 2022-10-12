@@ -4,6 +4,8 @@ import accProject from '/addProject-icon.png';
 import projectIcon from '/project-icon.png';
 import question from '/questionMark-icon.png';
 import close from '/close-icon.png';
+import loading from '/loading-blue.gif';
+import LoadingBlue from './LoadingAnimationBlue';
 
 function HistoryProjectLayout({
   projectList,
@@ -18,7 +20,17 @@ function HistoryProjectLayout({
   guideHandler,
   projectEmpty,
   deleteProjectHandler,
+  loadingProject,
 }: HistoryProjectLayoutProps) {
+  // if (!loadingProject) {
+  //   return (
+  //     <ProjectListBox>
+
+  //       <BackgroundBox />
+  //     </ProjectListBox>
+  //   );
+  // }
+
   return (
     <Container>
       <TitleBox>
@@ -97,7 +109,6 @@ function HistoryProjectLayout({
                   {item.title}
                 </TextStyle>
               )}
-
               <TextStyle color="#828282" marginTop="1.5rem">
                 {item.modifiedDate.split('T')[0]}
               </TextStyle>
@@ -112,7 +123,6 @@ function HistoryProjectLayout({
             <EmptyBox key={item}></EmptyBox>
           ))}
         </EmptyContain>
-
         <BackgroundBox></BackgroundBox>
       </ProjectListBox>
     </Container>
@@ -130,6 +140,7 @@ interface HistoryProjectLayoutProps {
   title: string[];
   guideText: boolean;
   projectEmpty: number[];
+  loadingProject: boolean;
   createProjectHandler: () => void;
   prevProjectHandler: (id: number) => void;
   editTitleHandler: (title: string, index: number) => void;
@@ -154,6 +165,17 @@ interface ButtonProps {
   radius: string;
 }
 
+const LoadingContain = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const LoadingBox = styled.div`
+  width: 13rem;
+  height: 13rem;
+`;
 const Container = styled.div`
   width: 78rem;
   margin-top: 2.93rem;
