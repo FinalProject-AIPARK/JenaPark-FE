@@ -40,7 +40,7 @@ function LendingHeader() {
         <Link to="/lendingpage">
           <LogoImage />
         </Link>
-        <div>
+        <ButtonContainer>
           <div onClick={createProjectHandler}>
             <CProjectButton>프로젝트 생성</CProjectButton>
           </div>
@@ -54,7 +54,7 @@ function LendingHeader() {
               <SignButton>로그인</SignButton>
             </Link>
           )}
-        </div>
+        </ButtonContainer>
       </LendingHeaderContainer>
     </>
   );
@@ -66,6 +66,10 @@ const LendingHeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
 `;
 
 const LogoImage = styled.img.attrs({

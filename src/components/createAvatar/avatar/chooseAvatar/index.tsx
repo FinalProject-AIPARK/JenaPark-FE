@@ -41,8 +41,12 @@ function index() {
   // 아바타 만들기
   const [createAvatar, { data: avatarUrlData }] = usePostCreateAvatarMutation();
   function createAvatarHandler() {
-    createAvatar(avartarDress);
+    createAvatar(avartarDress)
+    // dispatch(avatarChooseDataUrl(avatarUrlData!.data))
   }
+  useEffect(() => {
+      (avatarUrlData !== undefined ? dispatch(avatarChooseDataUrl(avatarUrlData!.data)) : null)
+  }, [avatarUrlData])
 
   // 슬라이드 기능
   let [avatarSlideIndex, setAvatarSlideIndex] = useState({

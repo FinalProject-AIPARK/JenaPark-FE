@@ -49,8 +49,8 @@ export default function SignInForm() {
           <h1>서비스를 이용하기 위해 로그인을 진행해주세요.</h1>
 
           <div className="signInput">
-            <input {...register('email', { required: '이메일을 입력해 주세요' })} />
-            <label>이메일</label>
+            <input {...register('email', { required: '아이디를 입력해 주세요' })} />
+            <label>아이디</label>
             {errors.email && <p>{errors.email.message}</p>}
           </div>
 
@@ -62,9 +62,9 @@ export default function SignInForm() {
             <label>비밀번호</label>
             <div className="toggleShowPw">
               {showPassword ? (
-                <img src="/icon/showPassword.svg" onClick={toggleShowPassword}></img>
+                <img src="/showPassword.svg" onClick={toggleShowPassword}></img>
               ) : (
-                <img src="/icon/hidePassword.svg" onClick={toggleShowPassword}></img>
+                <img src="/hidePassword.svg" onClick={toggleShowPassword}></img>
               )}
             </div>
             {errors.password && <p>{errors.password.message}</p>}
