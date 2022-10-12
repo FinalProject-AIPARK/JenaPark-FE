@@ -11,8 +11,8 @@ import {
   useDeleteProjectMutation,
 } from '@/api/useApi';
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
-import HistoryLoadingLayout from '@/layout/HistoryLoadingLayout';
-import HistoryErrorLayout from '@/layout/HistoryErrorLayout';
+import LoadingBigLayout from '@/layout/LoadingBigLayout';
+import ErrorBigLayout from '@/layout/ErrorBigLayout';
 
 function History() {
   // 빈 박스
@@ -223,8 +223,8 @@ function History() {
 
   return (
     <Container>
-      {errorProject ? <HistoryErrorLayout errorData={error!} /> : null}
-      {loadingProject ? <HistoryLoadingLayout /> : null}
+      {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
+      {loadingProject ? <LoadingBigLayout /> : null}
       <Header></Header>
       <div style={{ height: 'calc(100vh - 10.06rem)' }}>
         <HistoryProjectLayout

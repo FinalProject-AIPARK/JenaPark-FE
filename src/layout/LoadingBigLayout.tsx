@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LoadingAnimationBlue from '@/layout/LoadingAnimationBlue';
 
-function HistoryLoadingLayout() {
+function LoadingBigLayout() {
   return (
     <LoadingContain>
       <LoadingBox>
@@ -35,4 +35,4 @@ const Background = styled.div`
   z-index: 2;
 `;
 
-export default HistoryLoadingLayout;
+export default LoadingBigLayout;

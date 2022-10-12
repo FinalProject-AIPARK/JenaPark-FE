@@ -2,16 +2,19 @@ import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-function HistoryErrorLayout({ errorData }: HistoryErrorProps) {
+function ErrorBigLayout({ errorData }: HistoryErrorProps) {
   // 타입 에러..해결이 안됨 추후에 수정할 예정
   switch (errorData.status) {
     case 500:
       alert('해당 회원을 찾을 수 없습니다.');
+      window.location.href = '/';
       break;
+    case 400:
+      alert(errorData.data.message);
+      window.location.href = '/history';
     default:
       alert(errorData.data.error);
   }
-  window.location.href = '/';
   return (
     <LoadingContain>
       <Background />
@@ -48,4 +51,4 @@ const Background = styled.div`
   z-index: 2;
 `;
 
-export default HistoryErrorLayout;
+export default ErrorBigLayout;
