@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   elementData: {
     isVoiceWoking: true,
+    callProjectData: 0,
   },
   projectData: {
     projectId: 0,
@@ -34,6 +35,10 @@ export const projectControlSlice = createSlice({
   name: 'projectControl',
   initialState,
   reducers: {
+    callProjectDataAction: (state) => {
+      state.elementData.callProjectData = state.elementData.callProjectData + 1;
+      console.log(state.elementData.callProjectData);
+    },
     workingComponent: (state) => {
       state.elementData.isVoiceWoking = !state.elementData.isVoiceWoking;
     },
@@ -46,6 +51,7 @@ export const projectControlSlice = createSlice({
   },
 });
 
-export const { workingComponent, moveToAvatar, getData } = projectControlSlice.actions;
+export const { callProjectDataAction, workingComponent, moveToAvatar, getData } =
+  projectControlSlice.actions;
 
 export const projectControlReducer = projectControlSlice.reducer;

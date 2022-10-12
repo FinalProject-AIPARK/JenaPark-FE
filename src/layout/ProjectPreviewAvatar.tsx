@@ -24,7 +24,7 @@ function ProjectPreviewAvatar({
             onMouseLeave={() => setGuide(false)}
             style={{ width: '1.5rem', marginLeft: '0.3rem' }}
           />
-          {!guide ? (
+          {guide ? (
             <GuideTextBox>
               <span>
                 음성과 합성할 가상 아바타를 미리 확인할 수 있습니다.

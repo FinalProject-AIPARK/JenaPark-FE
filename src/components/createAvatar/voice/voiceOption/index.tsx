@@ -10,7 +10,10 @@ import {
   inputSynthAction,
 } from '../../../../store/voice/voiceSlice';
 import { useInputTextSynMutation } from '../../../../api/useApi';
-import { workingComponent } from '../../../../store/workingProject/projectControlSlice';
+import {
+  workingComponent,
+  callProjectDataAction,
+} from '../../../../store/workingProject/projectControlSlice';
 
 function VoiceOption() {
   const { selectedModel, voiceOption, voiceData } = useAppSelector((state) => state.voice);
@@ -73,6 +76,8 @@ function VoiceOption() {
     if (resSynth) {
       dispatch(inputSynthAction(resSynth.data.audioInfoDtos));
       dispatch(workingComponent());
+      // 프로젝트 데이터 재요청
+      dispatch(callProjectDataAction());
     }
   }, [resSynth]);
 
