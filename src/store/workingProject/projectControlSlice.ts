@@ -4,6 +4,7 @@ const initialState = {
   elementData: {
     isVoiceWoking: true,
     isInputTextSynthLoading: false,
+    isInputTextSynthError: false,
   },
   projectData: {
     projectId: 0,
@@ -29,6 +30,9 @@ const initialState = {
     checkAvatar: false,
     audioInfos: [],
   },
+  err: {
+    inputTextSynthError: {},
+  },
 };
 
 export const projectControlSlice = createSlice({
@@ -47,10 +51,19 @@ export const projectControlSlice = createSlice({
     InputTextSynthLoadingAction: (state, action) => {
       state.elementData.isInputTextSynthLoading = action.payload;
     },
+    InputTextSynthErrorAction: (state, action) => {
+      state.elementData.isInputTextSynthError = action.payload.isInputTextSynthError;
+      state.err.inputTextSynthError = action.payload.inputTextSynthError;
+    },
   },
 });
 
-export const { workingComponent, moveToAvatar, getData, InputTextSynthLoadingAction } =
-  projectControlSlice.actions;
+export const {
+  workingComponent,
+  moveToAvatar,
+  getData,
+  InputTextSynthLoadingAction,
+  InputTextSynthErrorAction,
+} = projectControlSlice.actions;
 
 export const projectControlReducer = projectControlSlice.reducer;

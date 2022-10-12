@@ -22,7 +22,6 @@ function VoiceModelListLayout({
   moveToAvartar,
   prevUpload,
 }: VoiceModelLayoutProps) {
-  console.log(voiceModel);
   // 재생 도중 다른 음성을 재생했을때 버튼에 직접적으로 자신 정지 동작하기
   // 재생, 일시정지 버튼으로 onOff 값이 바뀔떄마다 useEffect 동작
   const [onOff, setOnOff] = useState(false);
