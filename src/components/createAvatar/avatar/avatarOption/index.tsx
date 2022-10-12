@@ -18,15 +18,15 @@ function index() {
   const inputFileRef = useRef();
   const submitRef = useRef<HTMLInputElement>();
   const [backgroundUploadFile] = usePostUploadBackgroundMutation();
-  const [backgroundFile, setackgroundFile] = useState<Array<File>>([]);
+  const [backgroundFile, setBackgroundFile] = useState<Array<File>>([]);
   console.log(backgroundFile)
 
   function backgroundFiles(files: FileList) {
     const file: File = files[0];
-    setackgroundFile([file]);
+    setBackgroundFile([file]);
   }
 
-  function backgroundImgUpload(event: React.FormEvent<HTMLFormElement>) {
+  useEffect(() => {
     // event.preventDefault();
     let formData = new FormData();
     formData.append("backgroundFile", backgroundFile[0]);
@@ -35,13 +35,13 @@ function index() {
       projectId,
     };
     backgroundUploadFile(actionBackgroundupload);
-  }
+    
+  }, [backgroundFile])
 
   function onInputFile(event: React.ChangeEvent<HTMLInputElement>, e: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     backgroundFiles(event.target.files!);
     submitRef.current?.click()
-    backgroundImgUpload(e)
     // test()
   }
 
@@ -90,8 +90,7 @@ function index() {
         avatarBackgroundList={avatarBackgroundList}
         setBackgroundId={setBackgroundId}
         backgroundEvent={backgroundEvent}
-        backgroundImgUpload={backgroundImgUpload}
-        setackgroundFile={setackgroundFile}
+        setBackgroundFile={setBackgroundFile}
         backgroundFiles={backgroundFiles}
         inputFileRef={inputFileRef}
         submitRef={submitRef}
