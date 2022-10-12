@@ -37,6 +37,7 @@ const FooterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 0.8rem 0;
+  height: 5vh;
 `;
 
 const ContentContainer = styled.div`

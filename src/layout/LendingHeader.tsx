@@ -66,6 +66,7 @@ const LendingHeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
+  height: 5vh;
 `;
 
 const ButtonContainer = styled.div`
