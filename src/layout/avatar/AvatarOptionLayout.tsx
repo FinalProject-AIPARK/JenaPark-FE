@@ -8,8 +8,7 @@ function AvatarOptionLayout({
   avatarBackgroundList,
   setBackgroundId,
   backgroundEvent,
-  backgroundImgUpload,
-  setackgroundFile,
+  setBackgroundFile,
   inputFileRef,
   submitRef,
   onInputFile,
@@ -44,14 +43,10 @@ function AvatarOptionLayout({
               name="background"
               encType="multipart/form-data"
               ref={submitRef}
-              onSubmit={(event) => {
-                event.preventDefault(), 
-                backgroundImgUpload(event);
-              }}
             >
               <BackgrounddBox
                 onClick={() => {
-                  setackgroundFile([]);
+                  setBackgroundFile([]);
                   inputFileRef.current?.click();
                 }}
               >
@@ -169,7 +164,7 @@ interface AvatarBackgroundType {
       }
     | any;
   backgroundImgUpload: (event: React.FormEvent<HTMLFormElement>) => void;
-  setackgroundFile: React.Dispatch<React.SetStateAction<File[]>>;
+  setBackgroundFile: React.Dispatch<React.SetStateAction<File[]>>;
   setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
   backgroundFiles: any;
   inputFileRef: React.MutableRefObject<HTMLInputElement>;
