@@ -1,132 +1,100 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  body {
-    background: #0e101c;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-      'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  height: calc(100vh - 136px);
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+
+  .wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 740px;
+    height: 914px;
+  }
+
+  .registerGirl {
+    position: absolute;
+    left: -626px;
+    top: -84px;
   }
 
   form {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  h1 {
-    font-weight: 100;
-    color: white;
-    text-align: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgb(79, 98, 148);
-  }
-
-  .form {
-    background: #0e101c;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  p {
-    color: #bf1650;
-  }
-
-  p::before {
-    display: inline;
-    content: '⚠ ';
-  }
-
-  input {
-    display: block;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
     box-sizing: border-box;
-    width: 100%;
-    border-radius: 4px;
-    border: 1px solid white;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    font-size: 14px;
-  }
 
-  label {
-    line-height: 2;
-    text-align: left;
-    display: block;
-    margin-bottom: 13px;
-    margin-top: 20px;
-    color: white;
-    font-size: 14px;
-    font-weight: 200;
-  }
+    h1 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 35px;
+      padding: 60px;
+    }
 
-  button[type='submit'],
-  input[type='submit'] {
-    background: #ec5990;
-    color: white;
-    text-transform: uppercase;
-    border: none;
-    margin-top: 40px;
-    padding: 20px;
-    font-size: 16px;
-    font-weight: 100;
-    letter-spacing: 10px;
-    width: 100%;
-  }
+    article {
+      position: relative;
+      width: 500px;
+      margin: 60px;
 
-  button[type='submit']:hover,
-  input[type='submit']:hover {
-    background: #bf1650;
-  }
+      input {
+        width: 100%;
+        font-size: 18px;
+        letter-spacing: 0.1rem;
+        padding: 10px 0 3px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(26, 23, 23, 0.38);
+      }
 
-  button[type='submit']:active,
-  input[type='button']:active,
-  input[type='submit']:active {
-    transition: 0.3s all;
-    transform: translateY(3px);
-    border: 1px solid transparent;
-    opacity: 0.8;
-  }
+      label {
+        position: absolute;
+        color: #1a171761;
+        left: 0;
+        padding: 10px 0 3px;
+        pointer-events: none;
+        font-size: 16px;
+        font-weight: 700;
+        margin-top: -20px;
+      }
 
-  input:disabled {
-    opacity: 0.4;
-  }
+      .toggleShowPw {
+        position: absolute;
+        right: 15px;
+        top: 7.5px;
+        cursor: pointer;
+      }
 
-  input[type='button']:hover {
-    transition: 0.3s all;
-  }
+      span {
+        color: #eb5757;
+        font-size: 14px;
+      }
+    }
 
-  button[type='submit'],
-  input[type='button'],
-  input[type='submit'] {
-    -webkit-appearance: none;
-  }
+    .error {
+      border-bottom: 2px solid #eb5757;
+    }
 
-  .App {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  button[type='button'] {
-    display: block;
-    appearance: none;
-    background: #333;
-    color: white;
-    border: none;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    border-radius: 4px;
-  }
-
-  hr {
-    margin-top: 30px;
-  }
-
-  button {
-    display: block;
-    appearance: none;
-    margin-top: 40px;
-    border: 1px solid #333;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    padding: 10px 20px;
-    border-radius: 4px;
+    button {
+      margin: 20px 0;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 26px;
+      width: 500px;
+      height: 48px;
+      color: #fff;
+      background: #002868;
+      border-radius: 5px;
+      :hover {
+        background: #002848;
+      }
+    }
   }
 `;

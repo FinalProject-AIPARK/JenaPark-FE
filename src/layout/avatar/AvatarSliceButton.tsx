@@ -15,7 +15,7 @@ function AvatarSliceButton({
           borderColor= {chooseOn ? 'none' : '1px solid #bdbdbd'}
           color = {chooseOn ? '#000' : '#bdbdbd'}
           >
-            버추얼아바타 선택
+            AI 아바타 선택
           </AvatarButton>
           <AvatarButton
           onClick={OptionButton}

@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import background from '/background.png';
+import background from '/background.svg';
 import { CookiesProvider } from 'react-cookie';
 
 const GlobalStyle = createGlobalStyle`
@@ -20,8 +20,16 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+a {
+  color: #000;
+  text-decoration: none;
+}
 button {
+  border: none;
   cursor: pointer;
+  :focus {
+    outline: none;
+  }
 }
 input {
   background-color: transparent;

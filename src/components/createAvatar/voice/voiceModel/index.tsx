@@ -10,18 +10,51 @@ import { workingComponent } from '../../../../store/workingProject/projectContro
 import {
   modelDataAction,
   voiceOptionWorking,
+  getProjectId,
   selectedModel,
+  initModelColor,
+  initVoiceModel,
 } from '../../../../store/voice/voiceSlice';
 
 function VoiceModel() {
+  const { projectId, sex, lang, audioModelUrl, audioFileOriginName, audioModel } = useAppSelector(
+    (state) => state.projectControl.projectData,
+  );
   const dispatch = useAppDispatch();
   // 음성 모델  전체 리스트 불러오기
-  const [voiceFilter, setVoiceFilter] = useState({ sex: 'female', lang: 'kor' });
+  const [voiceFilter, setVoiceFilter] = useState({ sex: '', lang: '' });
   const [getVoice, { data: resVoiceModel }] = useGetVoiceModelMutation();
   // 초기 음성 모델 데이터 부름
+  const [initColor, setInitColor] = useState('');
   useEffect(() => {
-    getVoiceHandler();
-  }, []);
+    if (sex) {
+      console.log('hi');
+      setVoiceFilter({ sex, lang });
+      sex === 'male' ? setSexButton(false) : null;
+      switch (lang) {
+        case 'eng':
+          setLangButton('영어');
+          break;
+        case 'chi':
+          setLangButton('중국어');
+          break;
+        default:
+          return;
+      }
+    }
+  }, [sex]);
+  useEffect(() => {
+    dispatch(initModelColor(initColor));
+    dispatch(
+      initVoiceModel({
+        projectId,
+        sex,
+        lang,
+        name: audioModel,
+        url: audioModelUrl,
+      }),
+    );
+  }, [initColor]);
   // 음성 모델 카테고리
   useEffect(() => {
     getVoiceHandler();
@@ -40,9 +73,12 @@ function VoiceModel() {
 
   // 음성 업로드 서버로 전송
   const [onModal, setOnModal] = useState(false);
-  const [uploadFile, { data: url, isLoading: uploading, isError }] = useUploadVoiceMutation();
+  const [uploadFile] = useUploadVoiceMutation();
   const [audioFile, setAudioFile] = useState<Array<File>>([]);
-
+  const [prevUpload, setPrevUpload] = useState('');
+  useEffect(() => {
+    if (audioFileOriginName) setPrevUpload(audioFileOriginName);
+  }, [audioFileOriginName]);
   // 이미지 파일 처리 input
   function onInputFile(event: ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
@@ -66,14 +102,20 @@ function VoiceModel() {
       let formData = new FormData();
       formData.append('audioFile', audioFile[0], audioFile[0].name);
       // 나중에 프로젝트아이디 연결해야해
-      const projectID = 23;
+      const projectID = projectId;
       const actionUpload = {
         formData,
         projectID,
       };
       uploadFile(actionUpload);
+    } else {
+      getVoiceHandler();
     }
     setOnModal(false);
+  }
+  function deleteUpload() {
+    setAudioFile([]);
+    setPrevUpload('');
   }
 
   // 업로드시 아바타 작업으로 이동
@@ -101,22 +143,18 @@ function VoiceModel() {
       setSexButton(false);
       setVoiceFilter({ ...voiceFilter, sex: 'male' });
     }
-    // 리스트 요청
-    // 값이 바뀌면 데이터도 자동으로 바뀌는걸로 암
   }
   function langFilterHandler(filter: string) {
-    if (filter === '한국어') {
+    if (filter === ('한국어' || 'kor')) {
       setLangButton('한국어');
       setVoiceFilter({ ...voiceFilter, lang: 'kor' });
-    } else if (filter === '영어') {
+    } else if (filter === ('영어' || 'eng')) {
       setLangButton('영어');
       setVoiceFilter({ ...voiceFilter, lang: 'eng' });
     } else {
       setLangButton('중국어');
       setVoiceFilter({ ...voiceFilter, lang: 'chi' });
     }
-    // 리스트 요청
-    // 값이 바뀌면 데이터도 자동으로 바뀌는걸로 암
   }
 
   // 음성 샘플 오디오 컨트롤
@@ -165,15 +203,31 @@ function VoiceModel() {
   function nameBackColorHandler() {
     switch (voiceFilter.sex) {
       case 'female':
-        if (voiceFilter.lang === 'kor') setModelNameColor(backColorList[1]);
-        else if (voiceFilter.lang === 'eng') setModelNameColor(backColorList[3]);
-        else setModelNameColor(backColorList[4]);
+        if (voiceFilter.lang === 'kor') {
+          setModelNameColor(backColorList[1]);
+          !initColor ? setInitColor(backColorList[1]) : null;
+        } else if (voiceFilter.lang === 'eng') {
+          setModelNameColor(backColorList[3]);
+          !initColor ? setInitColor(backColorList[3]) : null;
+        } else {
+          setModelNameColor(backColorList[4]);
+          !initColor ? setInitColor(backColorList[4]) : null;
+        }
         break;
       case 'male':
-        if (voiceFilter.lang === 'kor') setModelNameColor(backColorList[0]);
-        else if (voiceFilter.lang === 'eng') setModelNameColor(backColorList[2]);
-        else setModelNameColor(backColorList[5]);
+        if (voiceFilter.lang === 'kor') {
+          setModelNameColor(backColorList[0]);
+          !initColor ? setInitColor(backColorList[0]) : null;
+        } else if (voiceFilter.lang === 'eng') {
+          setModelNameColor(backColorList[2]);
+          !initColor ? setInitColor(backColorList[2]) : null;
+        } else {
+          setModelNameColor(backColorList[5]);
+          !initColor ? setInitColor(backColorList[5]) : null;
+        }
         break;
+      default:
+        return;
     }
   }
 
@@ -215,11 +269,12 @@ function VoiceModel() {
         <VoiceUploadModal
           onModal={onModal}
           audioFile={audioFile}
-          setAudioFile={setAudioFile}
+          deleteUpload={deleteUpload}
           onDropFiles={onDropFiles}
           dragOver={dragOver}
           onInputFile={onInputFile}
           submitHandler={submitHandler}
+          prevUpload={prevUpload}
         />
       ) : null}
       <VoiceModelFilterButton
@@ -231,6 +286,7 @@ function VoiceModel() {
         dropdownHandler={dropdownHandler}
         offDropdown={offDropdown}
         audioFile={audioFile}
+        prevUpload={prevUpload}
       />
       <VoiceModelListLayout
         voiceModel={resVoiceModel!}
@@ -243,6 +299,7 @@ function VoiceModel() {
         audioHandler={audioHandler}
         isPlay={playController}
         audioFile={audioFile}
+        prevUpload={prevUpload}
         moveToAvartar={moveToAvartar}
       />
     </Container>

@@ -11,10 +11,11 @@ function Contents() {
 }
 
 const Container = styled.div`
+  width: calc(100vw - 50rem);
   height: calc(100% - 3.12rem);
   position: absolute;
   left: 5rem;
-  padding: 1rem 3.75rem 0;
+  margin: 1rem 3.75rem 0;
 `;
 
 export default Contents;
