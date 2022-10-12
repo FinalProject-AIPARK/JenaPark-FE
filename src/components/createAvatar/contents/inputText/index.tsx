@@ -6,7 +6,7 @@ import ProjectPreviewAvatar from '@/layout/ProjectPreviewAvatar';
 import { moveToAvatar } from '@/store/workingProject/projectControlSlice';
 
 function InputText() {
-  const { text } = useAppSelector((state) => state.voice.voiceData);
+  const { text } = useAppSelector((state) => state.projectControl.projectData);
   const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
   const { backgroundUrl, avatarUrl } = useAppSelector((state) => state.avatar.avatarDataUrl);
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ function InputText() {
   const [updateText, setUpdateText] = useState('');
   useEffect(() => {
     setUpdateText(text);
-  }, []);
+  }, [text]);
   function textHandler(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setUpdateText(event.target.value);
     const trimText = event.target.value.trim();
