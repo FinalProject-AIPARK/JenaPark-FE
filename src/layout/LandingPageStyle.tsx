@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 import styled from 'styled-components';
 import YouTube from 'react-youtube';
 
 function LandingPageStyle() {
+  const cookies = new Cookies();
+  const accessToken = cookies.get('accessToken');
+  const refreshToken = cookies.get('refreshToken');
+
   return (
     <>
       <Title>본 서비스로 시공간을 초월하세요</Title>
@@ -11,9 +16,15 @@ function LandingPageStyle() {
         본 서비스는 인공지능과 영상 기술의 융햡을 통해 <br />
         영상 안에서 시간과 공간, 능력을 초월하기 위한 서비스입니다
       </SubTitle>
-      <Link to="/signin">
-        <StartButton>서비스 체험하기 →</StartButton>
-      </Link>
+      {accessToken && refreshToken ? (
+        <Link to="/history">
+          <StartButton>서비스 체험하기 →</StartButton>
+        </Link>
+      ) : (
+        <Link to="/signin">
+          <StartButton>서비스 체험하기 →</StartButton>
+        </Link>
+      )}
       <ContentContainer>
         <ContentBox>
           <ContentNumber>01</ContentNumber>
