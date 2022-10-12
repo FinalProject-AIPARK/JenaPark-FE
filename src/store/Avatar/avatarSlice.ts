@@ -49,7 +49,7 @@ export const avatarSlice = createSlice({
       state.avatarDataUrl.backgroundUrl = action.payload
     }
   }
-});
+})
 
 export const {
   avatarChooseWorking,
