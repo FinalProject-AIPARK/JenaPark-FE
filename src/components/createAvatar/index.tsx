@@ -10,6 +10,7 @@ import Contents from './contents';
 import { useGetProjectDataQuery } from '@/api/useApi';
 import { useParams } from 'react-router-dom';
 import { getData } from '@/store/workingProject/projectControlSlice';
+import { initVoiceOption, initVoiceModel } from '@/store/voice/voiceSlice';
 
 function CreateAvatar() {
   // 프로젝트 데이터 가져오기
@@ -19,6 +20,20 @@ function CreateAvatar() {
   useEffect(() => {
     if (projectData) dispatch(getData(projectData.data));
   }, [projectData]);
+
+  // 음성 옵션 초기값
+  const { text, speed, pitch, durationSilence } = useAppSelector(
+    (state) => state.projectControl.projectData,
+  );
+  useEffect(() => {
+    dispatch(
+      initVoiceOption({
+        speed,
+        pitch,
+        durationSilence,
+      }),
+    );
+  }, [speed]);
 
   // 음성 작업 파트 구분
   const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
