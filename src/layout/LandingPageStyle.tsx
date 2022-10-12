@@ -10,7 +10,7 @@ function LandingPageStyle() {
   const refreshToken = cookies.get('refreshToken');
 
   return (
-    <>
+    <LandingContainer>
       <Title>본 서비스로 시공간을 초월하세요</Title>
       <SubTitle>
         본 서비스는 인공지능과 영상 기술의 융햡을 통해 <br />
@@ -63,9 +63,13 @@ function LandingPageStyle() {
           />
         </VideoContainer>
       </ContentContainer>
-    </>
+    </LandingContainer>
   );
 }
+
+const LandingContainer = styled.div`
+  padding-bottom: 11rem;
+`;
 
 const Title = styled.div`
   color: #fff;
@@ -128,12 +132,14 @@ const ContentBox = styled.div`
 const ContentNumber = styled.div`
   color: #ccffff;
   font-weight: 500;
+  margin-bottom: 2.4rem;
 `;
 
 const ContentTitle = styled.div`
   color: #fff;
   font-weight: 500;
   font-size: 1.25rem;
+  margin-bottom: 1rem;
 `;
 
 const ContentText = styled.div`
