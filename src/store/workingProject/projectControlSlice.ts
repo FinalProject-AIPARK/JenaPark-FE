@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   elementData: {
     isVoiceWoking: true,
+    callProjectData: 0,
     isInputTextSynthLoading: false,
     isInputTextSynthError: false,
   },
@@ -12,8 +13,8 @@ const initialState = {
     text: '',
     sex: '',
     lang: '',
-    audioModel: null,
-    audioModelUrl: null,
+    audioModel: '',
+    audioModelUrl: '',
     speed: 0,
     pitch: 0,
     volume: 0,
@@ -21,10 +22,10 @@ const initialState = {
     backgroundUrl: '',
     audioUpload: false,
     audioMerge: false,
-    audioFileOriginName: null,
-    audioFileUrl: null,
-    downloadAudioUrl: null,
-    avatarUrl: null,
+    audioFileOriginName: '',
+    audioFileUrl: '',
+    downloadAudioUrl: '',
+    avatarUrl: '',
     checkText: false,
     checkAudio: false,
     checkAvatar: false,
@@ -39,6 +40,10 @@ export const projectControlSlice = createSlice({
   name: 'projectControl',
   initialState,
   reducers: {
+    callProjectDataAction: (state) => {
+      state.elementData.callProjectData = state.elementData.callProjectData + 1;
+      console.log(state.elementData.callProjectData);
+    },
     workingComponent: (state) => {
       state.elementData.isVoiceWoking = !state.elementData.isVoiceWoking;
     },
@@ -59,6 +64,7 @@ export const projectControlSlice = createSlice({
 });
 
 export const {
+callProjectDataAction
   workingComponent,
   moveToAvatar,
   getData,

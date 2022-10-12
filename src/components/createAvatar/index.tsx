@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './navbar';
 import Voice from './voice';
@@ -10,24 +10,39 @@ import Contents from './contents';
 import { useGetProjectDataQuery } from '@/api/useApi';
 import { useParams } from 'react-router-dom';
 import { getData } from '@/store/workingProject/projectControlSlice';
-import { initVoiceOption, initVoiceModel } from '@/store/voice/voiceSlice';
+import { initVoiceOption } from '@/store/voice/voiceSlice';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
 
 function CreateAvatar() {
   // 프로젝트 데이터 가져오기
   const dispatch = useAppDispatch();
-  const { projectId } = useParams();
-  const { data: projectData, isLoading, isError, error } = useGetProjectDataQuery(projectId!);
-  useEffect(() => {
-    if (projectData) dispatch(getData(projectData.data));
+  const { projectId: paramsProjectId } = useParams();
+  const { callProjectData } = useAppSelector((state) => state.projectControl.elementData);
+  const [getProjectData, setProjectData] = useState({
+    count: callProjectData,
+    projectId: paramsProjectId!,
+  });
+  // 합성 관련 api통신이 일어날때마다 프로젝트 데이터 요청
+  useMemo(() => {
+    setProjectData((prev) => {
+      return { ...prev, count: callProjectData };
+    });
+    console.log('카운트');
+  }, [callProjectData]);
+  const { data: projectData } = useGetProjectDataQuery(getProjectData);
+
+  useMemo(() => {
+    if (projectData) {
+      dispatch(getData(projectData.data));
+    }
   }, [projectData]);
 
   // 음성 옵션 초기값
-  const { text, speed, pitch, durationSilence } = useAppSelector(
+  const { speed, pitch, durationSilence } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
-  useEffect(() => {
+  useMemo(() => {
     dispatch(
       initVoiceOption({
         speed,

@@ -6,6 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../../../store/store';
 import {
   voiceOptionAction,
   initVoiceOption,
+  callProjectDataAction,
   collectOption,
   inputSynthAction,
 } from '../../../../store/voice/voiceSlice';
@@ -83,6 +84,8 @@ function VoiceOption() {
     if (resSynth) {
       dispatch(inputSynthAction(resSynth.data.audioInfoDtos));
       dispatch(workingComponent());
+      // 프로젝트 데이터 재요청
+      dispatch(callProjectDataAction());
     }
   }, [resSynth]);
   useMemo(() => {
