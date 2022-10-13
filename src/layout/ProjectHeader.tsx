@@ -48,7 +48,7 @@ function ProjectHeader() {
             <a href={downloadAudioUrl ? downloadAudioUrl : ''} download target="_self">
               음성 다운로드
             </a>
-            <VoiceImage />s
+            <VoiceImage />
           </DownloadButton>
           <DownloadButton onClick={ClickSynthesis}>
             영상 합성하기
