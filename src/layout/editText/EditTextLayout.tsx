@@ -9,6 +9,8 @@ import playButtonBlue from '../../../public/voiceModelPlay-icon.png'
 import StopButtonBlue from '../../../public/voiceModelStop-icon.png'
 
 function EditTextLayout({
+  textUpLoadData,
+  updataText,
   audioText,
   optionWindow,
   showOptionWindow,
@@ -22,12 +24,14 @@ function EditTextLayout({
   }: Edittest) {
   return (
     <>
-      <Container>
+      <Container> 
         <TextContainer>
           <Title>
             <span style={{ color: '#fff' }}>텍스트 수정</span>
             <ButtonContainer>
-              <VoiceButton>음성 합성하기</VoiceButton>
+              <VoiceButton
+                onClick={textUpLoadData}
+              >음성 합성하기</VoiceButton>
               <DeleteButton>
                 <Icon src={caution}/>
                 <span style ={{ color: '#fff', fontSize: '16px', marginLeft: '9px'}}>1</span>
@@ -66,7 +70,7 @@ function EditTextLayout({
                             <Line/>
                             <Text>
                               <input
-                                onChange={chage}
+                                onChange={(e) => EditTextupdataStore(e.target.value, 'text')}
                                 defaultValue={list.splitText}
                                 maxLength='150'
                                 style={{ width : '100%', textOverflow: 'ellipsis'}}
@@ -102,9 +106,19 @@ function EditTextLayout({
                           </StatusWrap>
                           {/* 옵션창 묶음 */}
                           <OptionWrap>
-                            {optionWindow.VolumeSpeed && <VolumeSpeedOptionContainer/>}
-                            {optionWindow.Tone &&<ToneOptionContainer/>}
-                            {optionWindow.Breath &&<BreathOptionContainer/>}
+                            {optionWindow.VolumeSpeed && <VolumeSpeedOptionContainer
+                              speed={list.speed}
+                              volume = {list.volume}
+                              EditTextupdataStore={EditTextupdataStore}
+                            />}
+                            {optionWindow.Tone &&<ToneOptionContainer
+                              pitch={list.pitch}
+                              EditTextupdataStore={EditTextupdataStore}
+                            />}
+                            {optionWindow.Breath &&<BreathOptionContainer
+                              durationSilence={list.durationSilence}
+                              EditTextupdataStore={EditTextupdataStore}
+                            />}
                           </OptionWrap>
                         </EditText>
                       )
@@ -120,7 +134,7 @@ function EditTextLayout({
   )
 }
 
-function VolumeSpeedOptionContainer() {
+function VolumeSpeedOptionContainer({speed, volume, EditTextupdataStore} : any) {
   return(
     <VolumeSpeedOptionWrap>
       <div className="container">
@@ -129,20 +143,29 @@ function VolumeSpeedOptionContainer() {
             <input 
               type="range" 
               min="0" 
-              max="1" 
-              step="0.1"
-              className="volume" />
+              max="100" 
+              step="1"
+              className="volume"
+              defaultValue={volume}
+              onChange={(e) => EditTextupdataStore(Number(e.target.value), 'volume')}/>  
             <div className="control__guide">
               <span>음성 작게</span>
-              <span>'0'</span>
+              <span>{volume}</span>
               <span>음성 크게</span>
             </div>
           </div>
           <div className="control__wrap">
-            <input type="range" min="0" max="1" step="0.1" className="speed"></input>
+            <input 
+            type="range" 
+            min="0" 
+            max="1" 
+            step="0.1" 
+            className="speed"
+            defaultValue={speed}
+            onChange={(e) => EditTextupdataStore(Number(e.target.value), 'speed')} />
             <div className="control__guide">
               <span>음성 느리게</span>
-              <span>'0'</span>
+              <span>{speed}</span>
               <span>음성 빠르게</span>
             </div>
           </div>
@@ -156,16 +179,23 @@ function VolumeSpeedOptionContainer() {
   );
 }
 
-function ToneOptionContainer() {
+function ToneOptionContainer({pitch, EditTextupdataStore} : any) {
   return(
     <ToneOptionWrap>
       <div className="container">
         <div className="control__part">
           <div className="control__wrap">
-            <input type="range" min="-0.5" max="0.5" step="0.1" className="tone"></input>
+            <input 
+            type="range" 
+            min="-0.5" 
+            max="0.5" 
+            step="0.1" 
+            className="tone"
+            defaultValue={pitch}
+            onChange={(e) => EditTextupdataStore(Number(e.target.value), 'pitch')} />
             <div className="control__guide">
               <span>-0.5</span>
-              <span>'0'</span>
+              <span>{pitch}</span>
               <span>0.5</span>
             </div>
           </div>
@@ -179,13 +209,19 @@ function ToneOptionContainer() {
   );
 }
 
-function BreathOptionContainer() {
+function BreathOptionContainer({durationSilence, EditTextupdataStore} : any) {
   return(
     <BreathOptionWrap>
       <div className="container">
         <div className="control__part">
           <div className="control__wrap">
-            <input type="text" min="0.1" max="9999" className="breath"></input>
+            <input 
+            type="text" 
+            min="0.1" 
+            max="9999" 
+            className="breath"
+            defaultValue={durationSilence}
+            onChange={(e) => EditTextupdataStore(Number(e.target.value), 'durationSilence')} />
             <span className="second">초</span>
             <span className="min-value">(최소값: 0.1초)</span>
           </div>
@@ -212,10 +248,12 @@ interface Edittest {
   setDeleteCheckbox: (audioId : number) => void
   deleteCheckBox: number | undefined
   deleteComponent: any
-  EditTextupdataStore: (id : number, kind: string) => void
+  EditTextupdataStore: (id : number | string, kind: string) => void
   chage: any
   editText: string
   audioInfos: []
+  updataText: any
+  abcdef: any
 }
 
 
