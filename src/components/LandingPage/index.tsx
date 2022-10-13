@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import LandingPageStyle from '@/layout/landingPage/LandingPageStyle';
 import Header from '../Header';
 import { Cookies } from 'react-cookie';
 import LandingFooter from '../Footer/LandingFooter';
 
-function LandingPage() {
+const LandingPage = memo(() => {
   const cookies = new Cookies();
   const url = new URL(window.location.href);
   const urlParams = url.searchParams;
@@ -21,6 +21,6 @@ function LandingPage() {
       <LandingFooter />
     </>
   );
-}
+});
 
 export default LandingPage;

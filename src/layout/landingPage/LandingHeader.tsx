@@ -1,12 +1,12 @@
 import { useCreateProjectMutation, useLogOutMutation } from '@/api/useApi';
 import { removeToken } from '@/store/Auth';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '/images/Logo.png';
 
-function LandingHeader() {
+const LandingHeader = memo(() => {
   const cookies = new Cookies();
   const [requestLogOut] = useLogOutMutation();
   const accessToken = cookies.get('accessToken');
@@ -52,7 +52,7 @@ function LandingHeader() {
       </ButtonContainer>
     </LandingHeaderContainer>
   );
-}
+});
 
 const LandingHeaderContainer = styled.div`
   display: flex;
