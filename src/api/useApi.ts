@@ -182,8 +182,8 @@ export const useApi = createApi({
       }),
     }),
     deleteAudio: builder.mutation<any, DeleteId>({
-      query: ({ projectId, audioId }) => ({
-        url: `/api/v1/projects/${projectId}/audio/${audioId}`,
+      query: ({ projectID, audioID }) => ({
+        url: `/api/v1/projects/${projectID}/audio/${audioID}`,
         method: 'DELETE',
       }),
     }),
@@ -575,6 +575,6 @@ interface TextUpdata {
 
 // 텍스트 수정
 interface DeleteId {
-  projectId: number;
-  audioId: number;
+  projectID: number;
+  audioID: number;
 }
