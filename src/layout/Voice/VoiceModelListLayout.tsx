@@ -5,6 +5,8 @@ import play from '/voiceModelPlay-icon.png';
 import pause from '/voiceModelPause-icon.png';
 import stop from '/voiceModelStop-icon.png';
 import { ReturnVoiceModelType } from '../../api/useApi';
+import LoadingAnimation from '../BigLoadingAnimation';
+import SmallLoadingAnimation from '../SmallLoadingAnimation';
 
 function VoiceModelListLayout({
   voiceModel,
@@ -31,6 +33,17 @@ function VoiceModelListLayout({
       ? player.current[audioIndex].audio.current.play()
       : player.current[audioIndex].audio.current.pause();
   }, [onOff]);
+
+  if (!voiceModel) {
+    return (
+      <Contain>
+        <LoadingBox>
+          <SmallLoadingAnimation />
+        </LoadingBox>
+      </Contain>
+    );
+  }
+
   return (
     <>
       <ListBox>
@@ -180,6 +193,18 @@ interface ButtonStyleProps {
   radius?: string;
 }
 
+const Contain = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const LoadingBox = styled.div`
+  width: 10rem;
+  height: 10rem;
+  margin-bottom: 6rem;
+`;
 const ListBox = styled.div`
   width: 29.94rem;
   height: 100%;

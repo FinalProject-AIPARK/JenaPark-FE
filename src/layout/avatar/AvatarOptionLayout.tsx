@@ -1,15 +1,14 @@
-import React, { ChangeEvent } from "react";
-import styled from "styled-components";
-import left from "../../images/maskLeft-icon.png";
-import right from "../../images/maskRight-icon.png";
-import plus from "../../images/plus-icon.png";
+import React, { ChangeEvent } from 'react';
+import styled from 'styled-components';
+import left from '../../../public/images/maskLeft-icon.png';
+import right from '../../../public/images/maskRight-icon.png';
+import plus from '../../../public/images/plus-icon.png';
 
 function AvatarOptionLayout({
   avatarBackgroundList,
   setBackgroundId,
   backgroundEvent,
-  backgroundImgUpload,
-  setackgroundFile,
+  setBackgroundFile,
   inputFileRef,
   submitRef,
   onInputFile,
@@ -27,31 +26,24 @@ function AvatarOptionLayout({
             <MaskIcon
               src={left}
               onClick={() =>
-                moveBgSlide(
-                  "left",
-                  avatarBackgroundList?.data.backgroundUploads.length - 1
-                )
+                moveBgSlide('left', avatarBackgroundList?.data.backgroundUploads.length - 1)
               }
             />
           </>
           <FlexBox
             className="products"
             width="85%"
-            justifyContent={"flex-start"}
-            alignItems={"flex-start"}
+            justifyContent={'flex-start'}
+            alignItems={'flex-start'}
           >
             <form
               name="background"
               encType="multipart/form-data"
               ref={submitRef}
-              onSubmit={(event) => {
-                event.preventDefault(), 
-                backgroundImgUpload(event);
-              }}
             >
               <BackgrounddBox
                 onClick={() => {
-                  setackgroundFile([]);
+                  setBackgroundFile([]);
                   inputFileRef.current?.click();
                 }}
               >
@@ -60,30 +52,25 @@ function AvatarOptionLayout({
               <input
                 type="file"
                 name="background"
-                onChange={(event) => { 
-                  onInputFile(event)
+                onChange={(event) => {
+                  onInputFile(event);
                   // backgroundImgUpload()
                 }}
                 ref={inputFileRef}
                 accept="image/jpg, image/jpeg, image/png"
-                />
-                {/* <input type="submit" ref={submitRef} /> */}
+              />
+              {/* <input type="submit" ref={submitRef} /> */}
             </form>
             <div className="upload-bg__container">
               <ul className="upload-bg__wrap">
                 {avatarBackgroundList?.data.backgroundUploads &&
-                  avatarBackgroundList?.data.backgroundUploads.map(
-                    (list: any) => {
-                      return (
-                        <li
-                          onClick={() => setBackgroundId(list.bgId)}
-                          key={list.bgId}
-                        >
-                          <img src={list.bgUrl} alt="업로드 배경 이미지" />
-                        </li>
-                      );
-                    }
-                  )}
+                  avatarBackgroundList?.data.backgroundUploads.map((list: any) => {
+                    return (
+                      <li onClick={() => setBackgroundId(list.bgId)} key={list.bgId}>
+                        <img src={list.bgUrl} alt="업로드 배경 이미지" />
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
           </FlexBox>
@@ -91,10 +78,7 @@ function AvatarOptionLayout({
             <MaskIcon
               src={right}
               onClick={() =>
-                moveBgSlide(
-                  "right",
-                  avatarBackgroundList?.data.backgroundUploads.length - 1
-                )
+                moveBgSlide('right', avatarBackgroundList?.data.backgroundUploads.length - 1)
               }
             />
           </>
@@ -116,10 +100,7 @@ function AvatarOptionLayout({
             {avatarBackgroundList?.data.backgroundDefaults &&
               avatarBackgroundList?.data.backgroundDefaults.map((list: any) => {
                 return (
-                  <BackgrounddBox
-                    onClick={() => setBackgroundId(list.bgId)}
-                    key={list.bgId}
-                  >
+                  <BackgrounddBox onClick={() => setBackgroundId(list.bgId)} key={list.bgId}>
                     <ImgthumbNail src={list.bgUrl} alt="아바타 이미지" />
                   </BackgrounddBox>
                 );
@@ -169,7 +150,7 @@ interface AvatarBackgroundType {
       }
     | any;
   backgroundImgUpload: (event: React.FormEvent<HTMLFormElement>) => void;
-  setackgroundFile: React.Dispatch<React.SetStateAction<File[]>>;
+  setBackgroundFile: React.Dispatch<React.SetStateAction<File[]>>;
   setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
   backgroundFiles: any;
   inputFileRef: React.MutableRefObject<HTMLInputElement>;
@@ -191,10 +172,10 @@ const Container = styled.div<{ bgSlideIndex: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  input[type="file"] {
+  input[type='file'] {
     display: none;
   }
-  input[type="submit"] {
+  input[type='submit'] {
     display: none;
   }
 

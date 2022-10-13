@@ -14,6 +14,7 @@ function HistoryProjectLayout({
   title,
   changeTitle,
   keyDownHandler,
+  blurProjectHandler,
   guideText,
   guideHandler,
   projectEmpty,
@@ -80,6 +81,7 @@ function HistoryProjectLayout({
                   onChange={(event) => changeTitle(event, index)}
                   onClick={(event) => event.stopPropagation()}
                   onKeyDown={(event) => keyDownHandler(event, index, item.projectId)}
+                  onBlur={() => blurProjectHandler(index, item.projectId)}
                 />
               ) : (
                 <TextStyle
@@ -97,7 +99,6 @@ function HistoryProjectLayout({
                   {item.title}
                 </TextStyle>
               )}
-
               <TextStyle color="#828282" marginTop="1.5rem">
                 {item.modifiedDate.split('T')[0]}
               </TextStyle>
@@ -112,7 +113,6 @@ function HistoryProjectLayout({
             <EmptyBox key={item}></EmptyBox>
           ))}
         </EmptyContain>
-
         <BackgroundBox></BackgroundBox>
       </ProjectListBox>
     </Container>
@@ -130,11 +130,13 @@ interface HistoryProjectLayoutProps {
   title: string[];
   guideText: boolean;
   projectEmpty: number[];
+  loadingProject: boolean;
   createProjectHandler: () => void;
   prevProjectHandler: (id: number) => void;
   editTitleHandler: (title: string, index: number) => void;
   changeTitle: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   keyDownHandler: (event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) => void;
+  blurProjectHandler: (index: number, id: number) => void;
   guideHandler: (isOn: boolean, index: number) => void;
   deleteProjectHandler: (id: number) => void;
 }
@@ -154,6 +156,17 @@ interface ButtonProps {
   radius: string;
 }
 
+const LoadingContain = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const LoadingBox = styled.div`
+  width: 13rem;
+  height: 13rem;
+`;
 const Container = styled.div`
   width: 78rem;
   margin-top: 2.93rem;
@@ -198,7 +211,6 @@ const Button = styled.button<ButtonProps>`
   border-radius: ${({ radius }) => radius};
 `;
 const ProjectListBox = styled.div`
-  width: 100%;
   height: 18.75rem;
   display: flex;
   align-items: center;
@@ -206,7 +218,6 @@ const ProjectListBox = styled.div`
   padding: 1rem;
 `;
 const ListBox = styled.div`
-  flex-grow: 1;
   display: flex;
   align-items: center;
 `;
@@ -222,9 +233,6 @@ const ProjectCard = styled.div`
   padding: 3.03rem 2.18rem;
   border-radius: 0.63rem;
   cursor: pointer;
-  :last-child {
-    margin-right: 0;
-  }
 `;
 const DeleteButton = styled.button`
   background-color: transparent;
@@ -234,18 +242,16 @@ const DeleteButton = styled.button`
   opacity: 0.6;
 `;
 const EmptyContain = styled.div`
-  flex-shirink: 0;
-  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 `;
 const EmptyBox = styled.div`
   background-color: #fff;
-  width: 11rem;
-  height: 13.13rem;
+  width: 14rem;
+  height: 16.75rem;
   border-radius: 0.63rem;
-  margin: 0 1.5rem;
+  margin-right: 1.5rem;
   opacity: 0.3;
 `;
 const EditInput = styled.input`

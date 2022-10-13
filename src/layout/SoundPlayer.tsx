@@ -10,37 +10,28 @@ import { useAppSelector, useAppDispatch } from '@/store/store';
 function SoundPlayer(this: any) {
   const { projectId } = useAppSelector((state) => state.projectControl.projectData);
   const player: React.MutableRefObject<any> = useRef();
-
-  const { data: allSound } = useAllListenQuery(projectId);
-  const [audioUrl, setAudioUrl] = useState({
-    audioFileUrl: '',
-  });
-
+  const { data: allSound } = useAllListenQuery(Number(projectId));
+  const [audioUrl, setaudioUrl] = useState('');
   useEffect(() => {
-    if (allSound) setAudioUrl(allSound);
+    if (allSound) setaudioUrl(allSound.data);
   }, [allSound]);
-
-  const [isPlay, setIsplay] = useState(false);
-  function audiofunction() {
+  function audiofunction(isPlay: boolean) {
     isPlay ? player.current.audio.current.play() : player.current.audio.current.load();
   }
-
   return (
     <PlayerContainer>
       <PlayButton
         onClick={() => {
-          setIsplay(true);
-          audiofunction();
+          audiofunction(true);
         }}
       />
       <StopButton
         onClick={() => {
-          setIsplay(false);
-          audiofunction();
+          audiofunction(false);
         }}
       />
       <AudioPlayer
-        src={allSound}
+        src={audioUrl}
         autoPlay={false}
         layout="horizontal-reverse"
         // onPlay={Listen}

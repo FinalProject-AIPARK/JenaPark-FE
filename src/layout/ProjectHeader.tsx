@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useVideoSynthesisQuery, useGetProjectDataQuery } from '@/api/useApi';
+import { useVideoSynthesisQuery, useAllListenQuery } from '@/api/useApi';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import SoundPlayer from './SoundPlayer';
 import styled from 'styled-components';
@@ -10,16 +10,10 @@ import videoimage from '/images/video.png';
 import voiceimage from '/images/music.png';
 
 function ProjectHeader() {
-  const [videoId, setVideoId] = useState(0);
-
-  function ClickSynthesis() {
-    setVideoId(projectId);
-  }
-
   const { projectId, downloadAudioUrl } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
-
+  // const { data } = useAllListenQuery(projectId);
   // const { data: VideoSynthesis } = useVideoSynthesisQuery(projectId);
 
   // useEffect(() => {
@@ -48,9 +42,9 @@ function ProjectHeader() {
             <a href={downloadAudioUrl ? downloadAudioUrl : ''} download target="_self">
               음성 다운로드
             </a>
-            <VoiceImage />s
+            <VoiceImage />
           </DownloadButton>
-          <DownloadButton onClick={ClickSynthesis}>
+          <DownloadButton>
             영상 합성하기
             <VideoImage />
           </DownloadButton>

@@ -18,15 +18,14 @@ function index() {
   const inputFileRef = useRef();
   const submitRef = useRef<HTMLInputElement>();
   const [backgroundUploadFile] = usePostUploadBackgroundMutation();
-  const [backgroundFile, setackgroundFile] = useState<Array<File>>([]);
-  console.log(backgroundFile)
+  const [backgroundFile, setBackgroundFile] = useState<Array<File>>([]);
 
   function backgroundFiles(files: FileList) {
     const file: File = files[0];
-    setackgroundFile([file]);
+    setBackgroundFile([file]);
   }
 
-  function backgroundImgUpload(event: React.FormEvent<HTMLFormElement>) {
+  useEffect(() => {
     // event.preventDefault();
     let formData = new FormData();
     formData.append("backgroundFile", backgroundFile[0]);
@@ -35,19 +34,14 @@ function index() {
       projectId,
     };
     backgroundUploadFile(actionBackgroundupload);
-  }
+    
+  }, [backgroundFile])
 
   function onInputFile(event: React.ChangeEvent<HTMLInputElement>, e: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     backgroundFiles(event.target.files!);
     submitRef.current?.click()
-    backgroundImgUpload(e)
-    // test()
   }
-
-  // function test(e: React.FormEvent<HTMLFormElement>) {
-  //   backgroundImgUpload(e)
-  // }
 
   // 배경 리스트
   const { data: avatarBackgroundList } = useGetBackgroundAvatarListQuery(null);
@@ -55,6 +49,7 @@ function index() {
 
   // 배경 선택버튼
   const [backgroundId, setBackgroundId] = useState(0);
+  console.log(backgroundId)
   const [backgroundChoose, { data: backgroundUrlData }] =
     usePostBackgroundAvatarListChooseMutation();
   function backgroundEvent() {
@@ -90,8 +85,7 @@ function index() {
         avatarBackgroundList={avatarBackgroundList}
         setBackgroundId={setBackgroundId}
         backgroundEvent={backgroundEvent}
-        backgroundImgUpload={backgroundImgUpload}
-        setackgroundFile={setackgroundFile}
+        setBackgroundFile={setBackgroundFile}
         backgroundFiles={backgroundFiles}
         inputFileRef={inputFileRef}
         submitRef={submitRef}

@@ -28,7 +28,7 @@ function VoiceModel() {
   const [initColor, setInitColor] = useState('');
   useEffect(() => {
     if (sex) {
-      console.log('hi');
+      dispatch(getProjectId(projectId));
       setVoiceFilter({ sex, lang });
       sex === 'male' ? setSexButton(false) : null;
       switch (lang) {
@@ -205,25 +205,25 @@ function VoiceModel() {
       case 'female':
         if (voiceFilter.lang === 'kor') {
           setModelNameColor(backColorList[1]);
-          !initColor ? setInitColor(backColorList[1]) : null;
+          audioModel ? setInitColor(backColorList[1]) : null;
         } else if (voiceFilter.lang === 'eng') {
           setModelNameColor(backColorList[3]);
-          !initColor ? setInitColor(backColorList[3]) : null;
+          audioModel ? setInitColor(backColorList[3]) : null;
         } else {
           setModelNameColor(backColorList[4]);
-          !initColor ? setInitColor(backColorList[4]) : null;
+          audioModel ? setInitColor(backColorList[4]) : null;
         }
         break;
       case 'male':
         if (voiceFilter.lang === 'kor') {
           setModelNameColor(backColorList[0]);
-          !initColor ? setInitColor(backColorList[0]) : null;
+          audioModel ? setInitColor(backColorList[0]) : null;
         } else if (voiceFilter.lang === 'eng') {
           setModelNameColor(backColorList[2]);
-          !initColor ? setInitColor(backColorList[2]) : null;
+          audioModel ? setInitColor(backColorList[2]) : null;
         } else {
           setModelNameColor(backColorList[5]);
-          !initColor ? setInitColor(backColorList[5]) : null;
+          audioModel ? setInitColor(backColorList[5]) : null;
         }
         break;
       default:

@@ -54,7 +54,7 @@ export const useApi = createApi({
         url: '/api/v1/projects',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
         },
       }),
     }),
@@ -64,7 +64,7 @@ export const useApi = createApi({
         method: 'POST',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NDA5OTE1fQ.2qmU5ZkQdVwDbrPJhN0waGwLaVaCUUPNohqxxJo1vhY',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA2NjY5fQ.rm8-qxjUXo93wuC37YBfzwXGC03YQyNwCeoDxrf8I64',
         },
       }),
     }),
@@ -95,8 +95,8 @@ export const useApi = createApi({
       }),
     }),
     // 개별 프로젝트 데이터
-    getProjectData: builder.query<ReturnProjectDataType, number>({
-      query: (projectId) => `/api/v1/projects/${projectId}`,
+    getProjectData: builder.query<ReturnProjectDataType, ActionProjectDataType>({
+      query: (data) => `/api/v1/projects/${data.projectId}`,
     }),
     // AI 음성
     uploadVoice: builder.mutation<ReturnUploadVoiceType, ActionUploadVoiceType>({
@@ -128,8 +128,8 @@ export const useApi = createApi({
       }),
     }),
     getAvatarChooseListId: builder.query<AvatarListId, AvatarId>({
-      query: (id) => ({
-        url: `/api/v1/projects/avatar/${id}`,
+      query: (avatarId) => ({
+        url: `/api/v1/projects/avatar/${avatarId}`,
         method: 'GET',
       }),
     }),
@@ -147,7 +147,7 @@ export const useApi = createApi({
         method: 'GET',
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
         },
       }),
     }),
@@ -158,7 +158,7 @@ export const useApi = createApi({
         body: data,
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
         },
       }),
     }),
@@ -169,8 +169,22 @@ export const useApi = createApi({
         body: data.formData,
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTIzQGdtYWlsLmNvbSIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE2NjU1MDkwNDV9.unEOWLRtrW-bpxoHKzo8JYj3lDnoM635Ldk1YSdqHCc',
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
         },
+      }),
+    }),
+    // 텍스트 수정
+    postUpdataTts: builder.mutation<TextData, TextUpdata>({
+      query: (data) => ({
+        url: '/api/v1/projects/update-tts',
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    deleteAudio: builder.mutation<any, DeleteId>({
+      query: ({ projectID, audioID }) => ({
+        url: `/api/v1/projects/${projectID}/audio/${audioID}`,
+        method: 'DELETE',
       }),
     }),
 
@@ -187,11 +201,8 @@ export const useApi = createApi({
         method: 'GET',
       }),
     }),
-    videoSynthesis: builder.query<ReturnvideoSynthesisType, number>({
-      query: (id) => ({
-        url: `/api/v1/projects/${id}/video`,
-        method: 'GET',
-      }),
+    videoSynthesis: builder.query<any, any>({
+      query: (id) => `/api/v1/projects/${id}/audio`,
     }),
   }),
 });
@@ -247,6 +258,8 @@ export const {
   useGetBackgroundAvatarListQuery,
   usePostBackgroundAvatarListChooseMutation,
   usePostUploadBackgroundMutation,
+  usePostUpdataTtsMutation,
+  useDeleteAudioMutation,
   useAllListenQuery,
   useVideoSynthesisQuery,
 } = useApi;
@@ -326,6 +339,7 @@ interface ReturnProjectHistoryType {
       downloadFileUrl: string;
     }[];
   };
+  message: string;
 }
 interface ReturnCreateProjectType {
   data: {
@@ -360,6 +374,10 @@ interface ActionEditVideoTitleType {
   };
 }
 // 개별 프로젝트 데이터
+interface ActionProjectDataType {
+  count: number;
+  projectId: string;
+}
 interface ReturnProjectDataType {
   data: {
     projectId: number;
@@ -379,7 +397,6 @@ interface ReturnProjectDataType {
     checkText: boolean;
     checkAudio: boolean;
     checkAvatar: boolean;
-    downloadAudioUrl: null;
     audioInfos: [];
   };
 }
@@ -491,7 +508,6 @@ interface ActionInpTextSynthesisType {
   speed: number;
   text: string;
 }
-
 interface BackgroundAvatar {
   message: string;
   data: {
@@ -534,13 +550,31 @@ interface BackgroundImgUpload {
 }
 
 interface ReturnAllListenType {
-  audioFileUrl: string;
+  data: string;
+}
+// 텍스트 수정
+
+interface TextData {
+  message: string;
+  data: {
+    audioId: number;
+    allText: string;
+    audioFileUrl: string;
+  };
 }
 
-interface ReturnvideoSynthesisType {
-  state: number;
-  result: string;
-  message: string;
-  data: [];
-  error: [];
+interface TextUpdata {
+  projectID: number;
+  audioID: number;
+  durationSilence: number;
+  pitch: number;
+  speed: number;
+  volume: number;
+  text: string;
+}
+
+// 텍스트 수정
+interface DeleteId {
+  projectID: number;
+  audioID: number;
 }

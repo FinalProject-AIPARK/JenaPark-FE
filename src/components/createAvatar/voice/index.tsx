@@ -8,7 +8,7 @@ import { voiceModelWorking, voiceOptionWorking } from '../../../store/voice/voic
 
 function Voice() {
   const { isVoiceModel, isVoiceOption } = useAppSelector((state) => state.voice.elementData);
-  const { audioMerge } = useAppSelector((state) => state.projectControl.projectData);
+  const { audioUpload } = useAppSelector((state) => state.projectControl.projectData);
   const dispatch = useAppDispatch();
   function voiceModelHandler() {
     dispatch(voiceModelWorking());
@@ -23,7 +23,7 @@ function Voice() {
         OptionButton={voiceOptionHandler}
         modelOn={isVoiceModel}
         optionOn={isVoiceOption}
-        audioMerge={audioMerge}
+        audioUpload={audioUpload}
       />
       {isVoiceModel ? <VoiceModel /> : <VoiceOption />}
       <Background></Background>

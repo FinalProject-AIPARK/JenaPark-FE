@@ -50,7 +50,7 @@ function LendingHeader() {
               <SignButton onClick={logOutClick}>로그아웃</SignButton>
             </Link>
           ) : (
-            <Link to="/Signin">
+            <Link to="/signin">
               <SignButton>로그인</SignButton>
             </Link>
           )}
@@ -66,6 +66,7 @@ const LendingHeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
+  height: 5vh;
 `;
 
 const ButtonContainer = styled.div`
