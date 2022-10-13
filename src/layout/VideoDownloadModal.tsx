@@ -10,6 +10,7 @@ const VideoDownloadModal = memo(
     isEditVideo,
     videoTitle,
     keyDownVideoHandler,
+    blurVideoHandler,
     editVideoHandler,
     changeVideoTitle,
     deleteVideoHandler,
@@ -25,6 +26,7 @@ const VideoDownloadModal = memo(
                   maxLength={12}
                   onChange={(event) => changeVideoTitle(event)}
                   onKeyDown={(event) => keyDownVideoHandler(event, selectItem.videoId)}
+                  onBlur={() => blurVideoHandler(selectItem.videoId)}
                 />
               ) : (
                 <>
@@ -95,6 +97,7 @@ interface VideoModalProps {
   isEditVideo: boolean;
   videoTitle: string;
   keyDownVideoHandler: (event: React.KeyboardEvent<HTMLInputElement>, id: number) => void;
+  blurVideoHandler: (id: number) => void;
   editVideoHandler: () => void;
   changeVideoTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   deleteVideoHandler: (id: number) => void;

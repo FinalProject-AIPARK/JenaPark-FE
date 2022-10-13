@@ -11,6 +11,8 @@ import {
   useDeleteProjectMutation,
 } from '@/api/useApi';
 import VideoDownloaddModal from '@/layout/VideoDownloadModal';
+import LoadingBigLayout from '@/layout/LoadingBigLayout';
+import ErrorBigLayout from '@/layout/ErrorBigLayout';
 import Header from '@/components/Header/ProjectHeader';
 
 function History() {
@@ -20,7 +22,13 @@ function History() {
 
   // 프로젝트 리스트 요청
   const [update, setUpdate] = useState(0);
-  const { data: project } = useGetProjectHistoyQuery(update);
+  const {
+    data: project,
+    isLoading: loadingProject,
+    isError: errorProject,
+    error,
+  } = useGetProjectHistoyQuery(update);
+  const [errorState, setErrorState] = useState('');
   const [projectList, setProjectList] = useState([
     {
       projectId: 0,
@@ -42,6 +50,7 @@ function History() {
   ]);
   useEffect(() => {
     if (project) {
+      setErrorState(project.message);
       setProjectList(project.data.historyProjects);
       setVideoList(project.data.historyVideos);
       setIsEditProject([]);
@@ -70,6 +79,7 @@ function History() {
         });
       }
     }
+    console.log(error);
   }, [project]);
 
   // 프로젝트 생성
@@ -123,6 +133,17 @@ function History() {
       });
     }
   }
+  function blurProjectHandler(index: number, id: number) {
+    editProjectName({
+      projectID: id,
+      title: title[index],
+    });
+    setIsEditProject((prev) => {
+      let next = [...prev];
+      next[index] = false;
+      return next;
+    });
+  }
 
   // 영상 이름 수정
   const [isEditVideo, setIsEditVideo] = useState(false);
@@ -148,6 +169,19 @@ function History() {
       });
       setIsEditVideo(false);
     }
+  }
+  function blurVideoHandler(id: number) {
+    editVideoName({
+      videoId: id,
+      action: {
+        title: videoTitle,
+      },
+    });
+    setSelectItem((prev) => {
+      let next = { ...prev, title: videoTitle };
+      return next;
+    });
+    setIsEditVideo(false);
   }
   useEffect(() => {
     setUpdate(update + 1);
@@ -214,6 +248,8 @@ function History() {
 
   return (
     <Container>
+      {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
+      {loadingProject ? <LoadingBigLayout /> : null}
       <Header />
       <div style={{ height: 'calc(100vh - 10.06rem)' }}>
         <HistoryProjectLayout
@@ -225,10 +261,12 @@ function History() {
           title={title}
           changeTitle={changeProjectTitle}
           keyDownHandler={keyDownProjectHandler}
+          blurProjectHandler={blurProjectHandler}
           guideText={guideText[0]}
           guideHandler={guideHandler}
           projectEmpty={projectEmpty}
           deleteProjectHandler={deleteProjectHandler}
+          loadingProject={loadingProject}
         />
         <HistoryVideoLayout
           videoList={videoList}
@@ -246,6 +284,7 @@ function History() {
           videoTitle={videoTitle}
           editVideoHandler={editVideoHandler}
           keyDownVideoHandler={keyDownVideoHandler}
+          blurVideoHandler={blurVideoHandler}
           changeVideoTitle={changeVideoTitle}
           deleteVideoHandler={deleteVideoHandler}
         />
