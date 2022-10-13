@@ -4,6 +4,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { avatarReducer } from './Avatar/avatarSlice'
 import { voiceReducer } from './voice/voiceSlice';
+import { textUpdataReducer } from './editText/EditTextSlice' ;
 import { projectControlReducer } from './workingProject/projectControlSlice';
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     avatar: avatarReducer,
     voice: voiceReducer,
     projectControl: projectControlReducer,
+    textUpdata: textUpdataReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(useApi.middleware),
 });
