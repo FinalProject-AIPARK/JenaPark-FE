@@ -8,7 +8,7 @@ import { ReturnVoiceModelType } from '../../api/useApi';
 import LoadingAnimation from '../BigLoadingAnimation';
 import SmallLoadingAnimation from '../SmallLoadingAnimation';
 
-function VoiceModelListLayout({
+const VoiceModelListLayout = ({
   voiceModel,
   inputModel,
   selectModelCardHandler,
@@ -21,7 +21,7 @@ function VoiceModelListLayout({
   audioFile,
   moveToAvartar,
   prevUpload,
-}: VoiceModelLayoutProps) {
+}: VoiceModelLayoutProps) => {
   // 재생 도중 다른 음성을 재생했을때 버튼에 직접적으로 자신 정지 동작하기
   // 재생, 일시정지 버튼으로 onOff 값이 바뀔떄마다 useEffect 동작
   const [onOff, setOnOff] = useState(false);
@@ -157,7 +157,7 @@ function VoiceModelListLayout({
       </div>
     </>
   );
-}
+};
 
 interface VoiceModelLayoutProps {
   prevUpload: string;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useVideoSynthesisQuery, useAllListenQuery } from '@/api/useApi';
 import { useAppSelector, useAppDispatch } from '@/store/store';
@@ -9,7 +9,7 @@ import editpencil from '/images/edit-pencil.png';
 import videoimage from '/images/video.png';
 import voiceimage from '/images/music.png';
 
-function ProjectHeaderLayout() {
+const ProjectHeaderLayout = memo(() => {
   const { projectId, downloadAudioUrl } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
@@ -23,36 +23,34 @@ function ProjectHeaderLayout() {
   // }, [VideoSynthesis]);
 
   return (
-    <>
-      <ProjectHeaderContainer>
-        <ProjectNameContainer>
-          <LeftArrow />
-          <ProjectNameText>프로젝트 명</ProjectNameText>
-          <NameEditImage />
-        </ProjectNameContainer>
-        <SoundPlayerContainer>
-          <SoundPlayer />
-        </SoundPlayerContainer>
-        <ImageButtonContainer>
-          <DownloadButton
-            onClick={() => {
-              alert('전체 음성을 다운 받으시겠습니까?');
-            }}
-          >
-            <a href={downloadAudioUrl ? downloadAudioUrl : ''} download target="_self">
-              음성 다운로드
-            </a>
-            <VoiceImage />
-          </DownloadButton>
-          <DownloadButton>
-            영상 합성하기
-            <VideoImage />
-          </DownloadButton>
-        </ImageButtonContainer>
-      </ProjectHeaderContainer>
-    </>
+    <ProjectHeaderContainer>
+      <ProjectNameContainer>
+        <LeftArrow />
+        <ProjectNameText>프로젝트 명</ProjectNameText>
+        <NameEditImage />
+      </ProjectNameContainer>
+      <SoundPlayerContainer>
+        <SoundPlayer />
+      </SoundPlayerContainer>
+      <ImageButtonContainer>
+        <DownloadButton
+          onClick={() => {
+            alert('전체 음성을 다운 받으시겠습니까?');
+          }}
+        >
+          <a href={downloadAudioUrl ? downloadAudioUrl : ''} download target="_self">
+            음성 다운로드
+          </a>
+          <VoiceImage />
+        </DownloadButton>
+        <DownloadButton>
+          영상 합성하기
+          <VideoImage />
+        </DownloadButton>
+      </ImageButtonContainer>
+    </ProjectHeaderContainer>
   );
-}
+});
 
 const ProjectHeaderContainer = styled.div`
   display: flex;
@@ -63,13 +61,11 @@ const ProjectHeaderContainer = styled.div`
   background: rgba(0, 19, 52, 0.5);
   box-shadow: 4px 4px 10px rgba(250, 250, 250, 0.1);
 `;
-
 const ProjectNameContainer = styled.div`
   display: flex;
   align-items: center;
   flex-shrink: 0;
 `;
-
 const LeftArrow = styled.img.attrs({
   src: `${leftarrow}`,
 })`
@@ -79,13 +75,11 @@ const LeftArrow = styled.img.attrs({
   margin-right: 0.3125rem;
   filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(258deg) brightness(107%) contrast(101%);
 `;
-
 const ProjectNameText = styled.span`
   font-weight: 700;
   font-size: 1.375rem;
   color: #fff;
 `;
-
 const NameEditImage = styled.img.attrs({
   src: `${editpencil}`,
 })`
@@ -95,15 +89,12 @@ const NameEditImage = styled.img.attrs({
   margin-left: 0.3125rem;
   filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(258deg) brightness(107%) contrast(101%);
 `;
-
 const SoundPlayerContainer = styled.div`
   width: 40%;
 `;
-
 const ImageButtonContainer = styled.div`
   display: flex;
 `;
-
 const DownloadButton = styled.button`
   display: flex;
   justify-content: center;
@@ -125,7 +116,6 @@ const DownloadButton = styled.button`
     margin-right: 0;
   }
 `;
-
 const VoiceImage = styled.img.attrs({
   src: `${voiceimage}`,
 })`
@@ -133,7 +123,6 @@ const VoiceImage = styled.img.attrs({
   width: 1.5rem;
   height: 1.5rem;
 `;
-
 const VideoImage = styled.img.attrs({
   src: `${videoimage}`,
 })`

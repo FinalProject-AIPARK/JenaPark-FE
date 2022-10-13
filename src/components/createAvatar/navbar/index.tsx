@@ -43,16 +43,6 @@ function Navbar() {
     }
   }
 
-  // 로그아웃 토큰이 삭제가 안되는 이슈 있음
-  // const cookies = new Cookies();
-  // const accessToken = cookies.get('accessToken');
-  // const refreshToken = cookies.get('refreshToken');
-  // const [requestLogOut] = useLogOutMutation();
-  function logoutHanlder() {
-    // cookies.remove('accessToken');
-    // cookies.remove('refreshToken');
-    // window.location.href = '/';
-  }
   return (
     <Container onClick={(event) => dropdownHandler(event)}>
       <UserNavbarLayout
@@ -60,7 +50,6 @@ function Navbar() {
         userInfoData={userInfoData?.data.username!}
         myInfoButton={myInfoButton}
         myInfoBtn={myInfoBtn}
-        logoutHanlder={logoutHanlder}
       />
       <WorkingNavbarLayout buttonHandler={buttonHandler} iconBg={elementData.isVoiceWoking} />
     </Container>

@@ -19,130 +19,128 @@ function ProjectEditTextLayout({
   audioInfos,
 }: Edittest) {
   return (
-    <>
-      <Container>
-        <TextContainer>
-          <Title>
-            <span style={{ color: '#fff' }}>텍스트 수정</span>
-            <ButtonContainer>
-              <VoiceButton onClick={textUpLoadData}>음성 합성하기</VoiceButton>
-              <DeleteButton>
-                <Icon src={caution} />
-                <span style={{ color: '#fff', fontSize: '16px', marginLeft: '9px' }}>1</span>
-              </DeleteButton>
-              <ErrorButton>
-                <Icon
-                  onClick={() => {
-                    deleteComponent(deleteCheckBox);
-                  }}
-                  src={trashcan}
-                />
-              </ErrorButton>
-            </ButtonContainer>
-          </Title>
-          <TextBox>
-            <ScrollBox>
-              <EditTextContainer>
-                {audioInfos &&
-                  audioInfos.map((list: any) => {
-                    return (
-                      <EditText key={list.audioId}>
-                        {/* 대사창 묶음 */}
-                        <StatusWrap>
-                          <AvatarNameContainer>
-                            <input
-                              type="checkbox"
-                              onClick={() => {
-                                setDeleteCheckbox(list.audioId);
-                                EditTextupdataStore(list.audioId, 'audioID');
-                              }}
-                              style={{ marginRight: '10px' }}
-                            />
-                            <AvatarName>
-                              <h2 style={{ color: '#fff' }}>{list.audioModelName}</h2>
-                            </AvatarName>
-                          </AvatarNameContainer>
-                          <Line />
-                          <Text>
-                            <input
-                              onChange={(e) => EditTextupdataStore(e.target.value, 'text')}
-                              defaultValue={list.splitText}
-                              maxLength={150}
-                              style={{ width: '100%', textOverflow: 'ellipsis' }}
-                            />
-                          </Text>
-                          <Line />
-                          <PlayContainer>
-                            <>
-                              <img
-                                src={playButtonBlue}
-                                alt="재생 이미지"
-                                style={{ height: '2rem', width: '2rem' }}
-                              />
-                            </>
+    <Container>
+      <TextContainer>
+        <Title>
+          <span style={{ color: '#fff' }}>텍스트 수정</span>
+          <ButtonContainer>
+            <VoiceButton onClick={textUpLoadData}>음성 합성하기</VoiceButton>
+            <DeleteButton>
+              <Icon src={caution} />
+              <span style={{ color: '#fff', fontSize: '16px', marginLeft: '9px' }}>1</span>
+            </DeleteButton>
+            <ErrorButton>
+              <Icon
+                onClick={() => {
+                  deleteComponent(deleteCheckBox);
+                }}
+                src={trashcan}
+              />
+            </ErrorButton>
+          </ButtonContainer>
+        </Title>
+        <TextBox>
+          <ScrollBox>
+            <EditTextContainer>
+              {audioInfos &&
+                audioInfos.map((list: any) => {
+                  return (
+                    <EditText key={list.audioId}>
+                      {/* 대사창 묶음 */}
+                      <StatusWrap>
+                        <AvatarNameContainer>
+                          <input
+                            type="checkbox"
+                            onClick={() => {
+                              setDeleteCheckbox(list.audioId);
+                              EditTextupdataStore(list.audioId, 'audioID');
+                            }}
+                            style={{ marginRight: '10px' }}
+                          />
+                          <AvatarName>
+                            <h2 style={{ color: '#fff' }}>{list.audioModelName}</h2>
+                          </AvatarName>
+                        </AvatarNameContainer>
+                        <Line />
+                        <Text>
+                          <input
+                            onChange={(e) => EditTextupdataStore(e.target.value, 'text')}
+                            defaultValue={list.splitText}
+                            maxLength={150}
+                            style={{ width: '100%', textOverflow: 'ellipsis' }}
+                          />
+                        </Text>
+                        <Line />
+                        <PlayContainer>
+                          <>
                             <img
-                              src={StopButtonBlue}
-                              alt="스탑 이미지"
+                              src={playButtonBlue}
+                              alt="재생 이미지"
                               style={{ height: '2rem', width: '2rem' }}
                             />
-                          </PlayContainer>
-                          <Line />
-                          <ControlContainer>
-                            <img
-                              src={sound}
-                              alt="소리 이미지"
-                              onClick={() => {
-                                showOptionWindow('VolumeSpeed');
-                              }}
-                            />
-                            <img
-                              src={voice}
-                              alt="마이크 이미지"
-                              onClick={() => {
-                                showOptionWindow('Tone');
-                              }}
-                            />
-                            <img
-                              src={ton}
-                              alt="그래프 이미지"
-                              onClick={() => {
-                                showOptionWindow('Breath');
-                              }}
-                            />
-                            <img src={etc} alt="점점점 이미지" />
-                          </ControlContainer>
-                        </StatusWrap>
-                        {/* 옵션창 묶음 */}
-                        <OptionWrap>
-                          {optionWindow.VolumeSpeed && (
-                            <VolumeSpeedOptionContainer
-                              speed={list.speed}
-                              volume={list.volume}
-                              EditTextupdataStore={EditTextupdataStore}
-                            />
-                          )}
-                          {optionWindow.Tone && (
-                            <ToneOptionContainer
-                              pitch={list.pitch}
-                              EditTextupdataStore={EditTextupdataStore}
-                            />
-                          )}
-                          {optionWindow.Breath && (
-                            <BreathOptionContainer
-                              durationSilence={list.durationSilence}
-                              EditTextupdataStore={EditTextupdataStore}
-                            />
-                          )}
-                        </OptionWrap>
-                      </EditText>
-                    );
-                  })}
-              </EditTextContainer>
-            </ScrollBox>
-          </TextBox>
-        </TextContainer>
-      </Container>
-    </>
+                          </>
+                          <img
+                            src={StopButtonBlue}
+                            alt="스탑 이미지"
+                            style={{ height: '2rem', width: '2rem' }}
+                          />
+                        </PlayContainer>
+                        <Line />
+                        <ControlContainer>
+                          <img
+                            src={sound}
+                            alt="소리 이미지"
+                            onClick={() => {
+                              showOptionWindow('VolumeSpeed');
+                            }}
+                          />
+                          <img
+                            src={voice}
+                            alt="마이크 이미지"
+                            onClick={() => {
+                              showOptionWindow('Tone');
+                            }}
+                          />
+                          <img
+                            src={ton}
+                            alt="그래프 이미지"
+                            onClick={() => {
+                              showOptionWindow('Breath');
+                            }}
+                          />
+                          <img src={etc} alt="점점점 이미지" />
+                        </ControlContainer>
+                      </StatusWrap>
+                      {/* 옵션창 묶음 */}
+                      <OptionWrap>
+                        {optionWindow.VolumeSpeed && (
+                          <VolumeSpeedOptionContainer
+                            speed={list.speed}
+                            volume={list.volume}
+                            EditTextupdataStore={EditTextupdataStore}
+                          />
+                        )}
+                        {optionWindow.Tone && (
+                          <ToneOptionContainer
+                            pitch={list.pitch}
+                            EditTextupdataStore={EditTextupdataStore}
+                          />
+                        )}
+                        {optionWindow.Breath && (
+                          <BreathOptionContainer
+                            durationSilence={list.durationSilence}
+                            EditTextupdataStore={EditTextupdataStore}
+                          />
+                        )}
+                      </OptionWrap>
+                    </EditText>
+                  );
+                })}
+            </EditTextContainer>
+          </ScrollBox>
+        </TextBox>
+      </TextContainer>
+    </Container>
   );
 }
 
@@ -250,8 +248,8 @@ function BreathOptionContainer({ durationSilence, EditTextupdataStore }: any) {
     </BreathOptionWrap>
   );
 }
-// 타입지정
 
+// 타입지정
 interface Edittest {
   optionWindow: { VolumeSpeed: boolean; Tone: boolean; Breath: boolean };
   showOptionWindow: (kind: string) => void;
@@ -269,21 +267,18 @@ const EditTextContainer = styled.div`
   width: 65rem;
   height: 100%;
 `;
-
 const AvatarNameContainer = styled.div`
   width: 7.5;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
 const ControlContainer = styled.div`
   width: 9.375rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 `;
-
 const PlayContainer = styled.div`
   width: 6.25rem;
   height: 100%;
@@ -291,14 +286,12 @@ const PlayContainer = styled.div`
   align-items: center;
   justify-content: space-evenly;
 `;
-
 const Text = styled.div`
   display: flex;
   align-items: center;
   width: 40.625rem;
   padding: 0 20px 0 8px;
 `;
-
 const AvatarName = styled.div`
   background-color: #0049ff;
   width: 5.1rem;
@@ -314,11 +307,9 @@ const Line = styled.div`
   height: 80%;
   background-color: #c3c3c3;
 `;
-
 const Icon = styled.img`
   height: 60%;
 `;
-
 const Container = styled.div`
   background-color: #001334;
   width: 55.9vw;
@@ -327,24 +318,20 @@ const Container = styled.div`
   margin-top: 16px;
   border-radius: 0.63rem;
 `;
-
 const TextContainer = styled.div`
   width: 100%;
   height: 100%;
 `;
-
 const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
-
 const TextBox = styled.div`
   height: 92%;
   width: 100%;
 `;
 const EditText = styled.div``;
-
 const StatusWrap = styled.div`
   display: flex;
   align-items: center;
@@ -355,16 +342,13 @@ const StatusWrap = styled.div`
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 `;
-
 const OptionWrap = styled.div``;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 16.625rem;
   margin-right: 10px;
 `;
-
 const ScrollBox = styled.div`
   background-color: #fff;
   width: 96.8%;
@@ -397,7 +381,6 @@ const ScrollBox = styled.div`
     border-radius: 10px;
   }
 `;
-
 const VoiceButton = styled.button`
   width: 6.75rem;
   height: 2rem;
@@ -407,7 +390,6 @@ const VoiceButton = styled.button`
   justify-content: center;
   align-items: center;
 `;
-
 const DeleteButton = styled.button`
   width: 3.813rem;
   height: 2rem;
@@ -417,7 +399,6 @@ const DeleteButton = styled.button`
   justify-content: center;
   align-items: center;
 `;
-
 const ErrorButton = styled.button`
   width: 2.75rem;
   height: 2rem;
@@ -428,9 +409,6 @@ const ErrorButton = styled.button`
   align-items: center;
   background-color: #dbdbdb;
 `;
-
-// 옵션창 스타일 지정
-
 // 볼륨스피드조절
 const VolumeSpeedOptionWrap = styled.div`
   display: flex;
@@ -507,7 +485,6 @@ const VolumeSpeedOptionWrap = styled.div`
     }
   }
 `;
-
 const ToneOptionWrap = styled(VolumeSpeedOptionWrap)`
   .container {
     width: 500px;
@@ -523,7 +500,6 @@ const ToneOptionWrap = styled(VolumeSpeedOptionWrap)`
     }
   }
 `;
-
 const BreathOptionWrap = styled(ToneOptionWrap)`
   .container {
     width: 420px;

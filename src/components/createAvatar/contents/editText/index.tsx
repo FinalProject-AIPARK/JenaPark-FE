@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect, ChangeEvent } from 'react';
-import EditTextLayout from '../../../../layout/projectContents/ProjectEditTextLayout';
-import { useAppSelector, useAppDispatch } from '../../../../store/store';
-import { textDataUpload } from '../../../../store/editText/EditTextSlice';
-import { usePostUpdataTtsMutation, useDeleteAudioMutation } from '../../../../api/useApi';
-function index() {
+import { useState, useRef, memo } from 'react';
+import EditTextLayout from '@/layout/projectContents/ProjectEditTextLayout';
+import { useAppSelector, useAppDispatch } from '@/store/store';
+import { textDataUpload } from '@/store/editText/EditTextSlice';
+import { usePostUpdataTtsMutation, useDeleteAudioMutation } from '@/api/useApi';
+
+const EditText = memo(() => {
   const { durationSilence, pitch, speed, volume, text } = useAppSelector(
     (state) => state.textUpdata.updataTts,
   );
-  // const uploadData = useAppSelector((state) => state.textUpdata.updataTts)
   const { projectId: projectID, audioInfos } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
@@ -15,7 +15,6 @@ function index() {
 
   // 텍스트 삭제
   const [deleteCheckBox, setDeleteCheckbox] = useState<number>();
-  console.log(deleteCheckBox);
   const [deleteText] = useDeleteAudioMutation();
   const audioID = deleteCheckBox;
   function deleteComponent() {
@@ -26,10 +25,7 @@ function index() {
     deleteText(actionDelete);
   }
 
-  useEffect(() => {}, [audioInfos]);
-
   // 컨트롤 옵션 보여주는 함수
-
   const [optionWindow, setOptionWindow] = useState({
     VolumeSpeed: false,
     Tone: false,
@@ -49,7 +45,6 @@ function index() {
   const playerRef = useRef<any>();
 
   // 텍스트 수정 업데이트
-
   const [updataText] = usePostUpdataTtsMutation();
   function textUpLoadData() {
     const data = {
@@ -69,20 +64,18 @@ function index() {
   }
 
   return (
-    <>
-      <EditTextLayout
-        textUpLoadData={textUpLoadData}
-        setDeleteCheckbox={setDeleteCheckbox}
-        deleteCheckBox={deleteCheckBox}
-        deleteComponent={deleteComponent}
-        EditTextupdataStore={EditTextupdataStore}
-        setOptionWindow={setOptionWindow}
-        optionWindow={optionWindow}
-        showOptionWindow={showOptionWindow}
-        audioInfos={audioInfos}
-      />
-    </>
+    <EditTextLayout
+      textUpLoadData={textUpLoadData}
+      setDeleteCheckbox={setDeleteCheckbox}
+      deleteCheckBox={deleteCheckBox}
+      deleteComponent={deleteComponent}
+      EditTextupdataStore={EditTextupdataStore}
+      setOptionWindow={setOptionWindow}
+      optionWindow={optionWindow}
+      showOptionWindow={showOptionWindow}
+      audioInfos={audioInfos}
+    />
   );
-}
+});
 
-export default index;
+export default EditText;

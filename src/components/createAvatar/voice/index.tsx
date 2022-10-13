@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import VoiceWorkingButtonLayout from '../../../layout/voice/VoiceWorkingButtonLayout';
+import VoiceWorkingButtonLayout from '@/layout/voice/VoiceWorkingButtonLayout';
 import VoiceModel from './voiceModel';
 import VoiceOption from './voiceOption';
-import { useAppSelector, useAppDispatch } from '../../../store/store';
-import { voiceModelWorking, voiceOptionWorking } from '../../../store/voice/voiceSlice';
+import { useAppSelector, useAppDispatch } from '@/store/store';
+import { voiceModelWorking, voiceOptionWorking } from '@/store/voice/voiceSlice';
+import { memo } from 'react';
 
-function Voice() {
+const Voice = memo(() => {
   const { isVoiceModel, isVoiceOption } = useAppSelector((state) => state.voice.elementData);
   const { audioUpload } = useAppSelector((state) => state.projectControl.projectData);
   const dispatch = useAppDispatch();
@@ -16,6 +16,7 @@ function Voice() {
   function voiceOptionHandler() {
     dispatch(voiceOptionWorking());
   }
+
   return (
     <Container>
       <VoiceWorkingButtonLayout
@@ -29,7 +30,7 @@ function Voice() {
       <Background></Background>
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   width: 29.88rem;

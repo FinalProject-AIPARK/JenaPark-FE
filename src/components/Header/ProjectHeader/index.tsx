@@ -1,12 +1,7 @@
-import React from 'react';
 import ProjectHeaderStyle from '@/layout/projectContents/ProjectHeaderLayout';
 
-function ProjectHeader({ localstate }: any) {
-  return (
-    <>
-      <ProjectHeaderStyle />
-    </>
-  );
-}
+const ProjectHeader = () => {
+  return <ProjectHeaderStyle />;
+};
 
 export default ProjectHeader;

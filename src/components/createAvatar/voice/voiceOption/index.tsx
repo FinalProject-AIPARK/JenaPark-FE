@@ -1,27 +1,19 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import VoiceOptionDetailLayout from '@/layout/voice/VoiceOptionDetailLayout';
 import VoiceOptionTitleLayout from '@/layout/voice/VoiceOptionTitleLayout';
-import { useAppSelector, useAppDispatch } from '../../../../store/store';
-import {
-  voiceOptionAction,
-  initVoiceOption,
-  collectOption,
-  inputSynthAction,
-} from '../../../../store/voice/voiceSlice';
-import { useInputTextSynMutation } from '../../../../api/useApi';
+import { useAppSelector, useAppDispatch } from '@/store/store';
+import { voiceOptionAction, collectOption, inputSynthAction } from '@/store/voice/voiceSlice';
+import { useInputTextSynMutation } from '@/api/useApi';
 import {
   callProjectDataAction,
   workingComponent,
   InputTextSynthLoadingAction,
   InputTextSynthErrorAction,
-} from '../../../../store/workingProject/projectControlSlice';
-import ErrorBigLayout from '@/layout/ErrorBigLayout';
-import LoadingBigLayout from '@/layout/LoadingBigLayout';
+} from '@/store/workingProject/projectControlSlice';
 
-function VoiceOption() {
+const VoiceOption = memo(() => {
   const { selectedModel, voiceOption, voiceData } = useAppSelector((state) => state.voice);
-
   const dispatch = useAppDispatch();
 
   // 도움말 핸들러
@@ -123,7 +115,7 @@ function VoiceOption() {
       />
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   height: calc(100% - 4.6rem);

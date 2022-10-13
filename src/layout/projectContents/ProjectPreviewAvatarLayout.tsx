@@ -1,15 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import questionMark from '/questionMark-icon.png';
-import previewIcon from '/previewAvatar-icon.png';
 
-function ProjectPreviewAvatarLayout({
-  guide,
-  setGuide,
-  workingHandler,
-  isVoiceWoking,
-  preview,
-}: PreviewAvatarProps) {
+const ProjectPreviewAvatarLayout = memo(({ guide, setGuide, preview }: PreviewAvatarProps) => {
   return (
     <Container>
       <InnerBox>
@@ -58,7 +51,7 @@ function ProjectPreviewAvatarLayout({
       </InnerBox>
     </Container>
   );
-}
+});
 
 interface PreviewAvatarProps {
   preview: {
@@ -66,9 +59,7 @@ interface PreviewAvatarProps {
     avatarPreview: string;
   };
   guide: boolean;
-  isVoiceWoking: boolean;
   setGuide: React.Dispatch<React.SetStateAction<boolean>>;
-  workingHandler: () => void;
 }
 interface TextStyleProps {
   size: string;

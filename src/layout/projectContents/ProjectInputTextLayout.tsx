@@ -1,43 +1,45 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import questionMark from '/questionMark-icon.png';
 
-function ProjectInputTextLayout({ text, textHandler, guide, setGuide }: ProjectInputTextProps) {
-  return (
-    <Container>
-      <InnerBox>
-        <TitleBox>
-          <TextStyle>텍스트 입력</TextStyle>
-          <img
-            src={questionMark}
-            alt="텍스트입력 도움말 아이콘"
-            onMouseEnter={() => setGuide(true)}
-            onMouseLeave={() => setGuide(false)}
-            style={{ width: '1.5rem', marginLeft: '0.3rem' }}
-          />
-          {guide ? (
-            <GuideTextBox>
-              <span>
-                음성에 필요한 텍스트를 입력해주세요.
-                <br />
-                우측에 음성 선택과 음성 옵션을 설정한 후 일괄 적용을 하면
-                <br />
-                마침표를 기준으로 문장별 음성이 생성됩니다.
-              </span>
-            </GuideTextBox>
-          ) : null}
-        </TitleBox>
-        <InputBox>
-          <Textarea
-            placeholder="음성 합성을 진행할 텍스트를 입력 해주세요."
-            value={text}
-            onChange={(event) => textHandler(event)}
-          />
-        </InputBox>
-      </InnerBox>
-    </Container>
-  );
-}
+const ProjectInputTextLayout = memo(
+  ({ text, textHandler, guide, setGuide }: ProjectInputTextProps) => {
+    return (
+      <Container>
+        <InnerBox>
+          <TitleBox>
+            <TextStyle>텍스트 입력</TextStyle>
+            <img
+              src={questionMark}
+              alt="텍스트입력 도움말 아이콘"
+              onMouseEnter={() => setGuide(true)}
+              onMouseLeave={() => setGuide(false)}
+              style={{ width: '1.5rem', marginLeft: '0.3rem' }}
+            />
+            {guide ? (
+              <GuideTextBox>
+                <span>
+                  음성에 필요한 텍스트를 입력해주세요.
+                  <br />
+                  우측에 음성 선택과 음성 옵션을 설정한 후 일괄 적용을 하면
+                  <br />
+                  마침표를 기준으로 문장별 음성이 생성됩니다.
+                </span>
+              </GuideTextBox>
+            ) : null}
+          </TitleBox>
+          <InputBox>
+            <Textarea
+              placeholder="음성 합성을 진행할 텍스트를 입력 해주세요."
+              value={text}
+              onChange={(event) => textHandler(event)}
+            />
+          </InputBox>
+        </InnerBox>
+      </Container>
+    );
+  },
+);
 
 interface ProjectInputTextProps {
   text: string;

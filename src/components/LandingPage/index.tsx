@@ -1,8 +1,8 @@
 import { memo, useEffect } from 'react';
 import LandingPageStyle from '@/layout/landingPage/LandingPageStyle';
-import Header from '../Header';
 import { Cookies } from 'react-cookie';
-import LandingFooter from '../Footer/LandingFooter';
+import LandingFooter from '../footer/LandingFooter';
+import LandingHeader from '../header/LandingHeader';
 
 const LandingPage = memo(() => {
   const cookies = new Cookies();
@@ -16,7 +16,7 @@ const LandingPage = memo(() => {
   }, [urlParams]);
   return (
     <>
-      <Header />
+      <LandingHeader />
       <LandingPageStyle />
       <LandingFooter />
     </>

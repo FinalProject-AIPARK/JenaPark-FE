@@ -13,7 +13,7 @@ import {
 import VideoDownloaddModal from '@/layout/history/VideoDownloadModal';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
-import Header from '@/components/Header/ProjectHeader';
+import LandingHeader from '../header/LandingHeader';
 
 const History = memo(() => {
   // 빈 박스
@@ -244,49 +244,53 @@ const History = memo(() => {
   }, [resDeleteVideo]);
 
   return (
-    <Container>
-      {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
-      {loadingProject || createLoading ? <LoadingBigLayout /> : null}
-      <Header />
-      <div style={{ height: 'calc(100vh - 10.06rem)' }}>
-        <HistoryProjectLayout
-          projectList={projectList}
-          createProjectHandler={createProjectHandler}
-          prevProjectHandler={prevProjectHandler}
-          isEdit={isEditProject}
-          editTitleHandler={editTitleHandler}
-          title={title}
-          changeTitle={changeProjectTitle}
-          keyDownHandler={keyDownProjectHandler}
-          blurProjectHandler={blurProjectHandler}
-          guideText={guideText[0]}
-          guideHandler={guideHandler}
-          projectEmpty={projectEmpty}
-          deleteProjectHandler={deleteProjectHandler}
-          loadingProject={loadingProject}
-        />
-        <HistoryVideoLayout
-          videoList={videoList}
-          guideText={guideText[1]}
-          guideHandler={guideHandler}
-          selectVideoHandler={selectVideoHandler}
-          videoEmpty={videoEmpty}
-        />
+    <>
+      <div style={{ margin: '0 15%' }}>
+        <LandingHeader />
       </div>
-      {modal ? (
-        <VideoDownloaddModal
-          selectItem={selectItem}
-          closeModal={closeModal}
-          isEditVideo={isEditVideo}
-          videoTitle={videoTitle}
-          editVideoHandler={editVideoHandler}
-          keyDownVideoHandler={keyDownVideoHandler}
-          blurVideoHandler={blurVideoHandler}
-          changeVideoTitle={changeVideoTitle}
-          deleteVideoHandler={deleteVideoHandler}
-        />
-      ) : null}
-    </Container>
+      <Container>
+        {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
+        {loadingProject || createLoading ? <LoadingBigLayout /> : null}
+        <div style={{ height: 'calc(100vh - 10.06rem)' }}>
+          <HistoryProjectLayout
+            projectList={projectList}
+            createProjectHandler={createProjectHandler}
+            prevProjectHandler={prevProjectHandler}
+            isEdit={isEditProject}
+            editTitleHandler={editTitleHandler}
+            title={title}
+            changeTitle={changeProjectTitle}
+            keyDownHandler={keyDownProjectHandler}
+            blurProjectHandler={blurProjectHandler}
+            guideText={guideText[0]}
+            guideHandler={guideHandler}
+            projectEmpty={projectEmpty}
+            deleteProjectHandler={deleteProjectHandler}
+            loadingProject={loadingProject}
+          />
+          <HistoryVideoLayout
+            videoList={videoList}
+            guideText={guideText[1]}
+            guideHandler={guideHandler}
+            selectVideoHandler={selectVideoHandler}
+            videoEmpty={videoEmpty}
+          />
+        </div>
+        {modal ? (
+          <VideoDownloaddModal
+            selectItem={selectItem}
+            closeModal={closeModal}
+            isEditVideo={isEditVideo}
+            videoTitle={videoTitle}
+            editVideoHandler={editVideoHandler}
+            keyDownVideoHandler={keyDownVideoHandler}
+            blurVideoHandler={blurVideoHandler}
+            changeVideoTitle={changeVideoTitle}
+            deleteVideoHandler={deleteVideoHandler}
+          />
+        ) : null}
+      </Container>
+    </>
   );
 });
 
