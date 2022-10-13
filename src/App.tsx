@@ -5,7 +5,6 @@ import SignIn from '@/pages/SignIn';
 import SignUp from '@/pages/SignUp';
 import CreateAvatar from '@/pages/CreateAvatar';
 import History from '@/pages/HistoryPage';
-import MyPage from '@/pages/MyPage';
 import { Cookies } from 'react-cookie';
 function App() {
   const cookies = new Cookies();
@@ -18,7 +17,6 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/redirect" element={<Home />} />
-          <Route path="mypage" element={<MyPage />} />
           <Route path="history" element={<History />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/project/:projectId" element={<CreateAvatar />} />

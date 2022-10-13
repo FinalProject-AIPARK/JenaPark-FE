@@ -1,4 +1,4 @@
-import CreateAvatarPage from '../components/createAvatar';
+import CreateAvatarPage from '@/components/createAvatar';
 
 const CreateAvatar = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import LendingHeaderLayout from '../../../layout/LendingHeader';
+import LendingHeaderLayout from '@/layout/LendingHeader';
 
 function LendingHeader() {
   return (
