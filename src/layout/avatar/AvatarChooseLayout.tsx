@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import styled from 'styled-components';
-import left from '@/images/maskLeft-icon.png';
-import right from '@/images/maskRight-icon.png';
+import left from '../../../public/images/maskLeft-icon.png';
+import right from '../../../public/images/maskRight-icon.png';
 
 function AvatarChooseStyle({
   avatarList,
