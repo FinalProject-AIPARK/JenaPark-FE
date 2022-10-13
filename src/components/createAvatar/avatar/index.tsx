@@ -4,7 +4,7 @@ import AvatarChoose from './chooseAvatar/index';
 import AvatarOption from './avatarOption/index';
 import AvatarSliceButton from '@/layout/avatar/AvatarSliceButton';
 import { useAppSelector, useAppDispatch } from '@/store/store';
-import { avatarChooseWorking, avatarOptionWorking } from '@/store/Avatar/avatarSlice';
+import { avatarChooseWorking, avatarOptionWorking } from '@/store/avatar/avatarSlice';
 
 const Avatar = memo(() => {
   const { isAvatarChoose, isAvatarOption } = useAppSelector((state) => state.avatar.elementData);
