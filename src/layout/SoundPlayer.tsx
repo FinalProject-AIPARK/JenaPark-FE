@@ -11,7 +11,7 @@ function SoundPlayer(this: any) {
   const { projectId } = useAppSelector((state) => state.projectControl.projectData);
   const player: React.MutableRefObject<any> = useRef();
 
-  const { data: allSound } = useAllListenQuery(projectId);
+  const { data: allSound } = useAllListenQuery(Number(projectId));
   const [audioUrl, setAudioUrl] = useState({
     audioFileUrl: '',
   });
@@ -39,7 +39,7 @@ function SoundPlayer(this: any) {
           audiofunction();
         }}
       />
-      <AudioPlayer
+      {/* <AudioPlayer
         src={allSound}
         autoPlay={false}
         layout="horizontal-reverse"
@@ -48,7 +48,7 @@ function SoundPlayer(this: any) {
         ref={(elem) => (player.current = elem)}
         customProgressBarSection={[RHAP_UI.PROGRESS_BAR]}
         customControlsSection={[]}
-      />
+      /> */}
     </PlayerContainer>
   );
 }
