@@ -1,14 +1,13 @@
-import React from 'react';
 import styled from 'styled-components';
 import question from '/questionMark-icon.png';
 
-function HistoryVideoLayout({
+const HistoryVideoLayout = ({
   videoList,
   guideText,
   guideHandler,
   selectVideoHandler,
   videoEmpty,
-}: HistoryVideoProps) {
+}: HistoryVideoProps) => {
   return (
     <Container>
       <TitleBox>
@@ -69,7 +68,7 @@ function HistoryVideoLayout({
       </VideoListBox>
     </Container>
   );
-}
+};
 
 interface HistoryVideoProps {
   videoList: {

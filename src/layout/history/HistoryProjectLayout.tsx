@@ -88,7 +88,7 @@ function HistoryProjectLayout({
                   onClick={(event) => event.stopPropagation()}
                   onDoubleClick={(event) => {
                     event.stopPropagation();
-                    editTitleHandler(item.title, index);
+                    editTitleHandler(index);
                   }}
                   size="1.5rem"
                   weight="700"
@@ -133,7 +133,7 @@ interface HistoryProjectLayoutProps {
   loadingProject: boolean;
   createProjectHandler: () => void;
   prevProjectHandler: (id: number) => void;
-  editTitleHandler: (title: string, index: number) => void;
+  editTitleHandler: (index: number) => void;
   changeTitle: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   keyDownHandler: (event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) => void;
   blurProjectHandler: (index: number, id: number) => void;
@@ -156,17 +156,6 @@ interface ButtonProps {
   radius: string;
 }
 
-const LoadingContain = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const LoadingBox = styled.div`
-  width: 13rem;
-  height: 13rem;
-`;
 const Container = styled.div`
   width: 78rem;
   margin-top: 2.93rem;

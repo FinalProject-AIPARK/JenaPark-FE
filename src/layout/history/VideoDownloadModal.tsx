@@ -1,88 +1,85 @@
-import React, { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import close from '/close-icon.png';
 import pencil from '/images/edit-pencil.png';
 
-const VideoDownloadModal = memo(
-  ({
-    selectItem,
-    closeModal,
-    isEditVideo,
-    videoTitle,
-    keyDownVideoHandler,
-    blurVideoHandler,
-    editVideoHandler,
-    changeVideoTitle,
-    deleteVideoHandler,
-  }: VideoModalProps) => {
-    return (
-      <>
-        <ModalBox>
-          <HeadBox>
-            <TitleBox>
-              {isEditVideo ? (
-                <EditInput
-                  value={videoTitle}
-                  maxLength={12}
-                  onChange={(event) => changeVideoTitle(event)}
-                  onKeyDown={(event) => keyDownVideoHandler(event, selectItem.videoId)}
-                  onBlur={() => blurVideoHandler(selectItem.videoId)}
+const VideoDownloadModal = ({
+  selectItem,
+  closeModal,
+  isEditVideo,
+  videoTitle,
+  keyDownVideoHandler,
+  blurVideoHandler,
+  editVideoHandler,
+  changeVideoTitle,
+  deleteVideoHandler,
+}: VideoModalProps) => {
+  return (
+    <>
+      <ModalBox>
+        <HeadBox>
+          <TitleBox>
+            {isEditVideo ? (
+              <EditInput
+                value={videoTitle}
+                maxLength={12}
+                onChange={(event) => changeVideoTitle(event)}
+                onKeyDown={(event) => keyDownVideoHandler(event, selectItem.videoId)}
+                onBlur={() => blurVideoHandler(selectItem.videoId)}
+              />
+            ) : (
+              <>
+                <InnerTitleBox>
+                  <span style={{ width: '10rem' }}>{selectItem.title}</span>
+                </InnerTitleBox>
+                <img
+                  src={pencil}
+                  alt="영상 이름 수정 아이콘"
+                  onClick={editVideoHandler}
+                  style={{ width: '1.3rem', marginLeft: '0.6rem' }}
                 />
-              ) : (
-                <>
-                  <InnerTitleBox>
-                    <span style={{ width: '10rem' }}>{selectItem.title}</span>
-                  </InnerTitleBox>
-                  <img
-                    src={pencil}
-                    alt="영상 이름 수정 아이콘"
-                    onClick={editVideoHandler}
-                    style={{ width: '1.3rem', marginLeft: '0.6rem' }}
-                  />
-                </>
-              )}
-            </TitleBox>
-            <ButtonStyle backColor="transparent" onClick={closeModal}>
-              <img src={close} alt="닫기 버튼 아이콘" style={{ width: '1.6rem' }} />
-            </ButtonStyle>
-          </HeadBox>
-          <Video controls>
-            <source src={selectItem.videoFileUrl} type="video/mp4"></source>
-          </Video>
-          <DownloadDeleteBox>
-            <a href={selectItem.downloadFileUrl} download>
-              <ButtonStyle
-                backColor="#80A4FF"
-                width="17rem"
-                height="2.6rem"
-                size="1.2rem"
-                weight="600"
-                color="#fff"
-              >
-                다운로드
-              </ButtonStyle>
-            </a>
-
+              </>
+            )}
+          </TitleBox>
+          <ButtonStyle backColor="transparent" onClick={closeModal}>
+            <img src={close} alt="닫기 버튼 아이콘" style={{ width: '1.6rem' }} />
+          </ButtonStyle>
+        </HeadBox>
+        <Video controls>
+          <source src={selectItem.videoFileUrl} type="video/mp4"></source>
+        </Video>
+        <DownloadDeleteBox>
+          <a href={selectItem.downloadFileUrl} download>
             <ButtonStyle
-              backColor="#fff"
-              width="7rem"
+              backColor="#80A4FF"
+              width="17rem"
               height="2.6rem"
-              size="1.1rem"
-              weight="400"
-              border="0.07rem solid #777"
-              color="#333"
-              onClick={() => deleteVideoHandler(selectItem.videoId)}
+              size="1.2rem"
+              weight="600"
+              color="#fff"
             >
-              삭제
+              다운로드
             </ButtonStyle>
-          </DownloadDeleteBox>
-        </ModalBox>
-        <ModalBack>modalbackground</ModalBack>
-      </>
-    );
-  },
-);
+          </a>
 
+          <ButtonStyle
+            backColor="#fff"
+            width="7rem"
+            height="2.6rem"
+            size="1.1rem"
+            weight="400"
+            border="0.07rem solid #777"
+            color="#333"
+            onClick={() => deleteVideoHandler(selectItem.videoId)}
+          >
+            삭제
+          </ButtonStyle>
+        </DownloadDeleteBox>
+      </ModalBox>
+      <ModalBack>modalbackground</ModalBack>
+    </>
+  );
+};
 interface VideoModalProps {
   selectItem: {
     videoId: number;

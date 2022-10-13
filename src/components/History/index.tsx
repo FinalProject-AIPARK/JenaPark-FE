@@ -1,6 +1,6 @@
 import HistoryProjectLayout from '@/layout/history/HistoryProjectLayout';
 import HistoryVideoLayout from '@/layout/history/HistoryVideoLayout';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import {
   useGetProjectHistoyQuery,
@@ -15,7 +15,7 @@ import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
 import Header from '@/components/Header/ProjectHeader';
 
-function History() {
+const History = () => {
   // 빈 박스
   const [projectEmpty, setProjectEmpty] = useState([0]);
   const [videoEmpty, setVideoEmpty] = useState([0]);
@@ -28,7 +28,6 @@ function History() {
     isError: errorProject,
     error,
   } = useGetProjectHistoyQuery(update);
-  const [errorState, setErrorState] = useState('');
   const [projectList, setProjectList] = useState([
     {
       projectId: 0,
@@ -48,9 +47,8 @@ function History() {
       createDate: '',
     },
   ]);
-  useEffect(() => {
+  useMemo(() => {
     if (project) {
-      setErrorState(project.message);
       setProjectList(project.data.historyProjects);
       setVideoList(project.data.historyVideos);
       setIsEditProject([]);
@@ -79,11 +77,10 @@ function History() {
         });
       }
     }
-    console.log(error);
   }, [project]);
 
   // 프로젝트 생성
-  const [create, { data: responseCreate, isLoading: createLoad }] = useCreateProjectMutation();
+  const [create, { data: responseCreate, isLoading: createLoading }] = useCreateProjectMutation();
   function createProjectHandler() {
     create('');
   }
@@ -109,7 +106,7 @@ function History() {
       return next;
     });
   }
-  function editTitleHandler(title: string, index: number) {
+  function editTitleHandler(index: number) {
     setIsEditProject((prev) => {
       let next = [...prev];
       next[index] = true;
@@ -249,7 +246,7 @@ function History() {
   return (
     <Container>
       {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
-      {loadingProject ? <LoadingBigLayout /> : null}
+      {loadingProject || createLoading ? <LoadingBigLayout /> : null}
       <Header />
       <div style={{ height: 'calc(100vh - 10.06rem)' }}>
         <HistoryProjectLayout
@@ -291,7 +288,7 @@ function History() {
       ) : null}
     </Container>
   );
-}
+};
 const Container = styled.div`
   display: flex;
   flex-direction: column;
