@@ -102,9 +102,7 @@ function EditTextLayout({
                           </StatusWrap>
                           {/* 옵션창 묶음 */}
                           <OptionWrap>
-                            {optionWindow.VolumeSpeed && <VolumeSpeedOptionContainer
-                              
-                            />}
+                            {optionWindow.VolumeSpeed && <VolumeSpeedOptionContainer/>}
                             {optionWindow.Tone &&<ToneOptionContainer/>}
                             {optionWindow.Breath &&<BreathOptionContainer/>}
                           </OptionWrap>
@@ -133,8 +131,7 @@ function VolumeSpeedOptionContainer() {
               min="0" 
               max="1" 
               step="0.1"
-              className="volume"
-              onChange={EditTextupdataStore(list.volume)} />
+              className="volume" />
             <div className="control__guide">
               <span>음성 작게</span>
               <span>'0'</span>
