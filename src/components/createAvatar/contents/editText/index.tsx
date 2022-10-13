@@ -7,18 +7,19 @@ import { changeSplitText } from '../../../../store/voice/voiceSlice'
 function index() {
 
   const audioText = useAppSelector((state) => state.voice.inputTextSynth)
-  const {durationSilence, pitch, speen, volume, text} = useAppSelector((state) => state.textUpdata.updataTts)
-  const { projectId, audioInfos } = useAppSelector((state) => state.projectControl.projectData)
+  const {durationSilence, pitch, speed, volume, text} = useAppSelector((state) => state.textUpdata.updataTts)
+  // const uploadData = useAppSelector((state) => state.textUpdata.updataTts)
+  const { projectId : projectID, audioInfos } = useAppSelector((state) => state.projectControl.projectData)
   const dispatch = useAppDispatch()
   
   // 텍스트 삭제
   const [ deleteCheckBox, setDeleteCheckbox] = useState<number>()
   const [deleteText] = useDeleteAudioMutation()
-  const audioId = deleteCheckBox
+  const audioID = deleteCheckBox
   function deleteComponent() {
     const actionDelete = {
-      projectId,
-      audioId,
+      projectID,
+      audioID,
     };
     deleteText(actionDelete);
   }
@@ -44,24 +45,36 @@ function index() {
   
   // 텍스트 수정 업데이트
 
-  function EditTextupdataStore(id: number, kind: string) {
-    dispatch(textDataUpload({ id, kind }));
-  }
-
   function changeEditText() {
     dispatch(changeSplitText)
   }
-
+  
   const [editText, setEditText] = useState('')
-
   const chage = (event: ChangeEvent<HTMLInputElement>) => {
     setEditText(event.target.value)
   }
-  const updataText = usePostUpdataTtsMutation({audioId, projectId})
+  const [updataText] = usePostUpdataTtsMutation()
+  function textUpLoadData() {
+    const data = {
+        projectID,
+        audioID,
+        durationSilence, 
+        pitch, 
+        speed, 
+        volume, 
+        text
+    }
+    updataText(data)
+  }
   
+  function EditTextupdataStore(id: number | string, kind: string) {
+    dispatch(textDataUpload({ id, kind }));
+  }
   return (
     <>
       <EditTextLayout
+      textUpLoadData={textUpLoadData}
+      updataText={updataText}
       audioText={audioText}
       setDeleteCheckbox={setDeleteCheckbox}
       deleteCheckBox={deleteCheckBox}
