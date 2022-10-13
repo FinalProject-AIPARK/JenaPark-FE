@@ -10,7 +10,7 @@ import Contents from './contents';
 import { useGetProjectDataQuery } from '@/api/useApi';
 import { useParams } from 'react-router-dom';
 import { getData } from '@/store/workingProject/projectControlSlice';
-import { initVoiceOption } from '@/store/voice/voiceSlice';
+import { initVoiceOption, inputText } from '@/store/voice/voiceSlice';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
 
@@ -39,7 +39,7 @@ function CreateAvatar() {
   }, [projectData]);
 
   // 음성 옵션 초기값
-  const { speed, pitch, durationSilence } = useAppSelector(
+  const { speed, pitch, durationSilence, text } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
   useMemo(() => {
@@ -50,6 +50,8 @@ function CreateAvatar() {
         durationSilence,
       }),
     );
+    dispatch(inputText(text));
+    console.log(text);
   }, [speed]);
 
   // 음성 작업 파트 구분
