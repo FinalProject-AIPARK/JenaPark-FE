@@ -560,13 +560,13 @@ interface TextData {
 }
 
 interface TextUpdata {
-  projectID : number,
-  audioID: number,
-  durationSilence: number,
-  pitch : number,
-  speed: number,
-  volume: number,
-  text: string
+    projectId : number,
+    audioID: number,
+    durationSilence: number,
+    pitch : number,
+    speed: number,
+    volume: number,
+    text: string
 }
 
 // 텍스트 수정
