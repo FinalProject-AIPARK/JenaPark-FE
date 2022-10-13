@@ -1,10 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Cookies } from 'react-cookie';
 import styled from 'styled-components';
 import YouTube from 'react-youtube';
+import { memo } from 'react';
 
-function LandingPageStyle() {
+const LandingPageStyle = memo(() => {
   const cookies = new Cookies();
   const accessToken = cookies.get('accessToken');
   const refreshToken = cookies.get('refreshToken');
@@ -38,7 +38,9 @@ function LandingPageStyle() {
           <ContentNumber>02</ContentNumber>
           <ContentTitle>IR/PR</ContentTitle>
           <ContentText>
-            기업에서 필요한 IR/PR 영상을 <br /> 만들어보세요.
+            기업에서 필요한 IR/PR 영상을
+            <br />
+            만들어보세요.
           </ContentText>
         </ContentBox>
         <VideoContainer>
@@ -65,7 +67,7 @@ function LandingPageStyle() {
       </ContentContainer>
     </LandingContainer>
   );
-}
+});
 
 const LandingContainer = styled.div`
   padding-bottom: 11rem;
@@ -74,21 +76,18 @@ const LandingContainer = styled.div`
   flex-direction: column;
   justify-content: center;
 `;
-
 const Title = styled.div`
   color: #fff;
   font-size: 3.75rem;
   margin-top: 8%;
   line-height: 5.4375rem;
 `;
-
 const SubTitle = styled.div`
   color: #fff;
   font-size: 1.875rem;
   margin-top: 1rem;
   line-height: 2.6875rem;
 `;
-
 const StartButton = styled.div`
   display: inline-block;
   color: #fff;
@@ -104,7 +103,6 @@ const StartButton = styled.div`
   line-height: 2rem;
   cursor: pointer;
 `;
-
 const ContentContainer = styled.div`
   position: relative;
   background-color: rgba(0, 0, 0, 0.5);
@@ -112,13 +110,11 @@ const ContentContainer = styled.div`
   height: 13.75rem;
   margin-top: 8%;
 `;
-
 const VideoContainer = styled.div`
   position: absolute;
   right: 0;
   bottom: 0%;
 `;
-
 const ContentBox = styled.div`
   position: absolute;
   margin-left: 3.375rem;
@@ -132,20 +128,17 @@ const ContentBox = styled.div`
     left: 50%;
   }
 `;
-
 const ContentNumber = styled.div`
   color: #ccffff;
   font-weight: 500;
   margin-bottom: 2.4rem;
 `;
-
 const ContentTitle = styled.div`
   color: #fff;
   font-weight: 500;
   font-size: 1.25rem;
   margin-bottom: 1rem;
 `;
-
 const ContentText = styled.div`
   line-height: 1.4375rem;
   color: #fff;

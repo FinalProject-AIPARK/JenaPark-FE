@@ -10,7 +10,7 @@ import {
   useDeleteVideoMutation,
   useDeleteProjectMutation,
 } from '@/api/useApi';
-import VideoDownloaddModal from '@/layout/VideoDownloadModal';
+import VideoDownloaddModal from '@/layout/history/VideoDownloadModal';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
 import Header from '@/components/Header/ProjectHeader';

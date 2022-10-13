@@ -1,6 +1,6 @@
 import { useCreateProjectMutation, useLogOutMutation } from '@/api/useApi';
 import { removeToken } from '@/store/Auth';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -12,15 +12,11 @@ function LandingHeader() {
   const accessToken = cookies.get('accessToken');
   const refreshToken = cookies.get('refreshToken');
   const logOutClick = () => {
-    requestLogOut({ accessToken, refreshToken })
-      .unwrap()
-      .then((res) => {
-        console.log(res);
-      });
+    requestLogOut({ accessToken, refreshToken });
     removeToken();
   };
 
-  const [create, { data: responseCreate, isLoading: createLoad }] = useCreateProjectMutation();
+  const [create, { data: responseCreate }] = useCreateProjectMutation();
   function createProjectHandler() {
     if (!accessToken) {
       window.location.href = '/signin';
@@ -35,28 +31,26 @@ function LandingHeader() {
   }, [responseCreate]);
 
   return (
-    <>
-      <LandingHeaderContainer>
-        <Link to="/">
-          <LogoImage />
-        </Link>
-        <ButtonContainer>
-          <div onClick={createProjectHandler}>
-            <CProjectButton>프로젝트 생성</CProjectButton>
-          </div>
+    <LandingHeaderContainer>
+      <Link to="/">
+        <LogoImage />
+      </Link>
+      <ButtonContainer>
+        <div onClick={createProjectHandler}>
+          <CProjectButton>프로젝트 생성</CProjectButton>
+        </div>
 
-          {accessToken && refreshToken ? (
-            <Link to="/">
-              <SignButton onClick={logOutClick}>로그아웃</SignButton>
-            </Link>
-          ) : (
-            <Link to="/signin">
-              <SignButton>로그인</SignButton>
-            </Link>
-          )}
-        </ButtonContainer>
-      </LandingHeaderContainer>
-    </>
+        {accessToken && refreshToken ? (
+          <Link to="/">
+            <SignButton onClick={logOutClick}>로그아웃</SignButton>
+          </Link>
+        ) : (
+          <Link to="/signin">
+            <SignButton>로그인</SignButton>
+          </Link>
+        )}
+      </ButtonContainer>
+    </LandingHeaderContainer>
   );
 }
 
@@ -68,18 +62,15 @@ const LandingHeaderContainer = styled.div`
   margin-top: 1rem;
   height: 5vh;
 `;
-
 const ButtonContainer = styled.div`
   display: flex;
 `;
-
 const LogoImage = styled.img.attrs({
   src: `${logo}`,
 })`
   width: 6.25rem;
   height: 2.5rem;
 `;
-
 const CProjectButton = styled.button`
   width: 7.75rem;
   height: 2.44rem;
@@ -93,7 +84,6 @@ const CProjectButton = styled.button`
   cursor: pointer;
   margin-right: 1.06rem;
 `;
-
 const SignButton = styled.button`
   width: 7.75rem;
   height: 2.44rem;
