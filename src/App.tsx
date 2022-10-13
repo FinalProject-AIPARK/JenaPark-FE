@@ -6,6 +6,7 @@ import SignUp from '@/pages/SignUp';
 import CreateAvatar from '@/pages/CreateAvatar';
 import History from '@/pages/HistoryPage';
 import { Cookies } from 'react-cookie';
+
 const App = () => {
   const cookies = new Cookies();
   const accessToken = cookies.get('accessToken');
