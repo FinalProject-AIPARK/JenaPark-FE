@@ -69,6 +69,10 @@ function LandingPageStyle() {
 
 const LandingContainer = styled.div`
   padding-bottom: 11rem;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Title = styled.div`
@@ -104,14 +108,14 @@ const StartButton = styled.div`
 const ContentContainer = styled.div`
   position: relative;
   background-color: rgba(0, 0, 0, 0.5);
-  width: 75rem;
+  width: 100%;
   height: 13.75rem;
   margin-top: 8%;
 `;
 
 const VideoContainer = styled.div`
   position: absolute;
-  left: 50%;
+  right: 0;
   bottom: 0%;
 `;
 
