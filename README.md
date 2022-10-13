@@ -38,14 +38,11 @@ AI파크는 인공지능&음성 생성 기술을 활용한 다국어 디지털 �
 <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="70" height="70" />
 <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="60" height="60" />
 <img src="https://techstack-generator.vercel.app/redux-icon.svg" alt="icon" width="60" height="60" />
-<div style='margin-right: 20px'>
- <img src="https://user-images.githubusercontent.com/102620606/195530796-135706f8-3402-4b23-9446-02699bbeca4d.svg" alt="icon" width="60" height="60" />
-</div>
-<div style='margin-right: 20px'>
-<img src="https://user-images.githubusercontent.com/102620606/195530915-a59295d6-3e15-438c-8383-6b23fa9c44e9.svg" alt="icon" width="60" height="60" />
-</div>
+<img style='margin-right: 10px' src="https://user-images.githubusercontent.com/102620606/195530796-135706f8-3402-4b23-9446-02699bbeca4d.svg" alt="icon" width="60" height="60" />
+<img style='margin-right: 10px' src="https://user-images.githubusercontent.com/102620606/195530915-a59295d6-3e15-438c-8383-6b23fa9c44e9.svg" alt="icon" width="60" height="60" />
 <img src="https://user-images.githubusercontent.com/102620606/195535976-b6f18e8d-27b9-417e-b2d4-950edef6cb97.svg" alt="icon" width="60" height="60" />
-  </div>
+
+</div>
 
 ## 🪄 주요 기능
 
