@@ -14,7 +14,7 @@ function Contents() {
 
 const Container = styled.div`
   width: calc(100vw - 50rem);
-  height: calc(100% - 3.12rem);
+  height: calc(100% - 1.7vh);
   position: absolute;
   left: 5rem;
   margin: 1rem 3.75rem 0;
