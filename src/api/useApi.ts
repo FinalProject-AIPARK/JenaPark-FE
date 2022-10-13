@@ -180,6 +180,13 @@ export const useApi = createApi({
         body: data
       })
     }),
+    deleteAudio: builder.mutation<any, DeleteId>({
+      query: ({projectId, audioId}) => ({
+        url:`/api/v1/projects/${projectId}/audio/${audioId}`,
+        method: 'DELETE'
+      })
+    }),
+    
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
     //     url: '/api/v1/audio/sample',
@@ -253,6 +260,8 @@ export const {
   useGetBackgroundAvatarListQuery,
   usePostBackgroundAvatarListChooseMutation,
   usePostUploadBackgroundMutation,
+  usePostUpdataTtsMutation,
+  useDeleteAudioMutation,
   useAllListenQuery,
   useVideoSynthesisQuery,
 } = useApi;
@@ -567,5 +576,11 @@ interface TextUpdata {
   speed: number,
   volume: number,
   text: string
+}
+
+// 텍스트 수정
+interface DeleteId {
+  projectId : number,
+  audioId : number,
 }
 
