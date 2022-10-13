@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
-import left from '@/images/maskLeft-icon.png';
-import right from '@/images/maskRight-icon.png';
-import plus from '@/images/plus-icon.png';
+import left from '../../../public/images/maskLeft-icon.png';
+import right from '../../../public/images/maskRight-icon.png';
+import plus from '../../../public/images/plus-icon.png';
 
 function AvatarOptionLayout({
   avatarBackgroundList,
