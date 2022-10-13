@@ -4,7 +4,7 @@ import left from '/images/maskLeft-icon.png';
 import right from '/images/maskRight-icon.png';
 import plus from '/images/plus-icon.png';
 
-function AvatarOptionLayout({
+const AvatarOptionLayout = ({
   avatarBackgroundList,
   setBackgroundId,
   backgroundEvent,
@@ -14,7 +14,7 @@ function AvatarOptionLayout({
   onInputFile,
   bgSlideIndex,
   moveBgSlide,
-}: AvatarBackgroundType) {
+}: AvatarBackgroundType) => {
   return (
     <Avatar>
       <AvatarTitle>배경을 선택해주세요</AvatarTitle>
@@ -108,7 +108,7 @@ function AvatarOptionLayout({
       </SubButtonContainer>
     </Avatar>
   );
-}
+};
 
 interface style {
   sliderWidth: number;

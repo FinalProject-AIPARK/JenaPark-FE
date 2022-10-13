@@ -8,7 +8,7 @@ import voice from '/voice-icon.png';
 import playButtonBlue from '/voiceModelPlay-icon.png';
 import StopButtonBlue from '/voiceModelStop-icon.png';
 
-function ProjectEditTextLayout({
+const ProjectEditTextLayout = ({
   textUpLoadData,
   optionWindow,
   showOptionWindow,
@@ -17,7 +17,7 @@ function ProjectEditTextLayout({
   deleteComponent,
   EditTextupdataStore,
   audioInfos,
-}: Edittest) {
+}: Edittest) => {
   return (
     <Container>
       <TextContainer>
@@ -142,7 +142,7 @@ function ProjectEditTextLayout({
       </TextContainer>
     </Container>
   );
-}
+};
 
 function VolumeSpeedOptionContainer({ speed, volume, EditTextupdataStore }: any) {
   return (

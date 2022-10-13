@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './navbar';
 import Voice from './voice';
@@ -14,7 +14,7 @@ import { initVoiceOption, inputText } from '@/store/voice/voiceSlice';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
 
-function CreateAvatar() {
+const CreateAvatar = memo(() => {
   // 프로젝트 데이터 가져오기
   const dispatch = useAppDispatch();
   const { projectId: paramsProjectId } = useParams();
@@ -76,7 +76,7 @@ function CreateAvatar() {
       <Footer />
     </>
   );
-}
+});
 
 const Contain = styled.div`
   height: calc(100vh - 8.5rem);

@@ -1,13 +1,12 @@
-import { useLogOutMutation, useUserInfoQuery } from '@/api/useApi';
-import React, { useEffect, useRef, useState } from 'react';
+import { useUserInfoQuery } from '@/api/useApi';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import UserNavbarLayout from '../../../layout/navigationBar/UserNavbarLayout';
 import WorkingNavbarLayout from '../../../layout/navigationBar/WorkingNavbarLayout';
 import { useAppSelector, useAppDispatch } from '../../../store/store';
 import { workingComponent } from '../../../store/workingProject/projectControlSlice';
-import { Cookies } from 'react-cookie';
 
-function Navbar() {
+const Navbar = memo(() => {
   const { elementData, projectData } = useAppSelector((state) => state.projectControl);
 
   // 작업 단계 데이터
@@ -54,7 +53,7 @@ function Navbar() {
       <WorkingNavbarLayout buttonHandler={buttonHandler} iconBg={elementData.isVoiceWoking} />
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   height: 100%;

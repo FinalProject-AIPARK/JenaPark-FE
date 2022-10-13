@@ -5,7 +5,7 @@ import projectIcon from '/project-icon.png';
 import question from '/questionMark-icon.png';
 import close from '/close-icon.png';
 
-function HistoryProjectLayout({
+const HistoryProjectLayout = ({
   projectList,
   createProjectHandler,
   prevProjectHandler,
@@ -19,7 +19,7 @@ function HistoryProjectLayout({
   guideHandler,
   projectEmpty,
   deleteProjectHandler,
-}: HistoryProjectLayoutProps) {
+}: HistoryProjectLayoutProps) => {
   return (
     <Container>
       <TitleBox>
@@ -117,7 +117,7 @@ function HistoryProjectLayout({
       </ProjectListBox>
     </Container>
   );
-}
+};
 
 interface HistoryProjectLayoutProps {
   projectList: {

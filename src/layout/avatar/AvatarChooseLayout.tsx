@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import left from '/images/maskLeft-icon.png';
 import right from '/images/maskRight-icon.png';
 
-function AvatarChooseStyle({
+const AvatarChooseStyle = ({
   avatarList,
   setAvatarId,
   avatarListDress,
@@ -11,7 +11,7 @@ function AvatarChooseStyle({
   createAvatarHandler,
   avatarSlideIndex,
   moveAvatarSlide,
-}: Test) {
+}: Test) => {
   return (
     <Avatar>
       <AvatarTitle>음성이랑 합성할 버추얼 아바타를 선택해주세요.</AvatarTitle>
@@ -176,7 +176,7 @@ function AvatarChooseStyle({
       </SubButtonContainer>
     </Avatar>
   );
-}
+};
 
 // 타입 지정
 interface Test {

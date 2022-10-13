@@ -1,7 +1,7 @@
 import LandingFooterLayout from '@/layout/landingPage/LandingFooter';
 
-function LandingFooter() {
+const LandingFooter = () => {
   return <LandingFooterLayout />;
-}
+};
 
 export default LandingFooter;

@@ -5,7 +5,6 @@ import play from '/voiceModelPlay-icon.png';
 import pause from '/voiceModelPause-icon.png';
 import stop from '/voiceModelStop-icon.png';
 import { ReturnVoiceModelType } from '../../api/useApi';
-import LoadingAnimation from '../BigLoadingAnimation';
 import SmallLoadingAnimation from '../SmallLoadingAnimation';
 
 const VoiceModelListLayout = ({

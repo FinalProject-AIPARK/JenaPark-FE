@@ -1,7 +1,7 @@
 import LandingHeaderLayout from '@/layout/landingPage/LandingHeader';
 
-function LandingHeader() {
+const LandingHeader = () => {
   return <LandingHeaderLayout />;
-}
+};
 
 export default LandingHeader;
