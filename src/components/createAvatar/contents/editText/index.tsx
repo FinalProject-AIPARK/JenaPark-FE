@@ -3,10 +3,7 @@ import EditTextLayout from '../../../../layout/editText/EditTextLayout'
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
 import { textDataUpload } from '../../../../store/editText/EditTextSlice'
 import { usePostUpdataTtsMutation, useDeleteAudioMutation  } from '../../../../api/useApi'
-import { changeSplitText } from '../../../../store/voice/voiceSlice'
 function index() {
-
-  const audioText = useAppSelector((state) => state.voice.inputTextSynth)
   const {durationSilence, pitch, speed, volume, text} = useAppSelector((state) => state.textUpdata.updataTts)
   // const uploadData = useAppSelector((state) => state.textUpdata.updataTts)
   const { projectId : projectID, audioInfos } = useAppSelector((state) => state.projectControl.projectData)
@@ -14,6 +11,7 @@ function index() {
   
   // 텍스트 삭제
   const [ deleteCheckBox, setDeleteCheckbox] = useState<number>()
+  console.log(deleteCheckBox)
   const [deleteText] = useDeleteAudioMutation()
   const audioID = deleteCheckBox
   function deleteComponent() {
@@ -44,15 +42,7 @@ function index() {
   const playerRef = useRef<any>()
   
   // 텍스트 수정 업데이트
-
-  function changeEditText() {
-    dispatch(changeSplitText)
-  }
   
-  const [editText, setEditText] = useState('')
-  const chage = (event: ChangeEvent<HTMLInputElement>) => {
-    setEditText(event.target.value)
-  }
   const [updataText] = usePostUpdataTtsMutation()
   function textUpLoadData() {
     const data = {
@@ -70,16 +60,13 @@ function index() {
   function EditTextupdataStore(id: number | string, kind: string) {
     dispatch(textDataUpload({ id, kind }));
   }
+
   return (
     <>
       <EditTextLayout
       textUpLoadData={textUpLoadData}
-      updataText={updataText}
-      audioText={audioText}
       setDeleteCheckbox={setDeleteCheckbox}
       deleteCheckBox={deleteCheckBox}
-      chage={chage}
-      editText={editText}
       deleteComponent={deleteComponent}
       EditTextupdataStore={EditTextupdataStore}
       setOptionWindow={setOptionWindow}

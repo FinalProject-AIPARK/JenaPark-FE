@@ -146,19 +146,21 @@ export const useApi = createApi({
         url: '/api/v1/projects/background',
         method: 'GET',
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw'
-        }
-      })
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
+        },
+      }),
     }),
     postBackgroundAvatarListChoose: builder.mutation<BackgroundChoose, BackgroundId>({
-      query: ({data, projectId, backgroundId}) => ({
+      query: ({ data, projectId, backgroundId }) => ({
         url: `/api/v1/projects/${projectId}/background/${backgroundId}`,
         method: 'POST',
         body: data,
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw'
-        }
-      })
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
+        },
+      }),
     }),
     postUploadBackground: builder.mutation<BackgroundUpload, BackgroundImgUpload>({
       query: (data) => ({
@@ -166,25 +168,26 @@ export const useApi = createApi({
         method: 'POST',
         body: data.formData,
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw'
-        }
-      })
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
+        },
+      }),
     }),
     // 텍스트 수정
     postUpdataTts: builder.mutation<TextData, TextUpdata>({
       query: (data) => ({
         url: '/api/v1/projects/update-tts',
         method: 'POST',
-        body: data
-      })
+        body: data,
+      }),
     }),
     deleteAudio: builder.mutation<any, DeleteId>({
-      query: ({projectId, audioId}) => ({
-        url:`/api/v1/projects/${projectId}/audio/${audioId}`,
-        method: 'DELETE'
-      })
+      query: ({ projectID, audioID }) => ({
+        url: `/api/v1/projects/${projectID}/audio/${audioID}`,
+        method: 'DELETE',
+      }),
     }),
-    
+
     // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
     //   query: (data) => ({
     //     url: '/api/v1/audio/sample',
@@ -192,11 +195,14 @@ export const useApi = createApi({
     //     body: data,
     //   }),
     // }),
-    allListen: builder.query<ReturnAllListenType, ActionAllListenType>({
+    allListen: builder.query<ReturnAllListenType, number>({
       query: (id) => ({
         url: `/api/v1/projects/${id}/audio`,
         method: 'GET',
       }),
+    }),
+    videoSynthesis: builder.query<any, any>({
+      query: (id) => `/api/v1/projects/${id}/audio`,
     }),
   }),
 });
@@ -255,6 +261,7 @@ export const {
   usePostUpdataTtsMutation,
   useDeleteAudioMutation,
   useAllListenQuery,
+  useVideoSynthesisQuery,
 } = useApi;
 
 interface ActionSignUpType {
@@ -502,28 +509,28 @@ interface ActionInpTextSynthesisType {
   text: string;
 }
 interface BackgroundAvatar {
-  message: string
+  message: string;
   data: {
     backgroundDefaults: [
       {
-        bgId: number,
-        bgName: string,
-        bgUrl: string
-      }
-    ]
+        bgId: number;
+        bgName: string;
+        bgUrl: string;
+      },
+    ];
     backgroundUploads: [
       {
-        bgId: number,
-        bgName: string,
-        bgUrl: string
-    }
-    ]
-  }
+        bgId: number;
+        bgName: string;
+        bgUrl: string;
+      },
+    ];
+  };
 }
 
 interface BackgroundChoose {
-  data : string,
-  message: string,
+  data: string;
+  message: string;
 }
 
 interface BackgroundId {
@@ -533,44 +540,41 @@ interface BackgroundId {
 }
 
 interface BackgroundUpload {
-  data: string,
-  message: string,
+  data: string;
+  message: string;
 }
 
 interface BackgroundImgUpload {
-  formData: FormData,
-  projectId: number,
+  formData: FormData;
+  projectId: number;
 }
 
 interface ReturnAllListenType {
-  audioFileUrl: string;
-}
-interface ActionAllListenType {
-  projectId: number;
+  data: string;
 }
 // 텍스트 수정
 
 interface TextData {
-  message: string
-  data : {
-    audioId: number,
-    allText: string,
-    audioFileUrl: string
-  }
+  message: string;
+  data: {
+    audioId: number;
+    allText: string;
+    audioFileUrl: string;
+  };
 }
 
 interface TextUpdata {
-    projectId : number,
-    audioID: number,
-    durationSilence: number,
-    pitch : number,
-    speed: number,
-    volume: number,
-    text: string
+  projectID: number;
+  audioID: number;
+  durationSilence: number;
+  pitch: number;
+  speed: number;
+  volume: number;
+  text: string;
 }
 
 // 텍스트 수정
 interface DeleteId {
-  projectId : number,
-  audioId : number,
+  projectID: number;
+  audioID: number;
 }
