@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './navbar';
 import Voice from './voice';
@@ -28,7 +28,7 @@ function CreateAvatar() {
     setProjectData((prev) => {
       return { ...prev, count: callProjectData };
     });
-    console.log('카운트');
+    console.log(getProjectData);
   }, [callProjectData]);
   const { data: projectData, isLoading, isError, error } = useGetProjectDataQuery(getProjectData);
 
@@ -36,13 +36,14 @@ function CreateAvatar() {
     if (projectData) {
       dispatch(getData(projectData.data));
     }
+    console.log(getProjectData);
   }, [projectData]);
 
   // 음성 옵션 초기값
   const { speed, pitch, durationSilence, text } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
-  useMemo(() => {
+  useEffect(() => {
     dispatch(
       initVoiceOption({
         speed,
