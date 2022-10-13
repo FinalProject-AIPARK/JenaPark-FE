@@ -44,7 +44,6 @@ const AvatarOption = memo(() => {
 
   // 배경 선택버튼
   const [backgroundId, setBackgroundId] = useState(0);
-  console.log(backgroundId);
   const [backgroundChoose, { data: backgroundUrlData }] =
     usePostBackgroundAvatarListChooseMutation();
   function backgroundEvent() {

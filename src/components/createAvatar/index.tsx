@@ -28,7 +28,6 @@ const CreateAvatar = memo(() => {
     setProjectData((prev) => {
       return { ...prev, count: callProjectData };
     });
-    console.log(getProjectData);
   }, [callProjectData]);
   const { data: projectData, isLoading, isError, error } = useGetProjectDataQuery(getProjectData);
 
@@ -36,7 +35,6 @@ const CreateAvatar = memo(() => {
     if (projectData) {
       dispatch(getData(projectData.data));
     }
-    console.log(getProjectData);
   }, [projectData]);
 
   // 음성 옵션 초기값
@@ -52,7 +50,6 @@ const CreateAvatar = memo(() => {
       }),
     );
     dispatch(inputText(text));
-    console.log(text);
   }, [speed]);
 
   // 음성 작업 파트 구분
