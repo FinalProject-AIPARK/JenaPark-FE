@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import AvatarChooseLayout from "../../../../layout/avatar/AvatarChooseLayout";
 import {
@@ -42,11 +43,13 @@ function index() {
   const [createAvatar, { data: avatarUrlData }] = usePostCreateAvatarMutation();
   function createAvatarHandler() {
     createAvatar(avartarDress)
+    
     // dispatch(avatarChooseDataUrl(avatarUrlData!.data))
   }
   useEffect(() => {
       (avatarUrlData !== undefined ? dispatch(avatarChooseDataUrl(avatarUrlData!.data)) : null)
   }, [avatarUrlData])
+  dispatch(avatarProjectId(projectId))
 
   // 슬라이드 기능
   let [avatarSlideIndex, setAvatarSlideIndex] = useState({

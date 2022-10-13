@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import InputText from './inputText';
+import EditText from './editText'
 
 function Contents() {
   return (
     <Container>
       <InputText />
+      <EditText />
     </Container>
   );
 }
