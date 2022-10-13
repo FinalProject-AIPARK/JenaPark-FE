@@ -133,6 +133,17 @@ function History() {
       });
     }
   }
+  function blurProjectHandler(index: number, id: number) {
+    editProjectName({
+      projectID: id,
+      title: title[index],
+    });
+    setIsEditProject((prev) => {
+      let next = [...prev];
+      next[index] = false;
+      return next;
+    });
+  }
 
   // 영상 이름 수정
   const [isEditVideo, setIsEditVideo] = useState(false);
@@ -158,6 +169,19 @@ function History() {
       });
       setIsEditVideo(false);
     }
+  }
+  function blurVideoHandler(id: number) {
+    editVideoName({
+      videoId: id,
+      action: {
+        title: videoTitle,
+      },
+    });
+    setSelectItem((prev) => {
+      let next = { ...prev, title: videoTitle };
+      return next;
+    });
+    setIsEditVideo(false);
   }
   useEffect(() => {
     setUpdate(update + 1);
@@ -237,6 +261,7 @@ function History() {
           title={title}
           changeTitle={changeProjectTitle}
           keyDownHandler={keyDownProjectHandler}
+          blurProjectHandler={blurProjectHandler}
           guideText={guideText[0]}
           guideHandler={guideHandler}
           projectEmpty={projectEmpty}
@@ -259,6 +284,7 @@ function History() {
           videoTitle={videoTitle}
           editVideoHandler={editVideoHandler}
           keyDownVideoHandler={keyDownVideoHandler}
+          blurVideoHandler={blurVideoHandler}
           changeVideoTitle={changeVideoTitle}
           deleteVideoHandler={deleteVideoHandler}
         />

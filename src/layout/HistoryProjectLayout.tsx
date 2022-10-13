@@ -4,8 +4,6 @@ import accProject from '/addProject-icon.png';
 import projectIcon from '/project-icon.png';
 import question from '/questionMark-icon.png';
 import close from '/close-icon.png';
-import loading from '/loading-blue.gif';
-import LoadingBlue from './LoadingAnimationBlue';
 
 function HistoryProjectLayout({
   projectList,
@@ -16,21 +14,12 @@ function HistoryProjectLayout({
   title,
   changeTitle,
   keyDownHandler,
+  blurProjectHandler,
   guideText,
   guideHandler,
   projectEmpty,
   deleteProjectHandler,
-  loadingProject,
 }: HistoryProjectLayoutProps) {
-  // if (!loadingProject) {
-  //   return (
-  //     <ProjectListBox>
-
-  //       <BackgroundBox />
-  //     </ProjectListBox>
-  //   );
-  // }
-
   return (
     <Container>
       <TitleBox>
@@ -92,6 +81,7 @@ function HistoryProjectLayout({
                   onChange={(event) => changeTitle(event, index)}
                   onClick={(event) => event.stopPropagation()}
                   onKeyDown={(event) => keyDownHandler(event, index, item.projectId)}
+                  onBlur={() => blurProjectHandler(index, item.projectId)}
                 />
               ) : (
                 <TextStyle
@@ -146,6 +136,7 @@ interface HistoryProjectLayoutProps {
   editTitleHandler: (title: string, index: number) => void;
   changeTitle: (event: React.ChangeEvent<HTMLInputElement>, index: number) => void;
   keyDownHandler: (event: React.KeyboardEvent<HTMLInputElement>, index: number, id: number) => void;
+  blurProjectHandler: (index: number, id: number) => void;
   guideHandler: (isOn: boolean, index: number) => void;
   deleteProjectHandler: (id: number) => void;
 }
