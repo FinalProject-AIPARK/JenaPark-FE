@@ -178,7 +178,7 @@ export const useApi = createApi({
         body: data
       })
     }),
-    deleteAudio: builder.mutation({
+    deleteAudio: builder.mutation<any, DeleteId>({
       query: ({projectId, audioId}) => ({
         url:`/api/v1/projects/${projectId}/audio/${audioId}`,
         method: 'DELETE'
@@ -253,6 +253,7 @@ export const {
   usePostBackgroundAvatarListChooseMutation,
   usePostUploadBackgroundMutation,
   usePostUpdataTtsMutation,
+  useDeleteAudioMutation,
   useAllListenQuery,
 } = useApi;
 
@@ -568,3 +569,8 @@ interface TextUpdata {
   text: string
 }
 
+// 텍스트 수정
+interface DeleteId {
+  projectId : number,
+  audioId : number,
+}
