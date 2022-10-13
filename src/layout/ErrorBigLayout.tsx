@@ -5,7 +5,6 @@ import { useAppSelector, useAppDispatch } from '@/store/store';
 import { InputTextSynthErrorAction } from '@/store/workingProject/projectControlSlice';
 
 function ErrorBigLayout({ errorData }: HistoryErrorProps) {
-  console.log(errorData);
   const dispatch = useAppDispatch();
   // 타입 에러..해결이 안됨 추후에 수정할 예정
   switch (errorData.data.message) {
@@ -32,6 +31,7 @@ function ErrorBigLayout({ errorData }: HistoryErrorProps) {
       break;
     default:
       alert(errorData.data.error);
+      window.location.href = '/';
   }
   return (
     <LoadingContain>
