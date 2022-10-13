@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useVideoSynthesisQuery, useAllListenQuery } from '@/api/useApi';
 import { useAppSelector, useAppDispatch } from '@/store/store';
-import SoundPlayer from './SoundPlayer';
+import SoundPlayer from '../SoundPlayer';
 import styled from 'styled-components';
 import leftarrow from '/images/arrow-ios-left.png';
 import editpencil from '/images/edit-pencil.png';
 import videoimage from '/images/video.png';
 import voiceimage from '/images/music.png';
 
-function ProjectHeader() {
+function ProjectHeaderLayout() {
   const { projectId, downloadAudioUrl } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
@@ -142,4 +142,4 @@ const VideoImage = styled.img.attrs({
   height: 1.5rem;
 `;
 
-export default ProjectHeader;
+export default ProjectHeaderLayout;

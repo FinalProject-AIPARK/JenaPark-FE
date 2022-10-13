@@ -1,10 +1,10 @@
-import VoiceUploadModal from '@/layout/Voice/VoiceUploadModal';
+import VoiceUploadModal from '@/layout/voice/VoiceUploadModal';
 import React, { useEffect, useRef, useState, ChangeEvent, DragEvent } from 'react';
 import styled from 'styled-components';
 import { useGetVoiceModelMutation, useUploadVoiceMutation } from '../../../../api/useApi';
-import SearchVoiceModelLayout from '../../../../layout/Voice/SearchVoiceModelLayout';
-import VoiceModelFilterButton from '../../../../layout/Voice/VoiceModelFilterButton';
-import VoiceModelListLayout from '../../../../layout/Voice/VoiceModelListLayout';
+import SearchVoiceModelLayout from '../../../../layout/voice/SearchVoiceModelLayout';
+import VoiceModelFilterButton from '../../../../layout/voice/VoiceModelFilterButton';
+import VoiceModelListLayout from '../../../../layout/voice/VoiceModelListLayout';
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
 import { workingComponent } from '../../../../store/workingProject/projectControlSlice';
 import {

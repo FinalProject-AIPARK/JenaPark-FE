@@ -1,4 +1,4 @@
-import LendingFooter from '@/components/Footer/LandingFooter';
+import LandingFooter from '@/components/Footer/LandingFooter';
 import Header from '@/components/Header';
 import SignUpForm from '@/components/signUp/SignUpForm';
 
@@ -7,7 +7,7 @@ const SignUp = () => {
     <>
       <Header />
       <SignUpForm />
-      <LendingFooter />
+      <LandingFooter />
     </>
   );
 };

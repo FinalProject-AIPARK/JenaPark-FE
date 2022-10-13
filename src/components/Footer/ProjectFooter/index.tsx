@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectFooterLayout from '@/layout/ProjectFooter';
+import ProjectFooterLayout from '@/layout/projectContents/ProjectFooterLayout';
 
 function ProjectFooter() {
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import LendingHeader from './LendingHeader';
+import LandingHeader from './LendingHeader';
 import ProjectHeader from './ProjectHeader';
 
 function Header() {
@@ -11,6 +11,6 @@ function Header() {
     setState(location.pathname);
   }, [location]);
 
-  return <>{state === '/project' ? <ProjectHeader localstate={state} /> : <LendingHeader />}</>;
+  return <>{state === '/project' ? <ProjectHeader localstate={state} /> : <LandingHeader />}</>;
 }
 export default Header;

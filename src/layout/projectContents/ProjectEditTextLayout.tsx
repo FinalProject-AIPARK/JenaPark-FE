@@ -8,7 +8,7 @@ import voice from '/voice-icon.png';
 import playButtonBlue from '/voiceModelPlay-icon.png';
 import StopButtonBlue from '/voiceModelStop-icon.png';
 
-function EditTextLayout({
+function ProjectEditTextLayout({
   textUpLoadData,
   optionWindow,
   showOptionWindow,
@@ -20,14 +20,12 @@ function EditTextLayout({
 }: Edittest) {
   return (
     <>
-      <Container> 
+      <Container>
         <TextContainer>
           <Title>
             <span style={{ color: '#fff' }}>텍스트 수정</span>
             <ButtonContainer>
-              <VoiceButton
-                onClick={textUpLoadData}
-              >음성 합성하기</VoiceButton>
+              <VoiceButton onClick={textUpLoadData}>음성 합성하기</VoiceButton>
               <DeleteButton>
                 <Icon src={caution} />
                 <span style={{ color: '#fff', fontSize: '16px', marginLeft: '9px' }}>1</span>
@@ -109,30 +107,36 @@ function EditTextLayout({
                               alt="그래프 이미지"
                               onClick={() => {
                                 showOptionWindow('Breath');
-                              }}/>
-                              <img src={etc} alt="점점점 이미지" />
-                            </ControlContainer>
-                          </StatusWrap>
-                          {/* 옵션창 묶음 */}
-                          <OptionWrap>
-                            {optionWindow.VolumeSpeed && <VolumeSpeedOptionContainer
+                              }}
+                            />
+                            <img src={etc} alt="점점점 이미지" />
+                          </ControlContainer>
+                        </StatusWrap>
+                        {/* 옵션창 묶음 */}
+                        <OptionWrap>
+                          {optionWindow.VolumeSpeed && (
+                            <VolumeSpeedOptionContainer
                               speed={list.speed}
-                              volume = {list.volume}
+                              volume={list.volume}
                               EditTextupdataStore={EditTextupdataStore}
-                            />}
-                            {optionWindow.Tone &&<ToneOptionContainer
+                            />
+                          )}
+                          {optionWindow.Tone && (
+                            <ToneOptionContainer
                               pitch={list.pitch}
                               EditTextupdataStore={EditTextupdataStore}
-                            />}
-                            {optionWindow.Breath &&<BreathOptionContainer
+                            />
+                          )}
+                          {optionWindow.Breath && (
+                            <BreathOptionContainer
                               durationSilence={list.durationSilence}
                               EditTextupdataStore={EditTextupdataStore}
-                            />}
-                          </OptionWrap>
-                        </EditText>
-                      )
-                    })
-                }
+                            />
+                          )}
+                        </OptionWrap>
+                      </EditText>
+                    );
+                  })}
               </EditTextContainer>
             </ScrollBox>
           </TextBox>
@@ -142,20 +146,21 @@ function EditTextLayout({
   );
 }
 
-function VolumeSpeedOptionContainer({speed, volume, EditTextupdataStore} : any) {
-  return(
+function VolumeSpeedOptionContainer({ speed, volume, EditTextupdataStore }: any) {
+  return (
     <VolumeSpeedOptionWrap>
       <div className="container">
         <div className="control__part">
           <div className="control__wrap">
-            <input 
-              type="range" 
-              min="0" 
-              max="100" 
+            <input
+              type="range"
+              min="0"
+              max="100"
               step="1"
               className="volume"
               defaultValue={volume}
-              onChange={(e) => EditTextupdataStore(Number(e.target.value), 'volume')}/>  
+              onChange={(e) => EditTextupdataStore(Number(e.target.value), 'volume')}
+            />
             <div className="control__guide">
               <span>음성 작게</span>
               <span>{volume}</span>
@@ -163,14 +168,15 @@ function VolumeSpeedOptionContainer({speed, volume, EditTextupdataStore} : any) 
             </div>
           </div>
           <div className="control__wrap">
-            <input 
-            type="range" 
-            min="0" 
-            max="1" 
-            step="0.1" 
-            className="speed"
-            defaultValue={speed}
-            onChange={(e) => EditTextupdataStore(Number(e.target.value), 'speed')} />
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              className="speed"
+              defaultValue={speed}
+              onChange={(e) => EditTextupdataStore(Number(e.target.value), 'speed')}
+            />
             <div className="control__guide">
               <span>음성 느리게</span>
               <span>{speed}</span>
@@ -187,20 +193,21 @@ function VolumeSpeedOptionContainer({speed, volume, EditTextupdataStore} : any) 
   );
 }
 
-function ToneOptionContainer({pitch, EditTextupdataStore} : any) {
-  return(
+function ToneOptionContainer({ pitch, EditTextupdataStore }: any) {
+  return (
     <ToneOptionWrap>
       <div className="container">
         <div className="control__part">
           <div className="control__wrap">
-            <input 
-            type="range" 
-            min="-0.5" 
-            max="0.5" 
-            step="0.1" 
-            className="tone"
-            defaultValue={pitch}
-            onChange={(e) => EditTextupdataStore(Number(e.target.value), 'pitch')} />
+            <input
+              type="range"
+              min="-0.5"
+              max="0.5"
+              step="0.1"
+              className="tone"
+              defaultValue={pitch}
+              onChange={(e) => EditTextupdataStore(Number(e.target.value), 'pitch')}
+            />
             <div className="control__guide">
               <span>-0.5</span>
               <span>{pitch}</span>
@@ -217,19 +224,20 @@ function ToneOptionContainer({pitch, EditTextupdataStore} : any) {
   );
 }
 
-function BreathOptionContainer({durationSilence, EditTextupdataStore} : any) {
-  return(
+function BreathOptionContainer({ durationSilence, EditTextupdataStore }: any) {
+  return (
     <BreathOptionWrap>
       <div className="container">
         <div className="control__part">
           <div className="control__wrap">
-            <input 
-            type="text" 
-            min="0.1" 
-            max="9999" 
-            className="breath"
-            defaultValue={durationSilence}
-            onChange={(e) => EditTextupdataStore(Number(e.target.value), 'durationSilence')} />
+            <input
+              type="text"
+              min="0.1"
+              max="9999"
+              className="breath"
+              defaultValue={durationSilence}
+              onChange={(e) => EditTextupdataStore(Number(e.target.value), 'durationSilence')}
+            />
             <span className="second">초</span>
             <span className="min-value">(최소값: 0.1초)</span>
           </div>
@@ -245,15 +253,15 @@ function BreathOptionContainer({durationSilence, EditTextupdataStore} : any) {
 // 타입지정
 
 interface Edittest {
-  optionWindow: {VolumeSpeed:boolean, Tone: boolean, Breath: boolean}
-  showOptionWindow: (kind: string) => void
-  setDeleteCheckbox: (audioId : number) => void
-  deleteCheckBox: number | undefined
-  deleteComponent: any
-  EditTextupdataStore: (id : number | string, kind: string) => void
-  editText: string
-  audioInfos: []
-  textUpLoadData : any
+  optionWindow: { VolumeSpeed: boolean; Tone: boolean; Breath: boolean };
+  showOptionWindow: (kind: string) => void;
+  setDeleteCheckbox: (audioId: number) => void;
+  deleteCheckBox: number | undefined;
+  deleteComponent: any;
+  EditTextupdataStore: (id: number | string, kind: string) => void;
+  editText: string;
+  audioInfos: [];
+  textUpLoadData: any;
 }
 
 // 스타일 지정
@@ -550,4 +558,4 @@ const BreathOptionWrap = styled(ToneOptionWrap)`
   }
 `;
 
-export default EditTextLayout;
+export default ProjectEditTextLayout;

@@ -1,12 +1,12 @@
 import React from 'react';
-import LendingHeaderLayout from '@/layout/LendingHeader';
+import LandingHeaderLayout from '@/layout/landingPage/LandingHeader';
 
-function LendingHeader() {
+function LandingHeader() {
   return (
     <>
-      <LendingHeaderLayout />
+      <LandingHeaderLayout />
     </>
   );
 }
 
-export default LendingHeader;
+export default LandingHeader;

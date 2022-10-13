@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import questionMark from '/questionMark-icon.png';
 import previewIcon from '/previewAvatar-icon.png';
 
-function ProjectPreviewAvatar({
+function ProjectPreviewAvatarLayout({
   guide,
   setGuide,
   workingHandler,
@@ -135,4 +135,4 @@ const PreviewImg = styled.img<PreviewImgProps>`
   bottom: ${({ bottom }) => (bottom ? bottom : 0)};
 `;
 
-export default ProjectPreviewAvatar;
+export default ProjectPreviewAvatarLayout;

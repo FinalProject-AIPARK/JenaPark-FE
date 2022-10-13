@@ -1,4 +1,4 @@
-import LendingFooter from '@/components/Footer/LandingFooter';
+import LandingFooter from '@/components/Footer/LandingFooter';
 import Header from '@/components/Header';
 import SignInForm from '@/components/signIn/SignInForm';
 
@@ -7,7 +7,7 @@ const SignIn = () => {
     <>
       <Header />
       <SignInForm />
-      <LendingFooter />
+      <LandingFooter />
     </>
   );
 };

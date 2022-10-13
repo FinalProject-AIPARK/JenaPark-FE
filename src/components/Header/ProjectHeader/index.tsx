@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectHeaderStyle from '@/layout/ProjectHeader';
+import ProjectHeaderStyle from '@/layout/projectContents/ProjectHeaderLayout';
 
 function ProjectHeader({ localstate }: any) {
   return (

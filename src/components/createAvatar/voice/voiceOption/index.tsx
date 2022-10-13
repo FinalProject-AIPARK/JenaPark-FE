@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
-import VoiceOptionDetailLayout from '@/layout/Voice/VoiceOptionDetailLayout';
-import VoiceOptionTitleLayout from '@/layout/Voice/VoiceOptionTitleLayout';
+import VoiceOptionDetailLayout from '@/layout/voice/VoiceOptionDetailLayout';
+import VoiceOptionTitleLayout from '@/layout/voice/VoiceOptionTitleLayout';
 import { useAppSelector, useAppDispatch } from '../../../../store/store';
 import {
   voiceOptionAction,

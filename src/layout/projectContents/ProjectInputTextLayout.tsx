@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import questionMark from '/questionMark-icon.png';
 
-function ProjectInputText({ text, textHandler, guide, setGuide }: ProjectInputTextProps) {
+function ProjectInputTextLayout({ text, textHandler, guide, setGuide }: ProjectInputTextProps) {
   return (
     <Container>
       <InnerBox>
@@ -99,4 +99,4 @@ const Textarea = styled.textarea`
   }
 `;
 
-export default ProjectInputText;
+export default ProjectInputTextLayout;

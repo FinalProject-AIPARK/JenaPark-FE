@@ -1,8 +1,8 @@
 import { useLogOutMutation, useUserInfoQuery } from '@/api/useApi';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import UserNavbarLayout from '../../../layout/NavigationBar/UserNavbarLayout';
-import WorkingNavbarLayout from '../../../layout/NavigationBar/WorkingNavbarLayout';
+import UserNavbarLayout from '../../../layout/navigationBar/UserNavbarLayout';
+import WorkingNavbarLayout from '../../../layout/navigationBar/WorkingNavbarLayout';
 import { useAppSelector, useAppDispatch } from '../../../store/store';
 import { workingComponent } from '../../../store/workingProject/projectControlSlice';
 import { Cookies } from 'react-cookie';

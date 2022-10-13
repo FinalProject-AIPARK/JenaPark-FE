@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '/images/Logo.png';
 
-function LendingHeader() {
+function LandingHeader() {
   const cookies = new Cookies();
   const [requestLogOut] = useLogOutMutation();
   const accessToken = cookies.get('accessToken');
@@ -36,8 +36,8 @@ function LendingHeader() {
 
   return (
     <>
-      <LendingHeaderContainer>
-        <Link to="/lendingpage">
+      <LandingHeaderContainer>
+        <Link to="/">
           <LogoImage />
         </Link>
         <ButtonContainer>
@@ -55,12 +55,12 @@ function LendingHeader() {
             </Link>
           )}
         </ButtonContainer>
-      </LendingHeaderContainer>
+      </LandingHeaderContainer>
     </>
   );
 }
 
-const LendingHeaderContainer = styled.div`
+const LandingHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -107,4 +107,4 @@ const SignButton = styled.button`
   cursor: pointer;
 `;
 
-export default LendingHeader;
+export default LandingHeader;

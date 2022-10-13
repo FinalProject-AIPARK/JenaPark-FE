@@ -1,5 +1,5 @@
-import HistoryProjectLayout from '@/layout/HistoryProjectLayout';
-import HistoryVideoLayout from '@/layout/HistoryVideoLayout';
+import HistoryProjectLayout from '@/layout/history/HistoryProjectLayout';
+import HistoryVideoLayout from '@/layout/history/HistoryVideoLayout';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {

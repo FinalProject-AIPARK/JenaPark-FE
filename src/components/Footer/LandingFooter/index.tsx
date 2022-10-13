@@ -1,12 +1,12 @@
 import React from 'react';
-import LendingFooterLayout from '@/layout/LendingFooter';
+import LandingFooterLayout from '@/layout/landingPage/LandingFooter';
 
-function LendingFooter() {
+function LandingFooter() {
   return (
     <>
-      <LendingFooterLayout />
+      <LandingFooterLayout />
     </>
   );
 }
 
-export default LendingFooter;
+export default LandingFooter;

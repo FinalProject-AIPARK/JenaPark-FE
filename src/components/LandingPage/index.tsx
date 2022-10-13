@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import LandingPageStyle from '@/layout/LandingPageStyle';
+import LandingPageStyle from '@/layout/landingPage/LandingPageStyle';
 import Header from '../Header';
 import { Cookies } from 'react-cookie';
 import LandingFooter from '../Footer/LandingFooter';

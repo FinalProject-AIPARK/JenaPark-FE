@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Square from '/images/Vector.png';
 
-function LendingFooter() {
+function LandingFooter() {
   return (
     <>
       <FooterContainer>
@@ -82,4 +82,4 @@ const LinkImage = styled.img.attrs({
   }
 `;
 
-export default LendingFooter;
+export default LandingFooter;

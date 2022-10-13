@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Square from '/images/Vector.png';
 
-function ProjectFooter() {
+function ProjectFooterLayout() {
   return (
     <>
       <FooterContainer>
@@ -78,4 +78,4 @@ const LinkImage = styled.img.attrs({
   }
 `;
 
-export default ProjectFooter;
+export default ProjectFooterLayout;
