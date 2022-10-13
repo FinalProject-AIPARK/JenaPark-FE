@@ -28,7 +28,7 @@ function VoiceModel() {
   const [initColor, setInitColor] = useState('');
   useEffect(() => {
     if (sex) {
-      console.log('hi');
+      dispatch(getProjectId(projectId));
       setVoiceFilter({ sex, lang });
       sex === 'male' ? setSexButton(false) : null;
       switch (lang) {
