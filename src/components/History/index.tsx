@@ -13,7 +13,7 @@ import {
 import VideoDownloaddModal from '@/layout/history/VideoDownloadModal';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
-import LandingHeader from '../header/LandingHeader';
+import LandingHeader from '../header/landingHeader';
 
 const History = memo(() => {
   // 빈 박스

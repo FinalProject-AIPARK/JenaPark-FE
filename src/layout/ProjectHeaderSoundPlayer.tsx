@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, memo } from 'react';
 import AudioPlayer, { RHAP_UI } from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import styled from 'styled-components';
 import playbutton from '/images/play-circle.png';
 import stopbutton from '/images/stop-circle.png';
 import { useAllListenQuery } from '@/api/useApi';
-import { useAppSelector, useAppDispatch } from '@/store/store';
+import { useAppSelector } from '@/store/store';
 
-function SoundPlayer(this: any) {
+const ProjectHeaderSoundPlayer = memo(() => {
   const { projectId } = useAppSelector((state) => state.projectControl.projectData);
   const player: React.MutableRefObject<any> = useRef();
   const { data: allSound } = useAllListenQuery(Number(projectId));
@@ -34,7 +34,6 @@ function SoundPlayer(this: any) {
         src={audioUrl}
         autoPlay={false}
         layout="horizontal-reverse"
-        // onPlay={Listen}
         hasDefaultKeyBindings={false}
         ref={(elem) => (player.current = elem)}
         customProgressBarSection={[RHAP_UI.PROGRESS_BAR]}
@@ -42,7 +41,7 @@ function SoundPlayer(this: any) {
       />
     </PlayerContainer>
   );
-}
+});
 
 const PlayButton = styled.img.attrs({
   src: `${playbutton}`,
@@ -51,7 +50,6 @@ const PlayButton = styled.img.attrs({
   width: 1.7rem;
   height: 1.7rem;
 `;
-
 const StopButton = styled.img.attrs({
   src: `${stopbutton}`,
 })`
@@ -59,7 +57,6 @@ const StopButton = styled.img.attrs({
   width: 1.7rem;
   height: 1.7rem;
 `;
-
 const PlayerContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -80,4 +77,4 @@ const PlayerContainer = styled.div`
   }
 `;
 
-export default SoundPlayer;
+export default ProjectHeaderSoundPlayer;

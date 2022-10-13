@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-import SoundPlayerLayout from '@/layout/SoundPlayer';
+import SoundPlayerLayout from '@/layout/ProjectHeaderSoundPlayer';
 import 'react-h5-audio-player/lib/styles.css';
 
 function SoundPlayer() {
