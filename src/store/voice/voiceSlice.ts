@@ -109,6 +109,9 @@ export const voiceSlice = createSlice({
     inputSynthAction: (state, action) => {
       state.inputTextSynth = action.payload;
     },
+    changeSplitText: (state, action) => {
+      state.inputTextSynth[action.payload['index']].splitText = action.payload['event'];
+    }
   },
 });
 
@@ -125,6 +128,7 @@ export const {
   collectOption,
   inputText,
   inputSynthAction,
+  changeSplitText
 } = voiceSlice.actions;
 
 export const voiceReducer = voiceSlice.reducer;
