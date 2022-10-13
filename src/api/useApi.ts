@@ -550,7 +550,7 @@ interface BackgroundImgUpload {
 }
 
 interface ReturnAllListenType {
-  audioFileUrl: string;
+  data: string;
 }
 // 텍스트 수정
 
