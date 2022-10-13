@@ -1,6 +1,6 @@
 import HistoryProjectLayout from '@/layout/history/HistoryProjectLayout';
 import HistoryVideoLayout from '@/layout/history/HistoryVideoLayout';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   useGetProjectHistoyQuery,
@@ -15,7 +15,7 @@ import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
 import Header from '@/components/Header/ProjectHeader';
 
-const History = () => {
+const History = memo(() => {
   // 빈 박스
   const [projectEmpty, setProjectEmpty] = useState([0]);
   const [videoEmpty, setVideoEmpty] = useState([0]);
@@ -47,7 +47,7 @@ const History = () => {
       createDate: '',
     },
   ]);
-  useMemo(() => {
+  useEffect(() => {
     if (project) {
       setProjectList(project.data.historyProjects);
       setVideoList(project.data.historyVideos);
@@ -288,7 +288,8 @@ const History = () => {
       ) : null}
     </Container>
   );
-};
+});
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
