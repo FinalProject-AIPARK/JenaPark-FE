@@ -1,6 +1,8 @@
-import styled from 'styled-components';
-import left from '/images/maskLeft-icon.png';
-import right from '/images/maskRight-icon.png';
+import { url } from "inspector";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import styled from "styled-components";
+import left from "@/images/maskLeft-icon.png";
+import right from "@/images/maskRight-icon.png";
 
 const AvatarChooseStyle = ({
   avatarList,
@@ -13,70 +15,37 @@ const AvatarChooseStyle = ({
   moveAvatarSlide,
 }: Test) => {
   return (
-    <Avatar>
-      <AvatarTitle>음성이랑 합성할 버추얼 아바타를 선택해주세요.</AvatarTitle>
-      <div>
-        <VirtualAvatarText>AI 아바타</VirtualAvatarText>
-        <VirtualAvatarContainer>
-          <MaskIcon
-            src={left}
-            onClick={() => moveAvatarSlide('left', avatarList?.data.length - 1, 'avatar')}
-          >
-            <span>icon</span>
-          </MaskIcon>
-          <AvatarSlideContainer>
-            <FlexBox avatarSlideIndex={avatarSlideIndex.avatar}>
-              {avatarList?.data &&
-                avatarList?.data.map((list: any) => {
-                  return (
-                    <Box
-                      borderColor={true ? '2px solid #fff' : '2px solid #000'}
-                      key={list.id}
-                      onClick={() => {
-                        avatarModelReset(list.id);
-                        setAvatarId(list.id);
-                      }}
-                    >
-                      <ImgthumbNail src={list.thumbNail} alt="아바타 이미지" />
-                    </Box>
-                  );
-                })}
-            </FlexBox>
-          </AvatarSlideContainer>
-          <MaskIcon
-            src={right}
-            onClick={() => moveAvatarSlide('right', avatarList?.data.length - 1, 'avatar')}
-          >
-            <span>icon</span>
-          </MaskIcon>
-        </VirtualAvatarContainer>
-      </div>
-      <Line />
-      <Scroolbar>
+    <>
+      <Avatar>
+        <AvatarTitle>음성이랑 합성할 버추얼 아바타를 선택해주세요.</AvatarTitle>
         <div>
-          <VirtualAvatarText>의상1</VirtualAvatarText>
+          <VirtualAvatarText>AI 아바타</VirtualAvatarText>
           <VirtualAvatarContainer>
             <MaskIcon
               src={left}
               onClick={() =>
-                moveAvatarSlide('left', avatarListDress?.data.accUrl.length - 1, 'acc')
+                moveAvatarSlide("left", avatarList?.data.length - 1, "avatar")
               }
             >
               <span>icon</span>
             </MaskIcon>
             <AvatarSlideContainer>
-              <FlexBox avatarSlideIndex={avatarSlideIndex.acc}>
-                {avatarListDress?.data.accUrl &&
-                  avatarListDress?.data.accUrl.map((list: any, i: number) => {
+              <FlexBox avatarSlideIndex={avatarSlideIndex.avatar}>
+                {avatarList?.data &&
+                  avatarList?.data.map((list: any) => {
                     return (
                       <Box
-                        borderColor={true ? '2px solid #fff' : '2px solid #000'}
+                        borderColor={true ? "2px solid #fff" : "2px solid #000"}
                         key={list.id}
                         onClick={() => {
-                          avatarModelSelect(list.id, 'accessoryId');
+                          avatarModelReset(list.id);
+                          setAvatarId(list.id);
                         }}
                       >
-                        <ImgthumbNail src={list.accessoryUrl} alt={`의상1 이미지 ${i}`} />
+                        <ImgthumbNail
+                          src={list.thumbNail}
+                          alt="아바타 이미지"
+                        />
                       </Box>
                     );
                   })}
@@ -85,98 +54,183 @@ const AvatarChooseStyle = ({
             <MaskIcon
               src={right}
               onClick={() =>
-                moveAvatarSlide('right', avatarListDress?.data.accUrl.length - 1, 'acc')
+                moveAvatarSlide("right", avatarList?.data.length - 1, "avatar")
               }
             >
               <span>icon</span>
             </MaskIcon>
           </VirtualAvatarContainer>
         </div>
-        <div>
-          <VirtualAvatarText>의상2</VirtualAvatarText>
-          <VirtualAvatarContainer>
-            <MaskIcon
-              src={left}
-              onClick={() =>
-                moveAvatarSlide('left', avatarListDress?.data.attitudeUrl.length - 1, 'attitude')
-              }
-            >
-              <span>icon</span>
-            </MaskIcon>
-            <AvatarSlideContainer>
-              <FlexBox avatarSlideIndex={avatarSlideIndex.attitude}>
-                {avatarListDress?.data.attitudeUrl &&
-                  avatarListDress?.data.attitudeUrl.map((list: any, i: number) => {
-                    return (
-                      <Box
-                        borderColor={true ? '2px solid #fff' : '2px solid #000'}
-                        key={list.id}
-                        onClick={() => {
-                          avatarModelSelect(list.id, 'hatId');
-                        }}
-                      >
-                        <ImgthumbNail src={list.hatUrl} alt={`의상2 이미지 ${i}`} />
-                      </Box>
-                    );
-                  })}
-              </FlexBox>
-            </AvatarSlideContainer>
-            <MaskIcon
-              src={right}
-              onClick={() =>
-                moveAvatarSlide('right', avatarListDress?.data.attitudeUrl.length - 1, 'attitude')
-              }
-            >
-              <span>icon</span>
-            </MaskIcon>
-          </VirtualAvatarContainer>
-        </div>
-        <div>
-          <VirtualAvatarText>의상3</VirtualAvatarText>
-          <VirtualAvatarContainer>
-            <MaskIcon
-              src={left}
-              onClick={() =>
-                moveAvatarSlide('left', avatarListDress?.data.clothesUrl.length - 1, 'clothes')
-              }
-            >
-              <span>icon</span>
-            </MaskIcon>
-            <AvatarSlideContainer>
-              <FlexBox avatarSlideIndex={avatarSlideIndex.clothes}>
-                {avatarListDress?.data.clothesUrl &&
-                  avatarListDress?.data.clothesUrl.map((list: any, i: number) => {
-                    return (
-                      <Box
-                        borderColor={true ? '2px solid #fff' : '2px solid #000'}
-                        key={list.id}
-                        onClick={() => {
-                          avatarModelSelect(list.id, 'clothesId');
-                        }}
-                      >
-                        <ImgthumbNail src={list.clothesUrl} alt={`의상3 이미지 ${i}`} />
-                      </Box>
-                    );
-                  })}
-              </FlexBox>
-            </AvatarSlideContainer>
-            <MaskIcon
-              src={right}
-              onClick={() =>
-                moveAvatarSlide('right', avatarListDress?.data.clothesUrl.length - 1, 'clothes')
-              }
-            >
-              <span>icon</span>
-            </MaskIcon>
-          </VirtualAvatarContainer>
-        </div>
-      </Scroolbar>
-      <SubButtonContainer>
-        <SubButton onClick={createAvatarHandler}>아바타 선택하기</SubButton>
-      </SubButtonContainer>
-    </Avatar>
+        <Line />
+        <Scroolbar>
+          <div>
+            <VirtualAvatarText>의상1</VirtualAvatarText>
+            <VirtualAvatarContainer>
+              <MaskIcon
+                src={left}
+                onClick={() =>
+                  moveAvatarSlide(
+                    "left",
+                    avatarListDress?.data.accUrl.length - 1,
+                    "acc"
+                  )
+                }
+              >
+                <span>icon</span>
+              </MaskIcon>
+              <AvatarSlideContainer>
+                <FlexBox avatarSlideIndex={avatarSlideIndex.acc}>
+                  {avatarListDress?.data.accUrl &&
+                    avatarListDress?.data.accUrl.map((list: any, i: number) => {
+                      return (
+                        <Box
+                          borderColor={
+                            true ? "2px solid #fff" : "2px solid #000"
+                          }
+                          key={list.id}
+                          onClick={() => {
+                            avatarModelSelect(list.id, "accessoryId");
+                          }}
+                        >
+                          <ImgthumbNail
+                            src={list.accessoryUrl}
+                            alt={`의상1 이미지 ${i}`}
+                          />
+                        </Box>
+                      );
+                    })}
+                </FlexBox>
+              </AvatarSlideContainer>
+              <MaskIcon
+                src={right}
+                onClick={() =>
+                  moveAvatarSlide(
+                    "right",
+                    avatarListDress?.data.accUrl.length - 1,
+                    "acc"
+                  )
+                }
+              >
+                <span>icon</span>
+              </MaskIcon>
+            </VirtualAvatarContainer>
+          </div>
+          <div>
+            <VirtualAvatarText>의상2</VirtualAvatarText>
+            <VirtualAvatarContainer>
+              <MaskIcon
+                src={left}
+                onClick={() =>
+                  moveAvatarSlide(
+                    "left",
+                    avatarListDress?.data.attitudeUrl.length - 1,
+                    "attitude"
+                  )
+                }
+              >
+                <span>icon</span>
+              </MaskIcon>
+              <AvatarSlideContainer>
+                <FlexBox avatarSlideIndex={avatarSlideIndex.attitude}>
+                  {avatarListDress?.data.attitudeUrl &&
+                    avatarListDress?.data.attitudeUrl.map(
+                      (list: any, i: number) => {
+                        return (
+                          <Box
+                            borderColor={
+                              true ? "2px solid #fff" : "2px solid #000"
+                            }
+                            key={list.id}
+                            onClick={() => {
+                              avatarModelSelect(list.id, "hatId");
+                            }}
+                          >
+                            <ImgthumbNail
+                              src={list.hatUrl}
+                              alt={`의상2 이미지 ${i}`}
+                            />
+                          </Box>
+                        );
+                      }
+                    )}
+                </FlexBox>
+              </AvatarSlideContainer>
+              <MaskIcon
+                src={right}
+                onClick={() =>
+                  moveAvatarSlide(
+                    "right",
+                    avatarListDress?.data.attitudeUrl.length - 1,
+                    "attitude"
+                  )
+                }
+              >
+                <span>icon</span>
+              </MaskIcon>
+            </VirtualAvatarContainer>
+          </div>
+          <div>
+            <VirtualAvatarText>의상3</VirtualAvatarText>
+            <VirtualAvatarContainer>
+              <MaskIcon
+                src={left}
+                onClick={() =>
+                  moveAvatarSlide(
+                    "left",
+                    avatarListDress?.data.clothesUrl.length - 1,
+                    "clothes"
+                  )
+                }
+              >
+                <span>icon</span>
+              </MaskIcon>
+              <AvatarSlideContainer>
+                <FlexBox avatarSlideIndex={avatarSlideIndex.clothes}>
+                  {avatarListDress?.data.clothesUrl &&
+                    avatarListDress?.data.clothesUrl.map(
+                      (list: any, i: number) => {
+                        return (
+                          <Box
+                            borderColor={
+                              true ? "2px solid #fff" : "2px solid #000"
+                            }
+                            key={list.id}
+                            onClick={() => {
+                              avatarModelSelect(list.id, "clothesId");
+                            }}
+                          >
+                            <ImgthumbNail
+                              src={list.clothesUrl}
+                              alt={`의상3 이미지 ${i}`}
+                            />
+                          </Box>
+                        );
+                      }
+                    )}
+                </FlexBox>
+              </AvatarSlideContainer>
+              <MaskIcon
+                src={right}
+                onClick={() =>
+                  moveAvatarSlide(
+                    "right",
+                    avatarListDress?.data.clothesUrl.length - 1,
+                    "clothes"
+                  )
+                }
+              >
+                <span>icon</span>
+              </MaskIcon>
+            </VirtualAvatarContainer>
+          </div>
+        </Scroolbar>
+        <SubButtonContainer>
+          <SubButton onClick={createAvatarHandler}>아바타 선택하기</SubButton>
+        </SubButtonContainer>
+      </Avatar>
+    </>
   );
-};
+}
 
 // 타입 지정
 interface Test {
@@ -196,19 +250,19 @@ interface Test {
             {
               id: number;
               accessoryUrl: string;
-            },
+            }
           ];
           clothesUrl: [
             {
               id: number;
               clothesUrl: string;
-            },
+            }
           ];
           attitudeUrl: [
             {
               id: number;
               hatUrl: string;
-            },
+            }
           ];
         };
       }[]
@@ -225,22 +279,24 @@ interface Test {
   };
   moveAvatarSlide: (leftRight: string, maxLength: number, kind: string) => void;
 }
+
 interface borderColors {
   borderColor: string | number;
 }
+
 interface MaskIconType {
   src: string;
 }
+
 interface FlexBoxType {
   avatarSlideIndex?: number;
 }
-
 // 스타일 관련
+
 const Scroolbar = styled.div`
-  height: 43vh;
+  height: 24.563rem;
   overflow-y: hidden;
   overflow-y: auto;
-  position: relative;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -258,20 +314,24 @@ const Scroolbar = styled.div`
     border-radius: 10px;
   }
 `;
+
 const VirtualAvatarContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 `;
+
 const VirtualAvatarText = styled.p`
   margin: 1rem 2.6rem;
   color: #fff;
 `;
+
 const Line = styled.div`
   border: 1px solid #bdbdbd;
   width: 31rem;
   margin: 1.5rem auto 0.6rem;
 `;
+
 const MaskIcon = styled.button<MaskIconType>`
   background: none;
   padding: 0;
@@ -285,10 +345,12 @@ const MaskIcon = styled.button<MaskIconType>`
     background-position: center;
   }
 `;
+
 const AvatarSlideContainer = styled.div`
   width: 28rem;
   overflow: hidden;
 `;
+
 const FlexBox = styled.ul<FlexBoxType>`
   display: flex;
   justify-content: flex-start;
@@ -296,8 +358,10 @@ const FlexBox = styled.ul<FlexBoxType>`
   width: 9999px;
   gap: 10px;
   transition: all 0.5s;
-  transform: ${({ avatarSlideIndex }) => `translateX(${avatarSlideIndex! * 7}rem)`};
+  transform: ${({ avatarSlideIndex }) =>
+    `translateX(${avatarSlideIndex! * 7}rem)`};
 `;
+
 const Box = styled.li<borderColors>`
   display: flex;
   justify-content: center;
@@ -310,25 +374,27 @@ const Box = styled.li<borderColors>`
   overflow: hidden;
   cursor: pointer;
 `;
+
 const ImgthumbNail = styled.img`
   width: 7.5rem;
 `;
+
 const AvatarTitle = styled.div`
   font-size: 18px;
   margin: 23px 0 22px 24px;
   color: #fff;
   font-weight: 400;
 `;
+
 const SubButtonContainer = styled.div`
   width: 32.5rem;
-  height: 4.7rem;
+  height: 4.7222rem;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #091547;
-  position: absolute;
-  bottom: 10px;
 `;
+
 const SubButton = styled.button`
   width: 30rem;
   height: 2.5rem;
@@ -337,6 +403,7 @@ const SubButton = styled.button`
   font-size: 18px;
   border-radius: 5px;
 `;
+
 const Avatar = styled.div`
   width: 32.5em;
 `;

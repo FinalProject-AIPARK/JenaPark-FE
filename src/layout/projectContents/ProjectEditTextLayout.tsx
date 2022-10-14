@@ -364,17 +364,14 @@ const ScrollBox = styled.div`
   overflow: scroll;
   overflow-x: hidden;
   overflow-y: auto;
-
   ::-webkit-scrollbar {
     width: 10px;
     border: 1px solid #dbdbdb;
     border-radius: 10px;
   }
-
   ::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.5);
   }
-
   ::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.5);
@@ -414,7 +411,6 @@ const VolumeSpeedOptionWrap = styled.div`
   display: flex;
   justify-content: flex-end;
   background-color: #fff;
-
   .container {
     display: flex;
     justify-content: flex-end;
@@ -441,7 +437,6 @@ const VolumeSpeedOptionWrap = styled.div`
         background-color: #d3d3d3;
         width: 85%;
         border-radius: 10px;
-
         &::-webkit-slider-thumb {
           appearance: none;
           width: 15px;
@@ -457,7 +452,6 @@ const VolumeSpeedOptionWrap = styled.div`
       display: flex;
       justify-content: space-between;
       width: 85%;
-
       span {
         font-size: 0.9rem;
         word-spacing: 0rem;

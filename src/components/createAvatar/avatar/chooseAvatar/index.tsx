@@ -47,7 +47,7 @@ const ChooseAvatar = memo(() => {
   dispatch(avatarProjectId(projectId));
 
   // 슬라이드 기능
-  let [avatarSlideIndex, setAvatarSlideIndex] = useState({
+  let [avatarSlideIndex, setAvatarSlideIndex] = useState<any>({
     avatar: 0,
     acc: 0,
     attitude: 0,
