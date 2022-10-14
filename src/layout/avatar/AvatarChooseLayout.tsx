@@ -30,7 +30,7 @@ function AvatarChooseStyle({
             <AvatarSlideContainer>
               <FlexBox avatarSlideIndex={avatarSlideIndex.avatar}>
                 {avatarList?.data &&
-                  avatarList?.data.map((list: any) => {
+                  avatarList?.data.map((list: any, index: number) => {
                     return (
                       <Box
                         borderColor={true ? '2px solid #fff' : '2px solid #000'}
@@ -39,6 +39,7 @@ function AvatarChooseStyle({
                           avatarModelReset(list.id);
                           setAvatarId(list.id);
                         }}
+                        tabIndex={index}
                       >
                         <ImgthumbNail src={list.thumbNail} alt="아바타 이미지" />
                       </Box>
@@ -70,7 +71,7 @@ function AvatarChooseStyle({
               <AvatarSlideContainer>
                 <FlexBox avatarSlideIndex={avatarSlideIndex.acc}>
                   {avatarListDress?.data.accUrl &&
-                    avatarListDress?.data.accUrl.map((list: any, i: number) => {
+                    avatarListDress?.data.accUrl.map((list: any, index: number) => {
                       return (
                         <Box
                           borderColor={true ? '2px solid #fff' : '2px solid #000'}
@@ -78,8 +79,9 @@ function AvatarChooseStyle({
                           onClick={() => {
                             avatarModelSelect(list.id, 'accessoryId');
                           }}
+                          tabIndex={index}
                         >
-                          <ImgthumbNail src={list.accessoryUrl} alt={`의상1 이미지 ${i}`} />
+                          <ImgthumbNail src={list.accessoryUrl} alt={`의상1 이미지 ${index}`} />
                         </Box>
                       );
                     })}
@@ -109,7 +111,7 @@ function AvatarChooseStyle({
               <AvatarSlideContainer>
                 <FlexBox avatarSlideIndex={avatarSlideIndex.attitude}>
                   {avatarListDress?.data.attitudeUrl &&
-                    avatarListDress?.data.attitudeUrl.map((list: any, i: number) => {
+                    avatarListDress?.data.attitudeUrl.map((list: any, index: number) => {
                       return (
                         <Box
                           borderColor={true ? '2px solid #fff' : '2px solid #000'}
@@ -117,8 +119,9 @@ function AvatarChooseStyle({
                           onClick={() => {
                             avatarModelSelect(list.id, 'hatId');
                           }}
+                          tabIndex={index}
                         >
-                          <ImgthumbNail src={list.hatUrl} alt={`의상2 이미지 ${i}`} />
+                          <ImgthumbNail src={list.hatUrl} alt={`의상2 이미지 ${index}`} />
                         </Box>
                       );
                     })}
@@ -148,7 +151,7 @@ function AvatarChooseStyle({
               <AvatarSlideContainer>
                 <FlexBox avatarSlideIndex={avatarSlideIndex.clothes}>
                   {avatarListDress?.data.clothesUrl &&
-                    avatarListDress?.data.clothesUrl.map((list: any, i: number) => {
+                    avatarListDress?.data.clothesUrl.map((list: any, index: number) => {
                       return (
                         <Box
                           borderColor={true ? '2px solid #fff' : '2px solid #000'}
@@ -156,8 +159,9 @@ function AvatarChooseStyle({
                           onClick={() => {
                             avatarModelSelect(list.id, 'clothesId');
                           }}
+                          tabIndex={index}
                         >
-                          <ImgthumbNail src={list.clothesUrl} alt={`의상3 이미지 ${i}`} />
+                          <ImgthumbNail src={list.clothesUrl} alt={`의상3 이미지 ${index}`} />
                         </Box>
                       );
                     })}
@@ -310,7 +314,7 @@ const FlexBox = styled.ul<FlexBoxType>`
   width: 9999px;
   gap: 10px;
   transition: all 0.5s;
-  transform: ${({ avatarSlideIndex }) => `translateX(${avatarSlideIndex * 7}rem)`};
+  transform: ${({ avatarSlideIndex }) => `translateX(${avatarSlideIndex! * 7}rem)`};
 `;
 
 const Box = styled.li<borderColors>`
@@ -324,6 +328,11 @@ const Box = styled.li<borderColors>`
   background-color: #fff;
   overflow: hidden;
   cursor: pointer;
+
+  &:focus {
+    border: 2px solid #0DFF1E;
+    box-shadow: inset 0 0 0.62rem 0 #b0ffb6;;
+  }
 `;
 
 const ImgthumbNail = styled.img`
