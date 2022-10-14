@@ -145,7 +145,6 @@ interface AvatarBackgroundType {
   backgroundImgUpload: (event: React.FormEvent<HTMLFormElement>) => void;
   setBackgroundFile: React.Dispatch<React.SetStateAction<File[]>>;
   setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
-  backgroundFiles: any;
   inputFileRef: React.MutableRefObject<HTMLInputElement>;
   onInputFile: (event: React.ChangeEvent<HTMLInputElement> | any) => void;
   submitRef: React.MutableRefObject<HTMLFormElement> | undefined;
