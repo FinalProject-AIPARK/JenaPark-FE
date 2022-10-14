@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import VoiceWorkingButtonLayout from '@/layout/voice/VoiceWorkingButtonLayout';
 import VoiceModel from './voiceModel';
 import VoiceOption from './voiceOption';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import { voiceModelWorking, voiceOptionWorking } from '@/store/voice/voiceSlice';
 import { memo } from 'react';
+import VoiceWorkingButtonLayout from '@/layout/Voice/VoiceWorkingButtonLayout';
 
 const Voice = memo(() => {
   const { isVoiceModel, isVoiceOption } = useAppSelector((state) => state.voice.elementData);

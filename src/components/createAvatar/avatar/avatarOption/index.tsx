@@ -5,8 +5,8 @@ import {
   usePostBackgroundAvatarListChooseMutation,
   usePostUploadBackgroundMutation,
 } from '@/api/useApi';
-import { avatarOptionDataUrl } from '@/store/avatar/avatarSlice';
 import { useAppSelector, useAppDispatch } from '@/store/store';
+import { avatarOptionDataUrl } from '@/store/Avatar/avatarSlice';
 
 const AvatarOption = memo(() => {
   const { projectId } = useAppSelector((state) => state.projectControl.projectData);

@@ -13,7 +13,8 @@ import {
 import VideoDownloaddModal from '@/layout/history/VideoDownloadModal';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
-import LandingHeader from '../header/landingHeader';
+import LandingHeader from '../Header/LandingHeader';
+import LandingFooter from '../Footer/LandingFooter';
 
 const History = memo(() => {
   // 빈 박스
@@ -290,6 +291,9 @@ const History = memo(() => {
           />
         ) : null}
       </Container>
+      <div style={{ margin: '0 15%' }}>
+        <LandingFooter />
+      </div>
     </>
   );
 });

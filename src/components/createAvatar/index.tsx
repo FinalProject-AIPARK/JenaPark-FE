@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import Navbar from './navbar';
 import Voice from './voice';
 import Avatar from './avatar/index';
-import Header from '../header/projectHeader';
-import Footer from '../footer/projectFooter';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import Contents from './contents';
 import { useGetProjectDataQuery } from '@/api/useApi';
@@ -13,6 +11,8 @@ import { getData } from '@/store/workingProject/projectControlSlice';
 import { initVoiceOption, inputText } from '@/store/voice/voiceSlice';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
+import ProjectHeader from '../Header/ProjectHeader';
+import ProjectFooter from '../Footer/ProjectFooter';
 
 const CreateAvatar = memo(() => {
   // 프로젝트 데이터 가져오기
@@ -62,7 +62,7 @@ const CreateAvatar = memo(() => {
       {isInputTextSynthError ? <ErrorBigLayout errorData={inputTextSynthError} /> : null}
       {isError ? <ErrorBigLayout errorData={error!} /> : null}
       {isLoading || isInputTextSynthLoading ? <LoadingBigLayout /> : null}
-      <Header />
+      <ProjectHeader />
       <Contain>
         <div>
           <Navbar />
@@ -70,7 +70,7 @@ const CreateAvatar = memo(() => {
         <Contents />
         {isVoiceWoking ? <Voice /> : <Avatar />}
       </Contain>
-      <Footer />
+      <ProjectFooter />
     </>
   );
 });

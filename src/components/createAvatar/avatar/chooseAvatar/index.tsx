@@ -11,7 +11,7 @@ import {
   avatarModelKindReset,
   avatarChooseDataUrl,
   avatarProjectId,
-} from '@/store/avatar/avatarSlice';
+} from '@/store/Avatar/avatarSlice';
 
 const ChooseAvatar = memo(() => {
   const avartarDress = useAppSelector((state) => state.avatar.avatarModel);

@@ -1,10 +1,6 @@
-import VoiceUploadModal from '@/layout/voice/VoiceUploadModal';
 import React, { useEffect, useRef, useState, ChangeEvent, DragEvent, memo } from 'react';
 import styled from 'styled-components';
 import { useGetVoiceModelMutation, useUploadVoiceMutation } from '@/api/useApi';
-import SearchVoiceModelLayout from '@/layout/voice/SearchVoiceModelLayout';
-import VoiceModelFilterButton from '@/layout/voice/VoiceModelFilterButton';
-import VoiceModelListLayout from '@/layout/voice/VoiceModelListLayout';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import { workingComponent } from '@/store/workingProject/projectControlSlice';
 import {
@@ -15,6 +11,10 @@ import {
   initModelColor,
   initVoiceModel,
 } from '@/store/voice/voiceSlice';
+import SearchVoiceModelLayout from '@/layout/Voice/SearchVoiceModelLayout';
+import VoiceUploadModal from '@/layout/Voice/VoiceUploadModal';
+import VoiceModelFilterButton from '@/layout/Voice/VoiceModelFilterButton';
+import VoiceModelListLayout from '@/layout/Voice/VoiceModelListLayout';
 
 const VoiceModel = memo(() => {
   const { projectId, sex, lang, audioModelUrl, audioFileOriginName, audioModel } = useAppSelector(

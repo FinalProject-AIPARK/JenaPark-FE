@@ -1,11 +1,11 @@
-import LandingFooter from '@/components/footer/landingFooter';
-import Header from '@/components/header/landingHeader';
+import LandingFooter from '@/components/Footer/LandingFooter';
+import LandingHeader from '@/components/Header/LandingHeader';
 import SignUpForm from '@/components/signUp/SignUpForm';
 
 const SignUp = () => {
   return (
     <>
-      <Header />
+      <LandingHeader />
       <SignUpForm />
       <LandingFooter />
     </>

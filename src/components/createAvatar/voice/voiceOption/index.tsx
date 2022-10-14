@@ -1,7 +1,5 @@
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
-import VoiceOptionDetailLayout from '@/layout/voice/VoiceOptionDetailLayout';
-import VoiceOptionTitleLayout from '@/layout/voice/VoiceOptionTitleLayout';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import { voiceOptionAction, collectOption, inputSynthAction } from '@/store/voice/voiceSlice';
 import { useInputTextSynMutation } from '@/api/useApi';
@@ -11,6 +9,8 @@ import {
   InputTextSynthLoadingAction,
   InputTextSynthErrorAction,
 } from '@/store/workingProject/projectControlSlice';
+import VoiceOptionTitleLayout from '@/layout/Voice/VoiceOptionTitleLayout';
+import VoiceOptionDetailLayout from '@/layout/Voice/VoiceOptionDetailLayout';
 
 const VoiceOption = memo(() => {
   const { selectedModel, voiceOption, voiceData } = useAppSelector((state) => state.voice);
