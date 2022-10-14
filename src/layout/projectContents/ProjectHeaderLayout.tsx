@@ -10,23 +10,21 @@ import voiceimage from '/images/music.png';
 import LoadingBigLayout from '../LoadingBigLayout';
 
 const ProjectHeaderLayout = memo(() => {
-  const { projectId: id, downloadAudioUrl } = useAppSelector(
-    (state) => state.projectControl.projectData,
-  );
-  const [download, setDownload] = useState('');
-  useEffect(() => {
-    if (downloadAudioUrl) {
-      setDownload(downloadAudioUrl);
-      console.log(downloadAudioUrl);
-    }
-  }, [downloadAudioUrl]);
+  const {
+    projectId: id,
+    downloadAudioUrl,
+    audioUpload,
+  } = useAppSelector((state) => state.projectControl.projectData);
 
   const [synth, setSynth] = useState({
     count: 0,
     projectId: 0,
   });
   const [countNum, setCountNum] = useState(0);
-
+  const [download, setDownload] = useState('');
+  useEffect(() => {
+    if (downloadAudioUrl) setDownload(downloadAudioUrl);
+  }, [downloadAudioUrl]);
   const { data: VideoSynthesis, isLoading } = useVideoSynthesisQuery(synth);
   function synthHandler() {
     setCountNum(countNum + 1);
@@ -51,12 +49,10 @@ const ProjectHeaderLayout = memo(() => {
           <ProjectNameText>프로젝트 명</ProjectNameText>
           <NameEditImage />
         </ProjectNameContainer>
-        <SoundPlayerContainer>
-          <SoundPlayer />
-        </SoundPlayerContainer>
+        <SoundPlayerContainer>{audioUpload ? null : <SoundPlayer />}</SoundPlayerContainer>
         <ImageButtonContainer>
           <DownloadButton>
-            <a href={downloadAudioUrl ? downloadAudioUrl : ''} download>
+            <a href={download ? download : ''} download>
               음성 다운로드
             </a>
             <VoiceImage />

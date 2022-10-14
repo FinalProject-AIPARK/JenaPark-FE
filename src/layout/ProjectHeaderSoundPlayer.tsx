@@ -5,9 +5,11 @@ import styled from 'styled-components';
 import playbutton from '/images/play-circle.png';
 import stopbutton from '/images/stop-circle.png';
 import { useAllListenQuery } from '@/api/useApi';
-import { useAppSelector } from '@/store/store';
+import { useAppSelector, useAppDispatch } from '@/store/store';
+import { callProjectDataAction } from '@/store/workingProject/projectControlSlice';
 
 const ProjectHeaderSoundPlayer = memo(() => {
+  const dispatch = useAppDispatch();
   const { projectId: id } = useAppSelector((state) => state.projectControl.projectData);
   const player: React.MutableRefObject<any> = useRef();
 
@@ -22,6 +24,7 @@ const ProjectHeaderSoundPlayer = memo(() => {
     if (allSound) {
       setaudioUrl(allSound.data);
       player.current.audio.current.play();
+      dispatch(callProjectDataAction());
     }
   }, [allSound]);
   function requestHandler() {
