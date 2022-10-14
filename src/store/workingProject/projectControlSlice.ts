@@ -42,6 +42,7 @@ export const projectControlSlice = createSlice({
   reducers: {
     callProjectDataAction: (state) => {
       state.elementData.callProjectData = state.elementData.callProjectData + 1;
+      console.log(state.elementData.callProjectData);
     },
     workingComponent: (state) => {
       state.elementData.isVoiceWoking = !state.elementData.isVoiceWoking;

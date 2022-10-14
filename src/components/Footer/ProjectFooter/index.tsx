@@ -1,7 +1,12 @@
-import ProjectFooterLayout from '@/layout/projectContents/ProjectFooterLayout';
+import React from 'react';
+import ProjectFooterLayout from '@/layout/ProjectFooter';
 
-const ProjectFooter = () => {
-  return <ProjectFooterLayout />;
-};
+function ProjectFooter() {
+  return (
+    <>
+      <ProjectFooterLayout />
+    </>
+  );
+}
 
 export default ProjectFooter;

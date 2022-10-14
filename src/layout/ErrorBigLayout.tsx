@@ -1,11 +1,13 @@
-import { memo } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { useAppDispatch } from '@/store/store';
+import { useAppSelector, useAppDispatch } from '@/store/store';
 import { InputTextSynthErrorAction } from '@/store/workingProject/projectControlSlice';
 
-const ErrorBigLayout = memo(({ errorData }: HistoryErrorProps) => {
+function ErrorBigLayout({ errorData }: HistoryErrorProps) {
+  console.log(errorData);
   const dispatch = useAppDispatch();
+  // 타입 에러..해결이 안됨 추후에 수정할 예정
   if (errorData.status !== 403) {
     switch (errorData.data.message) {
       case '해당 회원을 찾을 수 없습니다.':
@@ -44,7 +46,7 @@ const ErrorBigLayout = memo(({ errorData }: HistoryErrorProps) => {
       <Background />
     </LoadingContain>
   );
-});
+}
 
 interface SerializedError {
   name?: string;

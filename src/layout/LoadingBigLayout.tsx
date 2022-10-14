@@ -1,8 +1,8 @@
-import { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import LoadingAnimation from './BigLoadingAnimation';
 
-const LoadingBigLayout = memo(() => {
+function LoadingBigLayout() {
   return (
     <LoadingContain>
       <LoadingBox>
@@ -11,7 +11,7 @@ const LoadingBigLayout = memo(() => {
       <Background />
     </LoadingContain>
   );
-});
+}
 
 const LoadingContain = styled.div`
   width: 100%;

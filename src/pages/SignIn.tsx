@@ -1,5 +1,5 @@
-import LandingFooter from '@/components/footer/landingFooter';
-import Header from '@/components/header/landingHeader';
+import LendingFooter from '@/components/Footer/LandingFooter';
+import Header from '@/components/Header';
 import SignInForm from '@/components/signIn/SignInForm';
 
 const SignIn = () => {
@@ -7,7 +7,7 @@ const SignIn = () => {
     <>
       <Header />
       <SignInForm />
-      <LandingFooter />
+      <LendingFooter />
     </>
   );
 };

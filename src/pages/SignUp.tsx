@@ -1,5 +1,5 @@
-import LandingFooter from '@/components/footer/landingFooter';
-import Header from '@/components/header/landingHeader';
+import LendingFooter from '@/components/Footer/LandingFooter';
+import Header from '@/components/Header';
 import SignUpForm from '@/components/signUp/SignUpForm';
 
 const SignUp = () => {
@@ -7,7 +7,7 @@ const SignUp = () => {
     <>
       <Header />
       <SignUpForm />
-      <LandingFooter />
+      <LendingFooter />
     </>
   );
 };

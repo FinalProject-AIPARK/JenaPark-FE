@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const BigLoadingAnimation = memo(() => {
+function BigLoadingAnimation() {
   return (
     <Container>
       <Loadingio>
@@ -22,7 +22,7 @@ const BigLoadingAnimation = memo(() => {
       </Loadingio>
     </Container>
   );
-});
+}
 
 export default BigLoadingAnimation;
 

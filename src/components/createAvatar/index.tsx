@@ -1,10 +1,10 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './navbar';
 import Voice from './voice';
 import Avatar from './avatar/index';
-import Header from '../header/projectHeader';
-import Footer from '../footer/projectFooter';
+import Header from '../Header/ProjectHeader';
+import Footer from '../Footer/ProjectFooter';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import Contents from './contents';
 import { useGetProjectDataQuery } from '@/api/useApi';
@@ -14,7 +14,7 @@ import { initVoiceOption, inputText } from '@/store/voice/voiceSlice';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
 
-const CreateAvatar = memo(() => {
+function CreateAvatar() {
   // 프로젝트 데이터 가져오기
   const dispatch = useAppDispatch();
   const { projectId: paramsProjectId } = useParams();
@@ -28,6 +28,7 @@ const CreateAvatar = memo(() => {
     setProjectData((prev) => {
       return { ...prev, count: callProjectData };
     });
+    console.log(getProjectData);
   }, [callProjectData]);
   const { data: projectData, isLoading, isError, error } = useGetProjectDataQuery(getProjectData);
 
@@ -35,6 +36,7 @@ const CreateAvatar = memo(() => {
     if (projectData) {
       dispatch(getData(projectData.data));
     }
+    console.log(getProjectData);
   }, [projectData]);
 
   // 음성 옵션 초기값
@@ -50,6 +52,7 @@ const CreateAvatar = memo(() => {
       }),
     );
     dispatch(inputText(text));
+    console.log(text);
   }, [speed]);
 
   // 음성 작업 파트 구분
@@ -73,7 +76,7 @@ const CreateAvatar = memo(() => {
       <Footer />
     </>
   );
-});
+}
 
 const Contain = styled.div`
   height: calc(100vh - 8.5rem);

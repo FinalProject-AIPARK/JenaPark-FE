@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const SmallLoadingAnimation = memo(() => {
+function SmallLoadingAnimation() {
   return (
     <Container>
       <Loadingio>
@@ -22,7 +22,7 @@ const SmallLoadingAnimation = memo(() => {
       </Loadingio>
     </Container>
   );
-});
+}
 
 export default SmallLoadingAnimation;
 

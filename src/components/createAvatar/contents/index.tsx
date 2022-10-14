@@ -1,16 +1,16 @@
-import { memo } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import InputText from './inputText';
-import EditText from './editText';
+import EditText from './editText'
 
-const Contents = memo(() => {
+function Contents() {
   return (
     <Container>
       <InputText />
       <EditText />
     </Container>
   );
-});
+}
 
 const Container = styled.div`
   width: calc(100vw - 50rem);

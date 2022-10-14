@@ -1,12 +1,12 @@
-import VoiceUploadModal from '@/layout/voice/VoiceUploadModal';
-import React, { useEffect, useRef, useState, ChangeEvent, DragEvent, memo } from 'react';
+import VoiceUploadModal from '@/layout/Voice/VoiceUploadModal';
+import React, { useEffect, useRef, useState, ChangeEvent, DragEvent } from 'react';
 import styled from 'styled-components';
-import { useGetVoiceModelMutation, useUploadVoiceMutation } from '@/api/useApi';
-import SearchVoiceModelLayout from '@/layout/voice/SearchVoiceModelLayout';
-import VoiceModelFilterButton from '@/layout/voice/VoiceModelFilterButton';
-import VoiceModelListLayout from '@/layout/voice/VoiceModelListLayout';
-import { useAppSelector, useAppDispatch } from '@/store/store';
-import { workingComponent } from '@/store/workingProject/projectControlSlice';
+import { useGetVoiceModelMutation, useUploadVoiceMutation } from '../../../../api/useApi';
+import SearchVoiceModelLayout from '../../../../layout/Voice/SearchVoiceModelLayout';
+import VoiceModelFilterButton from '../../../../layout/Voice/VoiceModelFilterButton';
+import VoiceModelListLayout from '../../../../layout/Voice/VoiceModelListLayout';
+import { useAppSelector, useAppDispatch } from '../../../../store/store';
+import { workingComponent } from '../../../../store/workingProject/projectControlSlice';
 import {
   modelDataAction,
   voiceOptionWorking,
@@ -14,18 +14,16 @@ import {
   selectedModel,
   initModelColor,
   initVoiceModel,
-} from '@/store/voice/voiceSlice';
+} from '../../../../store/voice/voiceSlice';
 
-const VoiceModel = memo(() => {
+function VoiceModel() {
   const { projectId, sex, lang, audioModelUrl, audioFileOriginName, audioModel } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
   const dispatch = useAppDispatch();
-
   // 음성 모델  전체 리스트 불러오기
   const [voiceFilter, setVoiceFilter] = useState({ sex: '', lang: '' });
   const [getVoice, { data: resVoiceModel }] = useGetVoiceModelMutation();
-
   // 초기 음성 모델 데이터 부름
   const [initColor, setInitColor] = useState('');
   useEffect(() => {
@@ -57,7 +55,6 @@ const VoiceModel = memo(() => {
       }),
     );
   }, [initColor]);
-
   // 음성 모델 카테고리
   useEffect(() => {
     getVoiceHandler();
@@ -104,6 +101,7 @@ const VoiceModel = memo(() => {
     if (audioFile.length) {
       let formData = new FormData();
       formData.append('audioFile', audioFile[0], audioFile[0].name);
+      // 나중에 프로젝트아이디 연결해야해
       const projectID = projectId;
       const actionUpload = {
         formData,
@@ -247,9 +245,13 @@ const VoiceModel = memo(() => {
     url: string;
   }
   function InputVoiceModel(model: voiceModeltypes) {
+    // 변수에 담아서 마지막 선택하기 눌렀을때 변수에 있는 데이터를 api전송
+    // 여기는 변수에 답는 로직이 있어야해
+    // 이름, 성별, 언어 데이터 들어옴
     if (dataBox.name === model.name) setDataBox({ ...dataBox, name: '' });
     else setDataBox(model);
   }
+
   function selectModel() {
     if (dataBox.name.length > 0) {
       dispatch(modelDataAction(dataBox));
@@ -302,7 +304,7 @@ const VoiceModel = memo(() => {
       />
     </Container>
   );
-});
+}
 
 const Container = styled.div`
   height: calc(100% - 4.6rem);
