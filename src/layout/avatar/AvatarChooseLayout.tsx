@@ -1,8 +1,8 @@
-import { url } from "inspector";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import styled from "styled-components";
-import left from "@/images/maskLeft-icon.png";
-import right from "@/images/maskRight-icon.png";
+import { url } from 'inspector';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import styled from 'styled-components';
+import left from '/images/maskLeft-icon.png';
+import right from '/images/maskRight-icon.png';
 
 const AvatarChooseStyle = ({
   avatarList,
@@ -23,9 +23,7 @@ const AvatarChooseStyle = ({
           <VirtualAvatarContainer>
             <MaskIcon
               src={left}
-              onClick={() =>
-                moveAvatarSlide("left", avatarList?.data.length - 1, "avatar")
-              }
+              onClick={() => moveAvatarSlide('left', avatarList?.data.length - 1, 'avatar')}
             >
               <span>icon</span>
             </MaskIcon>
@@ -35,7 +33,7 @@ const AvatarChooseStyle = ({
                   avatarList?.data.map((list: any, index: number) => {
                     return (
                       <Box
-                        borderColor={true ? "2px solid #fff" : "2px solid #000"}
+                        borderColor={true ? '2px solid #fff' : '2px solid #000'}
                         key={list.id}
                         onClick={() => {
                           avatarModelReset(list.id);
@@ -43,10 +41,7 @@ const AvatarChooseStyle = ({
                         }}
                         tabIndex={index}
                       >
-                        <ImgthumbNail
-                          src={list.thumbNail}
-                          alt="아바타 이미지"
-                        />
+                        <ImgthumbNail src={list.thumbNail} alt="아바타 이미지" />
                       </Box>
                     );
                   })}
@@ -54,9 +49,7 @@ const AvatarChooseStyle = ({
             </AvatarSlideContainer>
             <MaskIcon
               src={right}
-              onClick={() =>
-                moveAvatarSlide("right", avatarList?.data.length - 1, "avatar")
-              }
+              onClick={() => moveAvatarSlide('right', avatarList?.data.length - 1, 'avatar')}
             >
               <span>icon</span>
             </MaskIcon>
@@ -70,11 +63,7 @@ const AvatarChooseStyle = ({
               <MaskIcon
                 src={left}
                 onClick={() =>
-                  moveAvatarSlide(
-                    "left",
-                    avatarListDress?.data.accUrl.length - 1,
-                    "acc"
-                  )
+                  moveAvatarSlide('left', avatarListDress?.data.accUrl.length - 1, 'acc')
                 }
               >
                 <span>icon</span>
@@ -85,12 +74,10 @@ const AvatarChooseStyle = ({
                     avatarListDress?.data.accUrl.map((list: any, index: number) => {
                       return (
                         <Box
-                          borderColor={
-                            true ? "2px solid #fff" : "2px solid #000"
-                          }
+                          borderColor={true ? '2px solid #fff' : '2px solid #000'}
                           key={list.id}
                           onClick={() => {
-                            avatarModelSelect(list.id, "accessoryId");
+                            avatarModelSelect(list.id, 'accessoryId');
                           }}
                           tabIndex={index}
                         >
@@ -106,11 +93,7 @@ const AvatarChooseStyle = ({
               <MaskIcon
                 src={right}
                 onClick={() =>
-                  moveAvatarSlide(
-                    "right",
-                    avatarListDress?.data.accUrl.length - 1,
-                    "acc"
-                  )
+                  moveAvatarSlide('right', avatarListDress?.data.accUrl.length - 1, 'acc')
                 }
               >
                 <span>icon</span>
@@ -123,11 +106,7 @@ const AvatarChooseStyle = ({
               <MaskIcon
                 src={left}
                 onClick={() =>
-                  moveAvatarSlide(
-                    "left",
-                    avatarListDress?.data.attitudeUrl.length - 1,
-                    "attitude"
-                  )
+                  moveAvatarSlide('left', avatarListDress?.data.attitudeUrl.length - 1, 'attitude')
                 }
               >
                 <span>icon</span>
@@ -161,11 +140,7 @@ const AvatarChooseStyle = ({
               <MaskIcon
                 src={right}
                 onClick={() =>
-                  moveAvatarSlide(
-                    "right",
-                    avatarListDress?.data.attitudeUrl.length - 1,
-                    "attitude"
-                  )
+                  moveAvatarSlide('right', avatarListDress?.data.attitudeUrl.length - 1, 'attitude')
                 }
               >
                 <span>icon</span>
@@ -178,11 +153,7 @@ const AvatarChooseStyle = ({
               <MaskIcon
                 src={left}
                 onClick={() =>
-                  moveAvatarSlide(
-                    "left",
-                    avatarListDress?.data.clothesUrl.length - 1,
-                    "clothes"
-                  )
+                  moveAvatarSlide('left', avatarListDress?.data.clothesUrl.length - 1, 'clothes')
                 }
               >
                 <span>icon</span>
@@ -216,11 +187,7 @@ const AvatarChooseStyle = ({
               <MaskIcon
                 src={right}
                 onClick={() =>
-                  moveAvatarSlide(
-                    "right",
-                    avatarListDress?.data.clothesUrl.length - 1,
-                    "clothes"
-                  )
+                  moveAvatarSlide('right', avatarListDress?.data.clothesUrl.length - 1, 'clothes')
                 }
               >
                 <span>icon</span>
@@ -234,7 +201,7 @@ const AvatarChooseStyle = ({
       </Avatar>
     </>
   );
-}
+};
 
 // 타입 지정
 interface Test {
@@ -254,19 +221,19 @@ interface Test {
             {
               id: number;
               accessoryUrl: string;
-            }
+            },
           ];
           clothesUrl: [
             {
               id: number;
               clothesUrl: string;
-            }
+            },
           ];
           attitudeUrl: [
             {
               id: number;
               hatUrl: string;
-            }
+            },
           ];
         };
       }[]
@@ -362,8 +329,7 @@ const FlexBox = styled.ul<FlexBoxType>`
   width: 9999px;
   gap: 10px;
   transition: all 0.5s;
-  transform: ${({ avatarSlideIndex }) =>
-    `translateX(${avatarSlideIndex! * 7}rem)`};
+  transform: ${({ avatarSlideIndex }) => `translateX(${avatarSlideIndex! * 7}rem)`};
 `;
 
 const Box = styled.li<borderColors>`

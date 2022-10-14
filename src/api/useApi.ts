@@ -110,8 +110,8 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-    allListen: builder.query<ReturnAllListenType, number>({
-      query: (id) => `/api/v1/projects/${id}/audio`,
+    allListen: builder.query<ReturnAllListenType, any>({
+      query: (data) => `/api/v1/projects/${data.projectId}/audio`,
     }),
     // 아바타 Api
     getAvatarChooseList: builder.query<AvatarList, null>({
@@ -159,8 +159,8 @@ export const useApi = createApi({
         method: 'DELETE',
       }),
     }),
-    videoSynthesis: builder.query<any, any>({
-      query: (id) => `/api/v1/projects/${id}/audio`,
+    videoSynthesis: builder.query<any, ActionVideoSynthesisType>({
+      query: (data) => `/api/v1/projects/${data.projectId}/video`,
     }),
   }),
 });
@@ -498,4 +498,8 @@ interface TextUpdata {
 interface DeleteId {
   projectID: number;
   audioID: number;
+}
+interface ActionVideoSynthesisType {
+  count: number;
+  projectId: number;
 }

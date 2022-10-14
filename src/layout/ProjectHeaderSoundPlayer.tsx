@@ -8,31 +8,39 @@ import { useAllListenQuery } from '@/api/useApi';
 import { useAppSelector } from '@/store/store';
 
 const ProjectHeaderSoundPlayer = memo(() => {
-  const { projectId } = useAppSelector((state) => state.projectControl.projectData);
+  const { projectId: id } = useAppSelector((state) => state.projectControl.projectData);
   const player: React.MutableRefObject<any> = useRef();
-  const { data: allSound } = useAllListenQuery(Number(projectId));
+
   const [audioUrl, setaudioUrl] = useState('');
+  const [state, setState] = useState({
+    count: 0,
+    projectId: id,
+  });
+  const [countNum, setCountNum] = useState(0);
+  const { data: allSound } = useAllListenQuery(state);
   useEffect(() => {
-    if (allSound) setaudioUrl(allSound.data);
+    if (allSound) {
+      setaudioUrl(allSound.data);
+      player.current.audio.current.play();
+    }
   }, [allSound]);
-  function audiofunction(isPlay: boolean) {
-    isPlay ? player.current.audio.current.play() : player.current.audio.current.load();
+  function requestHandler() {
+    setCountNum(countNum + 1);
+    setState({
+      count: countNum,
+      projectId: id,
+    });
   }
   return (
     <PlayerContainer>
-      <PlayButton
-        onClick={() => {
-          audiofunction(true);
-        }}
-      />
+      <PlayButton onClick={requestHandler} />
       <StopButton
         onClick={() => {
-          audiofunction(false);
+          player.current.audio.current.load();
         }}
       />
       <AudioPlayer
         src={audioUrl}
-        autoPlay={false}
         layout="horizontal-reverse"
         hasDefaultKeyBindings={false}
         ref={(elem) => (player.current = elem)}
