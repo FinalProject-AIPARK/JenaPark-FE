@@ -10,16 +10,11 @@ import voiceimage from '/images/music.png';
 import LoadingBigLayout from '../LoadingBigLayout';
 
 const ProjectHeaderLayout = memo(() => {
-  const { projectId: id, downloadAudioUrl } = useAppSelector(
-    (state) => state.projectControl.projectData,
-  );
-  const [download, setDownload] = useState('');
-  useEffect(() => {
-    if (downloadAudioUrl) {
-      setDownload(downloadAudioUrl);
-      console.log(downloadAudioUrl);
-    }
-  }, [downloadAudioUrl]);
+  const {
+    projectId: id,
+    downloadAudioUrl,
+    audioUpload,
+  } = useAppSelector((state) => state.projectControl.projectData);
 
   const [synth, setSynth] = useState({
     count: 0,
@@ -51,9 +46,7 @@ const ProjectHeaderLayout = memo(() => {
           <ProjectNameText>프로젝트 명</ProjectNameText>
           <NameEditImage />
         </ProjectNameContainer>
-        <SoundPlayerContainer>
-          <SoundPlayer />
-        </SoundPlayerContainer>
+        <SoundPlayerContainer>{audioUpload ? null : <SoundPlayer />}</SoundPlayerContainer>
         <ImageButtonContainer>
           <DownloadButton>
             <a href={downloadAudioUrl ? downloadAudioUrl : ''} download>
