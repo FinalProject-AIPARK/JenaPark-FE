@@ -286,6 +286,8 @@ const PlusIcon = styled.img`
   border-radius: 50%;
 `;
 const SubButtonContainer = styled.div`
+    position: absolute;
+    bottom: 3px;
   width: 32.5rem;
   height: 4.7222rem;
   display: flex;
