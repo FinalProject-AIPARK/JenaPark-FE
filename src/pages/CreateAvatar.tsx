@@ -1,11 +1,7 @@
 import CreateAvatarPage from '@/components/createAvatar';
 
 const CreateAvatar = () => {
-  return (
-    <>
-      <CreateAvatarPage />
-    </>
-  );
+  return <CreateAvatarPage />;
 };
 
 export default CreateAvatar;

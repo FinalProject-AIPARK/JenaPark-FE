@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '/projectCorLogo-icon.png';
@@ -9,87 +9,72 @@ import textIcon from '/text-icon.png';
 import mic from '/voiceMic-icon.png';
 import myInfo from '/myInfo-icon.png';
 
-function UserNavbarLayout({
-  projectStep,
-  userInfoData,
-  myInfoButton,
-  myInfoBtn,
-  logoutHanlder,
-}: UserNavbarProps) {
-  return (
-    <Container>
-      <LogoBox>
-        <ImageStyle src={logo} alt="기업로고" width="3.75rem" />
-      </LogoBox>
-      <GuideBox>
-        <GuideTitleBox>
-          <ImageStyle src={checkmark} alt="작업단계가이드아이콘" />
-          <TextStyle>Check</TextStyle>
-        </GuideTitleBox>
-        <GuideViewBox>
-          <WorkingView>
-            <ImageStyle
-              src={textIcon}
-              alt="텍스트입력아이콘"
-              opacity={projectStep.checkText ? '1' : '0.4'}
-            />
-            {projectStep.checkText ? <DoneProcess /> : null}
-          </WorkingView>
-          <WorkingView>
-            <ImageStyle
-              src={mic}
-              alt="음성수정아이콘"
-              opacity={projectStep.checkAudio ? '1' : '0.4'}
-            />
-            {projectStep.checkAudio ? <DoneProcess /> : null}
-          </WorkingView>
-          <WorkingView>
-            <ImageStyle
-              src={people}
-              alt="아바타작업단계아이콘"
-              opacity={projectStep.checkAvatar ? '1' : '0.4'}
-            />
-            {projectStep.checkAvatar ? <DoneProcess /> : null}
-          </WorkingView>
-          <Background backColor="#002868" radius="0.63rem"></Background>
-        </GuideViewBox>
-      </GuideBox>
-      {/* 히스토리링크 */}
-      <HistoryLinkBox>
-        <LinkButton to="/history" marginbottom="1.4rem">
-          <ImageStyle src={projectIcon} alt="프로젝트히스토리아이콘" />
-        </LinkButton>
-      </HistoryLinkBox>
-      {/* 내계정 */}
-      <MyInfoBox>
-        <Button>
-          <ImageStyle src={myInfo} alt="사용자계정정보아이콘" ref={myInfoBtn} />
-        </Button>
-        {myInfoButton ? (
-          <MyInfoInnerBox>
-            <UserNameBox>
-              <MyInfoText size="1rem" borderBottom="1.6px solid #555">
-                {userInfoData}
-              </MyInfoText>
-            </UserNameBox>
-            <LinkButton to="/account" marginbottom="0.6rem">
-              <MyInfoText>계정 정보</MyInfoText>
-            </LinkButton>
-            <Button
-              onClick={(event) => {
-                logoutHanlder();
-                event.stopPropagation();
-              }}
-            >
-              <MyInfoText>로그아웃</MyInfoText>
-            </Button>
-          </MyInfoInnerBox>
-        ) : null}
-      </MyInfoBox>
-      <Background backColor="#001334"></Background>
-    </Container>
-  );
-}
+const UserNavbarLayout = memo(
+  ({ projectStep, userInfoData, myInfoButton, myInfoBtn }: UserNavbarProps) => {
+    return (
+      <Container>
+        <LogoBox>
+          <ImageStyle src={logo} alt="기업로고" width="3.75rem" />
+        </LogoBox>
+        <GuideBox>
+          <GuideTitleBox>
+            <ImageStyle src={checkmark} alt="작업단계가이드아이콘" />
+            <TextStyle>Check</TextStyle>
+          </GuideTitleBox>
+          <GuideViewBox>
+            <WorkingView>
+              <ImageStyle
+                src={textIcon}
+                alt="텍스트입력아이콘"
+                opacity={projectStep.checkText ? '1' : '0.4'}
+              />
+              {projectStep.checkText ? <DoneProcess /> : null}
+            </WorkingView>
+            <WorkingView>
+              <ImageStyle
+                src={mic}
+                alt="음성수정아이콘"
+                opacity={projectStep.checkAudio ? '1' : '0.4'}
+              />
+              {projectStep.checkAudio ? <DoneProcess /> : null}
+            </WorkingView>
+            <WorkingView>
+              <ImageStyle
+                src={people}
+                alt="아바타작업단계아이콘"
+                opacity={projectStep.checkAvatar ? '1' : '0.4'}
+              />
+              {projectStep.checkAvatar ? <DoneProcess /> : null}
+            </WorkingView>
+            <Background backColor="#002868" radius="0.63rem"></Background>
+          </GuideViewBox>
+        </GuideBox>
+        {/* 히스토리링크 */}
+        <HistoryLinkBox>
+          <LinkButton to="/history" marginbottom="1.4rem">
+            <ImageStyle src={projectIcon} alt="프로젝트히스토리아이콘" />
+          </LinkButton>
+        </HistoryLinkBox>
+        {/* 내계정 */}
+        <MyInfoBox>
+          <Button>
+            <ImageStyle src={myInfo} alt="사용자계정정보아이콘" ref={myInfoBtn} />
+          </Button>
+          {myInfoButton ? (
+            <MyInfoInnerBox>
+              <UserNameBox>
+                <MyInfoText size="1rem" borderBottom="1.6px solid #555">
+                  {userInfoData}
+                </MyInfoText>
+              </UserNameBox>
+            </MyInfoInnerBox>
+          ) : null}
+        </MyInfoBox>
+        <Background backColor="#001334"></Background>
+      </Container>
+    );
+  },
+);
 
 interface UserNavbarProps {
   projectStep: {
@@ -100,7 +85,6 @@ interface UserNavbarProps {
   userInfoData: string;
   myInfoButton: boolean;
   myInfoBtn: React.MutableRefObject<null>;
-  logoutHanlder: () => void;
 }
 interface LinkButtonProps {
   marginbottom?: string;
@@ -199,16 +183,17 @@ const LinkButton = styled(Link)<LinkButtonProps>`
 const MyInfoInnerBox = styled.div`
   background-color: #fff;
   width: 6.4rem;
-  height: 5.2rem;
+  height: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: -5.8rem;
+  top: -2.8rem;
   right: -5.4rem;
   padding: 0.6rem 0.2rem;
   border-radius: 0.63rem;
   box-shadow: 0 0 0.6rem 0 #555;
+  z-index: 1;
 `;
 const UserNameBox = styled.div`
   width: 5rem;

@@ -34,7 +34,7 @@ export const avatarSlice = createSlice({
       state.avatarModel[action.payload.kind] = action.payload.id;
     },
     avatarProjectId: (state, action) => {
-      state.avatarModel.projectId = action.payload
+      state.avatarModel.projectId = action.payload;
     },
     avatarModelKindReset: (state, action) => {
       state.avatarModel.avatarId = action.payload;
@@ -43,14 +43,13 @@ export const avatarSlice = createSlice({
       state.avatarModel.hatId = 0;
     },
     avatarChooseDataUrl: (state, action) => {
-      state.avatarDataUrl.avatarUrl = action.payload
+      state.avatarDataUrl.avatarUrl = action.payload;
     },
     avatarOptionDataUrl: (state, action) => {
-      state.avatarDataUrl.backgroundUrl = action.payload
-      console.log(action.payload)
-    }
-  }
-})
+      state.avatarDataUrl.backgroundUrl = action.payload;
+    },
+  },
+});
 
 export const {
   avatarChooseWorking,
