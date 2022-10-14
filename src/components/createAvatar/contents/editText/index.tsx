@@ -1,8 +1,9 @@
-import { useState, useRef, memo } from 'react';
+import { useState, useRef, memo, useEffect } from 'react';
 import EditTextLayout from '@/layout/projectContents/ProjectEditTextLayout';
 import { useAppSelector, useAppDispatch } from '@/store/store';
-import { textDataUpload } from '@/store/editText/EditTextSlice';
+import { textDataUpload, addText } from '@/store/editText/EditTextSlice';
 import { usePostUpdataTtsMutation, useDeleteAudioMutation } from '@/api/useApi';
+import { callProjectDataAction } from '@/store/workingProject/projectControlSlice';
 
 const EditText = memo(() => {
   const { durationSilence, pitch, speed, volume, text } = useAppSelector(
@@ -12,6 +13,24 @@ const EditText = memo(() => {
     (state) => state.projectControl.projectData,
   );
   const dispatch = useAppDispatch();
+
+  // 텍스트 업데이트
+  const [sperateText, setSperateText] = useState([
+    {
+      audioId: 0,
+      splitText: '',
+      audioFileUrl: '',
+      durationSilence: 0,
+      pitch: 0,
+      speed: 0,
+      volume: 0,
+    },
+  ]);
+  useEffect(() => {
+    if (audioInfos) {
+      setSperateText(audioInfos);
+    }
+  }, [audioInfos]);
 
   // 텍스트 삭제
   const [deleteCheckBox, setDeleteCheckbox] = useState<number>();
@@ -45,7 +64,7 @@ const EditText = memo(() => {
   const playerRef = useRef<any>();
 
   // 텍스트 수정 업데이트
-  const [updataText] = usePostUpdataTtsMutation();
+  const [updataText, { data: updatetts }] = usePostUpdataTtsMutation();
   function textUpLoadData() {
     const data = {
       projectID,
@@ -57,6 +76,13 @@ const EditText = memo(() => {
       text,
     };
     updataText(data);
+  }
+  useEffect(() => {
+    dispatch(callProjectDataAction());
+  }, [updatetts]);
+
+  function checkboxHandler(text: string) {
+    dispatch(addText(text));
   }
 
   function EditTextupdataStore(id: number | string, kind: string) {
@@ -73,7 +99,8 @@ const EditText = memo(() => {
       setOptionWindow={setOptionWindow}
       optionWindow={optionWindow}
       showOptionWindow={showOptionWindow}
-      audioInfos={audioInfos}
+      checkboxHandler={checkboxHandler}
+      audioInfos={sperateText}
     />
   );
 });

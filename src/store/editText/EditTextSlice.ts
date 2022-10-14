@@ -19,9 +19,12 @@ export const editTextUpdata = createSlice({
     textDataUpload: (state: any, action) => {
       state.updataTts[action.payload.kind] = action.payload.id;
     },
+    addText: (state, action) => {
+      state.updataTts.text = action.payload;
+    },
   },
 });
 
-export const { textDataUpload } = editTextUpdata.actions;
+export const { textDataUpload, addText } = editTextUpdata.actions;
 
 export const textUpdataReducer = editTextUpdata.reducer;

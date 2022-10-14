@@ -2,7 +2,10 @@ import React, { useEffect, useRef, useState, ChangeEvent, DragEvent, memo } from
 import styled from 'styled-components';
 import { useGetVoiceModelMutation, useUploadVoiceMutation } from '@/api/useApi';
 import { useAppSelector, useAppDispatch } from '@/store/store';
-import { workingComponent } from '@/store/workingProject/projectControlSlice';
+import {
+  workingComponent,
+  callProjectDataAction,
+} from '@/store/workingProject/projectControlSlice';
 import {
   modelDataAction,
   voiceOptionWorking,
@@ -76,7 +79,7 @@ const VoiceModel = memo(() => {
 
   // 음성 업로드 서버로 전송
   const [onModal, setOnModal] = useState(false);
-  const [uploadFile] = useUploadVoiceMutation();
+  const [uploadFile, { data: resUpload }] = useUploadVoiceMutation();
   const [audioFile, setAudioFile] = useState<Array<File>>([]);
   const [prevUpload, setPrevUpload] = useState('');
   useEffect(() => {
@@ -119,6 +122,9 @@ const VoiceModel = memo(() => {
     setAudioFile([]);
     setPrevUpload('');
   }
+  useEffect(() => {
+    if (resUpload) dispatch(callProjectDataAction());
+  }, [resUpload]);
 
   // 업로드시 아바타 작업으로 이동
   function moveToAvartar() {

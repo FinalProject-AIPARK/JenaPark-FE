@@ -9,7 +9,6 @@ const InputText = memo(() => {
   const { text, backgroundUrl, avatarUrl } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
-  const { isVoiceWoking } = useAppSelector((state) => state.projectControl.elementData);
   const { backgroundUrl: avatarBack, avatarUrl: avatar } = useAppSelector(
     (state) => state.avatar.avatarDataUrl,
   );
@@ -61,13 +60,7 @@ const InputText = memo(() => {
         guide={inputTextGuide}
         setGuide={setInputTextGuide}
       />
-      <ProjectPreviewAvatar
-        guide={previewGuide}
-        setGuide={setPreviewGuide}
-        workingHandler={workingHandler}
-        isVoiceWoking={isVoiceWoking}
-        preview={preview}
-      />
+      <ProjectPreviewAvatar guide={previewGuide} setGuide={setPreviewGuide} preview={preview} />
     </div>
   );
 });

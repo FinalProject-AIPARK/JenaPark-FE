@@ -17,6 +17,7 @@ const ProjectEditTextLayout = ({
   deleteComponent,
   EditTextupdataStore,
   audioInfos,
+  checkboxHandler,
 }: Edittest) => {
   return (
     <Container>
@@ -53,6 +54,7 @@ const ProjectEditTextLayout = ({
                             type="checkbox"
                             onClick={() => {
                               setDeleteCheckbox(list.audioId);
+                              checkboxHandler(list.splitText);
                               EditTextupdataStore(list.audioId, 'audioID');
                             }}
                             style={{ marginRight: '10px' }}
@@ -258,8 +260,17 @@ interface Edittest {
   deleteComponent: any;
   EditTextupdataStore: (id: number | string, kind: string) => void;
   editText: string;
-  audioInfos: [];
+  audioInfos: {
+    audioId: 0;
+    splitText: '';
+    audioFileUrl: '';
+    durationSilence: 0;
+    pitch: 0;
+    speed: 0;
+    volume: 0;
+  }[];
   textUpLoadData: any;
+  checkboxHandler: (text: string) => void;
 }
 
 // 스타일 지정

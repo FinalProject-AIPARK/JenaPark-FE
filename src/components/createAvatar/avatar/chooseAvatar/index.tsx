@@ -12,6 +12,7 @@ import {
   avatarChooseDataUrl,
   avatarProjectId,
 } from '@/store/Avatar/avatarSlice';
+import { callProjectDataAction } from '@/store/workingProject/projectControlSlice';
 
 const ChooseAvatar = memo(() => {
   const avartarDress = useAppSelector((state) => state.avatar.avatarModel);
@@ -42,7 +43,10 @@ const ChooseAvatar = memo(() => {
     createAvatar(avartarDress);
   }
   useEffect(() => {
-    avatarUrlData !== undefined ? dispatch(avatarChooseDataUrl(avatarUrlData!.data)) : null;
+    if (avatarUrlData) {
+      dispatch(avatarChooseDataUrl(avatarUrlData!.data));
+      dispatch(callProjectDataAction());
+    }
   }, [avatarUrlData]);
   dispatch(avatarProjectId(projectId));
 
