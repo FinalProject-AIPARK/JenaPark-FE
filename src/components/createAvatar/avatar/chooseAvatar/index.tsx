@@ -1,24 +1,21 @@
-
-import { useState, useEffect } from "react";
-import AvatarChooseLayout from "../../../../layout/avatar/AvatarChooseLayout";
+import { useState, useEffect, memo } from 'react';
+import AvatarChooseLayout from '@/layout/avatar/AvatarChooseLayout';
 import {
   useGetAvatarChooseListQuery,
   useGetAvatarChooseListIdQuery,
   usePostCreateAvatarMutation,
-} from "../../../../api/useApi";
-import { useAppSelector, useAppDispatch } from "../../../../store/store";
+} from '@/api/useApi';
+import { useAppSelector, useAppDispatch } from '@/store/store';
 import {
   avatarModelKindSelect,
   avatarModelKindReset,
   avatarChooseDataUrl,
-  avatarProjectId
-} from "@/store/Avatar/avatarSlice";
+  avatarProjectId,
+} from '@/store/Avatar/avatarSlice';
 
-function index() {
+const ChooseAvatar = memo(() => {
   const avartarDress = useAppSelector((state) => state.avatar.avatarModel);
-  const { projectId } = useAppSelector(
-    (state) => state.projectControl.projectData
-  );
+  const { projectId } = useAppSelector((state) => state.projectControl.projectData);
   const dispatch = useAppDispatch();
 
   // 아바타 의상 선택
@@ -42,14 +39,12 @@ function index() {
   // 아바타 만들기
   const [createAvatar, { data: avatarUrlData }] = usePostCreateAvatarMutation();
   function createAvatarHandler() {
-    createAvatar(avartarDress)
-    
-    // dispatch(avatarChooseDataUrl(avatarUrlData!.data))
+    createAvatar(avartarDress);
   }
   useEffect(() => {
-      (avatarUrlData !== undefined ? dispatch(avatarChooseDataUrl(avatarUrlData!.data)) : null)
-  }, [avatarUrlData])
-  dispatch(avatarProjectId(projectId))
+    avatarUrlData !== undefined ? dispatch(avatarChooseDataUrl(avatarUrlData!.data)) : null;
+  }, [avatarUrlData]);
+  dispatch(avatarProjectId(projectId));
 
   // 슬라이드 기능
   let [avatarSlideIndex, setAvatarSlideIndex] = useState<any>({
@@ -60,24 +55,21 @@ function index() {
   });
 
   function moveAvatarSlide(leftRight: string, maxLength: number, kind: string) {
-    if (avatarSlideIndex[kind] === 0 && leftRight === "left") return;
-    else if (avatarSlideIndex[kind] === maxLength * -1 && leftRight === "right")
-      return;
-    else if (leftRight === "right") {
-      const copy : any = { ...avatarSlideIndex };
+    if (avatarSlideIndex[kind] === 0 && leftRight === 'left') return;
+    else if (avatarSlideIndex[kind] === maxLength * -1 && leftRight === 'right') return;
+    else if (leftRight === 'right') {
+      const copy = { ...avatarSlideIndex };
       copy[kind] -= 1;
       setAvatarSlideIndex(copy);
-    } else if (leftRight === "left") {
-      const copy : any = { ...avatarSlideIndex };
+    } else if (leftRight === 'left') {
+      const copy = { ...avatarSlideIndex };
       copy[kind] += 1;
       setAvatarSlideIndex(copy);
     }
   }
 
   useEffect(() => {
-    avatarUrlData !== undefined
-      ? dispatch(avatarChooseDataUrl(avatarUrlData!.data))
-      : null;
+    avatarUrlData !== undefined ? dispatch(avatarChooseDataUrl(avatarUrlData!.data)) : null;
   }, [avatarUrlData]);
   dispatch(avatarProjectId(projectId));
 
@@ -86,7 +78,6 @@ function index() {
       <AvatarChooseLayout
         avatarList={avatarList}
         setAvatarId={setAvartarId}
-        avatarId={avatarId}
         avatarListDress={avatarListDress}
         avatarModelSelect={chooseAvatarModelKind}
         avatarModelReset={resetAvatarModelKind}
@@ -96,6 +87,6 @@ function index() {
       />
     </>
   );
-}
+});
 
-export default index;
+export default ChooseAvatar;

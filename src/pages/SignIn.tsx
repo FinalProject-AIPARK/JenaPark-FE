@@ -1,13 +1,13 @@
-import LendingFooter from '@/components/Footer/LandingFooter';
-import Header from '@/components/Header';
+import LandingFooter from '@/components/Footer/LandingFooter';
+import LandingHeader from '@/components/Header/LandingHeader';
 import SignInForm from '@/components/signIn/SignInForm';
 
 const SignIn = () => {
   return (
     <>
-      <Header />
+      <LandingHeader />
       <SignInForm />
-      <LendingFooter />
+      <LandingFooter />
     </>
   );
 };

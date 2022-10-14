@@ -6,7 +6,8 @@ import SignUp from '@/pages/SignUp';
 import CreateAvatar from '@/pages/CreateAvatar';
 import History from '@/pages/HistoryPage';
 import { Cookies } from 'react-cookie';
-function App() {
+
+const App = () => {
   const cookies = new Cookies();
   const accessToken = cookies.get('accessToken');
   const refreshToken = cookies.get('refreshToken');
@@ -36,6 +37,6 @@ function App() {
       </BrowserRouter>
     );
   }
-}
+};
 
 export default App;

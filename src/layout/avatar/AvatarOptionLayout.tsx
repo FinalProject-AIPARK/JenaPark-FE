@@ -1,10 +1,10 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import left from '../../../public/images/maskLeft-icon.png';
-import right from '../../../public/images/maskRight-icon.png';
-import plus from '../../../public/images/plus-icon.png';
+import left from '/images/maskLeft-icon.png';
+import right from '/images/maskRight-icon.png';
+import plus from '/images/plus-icon.png';
 
-function AvatarOptionLayout({
+const AvatarOptionLayout = ({
   avatarBackgroundList,
   setBackgroundId,
   backgroundEvent,
@@ -14,7 +14,7 @@ function AvatarOptionLayout({
   onInputFile,
   bgSlideIndex,
   moveBgSlide,
-}: AvatarBackgroundType) {
+}: AvatarBackgroundType) => {
   return (
     <Avatar>
       <AvatarTitle>배경을 선택해주세요</AvatarTitle>
@@ -36,11 +36,7 @@ function AvatarOptionLayout({
             justifyContent={'flex-start'}
             alignItems={'flex-start'}
           >
-            <form
-              name="background"
-              encType="multipart/form-data"
-              ref={submitRef}
-            >
+            <form name="background" encType="multipart/form-data" ref={submitRef}>
               <BackgrounddBox
                 onClick={() => {
                   setBackgroundFile([]);
@@ -54,12 +50,10 @@ function AvatarOptionLayout({
                 name="background"
                 onChange={(event) => {
                   onInputFile(event);
-                  // backgroundImgUpload()
                 }}
                 ref={inputFileRef}
                 accept="image/jpg, image/jpeg, image/png"
               />
-              {/* <input type="submit" ref={submitRef} /> */}
             </form>
             <div className="upload-bg__container">
               <ul className="upload-bg__wrap">
@@ -114,7 +108,7 @@ function AvatarOptionLayout({
       </SubButtonContainer>
     </Avatar>
   );
-}
+};
 
 interface style {
   sliderWidth: number;
@@ -129,7 +123,6 @@ interface style {
   overflow: string;
   whiteSpace: string;
 }
-
 interface AvatarBackgroundType {
   avatarBackgroundList:
     | {
@@ -160,6 +153,7 @@ interface AvatarBackgroundType {
   moveBgSlide: (leftRight: string, maxLength: number) => void;
 }
 
+// 스타일 관련
 const Flex = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -167,7 +161,6 @@ const Flex = styled.div`
   height: 43vh;
   position: relative;
 `;
-
 const Container = styled.div<{ bgSlideIndex: number }>`
   display: flex;
   justify-content: center;
@@ -209,24 +202,18 @@ const Container = styled.div<{ bgSlideIndex: number }>`
     }
   }
 `;
-
-// 스타일 관련
-
 const ImgthumbNail = styled.img`
   width: 7.5rem;
 `;
-
 const Avatar = styled.div`
   width: 32.5em;
 `;
-
 const AvatarTitle = styled.h1`
   font-size: 1rem;
   margin: 1.2778rem 0 2rem 1.3333rem;
   color: #fff;
   font-weight: 400;
 `;
-
 const FlexBox: any = styled.div<style>`
   width: ${(props) => props.width};
   display: flex;
@@ -258,7 +245,6 @@ const FlexBox: any = styled.div<style>`
     border-radius: 10px;
   }
 `;
-
 const BackgrounddBox = styled.div`
   display: flex;
   justify-content: space-around;
@@ -277,25 +263,21 @@ const BackgrounddBox = styled.div`
     box-shadow: inset 0 0 0.62rem 0 #b0ffb6;;
   }
 `;
-
 const BgText = styled.p`
   margin: 10px 0 14.5px 40px;
   color: #fff;
   font-weight: 700;
 `;
-
 const Line = styled.div`
   border: 1px solid #bdbdbd;
   width: 31rem;
   margin: 2rem auto;
 `;
-
 const MaskIcon = styled.img`
   height: 100%;
   padding: 15px;
   cursor: pointer;
 `;
-
 const PlusIcon = styled.img`
   box-sizing: border-box;
   width: 33px;
@@ -313,7 +295,6 @@ const SubButtonContainer = styled.div`
   position: absolute;
   bottom: 10px;
 `;
-
 const SubButton = styled.button`
   width: 30rem;
   height: 2.5rem;
@@ -322,4 +303,5 @@ const SubButton = styled.button`
   font-size: 18px;
   border-radius: 5px;
 `;
+
 export default AvatarOptionLayout;

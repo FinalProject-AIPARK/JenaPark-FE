@@ -1,10 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './navbar';
 import Voice from './voice';
 import Avatar from './avatar/index';
-import Header from '../Header/ProjectHeader';
-import Footer from '../Footer/ProjectFooter';
 import { useAppSelector, useAppDispatch } from '../../store/store';
 import Contents from './contents';
 import { useGetProjectDataQuery } from '@/api/useApi';
@@ -13,8 +11,10 @@ import { getData } from '@/store/workingProject/projectControlSlice';
 import { initVoiceOption, inputText } from '@/store/voice/voiceSlice';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
+import ProjectHeader from '../Header/ProjectHeader';
+import ProjectFooter from '../Footer/ProjectFooter';
 
-function CreateAvatar() {
+const CreateAvatar = memo(() => {
   // 프로젝트 데이터 가져오기
   const dispatch = useAppDispatch();
   const { projectId: paramsProjectId } = useParams();
@@ -28,7 +28,6 @@ function CreateAvatar() {
     setProjectData((prev) => {
       return { ...prev, count: callProjectData };
     });
-    console.log(getProjectData);
   }, [callProjectData]);
   const { data: projectData, isLoading, isError, error } = useGetProjectDataQuery(getProjectData);
 
@@ -36,7 +35,6 @@ function CreateAvatar() {
     if (projectData) {
       dispatch(getData(projectData.data));
     }
-    console.log(getProjectData);
   }, [projectData]);
 
   // 음성 옵션 초기값
@@ -52,7 +50,6 @@ function CreateAvatar() {
       }),
     );
     dispatch(inputText(text));
-    console.log(text);
   }, [speed]);
 
   // 음성 작업 파트 구분
@@ -65,7 +62,7 @@ function CreateAvatar() {
       {isInputTextSynthError ? <ErrorBigLayout errorData={inputTextSynthError} /> : null}
       {isError ? <ErrorBigLayout errorData={error!} /> : null}
       {isLoading || isInputTextSynthLoading ? <LoadingBigLayout /> : null}
-      <Header />
+      <ProjectHeader />
       <Contain>
         <div>
           <Navbar />
@@ -73,10 +70,10 @@ function CreateAvatar() {
         <Contents />
         {isVoiceWoking ? <Voice /> : <Avatar />}
       </Contain>
-      <Footer />
+      <ProjectFooter />
     </>
   );
-}
+});
 
 const Contain = styled.div`
   height: calc(100vh - 8.5rem);

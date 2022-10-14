@@ -1,19 +1,19 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
-import styled from 'styled-components';
-import left from '../../../public/images/maskLeft-icon.png';
-import right from '../../../public/images/maskRight-icon.png';
+import { url } from "inspector";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import styled from "styled-components";
+import left from "@/images/maskLeft-icon.png";
+import right from "@/images/maskRight-icon.png";
 
-function AvatarChooseStyle({
+const AvatarChooseStyle = ({
   avatarList,
   setAvatarId,
-  avatarId,
   avatarListDress,
   avatarModelSelect,
   avatarModelReset,
   createAvatarHandler,
   avatarSlideIndex,
   moveAvatarSlide,
-}: Test) {
+}: Test) => {
   return (
     <>
       <Avatar>
@@ -23,25 +23,29 @@ function AvatarChooseStyle({
           <VirtualAvatarContainer>
             <MaskIcon
               src={left}
-              onClick={() => moveAvatarSlide('left', avatarList?.data.length - 1, 'avatar')}
+              onClick={() =>
+                moveAvatarSlide("left", avatarList?.data.length - 1, "avatar")
+              }
             >
               <span>icon</span>
             </MaskIcon>
             <AvatarSlideContainer>
               <FlexBox avatarSlideIndex={avatarSlideIndex.avatar}>
                 {avatarList?.data &&
-                  avatarList?.data.map((list: any, index: number) => {
+                  avatarList?.data.map((list: any) => {
                     return (
                       <Box
-                        borderColor={true ? '2px solid #fff' : '2px solid #000'}
+                        borderColor={true ? "2px solid #fff" : "2px solid #000"}
                         key={list.id}
                         onClick={() => {
                           avatarModelReset(list.id);
                           setAvatarId(list.id);
                         }}
-                        tabIndex={index}
                       >
-                        <ImgthumbNail src={list.thumbNail} alt="아바타 이미지" />
+                        <ImgthumbNail
+                          src={list.thumbNail}
+                          alt="아바타 이미지"
+                        />
                       </Box>
                     );
                   })}
@@ -49,7 +53,9 @@ function AvatarChooseStyle({
             </AvatarSlideContainer>
             <MaskIcon
               src={right}
-              onClick={() => moveAvatarSlide('right', avatarList?.data.length - 1, 'avatar')}
+              onClick={() =>
+                moveAvatarSlide("right", avatarList?.data.length - 1, "avatar")
+              }
             >
               <span>icon</span>
             </MaskIcon>
@@ -63,7 +69,11 @@ function AvatarChooseStyle({
               <MaskIcon
                 src={left}
                 onClick={() =>
-                  moveAvatarSlide('left', avatarListDress?.data.accUrl.length - 1, 'acc')
+                  moveAvatarSlide(
+                    "left",
+                    avatarListDress?.data.accUrl.length - 1,
+                    "acc"
+                  )
                 }
               >
                 <span>icon</span>
@@ -71,17 +81,21 @@ function AvatarChooseStyle({
               <AvatarSlideContainer>
                 <FlexBox avatarSlideIndex={avatarSlideIndex.acc}>
                   {avatarListDress?.data.accUrl &&
-                    avatarListDress?.data.accUrl.map((list: any, index: number) => {
+                    avatarListDress?.data.accUrl.map((list: any, i: number) => {
                       return (
                         <Box
-                          borderColor={true ? '2px solid #fff' : '2px solid #000'}
+                          borderColor={
+                            true ? "2px solid #fff" : "2px solid #000"
+                          }
                           key={list.id}
                           onClick={() => {
-                            avatarModelSelect(list.id, 'accessoryId');
+                            avatarModelSelect(list.id, "accessoryId");
                           }}
-                          tabIndex={index}
                         >
-                          <ImgthumbNail src={list.accessoryUrl} alt={`의상1 이미지 ${index}`} />
+                          <ImgthumbNail
+                            src={list.accessoryUrl}
+                            alt={`의상1 이미지 ${i}`}
+                          />
                         </Box>
                       );
                     })}
@@ -90,7 +104,11 @@ function AvatarChooseStyle({
               <MaskIcon
                 src={right}
                 onClick={() =>
-                  moveAvatarSlide('right', avatarListDress?.data.accUrl.length - 1, 'acc')
+                  moveAvatarSlide(
+                    "right",
+                    avatarListDress?.data.accUrl.length - 1,
+                    "acc"
+                  )
                 }
               >
                 <span>icon</span>
@@ -103,7 +121,11 @@ function AvatarChooseStyle({
               <MaskIcon
                 src={left}
                 onClick={() =>
-                  moveAvatarSlide('left', avatarListDress?.data.attitudeUrl.length - 1, 'attitude')
+                  moveAvatarSlide(
+                    "left",
+                    avatarListDress?.data.attitudeUrl.length - 1,
+                    "attitude"
+                  )
                 }
               >
                 <span>icon</span>
@@ -111,26 +133,36 @@ function AvatarChooseStyle({
               <AvatarSlideContainer>
                 <FlexBox avatarSlideIndex={avatarSlideIndex.attitude}>
                   {avatarListDress?.data.attitudeUrl &&
-                    avatarListDress?.data.attitudeUrl.map((list: any, index: number) => {
-                      return (
-                        <Box
-                          borderColor={true ? '2px solid #fff' : '2px solid #000'}
-                          key={list.id}
-                          onClick={() => {
-                            avatarModelSelect(list.id, 'hatId');
-                          }}
-                          tabIndex={index}
-                        >
-                          <ImgthumbNail src={list.hatUrl} alt={`의상2 이미지 ${index}`} />
-                        </Box>
-                      );
-                    })}
+                    avatarListDress?.data.attitudeUrl.map(
+                      (list: any, i: number) => {
+                        return (
+                          <Box
+                            borderColor={
+                              true ? "2px solid #fff" : "2px solid #000"
+                            }
+                            key={list.id}
+                            onClick={() => {
+                              avatarModelSelect(list.id, "hatId");
+                            }}
+                          >
+                            <ImgthumbNail
+                              src={list.hatUrl}
+                              alt={`의상2 이미지 ${i}`}
+                            />
+                          </Box>
+                        );
+                      }
+                    )}
                 </FlexBox>
               </AvatarSlideContainer>
               <MaskIcon
                 src={right}
                 onClick={() =>
-                  moveAvatarSlide('right', avatarListDress?.data.attitudeUrl.length - 1, 'attitude')
+                  moveAvatarSlide(
+                    "right",
+                    avatarListDress?.data.attitudeUrl.length - 1,
+                    "attitude"
+                  )
                 }
               >
                 <span>icon</span>
@@ -143,7 +175,11 @@ function AvatarChooseStyle({
               <MaskIcon
                 src={left}
                 onClick={() =>
-                  moveAvatarSlide('left', avatarListDress?.data.clothesUrl.length - 1, 'clothes')
+                  moveAvatarSlide(
+                    "left",
+                    avatarListDress?.data.clothesUrl.length - 1,
+                    "clothes"
+                  )
                 }
               >
                 <span>icon</span>
@@ -151,26 +187,36 @@ function AvatarChooseStyle({
               <AvatarSlideContainer>
                 <FlexBox avatarSlideIndex={avatarSlideIndex.clothes}>
                   {avatarListDress?.data.clothesUrl &&
-                    avatarListDress?.data.clothesUrl.map((list: any, index: number) => {
-                      return (
-                        <Box
-                          borderColor={true ? '2px solid #fff' : '2px solid #000'}
-                          key={list.id}
-                          onClick={() => {
-                            avatarModelSelect(list.id, 'clothesId');
-                          }}
-                          tabIndex={index}
-                        >
-                          <ImgthumbNail src={list.clothesUrl} alt={`의상3 이미지 ${index}`} />
-                        </Box>
-                      );
-                    })}
+                    avatarListDress?.data.clothesUrl.map(
+                      (list: any, i: number) => {
+                        return (
+                          <Box
+                            borderColor={
+                              true ? "2px solid #fff" : "2px solid #000"
+                            }
+                            key={list.id}
+                            onClick={() => {
+                              avatarModelSelect(list.id, "clothesId");
+                            }}
+                          >
+                            <ImgthumbNail
+                              src={list.clothesUrl}
+                              alt={`의상3 이미지 ${i}`}
+                            />
+                          </Box>
+                        );
+                      }
+                    )}
                 </FlexBox>
               </AvatarSlideContainer>
               <MaskIcon
                 src={right}
                 onClick={() =>
-                  moveAvatarSlide('right', avatarListDress?.data.clothesUrl.length - 1, 'clothes')
+                  moveAvatarSlide(
+                    "right",
+                    avatarListDress?.data.clothesUrl.length - 1,
+                    "clothes"
+                  )
                 }
               >
                 <span>icon</span>
@@ -204,25 +250,24 @@ interface Test {
             {
               id: number;
               accessoryUrl: string;
-            },
+            }
           ];
           clothesUrl: [
             {
               id: number;
               clothesUrl: string;
-            },
+            }
           ];
           attitudeUrl: [
             {
               id: number;
               hatUrl: string;
-            },
+            }
           ];
         };
       }[]
     | any;
   createAvatarHandler: () => void;
-  avatarId: number;
   setAvatarId: React.Dispatch<React.SetStateAction<number>>;
   avatarModelSelect: (id: number, kind: string) => void;
   avatarModelReset: (id: number) => void;
@@ -249,10 +294,9 @@ interface FlexBoxType {
 // 스타일 관련
 
 const Scroolbar = styled.div`
-  height: 43vh;
+  height: 24.563rem;
   overflow-y: hidden;
   overflow-y: auto;
-  position: relative;
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -314,7 +358,8 @@ const FlexBox = styled.ul<FlexBoxType>`
   width: 9999px;
   gap: 10px;
   transition: all 0.5s;
-  transform: ${({ avatarSlideIndex }) => `translateX(${avatarSlideIndex! * 7}rem)`};
+  transform: ${({ avatarSlideIndex }) =>
+    `translateX(${avatarSlideIndex! * 7}rem)`};
 `;
 
 const Box = styled.li<borderColors>`
@@ -328,11 +373,6 @@ const Box = styled.li<borderColors>`
   background-color: #fff;
   overflow: hidden;
   cursor: pointer;
-
-  &:focus {
-    border: 2px solid #0DFF1E;
-    box-shadow: inset 0 0 0.62rem 0 #b0ffb6;;
-  }
 `;
 
 const ImgthumbNail = styled.img`
@@ -348,13 +388,11 @@ const AvatarTitle = styled.div`
 
 const SubButtonContainer = styled.div`
   width: 32.5rem;
-  height: 4.7rem;
+  height: 4.7222rem;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #091547;
-  position: absolute;
-  bottom: 10px;
 `;
 
 const SubButton = styled.button`
