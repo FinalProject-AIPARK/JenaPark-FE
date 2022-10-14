@@ -1,7 +1,7 @@
-import { useState, useRef, memo } from 'react';
+import { useState, useRef, memo, useEffect } from 'react';
 import EditTextLayout from '@/layout/projectContents/ProjectEditTextLayout';
 import { useAppSelector, useAppDispatch } from '@/store/store';
-import { textDataUpload } from '@/store/editText/EditTextSlice';
+import { textDataUpload, addText } from '@/store/editText/EditTextSlice';
 import { usePostUpdataTtsMutation, useDeleteAudioMutation } from '@/api/useApi';
 
 const EditText = memo(() => {
@@ -12,6 +12,25 @@ const EditText = memo(() => {
     (state) => state.projectControl.projectData,
   );
   const dispatch = useAppDispatch();
+
+  // 텍스트 업데이트
+  const [sperateText, setSperateText] = useState([
+    {
+      audioId: 0,
+      splitText: '',
+      audioFileUrl: '',
+      durationSilence: 0,
+      pitch: 0,
+      speed: 0,
+      volume: 0,
+    },
+  ]);
+  useEffect(() => {
+    if (audioInfos) {
+      setSperateText(audioInfos);
+    }
+    console.log('아ㅓㅕㄹ문아');
+  }, [audioInfos]);
 
   // 텍스트 삭제
   const [deleteCheckBox, setDeleteCheckbox] = useState<number>();
@@ -59,6 +78,10 @@ const EditText = memo(() => {
     updataText(data);
   }
 
+  function checkboxHandler(text: string) {
+    dispatch(addText(text));
+  }
+
   function EditTextupdataStore(id: number | string, kind: string) {
     dispatch(textDataUpload({ id, kind }));
   }
@@ -73,7 +96,8 @@ const EditText = memo(() => {
       setOptionWindow={setOptionWindow}
       optionWindow={optionWindow}
       showOptionWindow={showOptionWindow}
-      audioInfos={audioInfos}
+      checkboxHandler={checkboxHandler}
+      audioInfos={sperateText}
     />
   );
 });
