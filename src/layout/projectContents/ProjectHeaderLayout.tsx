@@ -1,54 +1,70 @@
-import React, { memo, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useVideoSynthesisQuery, useAllListenQuery } from '@/api/useApi';
-import { useAppSelector, useAppDispatch } from '@/store/store';
+import { memo, useEffect, useState } from 'react';
+import { useVideoSynthesisQuery } from '@/api/useApi';
+import { useAppSelector } from '@/store/store';
 import SoundPlayer from '../ProjectHeaderSoundPlayer';
 import styled from 'styled-components';
 import leftarrow from '/images/arrow-ios-left.png';
 import editpencil from '/images/edit-pencil.png';
 import videoimage from '/images/video.png';
 import voiceimage from '/images/music.png';
+import LoadingBigLayout from '../LoadingBigLayout';
 
 const ProjectHeaderLayout = memo(() => {
-  const { projectId, downloadAudioUrl } = useAppSelector(
+  const { projectId: id, downloadAudioUrl } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
-  // const { data } = useAllListenQuery(projectId);
-  // const { data: VideoSynthesis } = useVideoSynthesisQuery(projectId);
 
-  // useEffect(() => {
-  //   if (VideoSynthesis!.result === 'success') {
-  //     window.location.href = '/history';
-  //   }
-  // }, [VideoSynthesis]);
+  const [synth, setSynth] = useState({
+    count: 0,
+    projectId: 0,
+  });
+  const [countNum, setCountNum] = useState(0);
+
+  const { data: VideoSynthesis, isLoading } = useVideoSynthesisQuery(synth);
+  function synthHandler() {
+    setCountNum(countNum + 1);
+    setSynth({
+      count: countNum,
+      projectId: id,
+    });
+  }
+  //
+  useEffect(() => {
+    if (VideoSynthesis) {
+      VideoSynthesis!.result === 'success' ? (window.location.href = '/history') : null;
+    }
+  }, [VideoSynthesis]);
 
   return (
-    <ProjectHeaderContainer>
-      <ProjectNameContainer>
-        <LeftArrow />
-        <ProjectNameText>프로젝트 명</ProjectNameText>
-        <NameEditImage />
-      </ProjectNameContainer>
-      <SoundPlayerContainer>
-        <SoundPlayer />
-      </SoundPlayerContainer>
-      <ImageButtonContainer>
-        <DownloadButton
-          onClick={() => {
-            alert('전체 음성을 다운 받으시겠습니까?');
-          }}
-        >
-          <a href={downloadAudioUrl ? downloadAudioUrl : ''} download target="_self">
-            음성 다운로드
-          </a>
-          <VoiceImage />
-        </DownloadButton>
-        <DownloadButton>
-          영상 합성하기
-          <VideoImage />
-        </DownloadButton>
-      </ImageButtonContainer>
-    </ProjectHeaderContainer>
+    <>
+      {isLoading ? <LoadingBigLayout /> : null}
+      <ProjectHeaderContainer>
+        <ProjectNameContainer>
+          <LeftArrow />
+          <ProjectNameText>프로젝트 명</ProjectNameText>
+          <NameEditImage />
+        </ProjectNameContainer>
+        <SoundPlayerContainer>
+          <SoundPlayer />
+        </SoundPlayerContainer>
+        <ImageButtonContainer>
+          <DownloadButton
+            onClick={() => {
+              alert('전체 음성을 다운 받으시겠습니까?');
+            }}
+          >
+            <a href={downloadAudioUrl ? downloadAudioUrl : ''} download target="_self">
+              음성 다운로드
+            </a>
+            <VoiceImage />
+          </DownloadButton>
+          <DownloadButton onClick={synthHandler}>
+            영상 합성하기
+            <VideoImage />
+          </DownloadButton>
+        </ImageButtonContainer>
+      </ProjectHeaderContainer>
+    </>
   );
 });
 
