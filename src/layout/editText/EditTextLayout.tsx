@@ -7,6 +7,7 @@ import ton from '/ton-icon.png';
 import voice from '/voice-icon.png';
 import playButtonBlue from '/voiceModelPlay-icon.png';
 import StopButtonBlue from '/voiceModelStop-icon.png';
+import ReactAudioPlayer from 'react-audio-player'
 
 function EditTextLayout({
   textUpLoadData,
@@ -46,7 +47,7 @@ function EditTextLayout({
             <ScrollBox>
               <EditTextContainer>
                 {audioInfos &&
-                  audioInfos.map((list: any) => {
+                  audioInfos.map((list: any, index: number) => {
                     return (
                       <EditText key={list.audioId}>
                         {/* 대사창 묶음 */}
@@ -75,13 +76,15 @@ function EditTextLayout({
                           </Text>
                           <Line />
                           <PlayContainer>
-                            <>
+                            <ReactAudioPlayer
+                              src={list.audioFileUrl}
+                            >
                               <img
                                 src={playButtonBlue}
                                 alt="재생 이미지"
                                 style={{ height: '2rem', width: '2rem' }}
                               />
-                            </>
+                            </ReactAudioPlayer>
                             <img
                               src={StopButtonBlue}
                               alt="스탑 이미지"
