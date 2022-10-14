@@ -32,7 +32,6 @@ const ProjectHeaderSoundPlayer = memo(() => {
       />
       <AudioPlayer
         src={audioUrl}
-        autoPlay={false}
         layout="horizontal-reverse"
         hasDefaultKeyBindings={false}
         ref={(elem) => (player.current = elem)}
