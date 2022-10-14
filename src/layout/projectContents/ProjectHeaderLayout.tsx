@@ -21,7 +21,10 @@ const ProjectHeaderLayout = memo(() => {
     projectId: 0,
   });
   const [countNum, setCountNum] = useState(0);
-
+  const [download, setDownload] = useState('');
+  useEffect(() => {
+    if (downloadAudioUrl) setDownload(downloadAudioUrl);
+  }, [downloadAudioUrl]);
   const { data: VideoSynthesis, isLoading } = useVideoSynthesisQuery(synth);
   function synthHandler() {
     setCountNum(countNum + 1);
@@ -49,7 +52,7 @@ const ProjectHeaderLayout = memo(() => {
         <SoundPlayerContainer>{audioUpload ? null : <SoundPlayer />}</SoundPlayerContainer>
         <ImageButtonContainer>
           <DownloadButton>
-            <a href={downloadAudioUrl ? downloadAudioUrl : ''} download>
+            <a href={download ? download : ''} download>
               음성 다운로드
             </a>
             <VoiceImage />
