@@ -17,12 +17,12 @@ const AvatarOption = memo(() => {
   const submitRef = useRef<HTMLInputElement>();
   const [backgroundUploadFile] = usePostUploadBackgroundMutation();
   const [backgroundFile, setBackgroundFile] = useState<Array<File>>([]);
-
+  
   function backgroundFiles(files: FileList) {
     const file: File = files[0];
     setBackgroundFile([file]);
   }
-
+  
   useEffect(() => {
     let formData = new FormData();
     formData.append('backgroundFile', backgroundFile[0]);
@@ -32,16 +32,19 @@ const AvatarOption = memo(() => {
     };
     backgroundUploadFile(actionBackgroundupload);
   }, [backgroundFile]);
-
+  
   function onInputFile(event: React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
     backgroundFiles(event.target.files!);
     submitRef.current?.click();
   }
-
+  
   // 배경 리스트
   const { data: avatarBackgroundList } = useGetBackgroundAvatarListQuery(null);
+  
+  useEffect(() => {
 
+  }, [avatarBackgroundList])
   // 배경 선택버튼
   const [backgroundId, setBackgroundId] = useState(0);
   const [backgroundChoose, { data: backgroundUrlData }] =
@@ -77,7 +80,6 @@ const AvatarOption = memo(() => {
       setBackgroundId={setBackgroundId}
       backgroundEvent={backgroundEvent}
       setBackgroundFile={setBackgroundFile}
-      backgroundFiles={backgroundFiles}
       inputFileRef={inputFileRef}
       submitRef={submitRef}
       onInputFile={onInputFile}

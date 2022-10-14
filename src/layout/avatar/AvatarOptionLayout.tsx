@@ -145,7 +145,6 @@ interface AvatarBackgroundType {
   backgroundImgUpload: (event: React.FormEvent<HTMLFormElement>) => void;
   setBackgroundFile: React.Dispatch<React.SetStateAction<File[]>>;
   setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
-  backgroundFiles: any;
   inputFileRef: React.MutableRefObject<HTMLInputElement>;
   onInputFile: (event: React.ChangeEvent<HTMLInputElement> | any) => void;
   submitRef: React.MutableRefObject<HTMLFormElement> | undefined;
@@ -286,6 +285,8 @@ const PlusIcon = styled.img`
   border-radius: 50%;
 `;
 const SubButtonContainer = styled.div`
+  position: absolute;
+  bottom: 3px;
   width: 32.5rem;
   height: 4.7222rem;
   display: flex;
