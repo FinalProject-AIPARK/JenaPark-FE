@@ -1,13 +1,12 @@
-import { useLogOutMutation, useUserInfoQuery } from '@/api/useApi';
-import React, { useEffect, useRef, useState } from 'react';
+import { useUserInfoQuery } from '@/api/useApi';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import UserNavbarLayout from '../../../layout/NavigationBar/UserNavbarLayout';
-import WorkingNavbarLayout from '../../../layout/NavigationBar/WorkingNavbarLayout';
+import UserNavbarLayout from '../../../layout/navigationBar/UserNavbarLayout';
+import WorkingNavbarLayout from '../../../layout/navigationBar/WorkingNavbarLayout';
 import { useAppSelector, useAppDispatch } from '../../../store/store';
 import { workingComponent } from '../../../store/workingProject/projectControlSlice';
-import { Cookies } from 'react-cookie';
 
-function Navbar() {
+const Navbar = memo(() => {
   const { elementData, projectData } = useAppSelector((state) => state.projectControl);
 
   // 작업 단계 데이터
@@ -43,16 +42,6 @@ function Navbar() {
     }
   }
 
-  // 로그아웃 토큰이 삭제가 안되는 이슈 있음
-  // const cookies = new Cookies();
-  // const accessToken = cookies.get('accessToken');
-  // const refreshToken = cookies.get('refreshToken');
-  // const [requestLogOut] = useLogOutMutation();
-  function logoutHanlder() {
-    // cookies.remove('accessToken');
-    // cookies.remove('refreshToken');
-    // window.location.href = '/';
-  }
   return (
     <Container onClick={(event) => dropdownHandler(event)}>
       <UserNavbarLayout
@@ -60,12 +49,11 @@ function Navbar() {
         userInfoData={userInfoData?.data.username!}
         myInfoButton={myInfoButton}
         myInfoBtn={myInfoBtn}
-        logoutHanlder={logoutHanlder}
       />
       <WorkingNavbarLayout buttonHandler={buttonHandler} iconBg={elementData.isVoiceWoking} />
     </Container>
   );
-}
+});
 
 const Container = styled.div`
   height: 100%;

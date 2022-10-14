@@ -1,14 +1,11 @@
-import LandingPage from '@/components/LandingPage';
+import LandingPage from '@/components/landingPage';
 import styled from 'styled-components';
-
 
 const Home = () => {
   return (
-
     <HomeContainer>
       <LandingPage />
     </HomeContainer>
-
   );
 };
 
