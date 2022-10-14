@@ -13,6 +13,13 @@ const ProjectHeaderLayout = memo(() => {
   const { projectId: id, downloadAudioUrl } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
+  const [download, setDownload] = useState('');
+  useEffect(() => {
+    if (downloadAudioUrl) {
+      setDownload(downloadAudioUrl);
+      console.log(downloadAudioUrl);
+    }
+  }, [downloadAudioUrl]);
 
   const [synth, setSynth] = useState({
     count: 0,
@@ -48,12 +55,8 @@ const ProjectHeaderLayout = memo(() => {
           <SoundPlayer />
         </SoundPlayerContainer>
         <ImageButtonContainer>
-          <DownloadButton
-            onClick={() => {
-              alert('전체 음성을 다운 받으시겠습니까?');
-            }}
-          >
-            <a href={downloadAudioUrl ? downloadAudioUrl : ''} download target="_self">
+          <DownloadButton>
+            <a href={downloadAudioUrl ? downloadAudioUrl : ''} download>
               음성 다운로드
             </a>
             <VoiceImage />

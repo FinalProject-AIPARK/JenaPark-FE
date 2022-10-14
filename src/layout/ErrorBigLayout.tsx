@@ -32,7 +32,7 @@ const ErrorBigLayout = memo(({ errorData }: HistoryErrorProps) => {
         break;
       default:
         alert(errorData.data.error);
-        window.location.href = '/signin';
+        window.location.href = '/';
     }
   }
   switch (errorData.status) {
