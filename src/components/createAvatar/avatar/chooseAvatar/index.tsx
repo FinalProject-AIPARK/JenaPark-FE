@@ -52,7 +52,7 @@ function index() {
   dispatch(avatarProjectId(projectId))
 
   // 슬라이드 기능
-  let [avatarSlideIndex, setAvatarSlideIndex] = useState({
+  let [avatarSlideIndex, setAvatarSlideIndex] = useState<any>({
     avatar: 0,
     acc: 0,
     attitude: 0,
@@ -64,11 +64,11 @@ function index() {
     else if (avatarSlideIndex[kind] === maxLength * -1 && leftRight === "right")
       return;
     else if (leftRight === "right") {
-      const copy = { ...avatarSlideIndex };
+      const copy : any = { ...avatarSlideIndex };
       copy[kind] -= 1;
       setAvatarSlideIndex(copy);
     } else if (leftRight === "left") {
-      const copy = { ...avatarSlideIndex };
+      const copy : any = { ...avatarSlideIndex };
       copy[kind] += 1;
       setAvatarSlideIndex(copy);
     }
