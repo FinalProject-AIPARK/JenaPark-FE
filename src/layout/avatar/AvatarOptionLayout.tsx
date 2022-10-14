@@ -64,9 +64,9 @@ function AvatarOptionLayout({
             <div className="upload-bg__container">
               <ul className="upload-bg__wrap">
                 {avatarBackgroundList?.data.backgroundUploads &&
-                  avatarBackgroundList?.data.backgroundUploads.map((list: any) => {
+                  avatarBackgroundList?.data.backgroundUploads.map((list: any, index : number) => {
                     return (
-                      <li onClick={() => setBackgroundId(list.bgId)} key={list.bgId}>
+                      <li onClick={() => setBackgroundId(list.bgId)} key={list.bgId} tabIndex={index}>
                         <img src={list.bgUrl} alt="업로드 배경 이미지" />
                       </li>
                     );
@@ -98,9 +98,9 @@ function AvatarOptionLayout({
             width="90%"
           >
             {avatarBackgroundList?.data.backgroundDefaults &&
-              avatarBackgroundList?.data.backgroundDefaults.map((list: any) => {
+              avatarBackgroundList?.data.backgroundDefaults.map((list: any, index: number) => {
                 return (
-                  <BackgrounddBox onClick={() => setBackgroundId(list.bgId)} key={list.bgId}>
+                  <BackgrounddBox onClick={() => setBackgroundId(list.bgId)} key={list.bgId} tabIndex={index}>
                     <ImgthumbNail src={list.bgUrl} alt="아바타 이미지" />
                   </BackgrounddBox>
                 );
@@ -154,8 +154,8 @@ interface AvatarBackgroundType {
   setBackgroundId: React.Dispatch<React.SetStateAction<number>>;
   backgroundFiles: any;
   inputFileRef: React.MutableRefObject<HTMLInputElement>;
-  onInputFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  submitRef: React.MutableRefObject<HTMLFormElement>;
+  onInputFile: (event: React.ChangeEvent<HTMLInputElement> | any) => void;
+  submitRef: React.MutableRefObject<HTMLFormElement> | undefined;
   bgSlideIndex: number;
   moveBgSlide: (leftRight: string, maxLength: number) => void;
 }
@@ -197,6 +197,11 @@ const Container = styled.div<{ bgSlideIndex: number }>`
         border: 1px solid #001334;
         border-radius: 10px;
         overflow: hidden;
+
+        &:focus {
+          border: 1px solid #0DFF1E;
+          box-shadow: inset 0 0 0.62rem 0 #b0ffb6;;
+        }
         img {
           height: 100%;
         }
@@ -261,11 +266,16 @@ const BackgrounddBox = styled.div`
   width: 6.25rem;
   height: 7.5rem;
   margin-bottom: 10px;
-  border: 1px solid #001334;
+  border: 2px solid #001334;
   border-radius: 10px;
   background-color: #fff;
   overflow: hidden;
   cursor: pointer;
+
+  &:focus {
+    border: 2px solid #0DFF1E;
+    box-shadow: inset 0 0 0.62rem 0 #b0ffb6;;
+  }
 `;
 
 const BgText = styled.p`
