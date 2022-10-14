@@ -72,6 +72,7 @@ export const voiceSlice = createSlice({
       state.selectedModel.nameColor = action.payload;
     },
     selectedModel: (state, action) => {
+      // 컬러와 url
       state.selectedModel.nameColor = action.payload.color;
       state.selectedModel.audioUrl = action.payload.url;
     },
@@ -110,7 +111,7 @@ export const voiceSlice = createSlice({
     },
     changeSplitText: (state, action) => {
       state.inputTextSynth[action.payload['index']].splitText = action.payload['event'];
-    },
+    }
   },
 });
 
@@ -127,7 +128,7 @@ export const {
   collectOption,
   inputText,
   inputSynthAction,
-  changeSplitText,
+  changeSplitText
 } = voiceSlice.actions;
 
 export const voiceReducer = voiceSlice.reducer;

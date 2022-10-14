@@ -5,7 +5,7 @@ import mic from '/voiceMic-icon.png';
 import breath from '/breathOption-icon.png';
 import questionMark from '/questionMark-icon.png';
 
-const VoiceOptionDetailLayout = ({
+function VoiceOptionDetailLayout({
   rangeValue,
   rangeHandler,
   inputRange,
@@ -14,7 +14,7 @@ const VoiceOptionDetailLayout = ({
   optionGuide,
   guideHandler,
   selectedModel,
-}: VoiceOptionDetailProps) => {
+}: VoiceOptionDetailProps) {
   const layoutInfo = [
     {
       icon: volume,
@@ -131,7 +131,7 @@ const VoiceOptionDetailLayout = ({
       <ButtonStyle onClick={requestVoice}>일괄 적용하기</ButtonStyle>
     </>
   );
-};
+}
 
 interface VoiceOptionDetailProps {
   rangeValue: {
@@ -161,6 +161,13 @@ interface GuideTextBox {
   left: string;
 }
 
+const BlindBox = styled.div`
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0.5;
+`;
 const OptionsContainter = styled.div`
   position: relative;
   margin-top: 1.25rem;

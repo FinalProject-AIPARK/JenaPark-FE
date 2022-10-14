@@ -1,11 +1,11 @@
-import ProjectInputText from '@/layout/projectContents/ProjectInputTextLayout';
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import ProjectInputText from '@/layout/ProjectInputText';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import { inputText } from '@/store/voice/voiceSlice';
-import ProjectPreviewAvatar from '@/layout/projectContents/ProjectPreviewAvatarLayout';
+import ProjectPreviewAvatar from '@/layout/ProjectPreviewAvatar';
 import { moveToAvatar } from '@/store/workingProject/projectControlSlice';
 
-const InputText = memo(() => {
+function InputText() {
   const { text, backgroundUrl, avatarUrl } = useAppSelector(
     (state) => state.projectControl.projectData,
   );
@@ -32,7 +32,6 @@ const InputText = memo(() => {
       avatarPreview: avatarUrl,
     });
   }, [backgroundUrl, avatarUrl]);
-
   // 텍스트 업데이트
   const [updateText, setUpdateText] = useState('');
   useEffect(() => {
@@ -70,6 +69,6 @@ const InputText = memo(() => {
       />
     </div>
   );
-});
+}
 
 export default InputText;

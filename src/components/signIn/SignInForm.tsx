@@ -3,9 +3,14 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import { Cookies } from 'react-cookie';
-import { memo, useState } from 'react';
+import { useState } from 'react';
 
-const SignInForm = memo(() => {
+interface SignInFormInputs {
+  email: string;
+  password: string;
+}
+
+export default function SignInForm() {
   const cookies = new Cookies();
   const navigate = useNavigate();
   const {
@@ -88,11 +93,4 @@ const SignInForm = memo(() => {
       </div>
     </S.Container>
   );
-});
-
-interface SignInFormInputs {
-  email: string;
-  password: string;
 }
-
-export default SignInForm;

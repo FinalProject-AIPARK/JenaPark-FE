@@ -1,8 +1,9 @@
-import SoundPlayerLayout from '@/layout/ProjectHeaderSoundPlayer';
+import React, { useRef } from 'react';
+import SoundPlayerLayout from '@/layout/SoundPlayer';
 import 'react-h5-audio-player/lib/styles.css';
 
-const SoundPlayer = () => {
+function SoundPlayer() {
   return <SoundPlayerLayout />;
-};
+}
 
 export default SoundPlayer;
