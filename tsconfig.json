@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
+    "useUnknownInCatchVariables": false,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
@@ -15,9 +16,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
+    "types": ["node"],
     "paths": {
-      "@src/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
