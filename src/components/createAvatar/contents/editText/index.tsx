@@ -29,7 +29,6 @@ const EditText = memo(() => {
     if (audioInfos) {
       setSperateText(audioInfos);
     }
-    console.log('아ㅓㅕㄹ문아');
   }, [audioInfos]);
 
   // 텍스트 삭제
