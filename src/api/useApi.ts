@@ -50,12 +50,22 @@ export const useApi = createApi({
     }),
     // 히스토리
     getProjectHistoy: builder.query<ReturnProjectHistoryType, number>({
-      query: () => '/api/v1/projects',
+      query: () => ({
+        url: '/api/v1/projects',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
+        },
+      }),
     }),
-    createProject: builder.mutation<ReturnCreateProjectType, string>({
+    createProject: builder.mutation<ReturnCreateProjectType, ''>({
       query: () => ({
         url: '/api/v1/projects',
         method: 'POST',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA2NjY5fQ.rm8-qxjUXo93wuC37YBfzwXGC03YQyNwCeoDxrf8I64',
+        },
       }),
     }),
     editProjectTitle: builder.mutation<any, ActionEditProjectTitleType>({
@@ -110,15 +120,18 @@ export const useApi = createApi({
         body: data,
       }),
     }),
-    allListen: builder.query<ReturnAllListenType, number>({
-      query: (id) => `/api/v1/projects/${id}/audio`,
-    }),
     // 아바타 Api
     getAvatarChooseList: builder.query<AvatarList, null>({
-      query: () => '/api/v1/projects/avatar',
+      query: (token) => ({
+        url: '/api/v1/projects/avatar',
+        method: 'GET',
+      }),
     }),
     getAvatarChooseListId: builder.query<AvatarListId, AvatarId>({
-      query: (avatarId) => `/api/v1/projects/avatar/${avatarId}`,
+      query: (avatarId) => ({
+        url: `/api/v1/projects/avatar/${avatarId}`,
+        method: 'GET',
+      }),
     }),
     postCreateAvatar: builder.mutation<CreateAvatarRespses, CreateAvatarAction>({
       query: (data) => ({
@@ -129,13 +142,24 @@ export const useApi = createApi({
     }),
     // 배경 Api
     getBackgroundAvatarList: builder.query<BackgroundAvatar, null>({
-      query: () => '/api/v1/projects/background',
+      query: () => ({
+        url: '/api/v1/projects/background',
+        method: 'GET',
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
+        },
+      }),
     }),
     postBackgroundAvatarListChoose: builder.mutation<BackgroundChoose, BackgroundId>({
       query: ({ data, projectId, backgroundId }) => ({
         url: `/api/v1/projects/${projectId}/background/${backgroundId}`,
         method: 'POST',
         body: data,
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
+        },
       }),
     }),
     postUploadBackground: builder.mutation<BackgroundUpload, BackgroundImgUpload>({
@@ -143,6 +167,10 @@ export const useApi = createApi({
         url: `/api/v1/projects/${data.projectId}/background/upload`,
         method: 'POST',
         body: data.formData,
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaW5ndUBlbWFpbC5jb20iLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjY1NTA3NjgwfQ.1uZntQLYbz2NRD3c4h6eRLUem3lCdp6YRB27ymfq-gw',
+        },
       }),
     }),
     // 텍스트 수정
@@ -159,11 +187,51 @@ export const useApi = createApi({
         method: 'DELETE',
       }),
     }),
+
+    // projectData: builder.query<ReturnVoiceModelType, ActionVoiceModelType>({
+    //   query: (data) => ({
+    //     url: '/api/v1/audio/sample',
+    //     method: 'GET',
+    //     body: data,
+    //   }),
+    // }),
+    allListen: builder.query<ReturnAllListenType, number>({
+      query: (id) => ({
+        url: `/api/v1/projects/${id}/audio`,
+        method: 'GET',
+      }),
+    }),
     videoSynthesis: builder.query<any, any>({
       query: (id) => `/api/v1/projects/${id}/audio`,
     }),
   }),
 });
+
+// RESTful API
+// METHOD + URL (GET, POST, DELETE)
+// Status code for response
+// 401 => Unauthorized
+// 400 => Bad request (wrong parameter)
+// 404 => Not found
+
+// server defines the way to reissue(data in body or data in cookie)
+
+// const baseQueryWithReissue = async (args, api, extraOptions) => {
+//   let result = await api.baseQuery(args, api, extraOptions);
+//   if (result?.error?.status === 401) {
+//     const [cookies] = useCookies();
+//     const { data } = await api.endpoints.reissueToken.initiate({
+//       refreshToken: cookies.refreshToken,
+//     });
+//     if (data) {
+//       const { accessToken, refreshToken } = data;
+//       document.cookie = `accessToken=${accessToken}; path=/;`;
+//       document.cookie = `refreshToken=${refreshToken}; path=/;`;
+//       result = await api.baseQuery(args, api, extraOptions);
+//     }
+//   }
+//   return result;
+// };
 
 export const {
   useSignInMutation,
@@ -187,13 +255,12 @@ export const {
   useGetAvatarChooseListIdQuery,
   usePostCreateAvatarMutation,
   useInputTextSynMutation,
-  useAllListenQuery,
-  // AI 아바타
   useGetBackgroundAvatarListQuery,
   usePostBackgroundAvatarListChooseMutation,
   usePostUploadBackgroundMutation,
   usePostUpdataTtsMutation,
   useDeleteAudioMutation,
+  useAllListenQuery,
   useVideoSynthesisQuery,
 } = useApi;
 
@@ -360,7 +427,7 @@ interface ActionVoiceModelType {
   lang: string;
   sex: string;
 }
-// AI 아바타
+
 export interface AvatarList {
   id: any;
   data:
@@ -374,9 +441,11 @@ export interface AvatarList {
     | undefined;
   avatarId: number;
 }
+
 interface AvatarId {
   avatarId: number;
 }
+
 export interface AvatarListId {
   data:
     | {
@@ -401,6 +470,7 @@ export interface AvatarListId {
       }[]
     | undefined;
 }
+
 export interface CreateAvatarAction {
   accessoryId: number;
   hatId: number;
@@ -408,6 +478,7 @@ export interface CreateAvatarAction {
   clothesId: number;
   projectId: number;
 }
+
 interface CreateAvatarRespses {
   data: string;
   message: string;
@@ -456,28 +527,33 @@ interface BackgroundAvatar {
     ];
   };
 }
+
 interface BackgroundChoose {
   data: string;
   message: string;
 }
+
 interface BackgroundId {
   projectId: number;
   backgroundId: number;
   data: any;
 }
+
 interface BackgroundUpload {
   data: string;
   message: string;
 }
+
 interface BackgroundImgUpload {
   formData: FormData;
   projectId: number;
 }
+
 interface ReturnAllListenType {
   data: string;
 }
-
 // 텍스트 수정
+
 interface TextData {
   message: string;
   data: {
@@ -486,6 +562,7 @@ interface TextData {
     audioFileUrl: string;
   };
 }
+
 interface TextUpdata {
   projectID: number;
   audioID: number;
@@ -495,6 +572,8 @@ interface TextUpdata {
   volume: number;
   text: string;
 }
+
+// 텍스트 수정
 interface DeleteId {
   projectID: number;
   audioID: number;

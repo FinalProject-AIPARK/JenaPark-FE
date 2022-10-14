@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 const VoiceWorkingButtonLayout = memo(
@@ -10,7 +10,7 @@ const VoiceWorkingButtonLayout = memo(
     audioUpload,
   }: VoiceWorkingButtonLayoutProps) => {
     return (
-      <div>
+      <ButtonBox>
         <Button
           onClick={modelButton}
           borderColor={modelOn ? 'none' : '1px solid #BDBDBD'}
@@ -30,7 +30,7 @@ const VoiceWorkingButtonLayout = memo(
         >
           음성 옵션
         </Button>
-      </div>
+      </ButtonBox>
     );
   },
 );
@@ -49,6 +49,7 @@ interface ButtonProps {
   color: string;
 }
 
+const ButtonBox = styled.div``;
 const Button = styled.button<ButtonProps>`
   background-color: ${({ backColor }) => backColor};
   width: 14.38rem;

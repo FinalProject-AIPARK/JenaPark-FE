@@ -80,6 +80,7 @@ const TextStyle = styled.span<TextStyleProps>`
   color: ${({ color }) => (color ? color : '#000')};
   text-align: center;
 `;
+
 const ButtonStyle = styled.button<ButtonStyleProps>`
   background-color: ${({ backColor }) => backColor};
   width: ${({ width }) => width};

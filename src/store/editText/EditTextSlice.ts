@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+const initialState ={
   updataTts: {
     projectID: 0,
     audioId: 0,
@@ -8,20 +8,25 @@ const initialState = {
     pitch: 0,
     speed: 0,
     volume: 0,
-    text: '',
-  },
-};
+    text: ''
+  }
+}
+
 
 export const editTextUpdata = createSlice({
   name: 'textUpdata',
   initialState,
   reducers: {
-    textDataUpload: (state: any, action) => {
-      state.updataTts[action.payload.kind] = action.payload.id;
-    },
-  },
-});
+    textDataUpload: (state : any, action) =>{
+      state.updataTts[action.payload.kind] = action.payload.id
+      console.log(action.payload)
+    }
+  }
+})
 
-export const { textDataUpload } = editTextUpdata.actions;
+export const {
+  textDataUpload,
+} = editTextUpdata.actions;
 
-export const textUpdataReducer = editTextUpdata.reducer;
+
+export const textUpdataReducer = editTextUpdata.reducer 

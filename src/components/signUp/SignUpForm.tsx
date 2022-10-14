@@ -1,10 +1,17 @@
 import { useSignUpMutation } from '@/api/useApi';
-import { memo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 
-const SignUpForm = memo(() => {
+interface SignUpFormInputs {
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export default function SignUpForm() {
   const navigate = useNavigate();
   const {
     register,
@@ -113,13 +120,4 @@ const SignUpForm = memo(() => {
       </div>
     </S.Container>
   );
-});
-
-interface SignUpFormInputs {
-  email: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
 }
-
-export default SignUpForm;

@@ -1,6 +1,6 @@
-import HistoryProjectLayout from '@/layout/history/HistoryProjectLayout';
-import HistoryVideoLayout from '@/layout/history/HistoryVideoLayout';
-import React, { memo, useEffect, useState } from 'react';
+import HistoryProjectLayout from '@/layout/HistoryProjectLayout';
+import HistoryVideoLayout from '@/layout/HistoryVideoLayout';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   useGetProjectHistoyQuery,
@@ -10,12 +10,12 @@ import {
   useDeleteVideoMutation,
   useDeleteProjectMutation,
 } from '@/api/useApi';
-import VideoDownloaddModal from '@/layout/history/VideoDownloadModal';
+import VideoDownloaddModal from '@/layout/VideoDownloadModal';
 import LoadingBigLayout from '@/layout/LoadingBigLayout';
 import ErrorBigLayout from '@/layout/ErrorBigLayout';
-import LandingHeader from '../header/landingHeader';
+import Header from '@/components/Header/ProjectHeader';
 
-const History = memo(() => {
+function History() {
   // 빈 박스
   const [projectEmpty, setProjectEmpty] = useState([0]);
   const [videoEmpty, setVideoEmpty] = useState([0]);
@@ -28,6 +28,7 @@ const History = memo(() => {
     isError: errorProject,
     error,
   } = useGetProjectHistoyQuery(update);
+  const [errorState, setErrorState] = useState('');
   const [projectList, setProjectList] = useState([
     {
       projectId: 0,
@@ -49,6 +50,7 @@ const History = memo(() => {
   ]);
   useEffect(() => {
     if (project) {
+      setErrorState(project.message);
       setProjectList(project.data.historyProjects);
       setVideoList(project.data.historyVideos);
       setIsEditProject([]);
@@ -77,10 +79,11 @@ const History = memo(() => {
         });
       }
     }
+    console.log(error);
   }, [project]);
 
   // 프로젝트 생성
-  const [create, { data: responseCreate, isLoading: createLoading }] = useCreateProjectMutation();
+  const [create, { data: responseCreate, isLoading: createLoad }] = useCreateProjectMutation();
   function createProjectHandler() {
     create('');
   }
@@ -106,7 +109,7 @@ const History = memo(() => {
       return next;
     });
   }
-  function editTitleHandler(index: number) {
+  function editTitleHandler(title: string, index: number) {
     setIsEditProject((prev) => {
       let next = [...prev];
       next[index] = true;
@@ -244,56 +247,51 @@ const History = memo(() => {
   }, [resDeleteVideo]);
 
   return (
-    <>
-      <div style={{ margin: '0 15%' }}>
-        <LandingHeader />
+    <Container>
+      {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
+      {loadingProject ? <LoadingBigLayout /> : null}
+      <Header />
+      <div style={{ height: 'calc(100vh - 10.06rem)' }}>
+        <HistoryProjectLayout
+          projectList={projectList}
+          createProjectHandler={createProjectHandler}
+          prevProjectHandler={prevProjectHandler}
+          isEdit={isEditProject}
+          editTitleHandler={editTitleHandler}
+          title={title}
+          changeTitle={changeProjectTitle}
+          keyDownHandler={keyDownProjectHandler}
+          blurProjectHandler={blurProjectHandler}
+          guideText={guideText[0]}
+          guideHandler={guideHandler}
+          projectEmpty={projectEmpty}
+          deleteProjectHandler={deleteProjectHandler}
+          loadingProject={loadingProject}
+        />
+        <HistoryVideoLayout
+          videoList={videoList}
+          guideText={guideText[1]}
+          guideHandler={guideHandler}
+          selectVideoHandler={selectVideoHandler}
+          videoEmpty={videoEmpty}
+        />
       </div>
-      <Container>
-        {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
-        {loadingProject || createLoading ? <LoadingBigLayout /> : null}
-        <div style={{ height: 'calc(100vh - 10.06rem)' }}>
-          <HistoryProjectLayout
-            projectList={projectList}
-            createProjectHandler={createProjectHandler}
-            prevProjectHandler={prevProjectHandler}
-            isEdit={isEditProject}
-            editTitleHandler={editTitleHandler}
-            title={title}
-            changeTitle={changeProjectTitle}
-            keyDownHandler={keyDownProjectHandler}
-            blurProjectHandler={blurProjectHandler}
-            guideText={guideText[0]}
-            guideHandler={guideHandler}
-            projectEmpty={projectEmpty}
-            deleteProjectHandler={deleteProjectHandler}
-            loadingProject={loadingProject}
-          />
-          <HistoryVideoLayout
-            videoList={videoList}
-            guideText={guideText[1]}
-            guideHandler={guideHandler}
-            selectVideoHandler={selectVideoHandler}
-            videoEmpty={videoEmpty}
-          />
-        </div>
-        {modal ? (
-          <VideoDownloaddModal
-            selectItem={selectItem}
-            closeModal={closeModal}
-            isEditVideo={isEditVideo}
-            videoTitle={videoTitle}
-            editVideoHandler={editVideoHandler}
-            keyDownVideoHandler={keyDownVideoHandler}
-            blurVideoHandler={blurVideoHandler}
-            changeVideoTitle={changeVideoTitle}
-            deleteVideoHandler={deleteVideoHandler}
-          />
-        ) : null}
-      </Container>
-    </>
+      {modal ? (
+        <VideoDownloaddModal
+          selectItem={selectItem}
+          closeModal={closeModal}
+          isEditVideo={isEditVideo}
+          videoTitle={videoTitle}
+          editVideoHandler={editVideoHandler}
+          keyDownVideoHandler={keyDownVideoHandler}
+          blurVideoHandler={blurVideoHandler}
+          changeVideoTitle={changeVideoTitle}
+          deleteVideoHandler={deleteVideoHandler}
+        />
+      ) : null}
+    </Container>
   );
-});
-
+}
 const Container = styled.div`
   display: flex;
   flex-direction: column;

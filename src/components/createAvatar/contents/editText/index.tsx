@@ -1,22 +1,19 @@
-import { useState, useRef, memo } from 'react';
-import EditTextLayout from '@/layout/projectContents/ProjectEditTextLayout';
-import { useAppSelector, useAppDispatch } from '@/store/store';
-import { textDataUpload } from '@/store/editText/EditTextSlice';
-import { usePostUpdataTtsMutation, useDeleteAudioMutation } from '@/api/useApi';
-
-const EditText = memo(() => {
-  const { durationSilence, pitch, speed, volume, text } = useAppSelector(
-    (state) => state.textUpdata.updataTts,
-  );
-  const { projectId: projectID, audioInfos } = useAppSelector(
-    (state) => state.projectControl.projectData,
-  );
-  const dispatch = useAppDispatch();
-
+import React, { useState, useRef, useEffect, ChangeEvent } from 'react'
+import EditTextLayout from '../../../../layout/editText/EditTextLayout'
+import { useAppSelector, useAppDispatch } from '../../../../store/store';
+import { textDataUpload } from '../../../../store/editText/EditTextSlice'
+import { usePostUpdataTtsMutation, useDeleteAudioMutation  } from '../../../../api/useApi'
+function index() {
+  const {durationSilence, pitch, speed, volume, text} = useAppSelector((state) => state.textUpdata.updataTts)
+  // const uploadData = useAppSelector((state) => state.textUpdata.updataTts)
+  const { projectId : projectID, audioInfos } = useAppSelector((state) => state.projectControl.projectData)
+  const dispatch = useAppDispatch()
+  
   // 텍스트 삭제
-  const [deleteCheckBox, setDeleteCheckbox] = useState<number>();
-  const [deleteText] = useDeleteAudioMutation();
-  const audioID = deleteCheckBox;
+  const [ deleteCheckBox, setDeleteCheckbox] = useState<number>()
+  console.log(deleteCheckBox)
+  const [deleteText] = useDeleteAudioMutation()
+  const audioID = deleteCheckBox
   function deleteComponent() {
     const actionDelete = {
       projectID,
@@ -25,46 +22,48 @@ const EditText = memo(() => {
     deleteText(actionDelete);
   }
 
+  useEffect(() => {}, [audioInfos])
+
+  
   // 컨트롤 옵션 보여주는 함수
-  const [optionWindow, setOptionWindow] = useState({
-    VolumeSpeed: false,
-    Tone: false,
-    Breath: false,
-  });
+
+  const [ optionWindow, setOptionWindow ] = useState({VolumeSpeed:false, Tone: false, Breath: false})
   function showOptionWindow(kind: string) {
     setOptionWindow((freebu) => {
-      let next = { ...freebu };
-      next = { VolumeSpeed: false, Tone: false, Breath: false };
-      return { ...next, [kind]: true };
-    });
+      let next = {...freebu}
+      next = {VolumeSpeed:false, Tone: false, Breath: false}
+      return {...next, [kind]: true}
+    })
   }
-
+  
   // 오디오 재생
   const [play, setplay] = useState(false);
-  const toggle = () => setplay(!play);
-  const playerRef = useRef<any>();
-
+  const toggle = () => setplay(!play)
+  const playerRef = useRef<any>()
+  
   // 텍스트 수정 업데이트
-  const [updataText] = usePostUpdataTtsMutation();
+  
+  const [updataText] = usePostUpdataTtsMutation()
   function textUpLoadData() {
     const data = {
-      projectID,
-      audioID,
-      durationSilence,
-      pitch,
-      speed,
-      volume,
-      text,
-    };
-    updataText(data);
+        projectID,
+        audioID,
+        durationSilence, 
+        pitch, 
+        speed, 
+        volume, 
+        text
+    }
+    updataText(data)
   }
-
+  
   function EditTextupdataStore(id: number | string, kind: string) {
     dispatch(textDataUpload({ id, kind }));
   }
 
   return (
-    <EditTextLayout
+    <>
+      <EditTextLayout
       textUpLoadData={textUpLoadData}
       setDeleteCheckbox={setDeleteCheckbox}
       deleteCheckBox={deleteCheckBox}
@@ -74,8 +73,9 @@ const EditText = memo(() => {
       optionWindow={optionWindow}
       showOptionWindow={showOptionWindow}
       audioInfos={audioInfos}
-    />
-  );
-});
+      />
+    </>
+  )
+}
 
-export default EditText;
+export default index

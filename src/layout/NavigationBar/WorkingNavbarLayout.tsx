@@ -1,9 +1,9 @@
+import React from 'react';
 import styled from 'styled-components';
 import mic from '/voiceMic-icon.png';
 import people from '/avatarPeople-icon.png';
-import { memo } from 'react';
 
-const WorkingNavbarLayout = memo(({ buttonHandler, iconBg }: WorkingNavbarProps) => {
+function WorkingNavbarLayout({ buttonHandler, iconBg }: WorkingNavbarProps) {
   return (
     <Container>
       <TitleBox>
@@ -25,7 +25,7 @@ const WorkingNavbarLayout = memo(({ buttonHandler, iconBg }: WorkingNavbarProps)
       <Background backColor="#001334" />
     </Container>
   );
-});
+}
 
 interface WorkingNavbarProps {
   buttonHandler: () => void;
