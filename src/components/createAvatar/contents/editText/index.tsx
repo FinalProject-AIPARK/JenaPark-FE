@@ -3,6 +3,7 @@ import EditTextLayout from '@/layout/projectContents/ProjectEditTextLayout';
 import { useAppSelector, useAppDispatch } from '@/store/store';
 import { textDataUpload, addText } from '@/store/editText/EditTextSlice';
 import { usePostUpdataTtsMutation, useDeleteAudioMutation } from '@/api/useApi';
+import { callProjectDataAction } from '@/store/workingProject/projectControlSlice';
 
 const EditText = memo(() => {
   const { durationSilence, pitch, speed, volume, text } = useAppSelector(
@@ -63,7 +64,7 @@ const EditText = memo(() => {
   const playerRef = useRef<any>();
 
   // 텍스트 수정 업데이트
-  const [updataText] = usePostUpdataTtsMutation();
+  const [updataText, { data: updatetts }] = usePostUpdataTtsMutation();
   function textUpLoadData() {
     const data = {
       projectID,
@@ -76,6 +77,9 @@ const EditText = memo(() => {
     };
     updataText(data);
   }
+  useEffect(() => {
+    dispatch(callProjectDataAction());
+  }, [updatetts]);
 
   function checkboxHandler(text: string) {
     dispatch(addText(text));

@@ -64,7 +64,6 @@ const InputText = memo(() => {
       <ProjectPreviewAvatar
         guide={previewGuide}
         setGuide={setPreviewGuide}
-        workingHandler={workingHandler}
         isVoiceWoking={isVoiceWoking}
         preview={preview}
       />
