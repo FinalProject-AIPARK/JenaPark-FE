@@ -47,11 +47,6 @@ const InputText = memo(() => {
   const [inputTextGuide, setInputTextGuide] = useState(false);
   const [previewGuide, setPreviewGuide] = useState(false);
 
-  // 아바타 작업으로 이동
-  function workingHandler() {
-    dispatch(moveToAvatar());
-  }
-
   return (
     <div style={{ display: 'flex' }}>
       <ProjectInputText
