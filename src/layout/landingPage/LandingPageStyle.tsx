@@ -71,7 +71,7 @@ const LandingPageStyle = memo(() => {
 
 const LandingContainer = styled.div`
   padding-bottom: 11rem;
-  height: 75vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

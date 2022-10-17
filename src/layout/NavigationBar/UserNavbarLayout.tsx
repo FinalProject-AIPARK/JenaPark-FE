@@ -14,7 +14,9 @@ const UserNavbarLayout = memo(
     return (
       <Container>
         <LogoBox>
-          <ImageStyle src={logo} alt="기업로고" width="3.75rem" />
+          기업
+          <br />
+          로고
         </LogoBox>
         <GuideBox>
           <GuideTitleBox>
@@ -122,6 +124,10 @@ const Container = styled.div`
 `;
 const LogoBox = styled.div`
   margin: 1rem 0.62rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
 `;
 const ImageStyle = styled.img<ImageStyleProps>`
   width: ${({ width }) => (width ? width : '1.5rem')};

@@ -6,22 +6,22 @@ const ProjectFooterLayout = memo(() => {
   return (
     <FooterContainer>
       <ContentContainer>
-        <CopyRightSquare>© 0000. AIPARK. ALL RIGHTS RESERVED</CopyRightSquare>
+        <CopyRightSquare>© 0000. ALL RIGHTS RESERVED</CopyRightSquare>
         <PrivacySquare>개인정보처리방침</PrivacySquare>
         <ServiceSquare>서비스약관</ServiceSquare>
       </ContentContainer>
 
       <LinkContainer>
-        <LinkImage onClick={() => window.open('https://www.aipark.co.kr/', '_blank')} />
+        {/* <LinkImage onClick={() => window.open('https://www.aipark.co.kr/', '_blank')} /> */}
         <LinkImage />
-        <LinkImage
+        {/* <LinkImage
           onClick={() =>
             window.open(
               'https://www.youtube.com/c/%EC%97%90%EC%9D%B4%EC%95%84%EC%9D%B4%ED%8C%8C%ED%81%ACAIPARK',
               '_blank',
             )
           }
-        />
+        /> */}
       </LinkContainer>
     </FooterContainer>
   );
