@@ -32,9 +32,7 @@ const LandingHeader = memo(() => {
 
   return (
     <LandingHeaderContainer>
-      <Link to="/">
-        <LogoImage />
-      </Link>
+      <LinkStyle to="/">기업로고</LinkStyle>
       <ButtonContainer>
         <div onClick={createProjectHandler}>
           <CProjectButton>프로젝트 생성</CProjectButton>
@@ -54,6 +52,11 @@ const LandingHeader = memo(() => {
   );
 });
 
+const LinkStyle = styled(Link)`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+`;
 const LandingHeaderContainer = styled.div`
   display: flex;
   flex-direction: row;

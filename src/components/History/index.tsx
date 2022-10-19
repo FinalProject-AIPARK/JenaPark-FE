@@ -246,12 +246,12 @@ const History = memo(() => {
 
   return (
     <>
+      {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
+      {loadingProject || createLoading ? <LoadingBigLayout /> : null}
       <div style={{ margin: '0 15%' }}>
         <LandingHeader />
       </div>
       <Container>
-        {errorProject ? <ErrorBigLayout errorData={error!} /> : null}
-        {loadingProject || createLoading ? <LoadingBigLayout /> : null}
         <div style={{ height: 'calc(100vh - 10.06rem)' }}>
           <HistoryProjectLayout
             projectList={projectList}

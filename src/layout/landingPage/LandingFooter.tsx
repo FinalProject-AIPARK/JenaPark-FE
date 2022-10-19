@@ -7,24 +7,24 @@ const LandingFooter = memo(() => {
     <FooterContainer>
       <ContentContainer>
         <AdressSquare>
-          © 0000. AIPARK. ALL RIGHTS RESERVED <br />
-          서울특별시 마포구 월드컵북로 396, 누리꿈스퀘어 연구개발타워 1012-2호 <br />
-          R&D Tower 1012-2, Worldcup Buk-ro 396, Sangam-dong, Mapo-gu, Seoul
+          © 0000. ALL RIGHTS RESERVED <br />
+          서울특별시 <br />
+          Seoul
         </AdressSquare>
         <PrivacySquare>개인정보처리방침</PrivacySquare>
         <ServiceSquare>서비스약관</ServiceSquare>
       </ContentContainer>
       <LinkContainer>
-        <LinkImage onClick={() => window.open('https://www.aipark.co.kr/', '_blank')} />
+        {/* <LinkImage onClick={() => window.open('https://www.aipark.co.kr/', '_blank')} /> */}
         <LinkImage />
-        <LinkImage
+        {/* <LinkImage
           onClick={() =>
             window.open(
               'https://www.youtube.com/c/%EC%97%90%EC%9D%B4%EC%95%84%EC%9D%B4%ED%8C%8C%ED%81%ACAIPARK',
               '_blank',
             )
           }
-        />
+        /> */}
       </LinkContainer>
     </FooterContainer>
   );
